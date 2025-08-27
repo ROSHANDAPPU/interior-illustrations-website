@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interior Illustrations - Luxury Interior Design</title>
+  <style>
+    /* Reset and base */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; font-family: 'Montserrat', system-ui, Arial, sans-serif; }
+    body { color: #111; background: #fff; }
+
+    /* Header */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; z-index: 30; mix-blend-mode: difference;
+      backdrop-filter: blur(10px);
+    }
+    .nav a, .nav .brand { 
+      color: #fff; text-decoration: none; font-weight: 700; 
+      letter-spacing: 0.05em; font-size: 16px;
+    }
+    .nav .brand { font-size: 24px; letter-spacing: 0.1em; }
+    .nav .links { display: flex; gap: 32px; }
+    .nav .links a:hover { opacity: 0.7; transition: opacity 0.3s ease; }
+
+    /* Hero */
+    .hero {
+      position: relative; height: 100vh; overflow: hidden; background: #000;
+    }
+    .hero::after { 
+      content: ""; position: absolute; inset: 0; 
+      background: linear-gradient(45deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%);
+      pointer-events: none; z-index: 5;
+    }
+
+    /* Cinematic track - luxury home images with synchronized transitions */
+    .track {
+      position: absolute; inset: 0; display: flex; height: 100%;
+      will-change: transform;
+      transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .slide {
+      position: relative; min-width: 100vw; height: 100%;
+    }
+    .slide img {
+      width: 100%; height: 100%; object-fit: cover;
+      transform: scale(1.1);
+      animation: slowZoom 15s ease-in-out infinite alternate;
+      filter: saturate(1.1) contrast(1.05) brightness(0.9);
+      transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    @keyframes slowZoom {
+      0% { transform: scale(1.1); }
+      100% { transform: scale(1.0); }
+    }
+
+    /* Track positions for different slides */
+    .track.slide-0 { transform: translateX(0); }
+    .track.slide-1 { transform: translateX(-100vw); }
+    .track.slide-2 { transform: translateX(-200vw); }
+    .track.slide-3 { transform: translateX(-300vw); }
+    .track.slide-4 { transform: translateX(-400vw); }
+    .track.slide-5 { transform: translateX(-500vw); }
+    .track.slide-6 { transform: translateX(-600vw); }
+    .track.slide-7 { transform: translateX(-700vw); }
+    .track.slide-8 { transform: translateX(-800vw); }
+
+    /* Luxury taglines */
+    .taglines {
+      position: absolute; inset: 0; z-index: 10; display: grid; place-items: center;
+      padding: 0 40px; text-align: left; justify-items: start; padding-left: 8%;
+    }
+    .tagline {
+      position: absolute;
+      opacity: 0; transform: translateX(-30px);
+      transition: opacity 800ms ease, transform 800ms ease;
+      color: #fff; text-shadow: 0 8px 32px rgba(0,0,0,0.7);
+      font-size: clamp(48px, 8vw, 120px); font-weight: 900; 
+      letter-spacing: -0.02em; line-height: 0.85;
+      text-transform: uppercase; max-width: 12ch;
+    }
+    .tagline.active { opacity: 1; transform: translateX(0); }
+    
+    .subtitle {
+      position: absolute; top: 60%; left: 8%;
+      opacity: 0; transform: translateX(-20px);
+      transition: opacity 600ms ease 0.3s, transform 600ms ease 0.3s;
+      color: #cccccc; font-size: clamp(20px, 3vw, 32px); 
+      font-weight: 400; letter-spacing: 0.05em;
+      max-width: 500px; z-index: 10;
+    }
+    .subtitle.active { opacity: 1; transform: translateX(0); }
+
+    .description {
+      position: absolute; top: 70%; left: 8%;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 600ms ease 0.6s, transform 600ms ease 0.6s;
+      color: #e0e0e0; font-size: clamp(16px, 2vw, 20px); 
+      font-weight: 300; line-height: 1.6; max-width: 480px; z-index: 10;
+    }
+    .description.active { opacity: 1; transform: translateY(0); }
+
+    /* Call to action */
+    .cta {
+      position: absolute; bottom: 10vh; left: 8%;
+      z-index: 12; display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .btn {
+      background: rgba(255,255,255,0.1); color: #fff; 
+      border: 2px solid rgba(255,255,255,0.3);
+      padding: 16px 28px; border-radius: 0px; text-decoration: none; 
+      backdrop-filter: blur(8px);
+      transition: all 300ms ease;
+      font-weight: 600; font-size: 16px; letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .btn:hover { 
+      background: rgba(255,255,255,0.2); 
+      border-color: rgba(255,255,255,0.8);
+      transform: translateY(-2px);
+    }
+    .btn.primary {
+      background: #fff; color: #000; border-color: #fff;
+    }
+    .btn.primary:hover {
+      background: #f0f0f0; transform: translateY(-2px);
+    }
+
+    /* Services Section */
+    .section {
+      padding: 120px 40px; max-width: 1400px; margin: 0 auto;
+    }
+    .section-header {
+      text-align: left; margin-bottom: 80px;
+    }
+    .section-subtitle {
+      font-size: 14px; letter-spacing: 4px; color: #999; 
+      text-transform: uppercase; margin-bottom: 16px; font-weight: 500;
+    }
+    .section-title {
+      font-size: clamp(36px, 6vw, 72px); font-weight: 900; 
+      color: #000; margin-bottom: 24px; letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .services-grid {
+      display: grid; gap: 40px; 
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+    .service-card {
+      padding: 40px; background: #f8f8f8; border-radius: 0px;
+      transition: all 400ms ease; cursor: pointer;
+      border: 1px solid transparent;
+    }
+    .service-card:hover {
+      transform: translateY(-8px); 
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      background: #fff; border-color: #e0e0e0;
+    }
+    .service-number {
+      font-size: 24px; font-weight: 900; color: #000; 
+      margin-bottom: 20px; letter-spacing: 0.1em;
+    }
+    .service-title {
+      font-size: 24px; font-weight: 700; margin-bottom: 16px; 
+      color: #333; letter-spacing: -0.01em;
+    }
+    .service-description {
+      color: #666; line-height: 1.7; font-size: 16px;
+    }
+
+    /* About Section */
+    .about {
+      padding: 120px 40px; background: #000; color: #fff;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; 
+      align-items: center; max-width: 1400px; margin: 0 auto;
+    }
+    .about-content h2 {
+      font-size: clamp(36px, 6vw, 64px); font-weight: 900; 
+      margin-bottom: 32px; color: #fff; letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .about-content p {
+      font-size: 18px; line-height: 1.8; color: #ccc; 
+      margin-bottom: 24px;
+    }
+    .about-image {
+      width: 100%; height: 500px; 
+      background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop') center/cover;
+      border-radius: 0px; filter: grayscale(20%);
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 120px 40px; background: #f5f5f5;
+    }
+    .gallery-grid {
+      display: grid; gap: 32px; 
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      max-width: 1400px; margin: 0 auto;
+    }
+    .gallery-item {
+      height: 400px; background-size: cover; background-position: center;
+      border-radius: 0px; transition: all 400ms ease; cursor: pointer;
+      position: relative; overflow: hidden;
+    }
+    .gallery-item::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(0,0,0,0); transition: all 400ms ease;
+    }
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+    }
+    .gallery-item:hover::before {
+      background: rgba(0,0,0,0.2);
+    }
+
+    /* Contact */
+    .contact {
+      padding: 120px 40px; background: #fff;
+    }
+    .contact-content {
+      max-width: 800px; margin: 0 auto; text-align: center;
+    }
+    .contact h2 {
+      font-size: clamp(36px, 6vw, 64px); font-weight: 900; 
+      margin-bottom: 24px; color: #000;
+    }
+    .contact p {
+      font-size: 20px; color: #666; margin-bottom: 48px;
+    }
+    .contact-form {
+      display: grid; gap: 24px; max-width: 600px; margin: 0 auto;
+    }
+    .contact-form input, .contact-form textarea {
+      padding: 20px 24px; border: 2px solid #e0e0e0; 
+      border-radius: 0px; font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      outline: none; border-color: #000;
+    }
+    .contact-form button {
+      background: #000; color: #fff; border: none;
+      padding: 20px 40px; font-size: 16px; font-weight: 600;
+      cursor: pointer; transition: all 0.3s ease;
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .contact-form button:hover {
+      background: #333; transform: translateY(-2px);
+    }
+
+    /* Reveal on scroll */
+    .reveal {
+      opacity: 0; transform: translateY(30px); 
+      transition: opacity 800ms ease, transform 800ms ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* Custom Floating Cursor */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: all 0.05s ease;
+      mix-blend-mode: difference;
+      backdrop-filter: blur(2px);
+    }
+
+    .cursor-follower {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: all 0.08s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Cursor hover states */
+    body.cursor-hover .cursor {
+      transform: scale(1.5);
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    body.cursor-hover .cursor-follower {
+      transform: translate(-50%, -50%) scale(1.5);
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Hide cursor on dark sections */
+    .hero .cursor,
+    .about .cursor {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero .cursor-follower,
+    .about .cursor-follower {
+      border-color: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Special cursor for clickable elements */
+    body.cursor-click .cursor {
+      transform: scale(0.8);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    body.cursor-click .cursor-follower {
+      transform: translate(-50%, -50%) scale(2);
+      border-color: rgba(0, 0, 0, 0.4);
+      background: transparent;
+    }
+
+    /* Text cursor effect */
+    body.cursor-text .cursor {
+      transform: scaleX(0.3) scaleY(1.5);
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 2px;
+    }
+
+    body.cursor-text .cursor-follower {
+      opacity: 0;
+    }
+
+    /* Gallery hover effect */
+    body.cursor-view .cursor {
+      transform: scale(2);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    body.cursor-view .cursor-follower {
+      transform: translate(-50%, -50%) scale(2.5);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    body.cursor-view .cursor::after {
+      content: 'VIEW';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8px;
+      font-weight: bold;
+      color: #000;
+      letter-spacing: 0.5px;
+    }
+
+    /* Intro Video Overlay */
+    .intro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 1000;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .intro-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .intro-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .intro-overlay-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
+      z-index: 1;
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+    }
+
+    .intro-title {
+      font-size: clamp(36px, 8vw, 120px);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      animation: fadeInUp 1.5s ease-out 0.5s both;
+    }
+
+    .intro-subtitle {
+      font-size: clamp(18px, 3vw, 32px);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      opacity: 0.9;
+      animation: fadeInUp 1.5s ease-out 1s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Hide default cursor */
+    * {
+      cursor: none !important;
+    }
+
+    /* Responsive - hide custom cursor on touch devices */
+    @media (max-width: 768px) {
+      .cursor,
+      .cursor-follower {
+        display: none;
+      }
+      
+      * {
+        cursor: auto !important;
+      }
+      
+      .nav { padding: 0 20px; height: 70px; }
+      .nav .links { gap: 20px; font-size: 14px; }
+      .taglines { padding-left: 5%; }
+      .subtitle { left: 5%; }
+      .description { left: 5%; }
+      .cta { left: 5%; }
+      .section { padding: 80px 20px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Floating Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- Header -->
+  <header class="nav">
+    <div class="brand">INTERIOR ILLUSTRATIONS</div>
+    <nav class="links">
+      <a href="#work">Portfolio</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- INTRO VIDEO OVERLAY -->
+  <div id="intro-overlay" class="intro-overlay">
+    <video id="intro-video" autoplay muted playsinline class="intro-video">
+      <!-- Replace with your drone intro video -->
+      <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+      <!-- Fallback: if no video, show a cinematic image -->
+    </video>
+    <div class="intro-overlay-bg"></div>
+    <div class="intro-content">
+      <h1 class="intro-title">INTERIOR ILLUSTRATIONS</h1>
+      <p class="intro-subtitle">Crafting Exceptional Spaces</p>
+    </div>
+  </div>
+
+  <!-- CINEMATIC HERO -->
+  <section class="hero" aria-label="Luxury Interior Design">
+    <!-- Sliding track with luxury home images -->
+    <div class="track" aria-hidden="true">
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop" alt="Luxury Kitchen Interior">
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2000&auto=format&fit=crop" alt="Modern Living Room">
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop" alt="Elegant Dining Space">
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop" alt="Luxury Kitchen Interior">
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2000&auto=format&fit=crop" alt="Modern Living Room">
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop" alt="Elegant Dining Space">
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop" alt="Luxury Kitchen Interior">
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2000&auto=format&fit=crop" alt="Modern Living Room">
+      </div>
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop" alt="Elegant Dining Space">
+      </div>
+    </div>
+
+    <!-- Rotating taglines with subtitles -->
+    <div class="taglines" aria-live="polite">
+      <h1 class="tagline active">WHERE DREAMS<br>BECOME<br>SPACES</h1>
+      <h1 class="tagline">CRAFTING<br>EMOTIONAL<br>ARCHITECTURE</h1>
+      <h1 class="tagline">DESIGNING<br>LIFE'S<br>CANVAS</h1>
+    </div>
+
+    <!-- Dynamic subtitles -->
+    <div class="subtitle active">Luxury Interior Design</div>
+    <div class="description active">At Interior Illustrations, we transform spaces into living art, creating environments that inspire, comfort, and reflect your unique story.</div>
+
+    <!-- Calls to action -->
+    <div class="cta">
+      <a class="btn primary" href="#work">View Portfolio</a>
+      <a class="btn" href="#contact">Start Your Project</a>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section id="services" class="section">
+    <div class="section-header reveal">
+      <p class="section-subtitle">SERVICES</p>
+      <h2 class="section-title">What We Offer</h2>
+    </div>
+    
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-number">01</div>
+        <h3 class="service-title">Complete Home Renovation</h3>
+        <p class="service-description">Transform your entire home with our comprehensive renovation services, from initial design concepts to final construction completion.</p>
+      </div>
+      
+      <div class="service-card reveal">
+        <div class="service-number">02</div>
+        <h3 class="service-title">Kitchen Remodeling</h3>
+        <p class="service-description">Create the heart of your home with custom kitchen designs that seamlessly blend functionality, aesthetics, and modern convenience.</p>
+      </div>
+      
+      <div class="service-card reveal">
+        <div class="service-number">03</div>
+        <h3 class="service-title">Bathroom Remodeling</h3>
+        <p class="service-description">Luxury bathroom renovations that transform your space into a personal spa retreat with premium finishes and fixtures.</p>
+      </div>
+      
+      <div class="service-card reveal">
+        <div class="service-number">04</div>
+        <h3 class="service-title">Home Additions</h3>
+        <p class="service-description">Expand your living space with seamlessly integrated additions that respect your home's architectural integrity.</p>
+      </div>
+      
+      <div class="service-card reveal">
+        <div class="service-number">05</div>
+        <h3 class="service-title">Custom Homes</h3>
+        <p class="service-description">Build your dream home from the ground up with our comprehensive custom home construction and design services.</p>
+      </div>
+      
+      <div class="service-card reveal">
+        <div class="service-number">06</div>
+        <h3 class="service-title">Durango, CO Projects</h3>
+        <p class="service-description">Specialized renovation services for luxury mountain homes and vacation properties in the Colorado region.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="about">
+    <div class="about-grid">
+      <div class="about-content reveal">
+        <h2>Building Dreams Into Reality</h2>
+        <p>At Interior Illustrations, we understand that home remodeling is more than just construction—it's about building spaces that enhance your life and reflect your vision.</p>
+        <p>We are dedicated to delivering stunning, high-end renovations through a seamless and stress-free process, integrating innovative design with superior craftsmanship.</p>
+        <p>Every project we undertake meets the highest standards of excellence, ensuring your home is both beautiful and functional for years to come.</p>
+      </div>
+      <div class="about-image reveal"></div>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section id="work" class="gallery">
+    <div class="section-header reveal">
+      <p class="section-subtitle">PORTFOLIO</p>
+      <h2 class="section-title">Our Latest Work</h2>
+    </div>
+    
+    <div class="gallery-grid">
+      <div class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop');"></div>
+      <div class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2000&auto=format&fit=crop');"></div>
+      <div class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1556912167-f556f1f39fdf?q=80&w=2000&auto=format&fit=crop');"></div>
+      <div class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2000&auto=format&fit=crop');"></div>
+      <div class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=2000&auto=format&fit=crop');"></div>
+      <div class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop');"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="contact">
+    <div class="contact-content">
+      <h2 class="reveal">Let's Discuss Your Next Project</h2>
+      <p class="reveal">Ready to transform your home? Contact us today to schedule a consultation.</p>
+      
+      <form class="contact-form reveal">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="tel" placeholder="Phone Number">
+        <textarea rows="5" placeholder="Tell us about your project..." required></textarea>
+        <button type="submit">Get Started</button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    // Custom Floating Cursor
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+    let mouseX = 0;
+    let mouseY = 0;
+    let followerX = 0;
+    let followerY = 0;
+
+    // Update cursor position
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
+    });
+
+    // Smooth follower animation
+    function animateFollower() {
+      followerX += (mouseX - followerX) * 0.3;
+      followerY += (mouseY - followerY) * 0.3;
+      
+      cursorFollower.style.left = followerX + 'px';
+      cursorFollower.style.top = followerY + 'px';
+      
+      requestAnimationFrame(animateFollower);
+    }
+    animateFollower();
+
+    // Add hover effects for different elements
+    const hoverElements = document.querySelectorAll('a, button, .service-card, .gallery-item');
+    const textElements = document.querySelectorAll('h1, h2, h3, p, span');
+    const clickableElements = document.querySelectorAll('button, .btn');
+    const viewElements = document.querySelectorAll('.gallery-item');
+
+    // Hover effects
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-hover');
+      });
+    });
+
+    // Click effects
+    clickableElements.forEach(el => {
+      el.addEventListener('mousedown', () => {
+        document.body.classList.add('cursor-click');
+      });
+      el.addEventListener('mouseup', () => {
+        document.body.classList.remove('cursor-click');
+      });
+    });
+
+    // Text cursor
+    textElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-text');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-text');
+      });
+    });
+
+    // Gallery view effect
+    viewElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-view');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-view');
+      });
+    });
+
+    // Hide cursor when it leaves the window
+    document.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0';
+      cursorFollower.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+      cursor.style.opacity = '1';
+      cursorFollower.style.opacity = '1';
+    });
+
+    /* Synchronized taglines and background slides */
+    const taglines = Array.from(document.querySelectorAll(".tagline"));
+    const track = document.querySelector(".track");
+    const subtitles = [
+      "Luxury Interior Design",
+      "Emotional Space Creation", 
+      "Artistic Living Environments"
+    ];
+    const descriptions = [
+      "At Interior Illustrations, we transform spaces into living art, creating environments that inspire, comfort, and reflect your unique story.",
+      "We craft spaces that evoke emotion and create meaningful connections, turning every room into a canvas for life's beautiful moments.",
+      "Where design meets soul, we paint with light, texture, and form to create living spaces that tell your story and inspire your future."
+    ];
+
+    let tagIndex = 0;
+    let slideIndex = 0;
+    const totalSlides = 9; // Total number of slides in the track
+    
+    function updateSlide() {
+      // Remove active classes from current tagline
+      taglines[tagIndex].classList.remove("active");
+      document.querySelector(".subtitle").classList.remove("active");
+      document.querySelector(".description").classList.remove("active");
+      
+      // Update indices
+      tagIndex = (tagIndex + 1) % taglines.length;
+      slideIndex = (slideIndex + 1) % totalSlides;
+      
+      // Synchronize background slide with tagline
+      track.className = `track slide-${slideIndex}`;
+      
+      // Add active classes and update content after slide transition
+      setTimeout(() => {
+        taglines[tagIndex].classList.add("active");
+        document.querySelector(".subtitle").textContent = subtitles[tagIndex];
+        document.querySelector(".description").textContent = descriptions[tagIndex];
+        document.querySelector(".subtitle").classList.add("active");
+        document.querySelector(".description").classList.add("active");
+      }, 600); // Slightly longer delay to match slide transition
+    }
+
+    // Start the synchronized transitions
+    setInterval(updateSlide, 4500);
+
+    /* Reveal on scroll */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { 
+        if (e.isIntersecting) e.target.classList.add("visible"); 
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+    /* Intro Video Handler */
+    const introOverlay = document.getElementById('intro-overlay');
+    const introVideo = document.getElementById('intro-video');
+
+    // Handle intro video
+    function handleIntroVideo() {
+      // Check if video is available
+      if (introVideo.readyState >= 2) {
+        // Video is loaded, wait for it to finish or timeout after 6 seconds
+        const videoDuration = Math.min(introVideo.duration, 6);
+        setTimeout(() => {
+          introOverlay.classList.add('hidden');
+          setTimeout(() => {
+            introOverlay.style.display = 'none';
+          }, 1000);
+        }, videoDuration * 1000);
+      } else {
+        // No video or video failed to load, show intro for 3 seconds then hide
+        setTimeout(() => {
+          introOverlay.classList.add('hidden');
+          setTimeout(() => {
+            introOverlay.style.display = 'none';
+          }, 1000);
+        }, 3000);
+      }
+    }
+
+    // Start intro sequence
+    handleIntroVideo();
+
+    // Fallback: hide intro if video fails
+    introVideo.addEventListener('error', () => {
+      setTimeout(() => {
+        introOverlay.classList.add('hidden');
+        setTimeout(() => {
+          introOverlay.style.display = 'none';
+        }, 1000);
+      }, 3000);
+    });
+
+    /* Smooth scrolling */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

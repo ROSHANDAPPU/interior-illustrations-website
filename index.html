@@ -81,45 +81,69 @@
     .track.slide-7 { transform: translateX(-700vw); }
     .track.slide-8 { transform: translateX(-800vw); }
 
-    /* Luxury taglines */
+    /* Luxury taglines - Centered Layout */
     .taglines {
-      position: absolute; inset: 0; z-index: 10; display: grid; place-items: center;
-      padding: 0 40px; text-align: left; justify-items: start; padding-left: 8%;
+      position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      padding: 0 40px; max-width: 1200px; margin: 0 auto;
     }
     .tagline {
-      position: absolute;
-      opacity: 0; transform: translateX(-30px);
+      position: relative; opacity: 0; transform: translateY(30px);
       transition: opacity 800ms ease, transform 800ms ease;
       color: #fff; text-shadow: 0 8px 32px rgba(0,0,0,0.7);
       font-size: clamp(48px, 8vw, 120px); font-weight: 900; 
       letter-spacing: -0.02em; line-height: 0.85;
-      text-transform: uppercase; max-width: 12ch;
+      text-transform: uppercase; max-width: 14ch; margin-bottom: 20px;
     }
-    .tagline.active { opacity: 1; transform: translateX(0); }
+    .tagline.active { opacity: 1; transform: translateY(0); }
     
     .subtitle {
-      position: absolute; top: 60%; left: 8%;
-      opacity: 0; transform: translateX(-20px);
+      position: relative; opacity: 0; transform: translateY(20px);
       transition: opacity 600ms ease 0.3s, transform 600ms ease 0.3s;
-      color: #cccccc; font-size: clamp(20px, 3vw, 32px); 
+      color: #fff; font-size: clamp(20px, 3vw, 32px); 
       font-weight: 400; letter-spacing: 0.05em;
-      max-width: 500px; z-index: 10;
+      max-width: 600px; z-index: 10; margin-bottom: 20px;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.8);
     }
-    .subtitle.active { opacity: 1; transform: translateX(0); }
+    .subtitle.active { opacity: 1; transform: translateY(0); }
 
     .description {
-      position: absolute; top: 70%; left: 8%;
-      opacity: 0; transform: translateY(20px);
+      position: relative; opacity: 0; transform: translateY(20px);
       transition: opacity 600ms ease 0.6s, transform 600ms ease 0.6s;
       color: #e0e0e0; font-size: clamp(16px, 2vw, 20px); 
-      font-weight: 300; line-height: 1.6; max-width: 480px; z-index: 10;
+      font-weight: 300; line-height: 1.6; max-width: 600px; z-index: 10;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
     }
     .description.active { opacity: 1; transform: translateY(0); }
 
+    /* Responsive adjustments for hero content */
+    @media (max-width: 768px) {
+      .taglines {
+        padding: 0 20px;
+      }
+      .tagline {
+        font-size: clamp(36px, 10vw, 80px);
+        max-width: 16ch;
+      }
+      .subtitle {
+        font-size: clamp(18px, 4vw, 24px);
+        max-width: 100%;
+      }
+      .description {
+        font-size: clamp(14px, 3vw, 18px);
+        max-width: 100%;
+      }
+      .cta {
+        bottom: 5vh;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
     /* Call to action */
     .cta {
-      position: absolute; bottom: 10vh; left: 8%;
-      z-index: 12; display: flex; gap: 16px; flex-wrap: wrap;
+      position: absolute; bottom: 10vh; left: 50%; transform: translateX(-50%);
+      z-index: 12; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
     }
     .btn {
       background: rgba(255,255,255,0.1); color: #fff; 
@@ -767,11 +791,11 @@
       <h1 class="tagline active">WHERE DREAMS<br>BECOME<br>SPACES</h1>
       <h1 class="tagline">CRAFTING<br>EMOTIONAL<br>ARCHITECTURE</h1>
       <h1 class="tagline">DESIGNING<br>LIFE'S<br>CANVAS</h1>
+      
+      <!-- Dynamic subtitles -->
+      <div class="subtitle active">Luxury Interior Design</div>
+      <div class="description active">At Interior Illustrations, we transform spaces into living art, creating environments that inspire, comfort, and reflect your unique story.</div>
     </div>
-
-    <!-- Dynamic subtitles -->
-    <div class="subtitle active">Luxury Interior Design</div>
-    <div class="description active">At Interior Illustrations, we transform spaces into living art, creating environments that inspire, comfort, and reflect your unique story.</div>
 
     <!-- Calls to action -->
     <div class="cta">

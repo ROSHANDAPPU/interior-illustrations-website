@@ -34,6 +34,18 @@
       background: linear-gradient(45deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%);
       pointer-events: none; z-index: 5;
     }
+    
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(45deg, rgba(255,0,0,0.1), rgba(255,0,0,0.05), rgba(255,0,0,0.1));
+      animation: gradientShift 8s ease-in-out infinite;
+      z-index: 4; pointer-events: none;
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+    }
 
     /* Cinematic track - luxury home images with synchronized transitions */
     .track {
@@ -157,10 +169,21 @@
       border: 1px solid rgba(255,255,255,0.1);
       backdrop-filter: blur(10px);
     }
+    .service-card {
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,0,0,0.1), transparent);
+      transition: left 0.6s;
+    }
+    .service-card:hover::before {
+      left: 100%;
+    }
     .service-card:hover {
-      transform: translateY(-8px); 
-      box-shadow: 0 20px 60px rgba(255,0,0,0.2);
-      background: rgba(255,255,255,0.1); border-color: rgba(255,0,0,0.3);
+      transform: translateY(-8px) scale(1.02); 
+      box-shadow: 0 25px 70px rgba(255,0,0,0.3);
+      background: rgba(255,255,255,0.1); border-color: rgba(255,0,0,0.5);
     }
     .service-number {
       font-size: 24px; font-weight: 900; color: #fff; 
@@ -200,6 +223,15 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
     }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .urgency-badge {
+      animation: pulse 2s infinite, float 3s ease-in-out infinite;
+    }
 
     /* Value Proposition Section */
     .value-section {
@@ -220,11 +252,18 @@
       text-align: center; padding: 40px 20px;
       background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
       border-radius: 8px; transition: all 400ms ease;
+      opacity: 0; transform: translateX(-50px);
+    }
+    .value-item.animate {
+      opacity: 1; transform: translateX(0);
     }
     .value-item:hover {
-      transform: translateY(-8px); background: rgba(255,255,255,0.08);
+      transform: translateY(-8px) scale(1.02); background: rgba(255,255,255,0.08);
       border-color: rgba(255,0,0,0.3); box-shadow: 0 20px 60px rgba(255,0,0,0.1);
     }
+    .value-item:nth-child(1) { transition-delay: 0.2s; }
+    .value-item:nth-child(2) { transition-delay: 0.4s; }
+    .value-item:nth-child(3) { transition-delay: 0.6s; }
     .value-icon {
       font-size: 48px; margin-bottom: 20px;
     }
@@ -261,9 +300,19 @@
     }
     .proof-number {
       font-size: 48px; font-weight: 900; color: #ff0000; margin-bottom: 16px;
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .proof-number.animate {
+      opacity: 1; transform: translateY(0);
     }
     .proof-label {
       font-size: 18px; color: #ccc; font-weight: 500;
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+    }
+    .proof-label.animate {
+      opacity: 1; transform: translateY(0);
     }
 
     /* Trust Building Section */
@@ -285,11 +334,21 @@
       text-align: center; padding: 40px 20px;
       background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
       border-radius: 8px; transition: all 400ms ease;
+      opacity: 0; transform: translateY(30px);
+    }
+    .trust-item.animate {
+      opacity: 1; transform: translateY(0);
     }
     .trust-item:hover {
-      transform: translateY(-8px); background: rgba(255,255,255,0.08);
+      transform: translateY(-8px) scale(1.02); background: rgba(255,255,255,0.08);
       border-color: rgba(255,0,0,0.3); box-shadow: 0 20px 60px rgba(255,0,0,0.1);
     }
+    .trust-item:nth-child(1) { transition-delay: 0.1s; }
+    .trust-item:nth-child(2) { transition-delay: 0.2s; }
+    .trust-item:nth-child(3) { transition-delay: 0.3s; }
+    .trust-item:nth-child(4) { transition-delay: 0.4s; }
+    .trust-item:nth-child(5) { transition-delay: 0.5s; }
+    .trust-item:nth-child(6) { transition-delay: 0.6s; }
     .trust-icon {
       font-size: 48px; margin-bottom: 20px;
     }
@@ -414,9 +473,20 @@
       cursor: pointer; transition: all 0.3s ease;
       text-transform: uppercase; letter-spacing: 0.1em;
     }
+    .contact-form button {
+      position: relative; overflow: hidden;
+    }
+    .contact-form button::before {
+      content: ''; position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    .contact-form button:hover::before {
+      left: 100%;
+    }
     .contact-form button:hover {
-      background: linear-gradient(45deg, #cc0000, #ff0000); transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(255,0,0,0.3);
+      background: linear-gradient(45deg, #cc0000, #ff0000); transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(255,0,0,0.4);
     }
 
     /* Reveal on scroll */
@@ -1105,6 +1175,86 @@
           introOverlay.style.display = 'none';
         }, 1000);
       }, 3000);
+    });
+
+    /* Counter Animation Function */
+    function animateCounter(element, target, duration = 2000) {
+      let start = 0;
+      const increment = target / (duration / 16);
+      
+      function updateCounter() {
+        start += increment;
+        if (start < target) {
+          element.textContent = Math.floor(start);
+          requestAnimationFrame(updateCounter);
+        } else {
+          element.textContent = target;
+        }
+      }
+      updateCounter();
+    }
+
+    /* Advanced Scroll Animations */
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const animationObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          
+          // Trigger counter animation for proof numbers
+          if (entry.target.classList.contains('proof-number')) {
+            const target = parseInt(entry.target.textContent);
+            entry.target.textContent = '0';
+            setTimeout(() => animateCounter(entry.target, target), 200);
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for advanced animations
+    document.addEventListener('DOMContentLoaded', () => {
+      // Observe proof numbers and labels
+      document.querySelectorAll('.proof-number, .proof-label').forEach(el => {
+        animationObserver.observe(el);
+      });
+      
+      // Observe trust items with staggered animation
+      document.querySelectorAll('.trust-item').forEach(el => {
+        animationObserver.observe(el);
+      });
+      
+      // Observe value items with slide-in animation
+      document.querySelectorAll('.value-item').forEach(el => {
+        animationObserver.observe(el);
+      });
+    });
+
+    /* Enhanced Form Submission */
+    document.querySelector('.contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const button = this.querySelector('button');
+      const originalText = button.textContent;
+      
+      // Add loading state
+      button.textContent = 'Sending...';
+      button.style.opacity = '0.7';
+      
+      // Simulate form submission
+      setTimeout(() => {
+        button.textContent = 'Message Sent!';
+        button.style.background = 'linear-gradient(45deg, #00ff00, #00cc00)';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.opacity = '1';
+          button.style.background = 'linear-gradient(45deg, #ff0000, #cc0000)';
+          alert('Thank you for your message! We will get back to you soon.');
+        }, 2000);
+      }, 1500);
     });
 
     /* Smooth scrolling */

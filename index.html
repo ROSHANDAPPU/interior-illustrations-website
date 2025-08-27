@@ -98,7 +98,7 @@
     .tagline.active { opacity: 1; transform: translateY(0); }
     
     .subtitle {
-      position: relative; opacity: 0; transform: translateY(20px);
+      position: relative; opacity: 1; transform: translateY(0);
       transition: opacity 600ms ease 0.3s, transform 600ms ease 0.3s;
       color: #fff; font-size: clamp(20px, 3vw, 32px); 
       font-weight: 400; letter-spacing: 0.05em;
@@ -108,7 +108,7 @@
     .subtitle.active { opacity: 1; transform: translateY(0); }
 
     .description {
-      position: relative; opacity: 0; transform: translateY(20px);
+      position: relative; opacity: 1; transform: translateY(0);
       transition: opacity 600ms ease 0.6s, transform 600ms ease 0.6s;
       color: #e0e0e0; font-size: clamp(16px, 2vw, 20px); 
       font-weight: 300; line-height: 1.6; max-width: 600px; z-index: 10;
@@ -1130,8 +1130,11 @@
     function updateSlide() {
       // Remove active classes from current tagline
       taglines[tagIndex].classList.remove("active");
-      document.querySelector(".subtitle").classList.remove("active");
-      document.querySelector(".description").classList.remove("active");
+      const subtitle = document.querySelector(".taglines .subtitle");
+      const description = document.querySelector(".taglines .description");
+      
+      if (subtitle) subtitle.classList.remove("active");
+      if (description) description.classList.remove("active");
       
       // Update indices
       tagIndex = (tagIndex + 1) % taglines.length;
@@ -1143,10 +1146,14 @@
       // Add active classes and update content after slide transition
       setTimeout(() => {
         taglines[tagIndex].classList.add("active");
-        document.querySelector(".subtitle").textContent = subtitles[tagIndex];
-        document.querySelector(".description").textContent = descriptions[tagIndex];
-        document.querySelector(".subtitle").classList.add("active");
-        document.querySelector(".description").classList.add("active");
+        if (subtitle) {
+          subtitle.textContent = subtitles[tagIndex];
+          subtitle.classList.add("active");
+        }
+        if (description) {
+          description.textContent = descriptions[tagIndex];
+          description.classList.add("active");
+        }
       }, 600); // Slightly longer delay to match slide transition
     }
 

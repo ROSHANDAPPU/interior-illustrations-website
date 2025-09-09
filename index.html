@@ -4,15 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interior Illustrations - Luxury Interior Design</title>
+  <!-- jQuery (required for WarpDrive) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- WarpDrive plugin -->
+  <script src="assets/js/jquery.warpdrive.min.js"></script>
   <style>
-    @keyframes blueLightSweep {
-      0% {
-        background-position: -200% 0;
-      }
-      100% {
-        background-position: 200% 0;
-      }
-    }
     /* Reset and base */
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; font-family: 'Montserrat', system-ui, Arial, sans-serif; }
@@ -167,9 +163,7 @@
     .service-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 60px rgba(10, 30, 80, 0.35), 0 0 40px 8px rgba(10, 30, 80, 0.18);
-  background: linear-gradient(90deg, #0B1A2F 0%, #162A4D 40%, #1B2C4F 60%, #162A4D 100%);
-  background-size: 400% 100%;
-  animation: blueLightSweep 1.2s linear forwards;
+  background: linear-gradient(90deg, #0B1A2F 0%, #162A4D 100%);
   border-color: #162A4D;
   color: #fff;
     }
@@ -502,7 +496,7 @@
       <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
       <!-- Fallback: if no video, show a cinematic image -->
     </video>
-    <div class="intro-overlay-bg"></div>
+  <div class="intro-overlay-bg" id="warpdrive-bg"></div>
     <div class="intro-content">
   <img src="assets/images/01-02_logo_mark/PNGs/cobalt.no-background (1).png" alt="Cobalt Logo" style="max-width:220px;width:40vw;height:auto;margin-bottom:24px;display:block;margin-left:auto;margin-right:auto;" />
   <div class="intro-title">INTERIOR ILLUSIONS</div>
@@ -654,6 +648,21 @@
   </section>
 
   <script>
+    // Initialize WarpDrive effect on intro overlay background
+    $(document).ready(function() {
+      $('#warpdrive-bg').warpDrive({
+        width: '100vw',
+        height: '100vh',
+        starCount: 900,
+        speed: 0.7,
+        warpColor: '#0B1A2F',
+        backgroundColor: 'rgba(11,14,20,0.95)',
+        depthFade: true,
+        starColor: '#3a5ca8',
+        starColorEnd: '#162A4D',
+        // You can tweak more options as desired
+      });
+    });
     // Custom Floating Cursor
     const cursor = document.querySelector('.cursor');
     const cursorFollower = document.querySelector('.cursor-follower');

@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interior Illustrations - Luxury Interior Design</title>
   <style>
+    @keyframes blueLightSweep {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
     /* Reset and base */
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; font-family: 'Montserrat', system-ui, Arial, sans-serif; }
@@ -159,7 +167,9 @@
     .service-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 60px rgba(10, 30, 80, 0.35), 0 0 40px 8px rgba(10, 30, 80, 0.18);
-  background: linear-gradient(90deg, #0B1A2F 0%, #162A4D 100%);
+  background: linear-gradient(90deg, #0B1A2F 0%, #162A4D 40%, #1B2C4F 60%, #162A4D 100%);
+  background-size: 400% 100%;
+  animation: blueLightSweep 1.2s linear forwards;
   border-color: #162A4D;
   color: #fff;
     }

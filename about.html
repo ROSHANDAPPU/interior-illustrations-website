@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - Interior Illusions LLC</title>
+  <meta name="description" content="Learn about Interior Illusions LLC - luxury interior design and home remodeling services in Colorado.">
+  <link rel="icon" type="image/x-icon" href="assets/images/06_Favicon/favicon-high.png">
+  
+  <style>
+    :root {
+      --color-bg-primary: #0B0E14; /* Deep Navy */
+      --color-action: #1D4ED8;    /* Cobalt */
+      --color-accent: #93C5FD;    /* Azure */
+      --color-heading: #E7EAEE;   /* Off-white */
+      --color-body: #A3AAB4;      /* Slate */
+      --color-light: #FAF7F2;     /* Ivory */
+    }
+
+    body, html {
+      font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+      color: var(--color-body);
+      background: var(--color-bg-primary);
+      height: 100%;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; z-index: 30;
+      background: #0B0E14; /* Deep Navy background */
+    }
+    .nav a, .nav .brand { 
+      color: #E7EAEE; /* Off-white color for consistency */
+      text-decoration: none; 
+      font-weight: 500; 
+      letter-spacing: 0.02em; 
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    .nav .brand { 
+      font-size: 24px; 
+      letter-spacing: 0.1em; 
+      color: #1D4ED8; /* Cobalt color for brand */
+    }
+    .nav .links { 
+      display: flex; 
+      gap: 32px; 
+    }
+    .nav .links a { 
+      color: #E7EAEE; /* Off-white default */
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+    .nav .links a:hover { 
+      color: #93C5FD; /* Azure hover color */
+      text-decoration: underline;
+      text-decoration-color: #93C5FD;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 2px;
+    }
+
+    /* Page Content */
+    .page-hero {
+      padding: 120px 40px 80px;
+      background: var(--color-bg-primary);
+      text-align: center;
+    }
+    .page-hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 600;
+      color: var(--color-heading);
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+    .page-hero p {
+      font-size: clamp(18px, 3vw, 24px);
+      color: var(--color-accent);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .page-content {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .content-section {
+      margin-bottom: 60px;
+    }
+    .content-section h2 {
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 600;
+      color: var(--color-heading);
+      margin-bottom: 24px;
+      letter-spacing: 0.01em;
+    }
+    .content-section p {
+      font-size: 18px;
+      color: var(--color-body);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    /* Team Section */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .team-member {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 40px;
+      border-radius: 8px;
+      border: 1px solid rgba(147, 197, 253, 0.1);
+      transition: all 0.3s ease;
+    }
+    .team-member:hover {
+      transform: translateY(-5px);
+      border-color: var(--color-accent);
+      box-shadow: 0 10px 30px rgba(29, 78, 216, 0.2);
+    }
+    .team-member h3 {
+      color: var(--color-heading);
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    .team-member .role {
+      color: var(--color-accent);
+      font-size: 16px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Values Section */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .value-item {
+      text-align: center;
+      padding: 30px;
+    }
+    .value-item h3 {
+      color: var(--color-accent);
+      font-size: 20px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .value-item p {
+      color: var(--color-body);
+      font-size: 16px;
+    }
+
+    /* Buttons */
+    .btn {
+      background: #1D4ED8; /* Cobalt background */
+      color: #E7EAEE; /* Off-white text */
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 300ms ease;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      line-height: 1.0;
+      text-transform: none;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #1E40AF; /* Cobalt darken ~8% */
+      color: #E7EAEE;
+    }
+    .btn.secondary {
+      background: transparent;
+      color: #93C5FD;
+      border: 2px solid #93C5FD;
+    }
+    .btn.secondary:hover {
+      background: #0B0E14;
+      color: #93C5FD;
+      text-decoration: underline;
+      text-decoration-color: #93C5FD;
+      text-underline-offset: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; height: 70px; }
+      .nav .links { gap: 20px; }
+      .nav .links a { font-size: 14px; padding: 6px 12px; }
+      .page-hero { padding: 100px 20px 60px; }
+      .page-content { padding: 60px 20px; }
+      .team-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="nav">
+    <div class="brand">
+      <img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" />
+    </div>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="portfolio/residential-projects.html">Portfolio</a>
+      <a href="services/interior-design.html">Services</a>
+      <a href="about.html" style="background: #1D4ED8; color: #E7EAEE; border-radius: 20px;">About</a>
+      <a href="contact/get-quote.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <h1>About Interior Illusions</h1>
+    <p>Transforming spaces into living art through innovative design and exceptional craftsmanship</p>
+  </section>
+
+  <!-- Page Content -->
+  <main class="page-content">
+    <div class="content-section">
+      <h2>Our Story</h2>
+      <p>At Interior Illusions, we believe that every space has the potential to become a masterpiece. Founded with a passion for creating environments that inspire, comfort, and reflect your unique story, we specialize in luxury interior design and home remodeling services.</p>
+      <p>Our team combines years of experience with innovative design approaches to deliver stunning results that exceed expectations. From concept to completion, we work closely with our clients to ensure every detail reflects their vision and lifestyle.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Our Mission</h2>
+      <p>To transform ordinary spaces into extraordinary environments that enhance your quality of life. We are committed to delivering exceptional design solutions that blend functionality, aesthetics, and personal style.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>Our Values</h2>
+      <div class="values-grid">
+        <div class="value-item">
+          <h3>Excellence</h3>
+          <p>We strive for perfection in every project, ensuring the highest quality standards in design and execution.</p>
+        </div>
+        <div class="value-item">
+          <h3>Innovation</h3>
+          <p>We embrace cutting-edge design trends and technologies to create unique, forward-thinking spaces.</p>
+        </div>
+        <div class="value-item">
+          <h3>Integrity</h3>
+          <p>We maintain transparency, honesty, and professionalism in all our client relationships and business practices.</p>
+        </div>
+        <div class="value-item">
+          <h3>Collaboration</h3>
+          <p>We work closely with our clients, listening to their needs and incorporating their vision into every design.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>Our Team</h2>
+      <p>Meet the talented professionals behind Interior Illusions. Our diverse team brings together expertise in interior design, architecture, project management, and craftsmanship.</p>
+      <div class="team-grid">
+        <div class="team-member">
+          <h3>Sarah Johnson</h3>
+          <div class="role">Lead Interior Designer</div>
+          <p>With over 10 years of experience in luxury residential design, Sarah brings a keen eye for detail and a passion for creating spaces that tell a story.</p>
+        </div>
+        <div class="team-member">
+          <h3>Michael Chen</h3>
+          <div class="role">Project Manager</div>
+          <p>Michael ensures every project runs smoothly from start to finish, coordinating with contractors and keeping clients informed throughout the process.</p>
+        </div>
+        <div class="team-member">
+          <h3>Emily Rodriguez</h3>
+          <div class="role">Color Specialist</div>
+          <p>Emily's expertise in color theory and material selection helps create harmonious spaces that reflect each client's personality and lifestyle.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section" style="text-align: center;">
+      <h2>Ready to Start Your Project?</h2>
+      <p>Let's discuss how we can transform your space into something extraordinary.</p>
+      <div style="margin-top: 30px;">
+        <a href="contact/get-quote.html" class="btn">Get a Quote</a>
+        <a href="portfolio/residential-projects.html" class="btn secondary">View Our Work</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

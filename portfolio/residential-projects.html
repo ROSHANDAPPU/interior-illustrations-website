@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Residential Projects - Interior Illusions LLC</title>
+  <meta name="description" content="Explore our luxury residential interior design projects and home remodeling portfolio.">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/06_Favicon/favicon-high.png">
+  
+  <style>
+    :root {
+      --color-bg-primary: #0B0E14; /* Deep Navy */
+      --color-action: #1D4ED8;    /* Cobalt */
+      --color-accent: #93C5FD;    /* Azure */
+      --color-heading: #E7EAEE;   /* Off-white */
+      --color-body: #A3AAB4;      /* Slate */
+      --color-light: #FAF7F2;     /* Ivory */
+    }
+
+    body, html {
+      font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+      color: var(--color-body);
+      background: var(--color-bg-primary);
+      height: 100%;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; z-index: 30;
+      background: #0B0E14; /* Deep Navy background */
+    }
+    .nav a, .nav .brand { 
+      color: #E7EAEE; /* Off-white color for consistency */
+      text-decoration: none; 
+      font-weight: 500; 
+      letter-spacing: 0.02em; 
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    .nav .brand { 
+      font-size: 24px; 
+      letter-spacing: 0.1em; 
+      color: #1D4ED8; /* Cobalt color for brand */
+    }
+    .nav .links { 
+      display: flex; 
+      gap: 32px; 
+    }
+    .nav .links a { 
+      color: #E7EAEE; /* Off-white default */
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+    .nav .links a:hover { 
+      color: #93C5FD; /* Azure hover color */
+      text-decoration: underline;
+      text-decoration-color: #93C5FD;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 2px;
+    }
+
+    /* Page Content */
+    .page-hero {
+      padding: 120px 40px 80px;
+      background: var(--color-bg-primary);
+      text-align: center;
+    }
+    .page-hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 600;
+      color: var(--color-heading);
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+    .page-hero p {
+      font-size: clamp(18px, 3vw, 24px);
+      color: var(--color-accent);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .page-content {
+      padding: 80px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Portfolio Grid */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .portfolio-item {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(147, 197, 253, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .portfolio-item:hover {
+      transform: translateY(-5px);
+      border-color: var(--color-accent);
+      box-shadow: 0 15px 40px rgba(29, 78, 216, 0.2);
+    }
+    .portfolio-image {
+      height: 300px;
+      background: linear-gradient(135deg, #1D4ED8 0%, #93C5FD 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('../../assets/images/01-02_logo_mark/PNGs/azure.no-background.png') center/contain no-repeat;
+      opacity: 0.1;
+    }
+    .portfolio-content {
+      padding: 30px;
+    }
+    .portfolio-content h3 {
+      color: var(--color-heading);
+      font-size: 24px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .portfolio-content .category {
+      color: var(--color-accent);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+    .portfolio-content p {
+      color: var(--color-body);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Filter Buttons */
+    .filter-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: transparent;
+      color: #93C5FD;
+      border: 2px solid #93C5FD;
+      padding: 8px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #1D4ED8;
+      color: #E7EAEE;
+      border-color: #1D4ED8;
+    }
+
+    /* Buttons */
+    .btn {
+      background: #1D4ED8; /* Cobalt background */
+      color: #E7EAEE; /* Off-white text */
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 300ms ease;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      line-height: 1.0;
+      text-transform: none;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #1E40AF; /* Cobalt darken ~8% */
+      color: #E7EAEE;
+    }
+    .btn.secondary {
+      background: transparent;
+      color: #93C5FD;
+      border: 2px solid #93C5FD;
+    }
+    .btn.secondary:hover {
+      background: #0B0E14;
+      color: #93C5FD;
+      text-decoration: underline;
+      text-decoration-color: #93C5FD;
+      text-underline-offset: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; height: 70px; }
+      .nav .links { gap: 20px; }
+      .nav .links a { font-size: 14px; padding: 6px 12px; }
+      .page-hero { padding: 100px 20px 60px; }
+      .page-content { padding: 60px 20px; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .filter-buttons { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="nav">
+    <div class="brand">
+      <img src="../../assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" />
+    </div>
+    <nav class="links">
+      <a href="../../index.html">Home</a>
+      <a href="residential-projects.html" style="background: #1D4ED8; color: #E7EAEE; border-radius: 20px;">Portfolio</a>
+      <a href="../services/interior-design.html">Services</a>
+      <a href="../../about.html">About</a>
+      <a href="../../contact/get-quote.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <h1>Residential Projects</h1>
+    <p>Discover our portfolio of luxury residential interior design and home remodeling projects</p>
+  </section>
+
+  <!-- Page Content -->
+  <main class="page-content">
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="kitchen">Kitchen</button>
+      <button class="filter-btn" data-filter="bathroom">Bathroom</button>
+      <button class="filter-btn" data-filter="living">Living Room</button>
+      <button class="filter-btn" data-filter="bedroom">Bedroom</button>
+      <button class="filter-btn" data-filter="whole-home">Whole Home</button>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <div class="portfolio-grid">
+      <div class="portfolio-item" data-category="kitchen">
+        <div class="portfolio-image"></div>
+        <div class="portfolio-content">
+          <div class="category">Kitchen Remodel</div>
+          <h3>Modern Luxury Kitchen</h3>
+          <p>A stunning kitchen transformation featuring custom cabinetry, premium appliances, and elegant marble countertops. This project showcases our attention to detail and commitment to luxury design.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="bathroom">
+        <div class="portfolio-image"></div>
+        <div class="portfolio-content">
+          <div class="category">Bathroom Renovation</div>
+          <h3>Spa-Inspired Master Bath</h3>
+          <p>Transform your bathroom into a personal spa retreat with this elegant renovation featuring a freestanding tub, custom vanity, and premium fixtures.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="living">
+        <div class="portfolio-image"></div>
+        <div class="portfolio-content">
+          <div class="category">Living Room Design</div>
+          <h3>Contemporary Living Space</h3>
+          <p>An open-concept living area designed for both comfort and style, featuring custom built-ins, statement lighting, and carefully curated furnishings.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="bedroom">
+        <div class="portfolio-image"></div>
+        <div class="portfolio-content">
+          <div class="category">Master Suite</div>
+          <h3>Luxury Master Bedroom</h3>
+          <p>A serene master bedroom retreat featuring custom headboard, elegant window treatments, and a sophisticated color palette for ultimate relaxation.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="whole-home">
+        <div class="portfolio-image"></div>
+        <div class="portfolio-content">
+          <div class="category">Whole Home Renovation</div>
+          <h3>Complete Home Transformation</h3>
+          <p>A comprehensive whole-home renovation that transformed every space while maintaining the home's architectural integrity and adding modern luxury touches.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="kitchen">
+        <div class="portfolio-image"></div>
+        <div class="portfolio-content">
+          <div class="category">Kitchen Design</div>
+          <h3>Farmhouse Modern Kitchen</h3>
+          <p>Blending farmhouse charm with modern functionality, this kitchen features shaker-style cabinets, a large island, and premium appliances for the perfect family gathering space.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div style="text-align: center; margin-top: 60px;">
+      <h2 style="color: var(--color-heading); margin-bottom: 24px;">Ready to Start Your Project?</h2>
+      <p style="color: var(--color-body); margin-bottom: 30px;">Let's discuss how we can transform your space into something extraordinary.</p>
+      <div>
+        <a href="../../contact/get-quote.html" class="btn">Get a Quote</a>
+        <a href="../services/interior-design.html" class="btn secondary">Our Services</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          // Add active class to clicked button
+          this.classList.add('active');
+
+          const filter = this.getAttribute('data-filter');
+
+          portfolioItems.forEach(item => {
+            if (filter === 'all' || item.getAttribute('data-category') === filter) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

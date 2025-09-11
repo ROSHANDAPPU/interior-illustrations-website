@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interior Design Services - Interior Illusions LLC</title>
+  <meta name="description" content="Professional interior design services for luxury residential and commercial spaces.">
+  <link rel="icon" type="image/x-icon" href="../../assets/images/06_Favicon/favicon-high.png">
+  
+  <style>
+    :root {
+      --color-bg-primary: #0B0E14; /* Deep Navy */
+      --color-action: #1D4ED8;    /* Cobalt */
+      --color-accent: #93C5FD;    /* Azure */
+      --color-heading: #E7EAEE;   /* Off-white */
+      --color-body: #A3AAB4;      /* Slate */
+      --color-light: #FAF7F2;     /* Ivory */
+    }
+
+    body, html {
+      font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+      color: var(--color-body);
+      background: var(--color-bg-primary);
+      height: 100%;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; z-index: 30;
+      background: #0B0E14; /* Deep Navy background */
+    }
+    .nav a, .nav .brand { 
+      color: #E7EAEE; /* Off-white color for consistency */
+      text-decoration: none; 
+      font-weight: 500; 
+      letter-spacing: 0.02em; 
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    .nav .brand { 
+      font-size: 24px; 
+      letter-spacing: 0.1em; 
+      color: #1D4ED8; /* Cobalt color for brand */
+    }
+    .nav .links { 
+      display: flex; 
+      gap: 32px; 
+    }
+    .nav .links a { 
+      color: #E7EAEE; /* Off-white default */
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+    .nav .links a:hover { 
+      color: #93C5FD; /* Azure hover color */
+      text-decoration: underline;
+      text-decoration-color: #93C5FD;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 2px;
+    }
+
+    /* Page Content */
+    .page-hero {
+      padding: 120px 40px 80px;
+      background: var(--color-bg-primary);
+      text-align: center;
+    }
+    .page-hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 600;
+      color: var(--color-heading);
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+    .page-hero p {
+      font-size: clamp(18px, 3vw, 24px);
+      color: var(--color-accent);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .page-content {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .service-card {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 40px;
+      border-radius: 8px;
+      border: 1px solid rgba(147, 197, 253, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--color-accent);
+      box-shadow: 0 15px 40px rgba(29, 78, 216, 0.2);
+    }
+    .service-card h3 {
+      color: var(--color-heading);
+      font-size: 24px;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+    .service-card .price {
+      color: var(--color-accent);
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .service-card p {
+      color: var(--color-body);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .service-features {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 30px;
+    }
+    .service-features li {
+      color: var(--color-body);
+      font-size: 14px;
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+    .service-features li::before {
+      content: '✓';
+      color: var(--color-accent);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    /* Process Section */
+    .process-section {
+      margin-top: 80px;
+    }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .process-step {
+      text-align: center;
+      padding: 30px;
+    }
+    .process-step .step-number {
+      background: var(--color-action);
+      color: var(--color-heading);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0 auto 20px;
+    }
+    .process-step h3 {
+      color: var(--color-heading);
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    .process-step p {
+      color: var(--color-body);
+      font-size: 16px;
+    }
+
+    /* Buttons */
+    .btn {
+      background: #1D4ED8; /* Cobalt background */
+      color: #E7EAEE; /* Off-white text */
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 300ms ease;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      line-height: 1.0;
+      text-transform: none;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #1E40AF; /* Cobalt darken ~8% */
+      color: #E7EAEE;
+    }
+    .btn.secondary {
+      background: transparent;
+      color: #93C5FD;
+      border: 2px solid #93C5FD;
+    }
+    .btn.secondary:hover {
+      background: #0B0E14;
+      color: #93C5FD;
+      text-decoration: underline;
+      text-decoration-color: #93C5FD;
+      text-underline-offset: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; height: 70px; }
+      .nav .links { gap: 20px; }
+      .nav .links a { font-size: 14px; padding: 6px 12px; }
+      .page-hero { padding: 100px 20px 60px; }
+      .page-content { padding: 60px 20px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="nav">
+    <div class="brand">
+      <img src="../../assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" />
+    </div>
+    <nav class="links">
+      <a href="../../index.html">Home</a>
+      <a href="../portfolio/residential-projects.html">Portfolio</a>
+      <a href="interior-design.html" style="background: #1D4ED8; color: #E7EAEE; border-radius: 20px;">Services</a>
+      <a href="../../about.html">About</a>
+      <a href="../../contact/get-quote.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <h1>Interior Design Services</h1>
+    <p>Transform your space with our comprehensive interior design and home remodeling services</p>
+  </section>
+
+  <!-- Page Content -->
+  <main class="page-content">
+    <!-- Services Grid -->
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Complete Home Renovation</h3>
+        <div class="price">Starting at $50,000</div>
+        <p>Transform your entire home with our comprehensive renovation services, from initial design concepts to final construction completion.</p>
+        <ul class="service-features">
+          <li>Full home design consultation</li>
+          <li>3D renderings and floor plans</li>
+          <li>Material selection and sourcing</li>
+          <li>Project management</li>
+          <li>Quality assurance</li>
+        </ul>
+        <a href="../../contact/get-quote.html" class="btn">Get Quote</a>
+      </div>
+
+      <div class="service-card">
+        <h3>Kitchen Remodeling</h3>
+        <div class="price">Starting at $25,000</div>
+        <p>Create the heart of your home with custom kitchen designs that seamlessly blend functionality, aesthetics, and modern convenience.</p>
+        <ul class="service-features">
+          <li>Custom cabinet design</li>
+          <li>Countertop selection</li>
+          <li>Appliance integration</li>
+          <li>Lighting design</li>
+          <li>Storage optimization</li>
+        </ul>
+        <a href="../../contact/get-quote.html" class="btn">Get Quote</a>
+      </div>
+
+      <div class="service-card">
+        <h3>Bathroom Remodeling</h3>
+        <div class="price">Starting at $15,000</div>
+        <p>Luxury bathroom renovations that transform your space into a personal spa retreat with premium finishes and fixtures.</p>
+        <ul class="service-features">
+          <li>Luxury fixtures and fittings</li>
+          <li>Custom vanity design</li>
+          <li>Tile and stone selection</li>
+          <li>Plumbing and electrical</li>
+          <li>Storage solutions</li>
+        </ul>
+        <a href="../../contact/get-quote.html" class="btn">Get Quote</a>
+      </div>
+
+      <div class="service-card">
+        <h3>Home Additions</h3>
+        <div class="price">Starting at $75,000</div>
+        <p>Expand your living space with seamlessly integrated additions that respect your home's architectural integrity.</p>
+        <ul class="service-features">
+          <li>Architectural planning</li>
+          <li>Permit assistance</li>
+          <li>Structural engineering</li>
+          <li>Seamless integration</li>
+          <li>Quality construction</li>
+        </ul>
+        <a href="../../contact/get-quote.html" class="btn">Get Quote</a>
+      </div>
+
+      <div class="service-card">
+        <h3>Custom Homes</h3>
+        <div class="price">Starting at $200,000</div>
+        <p>Build your dream home from the ground up with our comprehensive custom home construction and design services.</p>
+        <ul class="service-features">
+          <li>Custom home design</li>
+          <li>Site planning</li>
+          <li>Construction management</li>
+          <li>Interior design</li>
+          <li>Landscaping coordination</li>
+        </ul>
+        <a href="../../contact/get-quote.html" class="btn">Get Quote</a>
+      </div>
+
+      <div class="service-card">
+        <h3>Durango, CO Projects</h3>
+        <div class="price">Starting at $30,000</div>
+        <p>Specialized renovation services for luxury mountain homes and vacation properties in the Colorado region.</p>
+        <ul class="service-features">
+          <li>Mountain home expertise</li>
+          <li>Weather-resistant materials</li>
+          <li>Energy efficiency</li>
+          <li>Local contractor network</li>
+          <li>Vacation rental optimization</li>
+        </ul>
+        <a href="../../contact/get-quote.html" class="btn">Get Quote</a>
+      </div>
+    </div>
+
+    <!-- Process Section -->
+    <div class="process-section">
+      <h2 style="color: var(--color-heading); text-align: center; margin-bottom: 20px;">Our Design Process</h2>
+      <p style="color: var(--color-body); text-align: center; margin-bottom: 40px;">We follow a proven process to ensure your project exceeds expectations</p>
+      
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <h3>Consultation</h3>
+          <p>We start with a comprehensive consultation to understand your vision, needs, and budget.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <h3>Design</h3>
+          <p>Our team creates detailed designs, 3D renderings, and material selections for your approval.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <h3>Planning</h3>
+          <p>We handle all permits, contractor coordination, and project scheduling.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <h3>Construction</h3>
+          <p>Our experienced team manages the construction process with regular updates and quality control.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-number">5</div>
+          <h3>Completion</h3>
+          <p>Final walkthrough, cleanup, and handover of your beautifully transformed space.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div style="text-align: center; margin-top: 60px;">
+      <h2 style="color: var(--color-heading); margin-bottom: 24px;">Ready to Start Your Project?</h2>
+      <p style="color: var(--color-body); margin-bottom: 30px;">Contact us today for a free consultation and quote.</p>
+      <div>
+        <a href="../../contact/get-quote.html" class="btn">Get a Quote</a>
+        <a href="../portfolio/residential-projects.html" class="btn secondary">View Our Work</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

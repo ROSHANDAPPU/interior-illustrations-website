@@ -96,18 +96,39 @@
     .nav {
       position: fixed; top: 0; left: 0; right: 0; height: 80px;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; z-index: 30; mix-blend-mode: difference;
-      backdrop-filter: blur(10px);
+      padding: 0 40px; z-index: 30;
+      background: #0B0E14; /* Deep Navy background */
     }
     .nav a, .nav .brand { 
-      color: var(--color-heading); text-decoration: none; font-weight: 700; 
-      letter-spacing: 0.05em; font-size: 16px;
-      transition: color 0.3s;
+      color: #E7EAEE; /* Off-white color for consistency */
+      text-decoration: none; 
+      font-weight: 500; 
+      letter-spacing: 0.02em; 
+      font-size: 16px;
+      transition: color 0.3s ease;
     }
-    .nav .brand { font-size: 24px; letter-spacing: 0.1em; color: var(--color-action); }
-    .nav .links a:hover { color: var(--color-accent); opacity: 1; }
-    .nav .links { display: flex; gap: 32px; }
-    .nav .links a:hover { opacity: 0.7; transition: opacity 0.3s ease; }
+    .nav .brand { 
+      font-size: 24px; 
+      letter-spacing: 0.1em; 
+      color: #1D4ED8; /* Cobalt color for brand */
+    }
+    .nav .links { 
+      display: flex; 
+      gap: 32px; 
+    }
+    .nav .links a { 
+      color: #E7EAEE; /* Off-white default */
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+    .nav .links a:hover { 
+      color: #93C5FD; /* Azure hover color */
+      text-decoration: underline;
+      text-decoration-color: #93C5FD;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 2px;
+    }
 
     /* Hero */
     .hero {
@@ -193,26 +214,105 @@
       position: absolute; bottom: 10vh; left: 8%;
       z-index: 12; display: flex; gap: 16px; flex-wrap: wrap;
     }
+    /* Primary CTA Button */
     .btn {
-      background: var(--color-action); color: var(--color-heading); 
-      border: 2px solid var(--color-action);
-      padding: 16px 28px; border-radius: 0px; text-decoration: none; 
-      backdrop-filter: blur(8px);
+      background: #1D4ED8; /* Cobalt background */
+      color: #E7EAEE; /* Off-white text */
+      border: none;
+      padding: 12px 24px; /* 12px vertical, 24px horizontal */
+      border-radius: 8px;
+      text-decoration: none;
       transition: all 300ms ease;
-      font-weight: 600; font-size: 16px; letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      line-height: 1.0;
+      text-transform: none; /* Sentence case */
+      min-height: 44px; /* Touch target */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px; /* Icon gap */
+      cursor: pointer;
     }
-    .btn:hover { 
-      background: var(--color-accent); 
-      border-color: var(--color-accent);
-      color: var(--color-bg-primary);
-      transform: translateY(-2px);
+    
+    /* Primary Button Hover State */
+    .btn:hover {
+      background: #1E40AF; /* Cobalt darken ~8% */
+      color: #E7EAEE;
     }
-    .btn.primary {
-      background: var(--color-heading); color: var(--color-action); border-color: var(--color-heading);
+    
+    /* Primary Button Active State */
+    .btn:active {
+      background: #1E3A8A; /* Cobalt darken ~12% */
+      color: #E7EAEE;
     }
-    .btn.primary:hover {
-      background: var(--color-light); color: var(--color-action); border-color: var(--color-accent); transform: translateY(-2px);
+    
+    /* Primary Button Focus State */
+    .btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #93C5FD; /* 2px Azure ring */
+      box-shadow: 0 0 0 2px #93C5FD, 0 0 0 5px rgba(147, 197, 253, 0.2); /* +2-3px offset */
+    }
+    
+    /* Primary Button Disabled State */
+    .btn:disabled {
+      background: rgba(29, 78, 216, 0.45); /* Cobalt @ ~45% opacity */
+      color: rgba(163, 170, 180, 0.7); /* Slate @ ~70% */
+      cursor: not-allowed;
+    }
+    
+    /* Secondary Ghost Button */
+    .btn.secondary {
+      background: transparent;
+      color: #93C5FD; /* Azure text */
+      border: 2px solid #93C5FD; /* Azure border */
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 300ms ease;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      line-height: 1.0;
+      text-transform: none;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    
+    /* Secondary Button Hover State */
+    .btn.secondary:hover {
+      background: #0B0E14; /* Deep Navy fill */
+      color: #93C5FD;
+      border-color: #93C5FD;
+      text-decoration: underline;
+      text-decoration-color: #93C5FD;
+      text-underline-offset: 4px;
+    }
+    
+    /* Secondary Button Active State */
+    .btn.secondary:active {
+      background: #0B0E14;
+      color: #7DD3FC; /* Azure reduce ~10% luminance */
+      border-color: #7DD3FC;
+    }
+    
+    /* Secondary Button Focus State */
+    .btn.secondary:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #93C5FD; /* 2px Azure ring */
+    }
+    
+    /* Secondary Button Disabled State */
+    .btn.secondary:disabled {
+      background: transparent;
+      color: rgba(147, 197, 253, 0.45);
+      border-color: rgba(147, 197, 253, 0.45);
+      cursor: not-allowed;
     }
 
     /* Services Section */
@@ -333,15 +433,6 @@
     }
     .contact-form input:focus, .contact-form textarea:focus {
       outline: none; border-color: var(--color-action);
-    }
-    .contact-form button {
-      background: var(--color-action); color: var(--color-heading); border: none;
-      padding: 20px 40px; font-size: 16px; font-weight: 600;
-      cursor: pointer; transition: all 0.3s ease;
-      text-transform: uppercase; letter-spacing: 0.1em;
-    }
-    .contact-form button:hover {
-      background: var(--color-accent); color: var(--color-bg-primary); transform: translateY(-2px);
     }
 
     /* Reveal on scroll */
@@ -561,7 +652,7 @@
 
   <!-- Header -->
   <header class="nav">
-    <div class="brand"><img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:drop-shadow(0 2px 8px #0008);" /></div>
+    <div class="brand"><img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" /></div>
     <nav class="links">
       <a href="#work">Portfolio</a>
       <a href="#services">Services</a>
@@ -631,8 +722,8 @@
 
     <!-- Calls to action -->
     <div class="cta">
-      <a class="btn primary" href="#work">View Portfolio</a>
-      <a class="btn" href="#contact">Start Your Project</a>
+      <a class="btn" href="#work">View Portfolio</a>
+      <a class="btn secondary" href="#contact">Start Your Project</a>
     </div>
   </section>
 
@@ -723,7 +814,7 @@
         <input type="email" placeholder="Email Address" required>
         <input type="tel" placeholder="Phone Number">
         <textarea rows="5" placeholder="Tell us about your project..." required></textarea>
-        <button type="submit">Get Started</button>
+        <button type="submit" class="btn">Get Started</button>
       </form>
     </div>
   </section>

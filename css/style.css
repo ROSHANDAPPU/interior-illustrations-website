@@ -1,0 +1,177 @@
+/* Brand Color Variables */
+:root {
+  --color-bg-primary: #0B0E14; /* Deep Navy */
+  --color-action: #1D4ED8;    /* Cobalt */
+  --color-accent: #93C5FD;    /* Azure */
+  --color-heading: #E7EAEE;   /* Off-white */
+  --color-body: #A3AAB4;      /* Slate */
+  --color-light: #FAF7F2;     /* Ivory */
+}
+
+/* Base Button Styles */
+.btn, .btn-primary, .btn-secondary {
+  /* Typography */
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.0;
+  text-transform: none; /* Sentence case */
+  text-decoration: none;
+  font-family: 'Satoshi', sans-serif;
+  
+  /* Layout */
+  padding: 12px 24px; /* 12px vertical, 20-24px horizontal */
+  min-height: 44px; /* Touch target */
+  border-radius: 8px;
+  border: none;
+  
+  /* Display */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Icon gap */
+  cursor: pointer;
+  box-sizing: border-box;
+  
+  /* Transitions */
+  transition: all 300ms ease;
+}
+
+/* Primary Button (CTA) - Cobalt */
+.btn, .btn-primary {
+  /* Colors - Default */
+  background: var(--color-action); /* Cobalt */
+  color: var(--color-heading); /* Off-white */
+}
+
+/* Primary Button Hover State */
+.btn:hover, .btn-primary:hover {
+  background: #1E40AF; /* Cobalt darken ~8% */
+  color: var(--color-heading);
+}
+
+/* Primary Button Active State */
+.btn:active, .btn-primary:active {
+  background: #1E3A8A; /* Cobalt darken ~12% */
+  color: var(--color-heading);
+}
+
+/* Primary Button Focus State */
+.btn:focus, .btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-accent), 0 0 0 5px rgba(147, 197, 253, 0.2); /* 2px Azure ring + 2-3px offset */
+}
+
+/* Primary Button Disabled State */
+.btn:disabled, .btn-primary:disabled {
+  background: rgba(29, 78, 216, 0.45); /* Cobalt @ 45% opacity */
+  color: rgba(163, 170, 180, 0.7); /* Slate @ 70% opacity */
+  cursor: not-allowed;
+}
+
+/* Secondary (Ghost Button) - Azure */
+.btn-secondary {
+  background: transparent;
+  color: var(--color-accent); /* Azure text */
+  border: 2px solid var(--color-accent); /* 2px Azure border */
+}
+
+/* Secondary Button Hover State */
+.btn-secondary:hover {
+  background: var(--color-bg-primary); /* Deep Navy fill */
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 4px;
+}
+
+/* Secondary Button Active State */
+.btn-secondary:active {
+  background: var(--color-bg-primary);
+  color: #7DD3FC; /* Azure reduced ~10% luminance */
+  border-color: #7DD3FC;
+}
+
+/* Secondary Button Focus State */
+.btn-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-accent); /* 2px Azure ring */
+}
+
+/* Secondary Button Disabled State */
+.btn-secondary:disabled {
+  background: transparent;
+  color: rgba(147, 197, 253, 0.45);
+  border-color: rgba(147, 197, 253, 0.45);
+  cursor: not-allowed;
+}
+
+/* Legacy Support - .btn.secondary class */
+.btn.secondary {
+  background: transparent;
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+}
+
+.btn.secondary:hover {
+  background: var(--color-bg-primary);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 4px;
+}
+
+.btn.secondary:active {
+  background: var(--color-bg-primary);
+  color: #7DD3FC;
+  border-color: #7DD3FC;
+}
+
+.btn.secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.btn.secondary:disabled {
+  background: transparent;
+  color: rgba(147, 197, 253, 0.45);
+  border-color: rgba(147, 197, 253, 0.45);
+  cursor: not-allowed;
+}
+
+/* Button Size Variants */
+.btn-small, .btn.small {
+  font-size: 14px;
+  padding: 8px 16px;
+  min-height: 36px;
+}
+
+.btn-large, .btn.large {
+  font-size: 16px;
+  padding: 14px 28px;
+  min-height: 48px;
+}
+
+/* Icon Support */
+.btn .icon, .btn-primary .icon, .btn-secondary .icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.btn-large .icon, .btn.large .icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Text Color Utilities */
+.text-azure {
+  color: var(--color-accent) !important; /* #93C5FD */
+}
+
+/* Section subtitle with Azure color override */
+.section-subtitle.text-azure {
+  color: var(--color-accent); /* #93C5FD */
+}

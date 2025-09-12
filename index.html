@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interior Illustrations - Luxury Interior Design</title>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="css/style.css">
   <!-- jQuery (required for WarpDrive) -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <!-- WarpDrive plugin -->
@@ -176,8 +178,8 @@
 
     /* Luxury taglines */
     .taglines {
-      position: absolute; inset: 0; z-index: 10; display: grid; place-items: center;
-      padding: 0 40px; text-align: left; justify-items: start; padding-left: 8%;
+      position: absolute; top: 6cm; left: 1.5cm; z-index: 10; 
+      text-align: left; width: auto; height: auto;
     }
     .tagline {
       position: absolute;
@@ -190,28 +192,11 @@
     }
     .tagline.active { opacity: 1; transform: translateX(0); }
     
-    .subtitle {
-      position: absolute; top: 65%; left: 8%;
-      opacity: 0; transform: translateX(-20px);
-      transition: opacity 600ms ease 0.3s, transform 600ms ease 0.3s;
-      color: var(--color-accent); font-size: clamp(20px, 3vw, 32px); 
-      font-weight: 400; letter-spacing: 0.05em;
-      max-width: 500px; z-index: 10;
-    }
-    .subtitle.active { opacity: 1; transform: translateX(0); }
 
-    .description {
-      position: absolute; top: 70%; left: 8%;
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 600ms ease 0.6s, transform 600ms ease 0.6s;
-      color: var(--color-body); font-size: clamp(16px, 2vw, 20px); 
-      font-weight: 300; line-height: 1.6; max-width: 480px; z-index: 10;
-    }
-    .description.active { opacity: 1; transform: translateY(0); }
 
     /* Call to action */
     .cta {
-      position: absolute; bottom: 10vh; left: 8%;
+      position: absolute; bottom: 10vh; right: 8%;
       z-index: 12; display: flex; gap: 16px; flex-wrap: wrap;
     }
     /* Primary CTA Button */
@@ -447,21 +432,20 @@
       position: fixed;
       width: 20px;
       height: 20px;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(147, 197, 253, 0.6); /* Azure - more transparent */
+      border: 2px solid rgba(147, 197, 253, 0.9); /* Azure border */
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
       transition: all 0.05s ease;
-      mix-blend-mode: difference;
-      backdrop-filter: blur(2px);
     }
 
     .cursor-follower {
       position: fixed;
       width: 40px;
       height: 40px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: rgba(147, 197, 253, 0.1); /* Azure */
+      border: 2px solid rgba(147, 197, 253, 0.3); /* Azure */
       border-radius: 50%;
       pointer-events: none;
       z-index: 9998;
@@ -472,26 +456,43 @@
     /* Cursor hover states */
     body.cursor-hover .cursor {
       transform: scale(1.5);
-      background: rgba(255, 255, 255, 1);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      background: rgba(147, 197, 253, 0.3); /* Azure - very transparent */
+      border: 2px solid rgba(147, 197, 253, 1); /* Solid Azure border */
+      box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4); /* Bright glow */
+      animation: cursorShine 0.6s ease-out;
     }
 
     body.cursor-hover .cursor-follower {
       transform: translate(-50%, -50%) scale(1.5);
-      border-color: rgba(255, 255, 255, 0.6);
-      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(147, 197, 253, 0.6); /* Azure */
+      background: rgba(147, 197, 253, 0.05); /* Azure */
+      box-shadow: 0 0 25px rgba(147, 197, 253, 0.3); /* Outer glow */
+    }
+
+    /* Cursor shine animation */
+    @keyframes cursorShine {
+      0% {
+        box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(147, 197, 253, 1), 0 0 50px rgba(147, 197, 253, 0.6), 0 0 75px rgba(147, 197, 253, 0.3);
+      }
+      100% {
+        box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4);
+      }
     }
 
     /* Hide cursor on dark sections */
     .hero .cursor,
     .about .cursor {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(147, 197, 253, 0.4); /* Azure - transparent */
+      border: 2px solid rgba(147, 197, 253, 0.8); /* Azure border */
     }
 
     .hero .cursor-follower,
     .about .cursor-follower {
-      border-color: rgba(255, 255, 255, 0.4);
-      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(147, 197, 253, 0.4); /* Azure */
+      background: rgba(147, 197, 253, 0.1); /* Azure */
     }
 
     /* Special cursor for clickable elements */
@@ -509,7 +510,8 @@
     /* Text cursor effect */
     body.cursor-text .cursor {
       transform: scaleX(0.3) scaleY(1.5);
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(147, 197, 253, 0.4); /* Azure - transparent */
+      border: 1px solid rgba(147, 197, 253, 0.9); /* Azure border */
       border-radius: 2px;
     }
 
@@ -520,12 +522,13 @@
     /* Gallery hover effect */
     body.cursor-view .cursor {
       transform: scale(2);
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(147, 197, 253, 0.2); /* Azure - very transparent */
+      border: 2px solid rgba(147, 197, 253, 0.8); /* Azure border */
     }
 
     body.cursor-view .cursor-follower {
       transform: translate(-50%, -50%) scale(2.5);
-      border-color: rgba(255, 255, 255, 0.6);
+      border-color: rgba(147, 197, 253, 0.6); /* Azure */
     }
 
     body.cursor-view .cursor::after {
@@ -633,10 +636,8 @@
       
       .nav { padding: 0 20px; height: 70px; }
       .nav .links { gap: 20px; font-size: 14px; }
-      .taglines { padding-left: 5%; }
-      .subtitle { left: 5%; }
-      .description { left: 5%; }
-      .cta { left: 5%; }
+      .taglines { top: 4cm; left: 1cm; }
+      .cta { right: 5%; }
       .section { padding: 80px 20px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .services-grid { grid-template-columns: 1fr; }
@@ -716,9 +717,6 @@
       <h1 class="tagline">DESIGNING<br>LIFE'S<br>CANVAS</h1>
     </div>
 
-    <!-- Dynamic subtitles -->
-    <div class="subtitle active">Luxury Interior Design</div>
-    <div class="description active">At Interior Illustrations, we transform spaces into living art, creating environments that inspire, comfort, and reflect your unique story.</div>
 
     <!-- Calls to action -->
     <div class="cta">
@@ -730,7 +728,7 @@
   <!-- SERVICES SECTION -->
   <section id="services" class="section">
     <div class="section-header reveal">
-      <p class="section-subtitle">SERVICES</p>
+      <p class="section-subtitle text-azure">SERVICES</p>
       <h2 class="section-title">What We Offer</h2>
     </div>
     
@@ -969,8 +967,6 @@
     function updateSlide() {
       // Remove active classes from current tagline
       taglines[tagIndex].classList.remove("active");
-      document.querySelector(".subtitle").classList.remove("active");
-      document.querySelector(".description").classList.remove("active");
       
       // Update indices
       tagIndex = (tagIndex + 1) % taglines.length;
@@ -982,10 +978,6 @@
       // Add active classes and update content after slide transition
       setTimeout(() => {
         taglines[tagIndex].classList.add("active");
-        document.querySelector(".subtitle").textContent = subtitles[tagIndex];
-        document.querySelector(".description").textContent = descriptions[tagIndex];
-        document.querySelector(".subtitle").classList.add("active");
-        document.querySelector(".description").classList.add("active");
       }, 600); // Slightly longer delay to match slide transition
     }
 

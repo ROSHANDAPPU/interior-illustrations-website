@@ -363,6 +363,47 @@
       display: grid; gap: 40px; 
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
+
+    /* Scroll Animation Styles */
+    .service-card {
+      opacity: 0;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Slide from left for odd cards */
+    .service-card:nth-child(odd) {
+      transform: translateX(-80px);
+    }
+
+    /* Slide from right for even cards */
+    .service-card:nth-child(even) {
+      transform: translateX(80px);
+    }
+
+    .service-card.animate {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Staggered animation delays for flowing effect */
+    .service-card:nth-child(1) { transition-delay: 0.1s; }
+    .service-card:nth-child(2) { transition-delay: 0.2s; }
+    .service-card:nth-child(3) { transition-delay: 0.3s; }
+    .service-card:nth-child(4) { transition-delay: 0.4s; }
+    .service-card:nth-child(5) { transition-delay: 0.5s; }
+    .service-card:nth-child(6) { transition-delay: 0.6s; }
+
+    /* Section header animation */
+    .section-header {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .section-header.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
     .service-card {
       padding: 24px !important; 
       background: #0D111B !important; /* Panel variant - slightly lighter than Deep Navy */
@@ -1241,6 +1282,25 @@
     document.addEventListener('mouseenter', () => {
       cursor.style.opacity = '1';
       cursorFollower.style.opacity = '1';
+    });
+
+    // Scroll Animation Observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all service cards and section headers
+    document.querySelectorAll('.service-card, .section-header').forEach(el => {
+      observer.observe(el);
     });
 
     /* Synchronized taglines and background slides */

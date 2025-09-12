@@ -142,6 +142,63 @@
       pointer-events: none; z-index: 5;
     }
 
+    /* Hero Logo Container */
+    .hero-logo-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      text-align: center;
+    }
+
+    /* Hero Logo Styling */
+    .hero-logo {
+      max-width: 900px;
+      width: 95vw;
+      height: auto;
+      opacity: 0;
+      transform: scale(0.3) translateY(0);
+      animation: heroLogoZoomIn 2.0s ease-out 0.3s forwards;
+    }
+
+    /* Hero Logo Zoom-In Entrance Animation */
+    @keyframes heroLogoZoomIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(0);
+      }
+      70% {
+        opacity: 1;
+        transform: scale(1.05) translateY(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* Hero Logo Hover Effect */
+    .hero-logo:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+
+    /* Responsive Logo Sizing */
+    @media (max-width: 768px) {
+      .hero-logo {
+        max-width: 750px;
+        width: 98vw;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-logo {
+        max-width: 650px;
+        width: 98vw;
+      }
+    }
+
     /* Cinematic track - luxury home images with synchronized transitions */
     .track {
       position: absolute; inset: 0; display: flex; height: 100%;
@@ -671,9 +728,9 @@
     </video>
   <div class="intro-overlay-bg" id="warpdrive-bg"></div>
     <div class="intro-content">
-  <img src="assets/images/01-02_logo_mark/PNGs/cobalt.no-background (1).png" alt="Cobalt Logo" style="max-width:220px;width:40vw;height:auto;margin-bottom:24px;display:block;margin-left:auto;margin-right:auto;" />
-  <div class="intro-title">INTERIOR ILLUSIONS</div>
-  <p class="intro-subtitle">Crafting Exceptional Spaces</p>
+      <div class="hero-logo-container">
+        <img src="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png" alt="Interior Illusions Logo" class="hero-logo" />
+      </div>
     </div>
   </div>
 

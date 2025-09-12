@@ -8,6 +8,23 @@
   --color-light: #FAF7F2;     /* Ivory */
 }
 
+/* Global Background - Deep Navy for all pages */
+body, html {
+  background-color: var(--color-bg-primary); /* Deep Navy */
+  color: var(--color-heading); /* Off-white text */
+  font-family: 'Satoshi', sans-serif;
+}
+
+/* Page sections with Deep Navy background */
+.section, .gallery, .contact, .services, .portfolio {
+  background-color: var(--color-bg-primary); /* Deep Navy */
+}
+
+/* About page exception - will be updated based on user preference */
+.about {
+  background-color: var(--color-bg-primary); /* Temporary - awaiting user confirmation */
+}
+
 /* Base Button Styles */
 .btn, .btn-primary, .btn-secondary {
   /* Typography */
@@ -164,6 +181,14 @@
 .btn-large .icon, .btn.large .icon {
   width: 20px;
   height: 20px;
+}
+
+/* Small Button Variant */
+.btn-small, .btn.small {
+  font-size: 13px;
+  padding: 8px 16px;
+  min-height: 36px;
+  border-radius: 6px;
 }
 
 /* Text Color Utilities */

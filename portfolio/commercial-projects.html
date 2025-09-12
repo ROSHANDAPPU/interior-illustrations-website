@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Commercial Projects - Interior Illusions LLC</title>
+  <meta name="description" content="Explore our commercial interior design projects and office space transformations.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../assets/images/05_Typography/Satoshi_Complete/Fonts/WEB/css/satoshi.css">
+  
+  <style>
+    :root {
+      --color-bg-primary: #0B0E14; /* Deep Navy */
+      --color-action: #1D4ED8;    /* Cobalt */
+      --color-accent: #93C5FD;    /* Azure */
+      --color-heading: #E7EAEE;   /* Off-white */
+      --color-body: #A3AAB4;      /* Slate */
+      --color-light: #FAF7F2;     /* Ivory */
+    }
+
+    body, html {
+      font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+      color: var(--color-body);
+      background: var(--color-light); /* White Ivory #FAF7F2 */
+      height: 100%;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; z-index: 30;
+      background: #0B0E14; /* Deep Navy background */
+    }
+    .nav a, .nav .brand { 
+      color: #E7EAEE; /* Off-white color for consistency */
+      text-decoration: none; 
+      font-weight: 500; 
+      letter-spacing: 0.02em; 
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    .nav .brand { 
+      font-size: 24px; 
+      letter-spacing: 0.1em; 
+      color: #1D4ED8; /* Cobalt color for brand */
+    }
+    .nav .links { 
+      display: flex; 
+      gap: 32px; 
+    }
+    .nav a:hover { 
+      color: #93C5FD; /* Azure on hover */
+    }
+    .logo { 
+      height: 40px; 
+      width: auto; 
+    }
+
+    /* Main content */
+    .main {
+      padding-top: 120px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .page-title {
+      font-size: 48px;
+      font-weight: 600;
+      color: var(--color-bg-primary);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .page-subtitle {
+      font-size: 20px;
+      color: var(--color-bg-primary);
+      opacity: 0.8;
+    }
+
+    /* Portfolio grid */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-bottom: 80px;
+    }
+
+    .project-card {
+      background: #F5F2ED;
+      border: 1px solid #E5E7EB;
+      border-radius: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      background: #EFEAE5;
+      border: 2px solid var(--color-accent);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 250px;
+      background: #E5E7EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-bg-primary);
+      font-size: 18px;
+    }
+
+    .project-content {
+      padding: 24px;
+    }
+
+    .project-eyebrow {
+      color: var(--color-accent);
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      margin-bottom: 8px;
+    }
+
+    .project-title {
+      color: var(--color-bg-primary);
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .project-description {
+      color: var(--color-bg-primary);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .project-link {
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .project-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+      
+      .page-title {
+        font-size: 36px;
+      }
+      
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      
+      .nav {
+        padding: 0 20px;
+      }
+      
+      .nav .links {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body class="portfolio">
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="brand">
+      <a href="../index.html">
+        <img src="../assets/images/01-02_logo_mark/PNGs/deepnav.no-background.png" alt="Interior Illusions" class="logo">
+      </a>
+    </div>
+    <div class="links">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../services/interior-design.html">Services</a>
+      <a href="../portfolio/residential-projects.html">Portfolio</a>
+      <a href="../contact/get-quote.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="container">
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1 class="page-title">Commercial Projects</h1>
+        <p class="page-subtitle">Transforming workspaces into inspiring environments</p>
+      </header>
+
+      <!-- Portfolio Grid -->
+      <div class="portfolio-grid">
+        <article class="project-card">
+          <div class="project-image">
+            Project Image Placeholder
+          </div>
+          <div class="project-content">
+            <div class="project-eyebrow">Office Design</div>
+            <h2 class="project-title">Modern Tech Headquarters</h2>
+            <p class="project-description">Complete office transformation featuring open collaboration spaces, private meeting rooms, and innovative workspace solutions.</p>
+            <a href="#" class="project-link">View Project →</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image">
+            Project Image Placeholder
+          </div>
+          <div class="project-content">
+            <div class="project-eyebrow">Retail Space</div>
+            <h2 class="project-title">Luxury Boutique Store</h2>
+            <p class="project-description">Sophisticated retail environment designed to enhance customer experience and showcase premium products.</p>
+            <a href="#" class="project-link">View Project →</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image">
+            Project Image Placeholder
+          </div>
+          <div class="project-content">
+            <div class="project-eyebrow">Restaurant</div>
+            <h2 class="project-title">Fine Dining Experience</h2>
+            <p class="project-description">Elegant restaurant interior combining comfort and sophistication to create memorable dining experiences.</p>
+            <a href="#" class="project-link">View Project →</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image">
+            Project Image Placeholder
+          </div>
+          <div class="project-content">
+            <div class="project-eyebrow">Healthcare</div>
+            <h2 class="project-title">Medical Center Renovation</h2>
+            <p class="project-description">Calming and functional healthcare environment designed for patient comfort and operational efficiency.</p>
+            <a href="#" class="project-link">View Project →</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image">
+            Project Image Placeholder
+          </div>
+          <div class="project-content">
+            <div class="project-eyebrow">Hospitality</div>
+            <h2 class="project-title">Boutique Hotel Lobby</h2>
+            <p class="project-description">Welcoming hotel lobby design that reflects local culture while providing modern luxury amenities.</p>
+            <a href="#" class="project-link">View Project →</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-image">
+            Project Image Placeholder
+          </div>
+          <div class="project-content">
+            <div class="project-eyebrow">Co-working</div>
+            <h2 class="project-title">Creative Workspace Hub</h2>
+            <p class="project-description">Dynamic co-working space featuring flexible layouts, creative zones, and collaborative meeting areas.</p>
+            <a href="#" class="project-link">View Project →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

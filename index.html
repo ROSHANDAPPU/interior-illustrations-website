@@ -45,42 +45,12 @@
     }
 
     /* Typography Hierarchy */
-    h1, .h1 {
-      font-size: clamp(40px, 6vw, 48px);
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      color: var(--color-heading);
-      margin: 0 0 0.5em 0;
-      line-height: 1.1;
-    }
-    h2, .h2 {
-      font-size: clamp(28px, 4vw, 32px);
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      color: var(--color-heading);
-      margin: 0 0 0.5em 0;
-      line-height: 1.15;
-    }
-    h3, .h3, label, .label {
-      font-size: clamp(12px, 2vw, 14px);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--color-accent);
-      margin: 0 0 0.5em 0;
-    }
-    body, .body, p, li, input, textarea, button {
-      font-size: clamp(16px, 2vw, 18px);
-      font-weight: 400;
-      color: var(--color-body);
-      line-height: 1.7;
-    }
-    .caption, small, .small {
-      font-size: clamp(12px, 2vw, 13px);
-      font-weight: 500;
-      color: var(--color-body);
-      opacity: 0.85;
-    }
+    h1 { font-size: clamp(32px, 6vw, 72px); font-weight: 700; line-height: 1.1; letter-spacing: 0.02em; }
+    h2 { font-size: clamp(24px, 4vw, 48px); font-weight: 700; line-height: 1.2; letter-spacing: 0.02em; }
+    h3 { font-size: clamp(18px, 3vw, 32px); font-weight: 600; line-height: 1.3; letter-spacing: 0.10em; }
+    p { font-size: 16px; line-height: 1.6; }
+    .subtitle { font-size: 18px; opacity: 0.8; }
+
     :root {
       --color-bg-primary: #0B0E14; /* Deep Navy */
       --color-action: #1D4ED8;    /* Cobalt */
@@ -91,7 +61,7 @@
     }
     /* Reset and base */
     * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; font-family: 'Montserrat', system-ui, Arial, sans-serif; }
+    html, body { height: 100%; margin: 0; font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif; }
     body { color: var(--color-body); background: var(--color-bg-primary); }
 
     /* Header */
@@ -365,13 +335,21 @@
       text-align: left; margin-bottom: 80px;
     }
     .section-subtitle {
-      font-size: 14px; letter-spacing: 4px; color: #999; 
-      text-transform: uppercase; margin-bottom: 16px; font-weight: 500;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      margin-bottom: 8px;
+      text-align: center;
     }
     .section-title {
-      font-size: clamp(36px, 6vw, 72px); font-weight: 900; 
-      color: var(--color-heading); margin-bottom: 24px; letter-spacing: -0.02em;
-      line-height: 1.1;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 700;
+      color: var(--color-heading);
+      margin-bottom: 16px;
+      text-align: center;
+      letter-spacing: 0.02em;
     }
 
     .services-grid {
@@ -379,27 +357,41 @@
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
     .service-card {
-      padding: 40px; background: var(--color-light); border-radius: 0px;
-      transition: all 400ms ease; cursor: pointer;
-      border: 1px solid var(--color-bg-primary);
+      padding: 24px !important; 
+      background: #0D111B !important; /* Panel variant - slightly lighter than Deep Navy */
+      border: 1px solid rgba(163, 170, 180, 0.25) !important; /* Slate at 25% opacity */
+      border-radius: 0 !important; /* No rounded corners for editorial minimalism */
+      transition: all 0.2s ease-in-out !important; 
+      cursor: pointer;
+      box-shadow: none !important; /* No shadows */
     }
     .service-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 60px rgba(29, 78, 216, 0.25), 0 0 40px 8px rgba(147, 197, 253, 0.18);
-      background: linear-gradient(90deg, var(--color-action) 0%, var(--color-accent) 100%);
-      border-color: var(--color-action);
-      color: var(--color-heading);
+      transform: none !important; /* No transform for editorial minimalism */
+      background: #111827 !important; /* Lighter hover background */
+      border: 2px solid var(--color-accent) !important; /* 2px Azure border on hover */
+      box-shadow: none !important; /* No shadows */
     }
     .service-number {
-      font-size: 24px; font-weight: 900; color: var(--color-action); 
-      margin-bottom: 20px; letter-spacing: 0.1em;
+      font-size: 14px; font-weight: 500 !important; color: var(--color-accent) !important; 
+      margin-bottom: 8px; letter-spacing: 0.10em !important;
+      text-transform: uppercase;
     }
     .service-title {
-      font-size: 24px; font-weight: 700; margin-bottom: 16px; 
-      color: var(--color-heading); letter-spacing: -0.01em;
+      font-size: 32px !important; font-weight: 700 !important; margin-bottom: 16px; 
+      color: var(--color-heading) !important; letter-spacing: 0.02em !important;
+      line-height: 1.2 !important;
+    }
+    .service-card h3 {
+      color: var(--color-accent) !important; /* Azure */
+      font-size: 14px !important;
+      font-weight: 600 !important; /* Semi-bold for labels */
+      text-transform: uppercase !important;
+      letter-spacing: 0.10em !important; /* Increased spacing */
+      margin-bottom: 8px !important;
     }
     .service-description {
-      color: var(--color-body); line-height: 1.7; font-size: 16px;
+      color: var(--color-body) !important; line-height: 1.6; font-size: 17px !important;
+      font-weight: 400 !important; margin-bottom: 24px !important;
     }
 
     /* About Section */
@@ -494,7 +486,7 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transition: all 0.05s ease;
+      transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .cursor-follower {
@@ -506,7 +498,7 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 9998;
-      transition: all 0.08s ease;
+      transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       transform: translate(-50%, -50%);
     }
 
@@ -925,22 +917,36 @@
     let followerX = 0;
     let followerY = 0;
 
-    // Update cursor position
+    // Update cursor position with smooth interpolation
+    let cursorX = 0;
+    let cursorY = 0;
+    
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
     });
-
-    // Smooth follower animation
-    function animateFollower() {
-      followerX += (mouseX - followerX) * 0.3;
-      followerY += (mouseY - followerY) * 0.3;
+    
+    // Smooth cursor animation
+    function animateCursor() {
+      const ease = 0.2; // Smooth easing for main cursor
+      cursorX += (mouseX - cursorX) * ease;
+      cursorY += (mouseY - cursorY) * ease;
       
-      cursorFollower.style.left = followerX + 'px';
-      cursorFollower.style.top = followerY + 'px';
+      // Use transform for better performance
+      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+      
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Smooth follower animation with interpolation
+    function animateFollower() {
+      const ease = 0.15; // Smoother easing factor
+      followerX += (mouseX - followerX) * ease;
+      followerY += (mouseY - followerY) * ease;
+      
+      // Use transform for better performance
+      cursorFollower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
       
       requestAnimationFrame(animateFollower);
     }

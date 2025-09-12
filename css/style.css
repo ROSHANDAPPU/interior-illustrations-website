@@ -12,11 +12,36 @@
 body, html {
   background-color: var(--color-bg-primary); /* Deep Navy */
   color: var(--color-heading); /* Off-white text */
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
 }
 
 /* Page sections with Deep Navy background */
-.section, .gallery, .contact, .services, .portfolio {
+.section, .gallery, .contact, .services {
+  background-color: var(--color-bg-primary); /* Deep Navy */
+}
+
+/* Gallery/Portfolio section - Deep Navy background like services */
+.gallery {
+  background-color: var(--color-bg-primary) !important; /* Deep Navy */
+  color: var(--color-heading); /* Off-white text */
+}
+
+.gallery .section-subtitle {
+  color: var(--color-accent) !important; /* Azure */
+}
+
+.gallery .section-title {
+  color: var(--color-heading) !important; /* Off-white */
+  font-weight: 700 !important; /* Bold weight */
+  letter-spacing: 0.02em !important; /* Prevent character overlap */
+}
+
+.gallery .section-header {
+  color: var(--color-heading); /* Off-white */
+}
+
+/* Portfolio page with dark background like services */
+.portfolio {
   background-color: var(--color-bg-primary); /* Deep Navy */
 }
 
@@ -25,16 +50,31 @@ body, html {
   background-color: var(--color-bg-primary); /* Temporary - awaiting user confirmation */
 }
 
+/* Global Typography Fixes */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700 !important; /* Bold weight for all headings */
+  letter-spacing: 0.02em !important; /* Prevent character overlap */
+}
+
+h3, .eyebrow, .section-subtitle {
+  font-weight: 600 !important; /* Semi-bold for labels */
+  letter-spacing: 0.10em !important; /* More spacing for small text */
+}
+
+.section-title {
+  font-weight: 700 !important; /* Bold weight */
+  letter-spacing: 0.02em !important; /* Prevent overlap in titles like "What We Offer" */
+}
+
 /* Base Button Styles */
 .btn, .btn-primary, .btn-secondary {
   /* Typography */
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  font-size: 16px;
+  font-weight: 500; /* Medium weight */
   line-height: 1.0;
   text-transform: none; /* Sentence case */
   text-decoration: none;
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
   
   /* Layout */
   padding: 12px 24px; /* 12px vertical, 20-24px horizontal */
@@ -199,4 +239,134 @@ body, html {
 /* Section subtitle with Azure color override */
 .section-subtitle.text-azure {
   color: var(--color-accent); /* #93C5FD */
+}
+
+/* Editorial Minimalist Info Boxes - Dark Theme (Default) */
+.info-box, .card, .panel {
+  background: #0D111B; /* Panel variant - slightly lighter than Deep Navy */
+  border: 1px solid rgba(163, 170, 180, 0.25); /* Slate at 25% opacity */
+  border-radius: 0; /* No rounded corners for editorial feel */
+  padding: 24px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  box-shadow: none; /* No shadows for minimalist approach */
+}
+
+.info-box:hover, .card:hover, .panel:hover {
+  background: #111827; /* Lighter hover background */
+  border: 2px solid var(--color-accent); /* 2px Azure border on hover */
+  transform: none; /* No transform for editorial minimalism */
+  box-shadow: none; /* No shadows */
+}
+
+/* Portfolio Page Info Boxes - Dark Theme like Services */
+.portfolio .info-box, .portfolio .card, .portfolio .panel {
+  background: #0D111B; /* Panel variant - slightly lighter than Deep Navy */
+  border: 1px solid rgba(163, 170, 180, 0.25); /* Slate at 25% opacity */
+  color: var(--color-heading); /* Off-white text */
+}
+
+.portfolio .info-box:hover, .portfolio .card:hover, .portfolio .panel:hover {
+  background: #111827; /* Lighter hover background */
+  border: 2px solid var(--color-accent); /* Azure border on hover */
+}
+
+/* Info Box Typography - Editorial Hierarchy - Dark Theme */
+.info-box .eyebrow, .card .eyebrow, .panel .eyebrow,
+.info-box h3, .card h3, .panel h3 {
+  color: var(--color-accent); /* Azure */
+  font-size: 14px;
+  font-weight: 600; /* Semi-bold for labels */
+  text-transform: uppercase;
+  letter-spacing: 0.10em; /* Increased spacing */
+  margin-bottom: 8px;
+}
+
+.info-box .title, .card .title, .panel .title,
+.info-box h2, .card h2, .panel h2 {
+  color: var(--color-heading); /* Off-white */
+  font-size: 32px;
+  font-weight: 700; /* Bold weight */
+  letter-spacing: 0.02em; /* Increased spacing to prevent overlap */
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.info-box .body, .card .body, .panel .body,
+.info-box p, .card p, .panel p {
+  color: var(--color-body); /* Slate */
+  font-size: 17px;
+  font-weight: 400; /* Regular weight */
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* Portfolio Page Typography - Dark Theme like Services */
+.portfolio .info-box .eyebrow, .portfolio .card .eyebrow, .portfolio .panel .eyebrow,
+.portfolio .info-box h3, .portfolio .card h3, .portfolio .panel h3 {
+  color: var(--color-accent); /* Azure */
+  font-weight: 600 !important; /* Semi-bold for labels */
+  letter-spacing: 0.10em !important; /* More spacing for small text */
+}
+
+.portfolio .info-box .title, .portfolio .card .title, .portfolio .panel .title,
+.portfolio .info-box h2, .portfolio .card h2, .portfolio .panel h2 {
+  color: var(--color-heading); /* Off-white for titles */
+  font-weight: 700 !important; /* Bold weight */
+  letter-spacing: 0.02em !important; /* Prevent character overlap */
+}
+
+.portfolio .info-box .body, .portfolio .card .body, .portfolio .panel .body,
+.portfolio .info-box p, .portfolio .card p, .portfolio .panel p {
+  color: var(--color-body); /* Slate for body text */
+}
+
+/* CTA Links - Azure with underline on hover */
+.info-box .cta-link, .card .cta-link, .panel .cta-link,
+.info-box a, .card a, .panel a {
+  color: var(--color-accent); /* Azure */
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.info-box .cta-link:hover, .card .cta-link:hover, .panel .cta-link:hover,
+.info-box a:hover, .card a:hover, .panel a:hover {
+  text-decoration: underline;
+}
+
+/* Portfolio Page CTA Links - Azure on dark background */
+.portfolio .info-box .cta-link, .portfolio .card .cta-link, .portfolio .panel .cta-link,
+.portfolio .info-box a, .portfolio .card a, .portfolio .panel a {
+  color: var(--color-accent); /* Azure */
+}
+
+/* Portfolio Page Text Colors - Dark Theme */
+.portfolio {
+  color: var(--color-body); /* Slate text on dark background */
+}
+
+.portfolio h1, .portfolio h2, .portfolio h3, .portfolio h4, .portfolio h5, .portfolio h6 {
+  color: var(--color-heading); /* Off-white headings */
+}
+
+.portfolio p, .portfolio span, .portfolio div {
+  color: var(--color-body); /* Slate body text */
+}
+
+/* Service Cards - Keep existing functionality but update styling */
+.service-card {
+  background: #0D111B !important;
+  border: 1px solid rgba(163, 170, 180, 0.25) !important;
+  border-radius: 0 !important; /* Editorial minimalism */
+  padding: 24px !important;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+.service-card:hover {
+  background: #111827 !important;
+  border: 2px solid var(--color-accent) !important;
+  transform: none !important; /* No transform */
+  box-shadow: none !important; /* No shadows */
 }

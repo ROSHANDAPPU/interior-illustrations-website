@@ -63,6 +63,11 @@
       text-underline-offset: 4px;
       text-decoration-thickness: 2px;
     }
+    .nav .links a:active { 
+      background: #1D4ED8; /* Cobalt background on click */
+      color: #FAF7F2; /* Ivory text on click */
+      transform: scale(0.95);
+    }
 
     /* Page Content */
     .page-hero {
@@ -196,8 +201,13 @@
       width: 100%;
     }
     .btn:hover {
-      background: #1E40AF; /* Cobalt darken ~8% */
+      background: #1E40AF;
       color: #E7EAEE;
+    }
+    .btn:active {
+      background: #1E3A8A;
+      color: #E7EAEE;
+      transform: scale(0.95);
     }
 
     /* Contact Info */
@@ -239,14 +249,134 @@
       .nav .links a { font-size: 14px; padding: 6px 12px; }
       .page-hero { padding: 100px 20px 60px; }
       .page-content { padding: 60px 20px; }
-      .contact-form { padding: 30px; }
-      .form-row { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
       .project-types { grid-template-columns: 1fr; }
       .contact-info { grid-template-columns: 1fr; }
+    }
+
+    /* Custom Floating Cursor */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: rgba(147, 197, 253, 0.6); /* Azure - semi-transparent */
+      border: 2px solid rgba(147, 197, 253, 0.8); /* Azure border */
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .cursor-follower {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(147, 197, 253, 0.3); /* Azure */
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      background: rgba(147, 197, 253, 0.1); /* Azure */
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Cursor hover states */
+    body.cursor-hover .cursor {
+      transform: scale(1.5);
+      background: rgba(147, 197, 253, 0.3); /* Azure - very transparent */
+      border: 2px solid rgba(147, 197, 253, 1); /* Solid Azure border */
+      box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4); /* Bright glow */
+      animation: cursorShine 0.6s ease-out;
+    }
+
+    body.cursor-hover .cursor-follower {
+      transform: translate(-50%, -50%) scale(1.5);
+      border-color: rgba(147, 197, 253, 0.6); /* Azure */
+      background: rgba(147, 197, 253, 0.05); /* Azure */
+    }
+
+    /* Cursor shine animation */
+    @keyframes cursorShine {
+      0% {
+        box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(147, 197, 253, 1), 0 0 50px rgba(147, 197, 253, 0.6);
+      }
+      100% {
+        box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4);
+      }
+    }
+
+    /* Special cursor for clickable elements */
+    body.cursor-click .cursor {
+      transform: scale(0.8);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    body.cursor-click .cursor-follower {
+      transform: translate(-50%, -50%) scale(2);
+      border-color: rgba(0, 0, 0, 0.4);
+      background: transparent;
+    }
+
+    /* Text cursor effect */
+    body.cursor-text .cursor {
+      transform: scaleX(0.3) scaleY(1.5);
+      background: rgba(147, 197, 253, 0.4); /* Azure - transparent */
+      border: 1px solid rgba(147, 197, 253, 0.9); /* Azure border */
+      border-radius: 2px;
+    }
+
+    body.cursor-text .cursor-follower {
+      opacity: 0;
+    }
+
+    /* Gallery hover effect */
+    body.cursor-view .cursor {
+      transform: scale(2);
+      background: rgba(147, 197, 253, 0.2); /* Azure - very transparent */
+      border: 2px solid rgba(147, 197, 253, 0.8); /* Azure border */
+    }
+
+    body.cursor-view .cursor-follower {
+      transform: translate(-50%, -50%) scale(2.5);
+      border-color: rgba(147, 197, 253, 0.6); /* Azure */
+    }
+
+    body.cursor-view .cursor::after {
+      content: 'VIEW';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(147, 197, 253, 1); /* Azure */
+      letter-spacing: 0.5px;
+    }
+
+    /* Hide default cursor */
+    * {
+      cursor: none !important;
+    }
+
+    /* Responsive - hide custom cursor on touch devices */
+    @media (max-width: 768px) {
+      .cursor,
+      .cursor-follower {
+        display: none;
+      }
+      
+      * {
+        cursor: auto !important;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Custom Floating Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
   <!-- Header -->
   <header class="nav">
     <div class="brand">
@@ -404,6 +534,97 @@
     document.querySelector('.contact-form').addEventListener('submit', function(e) {
       e.preventDefault();
       alert('Thank you for your quote request! We will contact you within 24 hours to discuss your project.');
+    });
+  </script>
+  <script>
+    // Custom Floating Cursor
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+    let mouseX = 0;
+    let mouseY = 0;
+    let followerX = 0;
+    let followerY = 0;
+
+    // Update cursor position with smooth interpolation
+    let cursorX = 0;
+    let cursorY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    
+    // Smooth cursor animation
+    function animateCursor() {
+      const ease = 0.2; // Smooth easing for main cursor
+      cursorX += (mouseX - cursorX) * ease;
+      cursorY += (mouseY - cursorY) * ease;
+      
+      // Use transform for better performance
+      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+      
+      requestAnimationFrame(animateCursor);
+    }
+    
+    // Smooth follower animation
+    function animateFollower() {
+      const ease = 0.1; // Slower easing for follower
+      followerX += (mouseX - followerX) * ease;
+      followerY += (mouseY - followerY) * ease;
+      
+      // Use transform for better performance
+      cursorFollower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
+      
+      requestAnimationFrame(animateFollower);
+    }
+    
+    animateCursor();
+    animateFollower();
+    
+    // Interactive elements
+    const hoverElements = document.querySelectorAll('a, button, .btn, input, select, textarea');
+    const clickableElements = document.querySelectorAll('a, button, .btn');
+    const textElements = document.querySelectorAll('input, textarea, p, h1, h2, h3, h4, h5, h6');
+    
+    // Hover effects
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-hover');
+      });
+    });
+
+    // Click effects
+    clickableElements.forEach(el => {
+      el.addEventListener('mousedown', () => {
+        document.body.classList.add('cursor-click');
+      });
+      el.addEventListener('mouseup', () => {
+        document.body.classList.remove('cursor-click');
+      });
+    });
+
+    // Text cursor
+    textElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-text');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-text');
+      });
+    });
+
+    // Hide cursor when it leaves the window
+    document.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0';
+      cursorFollower.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+      cursor.style.opacity = '1';
+      cursorFollower.style.opacity = '1';
     });
   </script>
 </body>

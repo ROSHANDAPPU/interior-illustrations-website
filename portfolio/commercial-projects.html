@@ -163,21 +163,125 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      .container {
-        padding: 0 20px;
+      .nav { padding: 0 20px; height: 70px; }
+      .nav .links { gap: 20px; }
+      .nav .links a { font-size: 14px; padding: 6px 12px; }
+      .page-hero { padding: 100px 20px 60px; }
+      .page-content { padding: 60px 20px; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Custom Floating Cursor */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: rgba(147, 197, 253, 0.6); /* Azure - semi-transparent */
+      border: 2px solid rgba(147, 197, 253, 0.8); /* Azure border */
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .cursor-follower {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(147, 197, 253, 0.3); /* Azure */
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      background: rgba(147, 197, 253, 0.1); /* Azure */
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Cursor hover states */
+    body.cursor-hover .cursor {
+      transform: scale(1.5);
+      background: rgba(147, 197, 253, 0.3); /* Azure - very transparent */
+      border: 2px solid rgba(147, 197, 253, 1); /* Solid Azure border */
+      box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4); /* Bright glow */
+      animation: cursorShine 0.6s ease-out;
+    }
+
+    body.cursor-hover .cursor-follower {
+      transform: translate(-50%, -50%) scale(1.5);
+      border-color: rgba(147, 197, 253, 0.6); /* Azure */
+      background: rgba(147, 197, 253, 0.05); /* Azure */
+    }
+
+    /* Cursor shine animation */
+    @keyframes cursorShine {
+      0% {
+        box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4);
       }
-      
-      .page-title {
-        font-size: 36px;
+      50% {
+        box-shadow: 0 0 25px rgba(147, 197, 253, 1), 0 0 50px rgba(147, 197, 253, 0.6);
       }
-      
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
+      100% {
+        box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4);
       }
-      
-      .nav {
-        padding: 0 20px;
+    }
+
+    /* Special cursor for clickable elements */
+    body.cursor-click .cursor {
+      transform: scale(0.8);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    body.cursor-click .cursor-follower {
+      transform: translate(-50%, -50%) scale(2);
+      border-color: rgba(0, 0, 0, 0.4);
+      background: transparent;
+    }
+
+    /* Text cursor effect */
+    body.cursor-text .cursor {
+      transform: scaleX(0.3) scaleY(1.5);
+      background: rgba(147, 197, 253, 0.4); /* Azure - transparent */
+      border: 1px solid rgba(147, 197, 253, 0.9); /* Azure border */
+      border-radius: 2px;
+    }
+
+    body.cursor-text .cursor-follower {
+      opacity: 0;
+    }
+
+    /* Gallery hover effect */
+    body.cursor-view .cursor {
+      transform: scale(2);
+      background: rgba(147, 197, 253, 0.2); /* Azure - very transparent */
+      border: 2px solid rgba(147, 197, 253, 0.8); /* Azure border */
+    }
+
+    body.cursor-view .cursor-follower {
+      transform: translate(-50%, -50%) scale(2.5);
+      border-color: rgba(147, 197, 253, 0.6); /* Azure */
+    }
+
+    body.cursor-view .cursor::after {
+      content: 'VIEW';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(147, 197, 253, 1); /* Azure */
+      letter-spacing: 0.5px;
+    }
+
+    /* Hide default cursor */
+    * {
+      cursor: none !important;
+    }
+
+    /* Responsive - hide custom cursor on touch devices */
+    @media (max-width: 768px) {
+      .cursor,
+      .cursor-follower {
+        display: none;
       }
       
       .nav .links {
@@ -289,5 +393,107 @@
       </div>
     </div>
   </main>
+  <script>
+    // Custom Floating Cursor
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+    let mouseX = 0;
+    let mouseY = 0;
+    let followerX = 0;
+    let followerY = 0;
+
+    // Update cursor position with smooth interpolation
+    let cursorX = 0;
+    let cursorY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    
+    // Smooth cursor animation
+    function animateCursor() {
+      const ease = 0.2; // Smooth easing for main cursor
+      cursorX += (mouseX - cursorX) * ease;
+      cursorY += (mouseY - cursorY) * ease;
+      
+      // Use transform for better performance
+      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+      
+      requestAnimationFrame(animateCursor);
+    }
+    
+    // Smooth follower animation
+    function animateFollower() {
+      const ease = 0.1; // Slower easing for follower
+      followerX += (mouseX - followerX) * ease;
+      followerY += (mouseY - followerY) * ease;
+      
+      // Use transform for better performance
+      cursorFollower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
+      
+      requestAnimationFrame(animateFollower);
+    }
+    
+    animateCursor();
+    animateFollower();
+    
+    // Interactive elements
+    const hoverElements = document.querySelectorAll('a, button, .btn, .project-card');
+    const clickableElements = document.querySelectorAll('a, button, .btn');
+    const textElements = document.querySelectorAll('input, textarea, p, h1, h2, h3, h4, h5, h6');
+    const viewElements = document.querySelectorAll('.project-card img');
+    
+    // Hover effects
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-hover');
+      });
+    });
+
+    // Click effects
+    clickableElements.forEach(el => {
+      el.addEventListener('mousedown', () => {
+        document.body.classList.add('cursor-click');
+      });
+      el.addEventListener('mouseup', () => {
+        document.body.classList.remove('cursor-click');
+      });
+    });
+
+    // Text cursor
+    textElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-text');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-text');
+      });
+    });
+
+    // Gallery view effect
+    viewElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-view');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-view');
+      });
+    });
+
+    // Hide cursor when it leaves the window
+    document.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0';
+      cursorFollower.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+      cursor.style.opacity = '1';
+      cursorFollower.style.opacity = '1';
+    });
+  </script>
 </body>
 </html>

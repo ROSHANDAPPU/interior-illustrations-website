@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Kitchen Renovation - Interior Illusions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <style>
+    @font-face {
+      font-family: 'Satoshi';
+      src: url('../assets/fonts/Satoshi-Variable.woff2') format('woff2'),
+           url('../assets/fonts/Satoshi-Variable.woff') format('woff');
+      font-weight: 300 900;
+      font-display: swap;
+    }
+
+    :root {
+      --color-bg-primary: #0B0E14; /* Deep Navy */
+      --color-action: #1D4ED8;    /* Cobalt */
+      --color-accent: #93C5FD;    /* Azure */
+      --color-heading: #E7EAEE;   /* Off-white */
+      --color-body: #A3AAB4;      /* Slate */
+      --color-light: #FAF7F2;     /* Ivory */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+      background: var(--color-bg-primary);
+      color: var(--color-heading);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; z-index: 30;
+      background: rgba(11, 14, 20, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(163, 170, 180, 0.1);
+    }
+    .nav .brand img { height: 60px; width: auto; }
+    .nav .links {
+      display: flex; gap: 32px; align-items: center;
+    }
+    .nav .links a {
+      color: var(--color-body);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+    .nav .links a:hover { 
+      color: #93C5FD; /* Azure hover color */
+      text-decoration: underline;
+      text-decoration-color: #93C5FD;
+      text-underline-offset: 4px;
+      text-decoration-thickness: 2px;
+    }
+    .nav .links a:active { 
+      background: #1D4ED8; /* Cobalt background on click */
+      color: #FAF7F2; /* Ivory text on click */
+      transform: scale(0.95);
+    }
+
+    /* Project Hero */
+    .project-hero {
+      padding: 120px 40px 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .project-breadcrumb {
+      color: var(--color-body);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .project-breadcrumb a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+    .project-title {
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 900;
+      color: var(--color-heading);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+      line-height: 0.9;
+    }
+    .project-subtitle {
+      font-size: clamp(18px, 3vw, 24px);
+      color: var(--color-accent);
+      margin-bottom: 48px;
+      font-weight: 500;
+    }
+    .project-stats {
+      background: var(--color-bg-primary); /* Deep Navy */
+      border: 2px solid var(--color-light); /* Ivory border */
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .project-stats:hover {
+      background: var(--color-action); /* Cobalt */
+      border-color: var(--color-action); /* Cobalt border */
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(29, 78, 216, 0.2);
+    }
+    .project-stats:hover .stat-number,
+    .project-stats:hover .stat-label {
+      color: var(--color-light); /* Ivory text on hover */
+    }
+    .project-stats:hover .stat-separator {
+      color: var(--color-light); /* Ivory separators on hover */
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--color-action); /* Cobalt */
+    }
+    .stat-label {
+      font-size: 16px;
+      color: var(--color-action); /* Cobalt */
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      font-weight: 600;
+    }
+    .stat-separator {
+      color: var(--color-light); /* Ivory */
+      font-size: 24px;
+      font-weight: 300;
+      margin: 0 20px;
+    }
+
+    /* Featured Image */
+    .featured-image {
+      width: 100%;
+      height: 70vh;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      margin-bottom: 80px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .featured-image:hover {
+      transform: scale(1.02);
+    }
+
+    /* Project Content */
+    .project-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      margin-bottom: 80px;
+    }
+    .project-info h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--color-heading);
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+    .project-info p {
+      color: var(--color-body);
+      font-size: 18px;
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+    .project-details {
+      list-style: none;
+    }
+    .project-details li {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(163, 170, 180, 0.1);
+      color: var(--color-body);
+    }
+    .project-details li:last-child {
+      border-bottom: none;
+    }
+    .project-details .label {
+      font-weight: 600;
+      color: var(--color-heading);
+    }
+
+    /* Image Gallery */
+    .gallery-section {
+      margin-bottom: 80px;
+    }
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--color-heading);
+      margin-bottom: 48px;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 24px;
+    }
+    .gallery-item {
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(29, 78, 216, 0.2);
+    }
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(11, 14, 20, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+
+    /* Features Section */
+    .features-section {
+      margin-bottom: 80px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+    .feature-item {
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(147, 197, 253, 0.1);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .feature-icon {
+      font-size: 48px;
+      color: var(--color-accent);
+      margin-bottom: 24px;
+    }
+    .feature-item h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-heading);
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+    .feature-item p {
+      color: var(--color-body);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Testimonial Section */
+    .testimonial-section {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 80px 40px;
+      margin-bottom: 80px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .testimonial-quote {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 500;
+      color: var(--color-heading);
+      margin-bottom: 32px;
+      line-height: 1.4;
+      font-style: italic;
+    }
+    .testimonial-author {
+      color: var(--color-accent);
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .testimonial-role {
+      color: var(--color-body);
+      font-size: 16px;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 80px 40px;
+      background: linear-gradient(135deg, rgba(29, 78, 216, 0.1), rgba(147, 197, 253, 0.05));
+      border-radius: 12px;
+      margin-bottom: 80px;
+    }
+    .cta-title {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      color: var(--color-heading);
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+    .cta-subtitle {
+      font-size: 20px;
+      color: var(--color-body);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 16px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .btn-primary {
+      background: var(--color-action);
+      color: var(--color-heading);
+      border: 2px solid var(--color-action);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--color-action);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-accent);
+      border: 2px solid var(--color-accent);
+    }
+    .btn-secondary:hover {
+      background: var(--color-accent);
+      color: var(--color-bg-primary);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+    .lightbox-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: none;
+      font-size: 24px;
+      padding: 16px;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.3s ease;
+    }
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .lightbox-prev {
+      left: -60px;
+    }
+    .lightbox-next {
+      right: -60px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav { padding: 0 20px; height: 70px; }
+      .nav .links { gap: 20px; }
+      .nav .links a { font-size: 14px; padding: 6px 12px; }
+      .hero { padding: 100px 20px 60px; }
+      .project-stats { padding: 40px 20px; }
+      .gallery { padding: 40px 20px; }
+      .features { padding: 40px 20px; }
+      .testimonial { padding: 40px 20px; }
+      .cta { padding: 40px 20px; }
+      .breadcrumb { padding: 100px 20px 20px; }
+      .prev, .next { display: none; }
+      .close { top: 20px; right: 20px; font-size: 30px; }
+    }
+
+    /* Custom Floating Cursor */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: rgba(147, 197, 253, 0.6); /* Azure - semi-transparent */
+      border: 2px solid rgba(147, 197, 253, 0.8); /* Azure border */
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .cursor-follower {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(147, 197, 253, 0.3); /* Azure */
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      background: rgba(147, 197, 253, 0.1); /* Azure */
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Cursor hover states */
+    body.cursor-hover .cursor {
+      transform: scale(1.5);
+      background: rgba(147, 197, 253, 0.3); /* Azure - very transparent */
+      border: 2px solid rgba(147, 197, 253, 1); /* Solid Azure border */
+      box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4); /* Bright glow */
+      animation: cursorShine 0.6s ease-out;
+    }
+
+    body.cursor-hover .cursor-follower {
+      transform: translate(-50%, -50%) scale(1.5);
+      border-color: rgba(147, 197, 253, 0.6); /* Azure */
+      background: rgba(147, 197, 253, 0.05); /* Azure */
+    }
+
+    /* Cursor shine animation */
+    @keyframes cursorShine {
+      0% {
+        box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(147, 197, 253, 1), 0 0 50px rgba(147, 197, 253, 0.6);
+      }
+      100% {
+        box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4);
+      }
+    }
+
+    /* Special cursor for clickable elements */
+    body.cursor-click .cursor {
+      transform: scale(0.8);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    body.cursor-click .cursor-follower {
+      transform: translate(-50%, -50%) scale(2);
+      border-color: rgba(0, 0, 0, 0.4);
+      background: transparent;
+    }
+
+    /* Text cursor effect */
+    body.cursor-text .cursor {
+      transform: scaleX(0.3) scaleY(1.5);
+      background: rgba(147, 197, 253, 0.4); /* Azure - transparent */
+      border: 1px solid rgba(147, 197, 253, 0.9); /* Azure border */
+      border-radius: 2px;
+    }
+
+    body.cursor-text .cursor-follower {
+      opacity: 0;
+    }
+
+    /* Gallery hover effect */
+    body.cursor-view .cursor {
+      transform: scale(2);
+      background: rgba(147, 197, 253, 0.2); /* Azure - very transparent */
+      border: 2px solid rgba(147, 197, 253, 0.8); /* Azure border */
+    }
+
+    body.cursor-view .cursor-follower {
+      transform: translate(-50%, -50%) scale(2.5);
+      border-color: rgba(147, 197, 253, 0.6); /* Azure */
+    }
+
+    body.cursor-view .cursor::after {
+      content: 'VIEW';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(147, 197, 253, 1); /* Azure */
+      letter-spacing: 0.5px;
+    }
+
+    /* Hide default cursor */
+    * {
+      cursor: none !important;
+    }
+
+    /* Responsive - hide custom cursor on touch devices */
+    @media (max-width: 768px) {
+      .cursor,
+      .cursor-follower {
+        display: none;
+      }
+      
+      * {
+        cursor: auto !important;
+      }
+      .features-grid { 
+        grid-template-columns: 1fr; 
+        gap: 24px; 
+      }
+      .cta-buttons { 
+        flex-direction: column; 
+        align-items: center; 
+      }
+      .lightbox-nav {
+        position: fixed;
+        top: auto;
+        bottom: 20px;
+      }
+      .lightbox-prev { left: 20px; }
+      .lightbox-next { right: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Custom Floating Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="brand">
+      <img src="../assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" />
+    </div>
+    <nav class="links">
+      <a href="../index.html">Home</a>
+      <a href="residential-projects.html">Portfolio</a>
+      <a href="../services/interior-design.html">Services</a>
+      <a href="../about.html">About</a>
+      <a href="../contact/get-quote.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Project Hero -->
+  <section class="project-hero">
+    <div class="project-breadcrumb">
+      <a href="../index.html">Home</a> / <a href="residential-projects.html">Portfolio</a> / Modern Kitchen Renovation
+    </div>
+    
+    <h1 class="project-title">Modern Kitchen Renovation</h1>
+    <p class="project-subtitle">Transforming a dated kitchen into a chef's dream with contemporary design</p>
+    
+    <div class="project-stats">
+      <div class="stat-item">
+        <span class="stat-number">450</span>
+        <span class="stat-label">Square Feet</span>
+      </div>
+      <span class="stat-separator">|</span>
+      <div class="stat-item">
+        <span class="stat-number">3</span>
+        <span class="stat-label">Months</span>
+      </div>
+      <span class="stat-separator">|</span>
+      <div class="stat-item">
+        <span class="stat-number">8</span>
+        <span class="stat-label">Furniture Pieces</span>
+      </div>
+      <span class="stat-separator">|</span>
+      <div class="stat-item">
+        <span class="stat-number">2024</span>
+        <span class="stat-label">Completed</span>
+      </div>
+    </div>
+
+    <div class="featured-image" style="background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=2000&auto=format&fit=crop');" onclick="openLightbox(0)"></div>
+  </section>
+
+  <!-- Project Content -->
+  <section class="project-content">
+    <div class="content-grid">
+      <div class="project-info">
+        <h2>Project Story</h2>
+        <p>This kitchen renovation project transformed a cramped, outdated space into a modern culinary haven. The clients, passionate home cooks, needed a functional workspace that could accommodate their love for entertaining while maintaining a sleek, contemporary aesthetic.</p>
+        
+        <p>Our design focused on maximizing storage, improving workflow, and creating an open concept that seamlessly connects to the dining area. We incorporated high-end appliances, custom cabinetry, and premium materials to create a space that's both beautiful and highly functional.</p>
+        
+        <p>The result is a stunning kitchen that serves as the heart of the home, perfect for both daily cooking and hosting dinner parties.</p>
+      </div>
+      
+      <div class="project-details-wrapper">
+        <h2>Project Details</h2>
+        <ul class="project-details">
+          <li><span class="label">Location:</span> <span>Westchester, NY</span></li>
+          <li><span class="label">Style:</span> <span>Modern Contemporary</span></li>
+          <li><span class="label">Budget:</span> <span>$125,000</span></li>
+          <li><span class="label">Timeline:</span> <span>3 Months</span></li>
+          <li><span class="label">Team Size:</span> <span>6 Professionals</span></li>
+          <li><span class="label">Contractor:</span> <span>Premier Kitchen Solutions</span></li>
+          <li><span class="label">Appliances:</span> <span>Sub-Zero & Wolf</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Image Gallery -->
+    <div class="gallery-section">
+      <h2 class="section-title">Project Gallery</h2>
+      <div class="image-gallery">
+        <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=2000&auto=format&fit=crop');" onclick="openLightbox(1)"></div>
+        <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1556909045-f3c2c5d8b5c2?q=80&w=2000&auto=format&fit=crop');" onclick="openLightbox(2)"></div>
+        <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1556909045-4d5c2c5d8b5c?q=80&w=2000&auto=format&fit=crop');" onclick="openLightbox(3)"></div>
+        <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=2000&auto=format&fit=crop');" onclick="openLightbox(4)"></div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features-section">
+      <h2 class="section-title">Key Features</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+          <h3>Professional Appliances</h3>
+          <p>Top-of-the-line Sub-Zero refrigeration and Wolf cooking appliances for the ultimate culinary experience.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-gem"></i></div>
+          <h3>Quartz Countertops</h3>
+          <p>Durable and beautiful quartz surfaces that resist stains and scratches while maintaining elegance.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-th-large"></i></div>
+          <h3>Custom Storage</h3>
+          <p>Maximized storage solutions with pull-out drawers, lazy susans, and specialized organizers.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-lightbulb"></i></div>
+          <h3>LED Lighting</h3>
+          <p>Energy-efficient LED lighting system with under-cabinet and pendant fixtures for optimal illumination.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonial -->
+    <div class="testimonial-section">
+      <blockquote class="testimonial-quote">
+        "Our new kitchen exceeded every expectation. It's not just beautiful—it's incredibly functional for our daily cooking and entertaining needs."
+      </blockquote>
+      <div class="testimonial-author">Jennifer & Mark Thompson</div>
+      <div class="testimonial-role">Homeowners</div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta-section">
+      <h2 class="cta-title">Ready for Your Kitchen Transformation?</h2>
+      <p class="cta-subtitle">Let's create the kitchen of your dreams with the same attention to detail and quality craftsmanship.</p>
+      <div class="cta-buttons">
+        <a href="../contact/get-quote.html" class="btn btn-primary">Get Your Quote</a>
+        <a href="../contact/schedule-consultation.html" class="btn btn-secondary">Schedule Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+      <button class="lightbox-nav lightbox-prev" onclick="prevImage()">&#8249;</button>
+      <img class="lightbox-image" id="lightbox-image" src="" alt="Gallery Image">
+      <button class="lightbox-nav lightbox-next" onclick="nextImage()">&#8250;</button>
+    </div>
+  </div>
+
+  <script>
+    const galleryImages = [
+      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=2000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=2000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1556909045-f3c2c5d8b5c2?q=80&w=2000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1556909045-4d5c2c5d8b5c?q=80&w=2000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=2000&auto=format&fit=crop'
+    ];
+
+    let currentImageIndex = 0;
+
+    function openLightbox(index) {
+      currentImageIndex = index;
+      document.getElementById('lightbox-image').src = galleryImages[index];
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function nextImage() {
+      currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+      document.getElementById('lightbox-image').src = galleryImages[currentImageIndex];
+    }
+
+    function prevImage() {
+      currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+      document.getElementById('lightbox-image').src = galleryImages[currentImageIndex];
+    }
+
+    // Close lightbox on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+
+    // Close lightbox on background click
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLightbox();
+      }
+    });
+  </script>
+
+  <script>
+    // Custom Floating Cursor
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+    let mouseX = 0;
+    let mouseY = 0;
+    let followerX = 0;
+    let followerY = 0;
+
+    // Update cursor position with smooth interpolation
+    let cursorX = 0;
+    let cursorY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    
+    // Smooth cursor animation
+    function animateCursor() {
+      const ease = 0.2; // Smooth easing for main cursor
+      cursorX += (mouseX - cursorX) * ease;
+      cursorY += (mouseY - cursorY) * ease;
+      
+      // Use transform for better performance
+      cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+      
+      requestAnimationFrame(animateCursor);
+    }
+    
+    // Smooth follower animation
+    function animateFollower() {
+      const ease = 0.1; // Slower easing for follower
+      followerX += (mouseX - followerX) * ease;
+      followerY += (mouseY - followerY) * ease;
+      
+      // Use transform for better performance
+      cursorFollower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
+      
+      requestAnimationFrame(animateFollower);
+    }
+    
+    animateCursor();
+    animateFollower();
+    
+    // Interactive elements
+    const hoverElements = document.querySelectorAll('a, button, .cta-button, .project-stats, .feature-item');
+    const clickableElements = document.querySelectorAll('a, button, .cta-button');
+    const textElements = document.querySelectorAll('input, textarea, p, h1, h2, h3, h4, h5, h6');
+    const viewElements = document.querySelectorAll('.featured-image, .gallery-image');
+    
+    // Hover effects
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-hover');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-hover');
+      });
+    });
+
+    // Click effects
+    clickableElements.forEach(el => {
+      el.addEventListener('mousedown', () => {
+        document.body.classList.add('cursor-click');
+      });
+      el.addEventListener('mouseup', () => {
+        document.body.classList.remove('cursor-click');
+      });
+    });
+
+    // Text cursor
+    textElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-text');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-text');
+      });
+    });
+
+    // Gallery view effect
+    viewElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-view');
+      });
+      el.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-view');
+      });
+    });
+
+    // Hide cursor when it leaves the window
+    document.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0';
+      cursorFollower.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+      cursor.style.opacity = '1';
+      cursorFollower.style.opacity = '1';
+    });
+  </script>
+</body>
+</html>

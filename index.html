@@ -336,7 +336,7 @@
 
     /* Services Section */
     .section {
-      padding: 120px 40px; max-width: 1400px; margin: 0 auto;
+      padding: 120px 40px; background: var(--color-bg-primary);
     }
     .section-header {
       text-align: left; margin-bottom: 80px;
@@ -360,8 +360,14 @@
     }
 
     .services-grid {
-      display: grid; gap: 40px; 
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      display: grid; gap: 32px; 
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      max-width: 1400px; margin: 0 auto;
+    }
+    
+    .section .section-header {
+      max-width: 1400px; margin: 0 auto; margin-bottom: 80px;
+      text-align: left !important;
     }
 
     /* Scroll Animation Styles */
@@ -468,6 +474,11 @@
     /* Gallery */
     .gallery {
       padding: 120px 40px; background: var(--color-light);
+    }
+    
+    .gallery .section-header {
+      max-width: 1400px; margin: 0 auto; margin-bottom: 80px;
+      text-align: left !important;
     }
     .gallery-grid {
       display: grid; gap: 32px; 
@@ -970,9 +981,9 @@
 
   <!-- SERVICES SECTION -->
   <section id="services" class="section">
-    <div class="section-header reveal">
-      <p class="section-subtitle text-azure">SERVICES</p>
-      <h2 class="section-title">What We Offer</h2>
+    <div class="section-header reveal" style="text-align: left;">
+      <p class="section-subtitle" style="text-align: left;">SERVICES</p>
+      <h2 class="section-title" style="text-align: left;">What We Offer</h2>
     </div>
     
     <div class="services-grid">

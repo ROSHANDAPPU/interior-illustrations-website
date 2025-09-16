@@ -6,8 +6,6 @@
   <title>Interior Illustrations - Luxury Interior Design</title>
   <!-- External CSS -->
   <link rel="stylesheet" href="css/style.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- jQuery (required for WarpDrive) -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <!-- WarpDrive plugin -->
@@ -338,7 +336,7 @@
 
     /* Services Section */
     .section {
-      padding: 120px 40px; background: var(--color-bg-primary);
+      padding: 120px 40px; max-width: 1400px; margin: 0 auto;
     }
     .section-header {
       text-align: left; margin-bottom: 80px;
@@ -362,14 +360,8 @@
     }
 
     .services-grid {
-      display: grid; gap: 32px; 
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      max-width: 1400px; margin: 0 auto;
-    }
-    
-    .section .section-header {
-      max-width: 1400px; margin: 0 auto; margin-bottom: 80px;
-      text-align: left !important;
+      display: grid; gap: 40px; 
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
 
     /* Scroll Animation Styles */
@@ -477,11 +469,6 @@
     .gallery {
       padding: 120px 40px; background: var(--color-light);
     }
-    
-    .gallery .section-header {
-      max-width: 1400px; margin: 0 auto; margin-bottom: 80px;
-      text-align: left !important;
-    }
     .gallery-grid {
       display: grid; gap: 32px; 
       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -513,7 +500,7 @@
     }
     .contact h2 {
       font-size: clamp(36px, 6vw, 64px); font-weight: 900; 
-      margin-bottom: 24px; color: var(--color-bg-primary);
+      margin-bottom: 24px; color: var(--color-action);
     }
     .contact p {
       font-size: 20px; color: var(--color-body); margin-bottom: 48px;
@@ -983,9 +970,9 @@
 
   <!-- SERVICES SECTION -->
   <section id="services" class="section">
-    <div class="section-header reveal" style="text-align: left;">
-      <p class="section-subtitle" style="text-align: left;">SERVICES</p>
-      <h2 class="section-title" style="text-align: left;">What We Offer</h2>
+    <div class="section-header reveal">
+      <p class="section-subtitle text-azure">SERVICES</p>
+      <h2 class="section-title">What We Offer</h2>
     </div>
     
     <div class="services-grid">
@@ -1082,11 +1069,12 @@
           <div class="footer-logo">
             <img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 120px; width: auto;" />
           </div>
-          <p class="footer-description">Specialists in providing luxury interior finishes in residential & commercial projects. Remodels & New Construction.</p>
+          <p class="footer-description">Transforming spaces into extraordinary experiences through innovative design and superior craftsmanship.</p>
           <div class="footer-social">
-            <a href="https://instagram.com/interior_illusions_llc" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://facebook.com/interiorillusions" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="mailto:interiorillusionsllc@outlook.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
           </div>
         </div>
 
@@ -1129,10 +1117,10 @@
           <h3 class="footer-label">Contact</h3>
           <h4 class="footer-heading">Get In Touch</h4>
           <ul class="footer-links">
-            <li><strong>Dallas, TX, United States</strong></li>
-            <li><a href="tel:+19723704873">(972) 370-4873</a></li>
-            <li><a href="mailto:interiorillusionsllc@outlook.com">interiorillusionsllc@outlook.com</a></li>
-            <li><a href="https://instagram.com/interior_illusions_llc">@interior_illusions_llc</a></li>
+            <li><a href="contact/get-quote.html">Get Quote</a></li>
+            <li><a href="contact/schedule-consultation.html">Schedule Consultation</a></li>
+            <li><a href="contact/location-hours.html">Location & Hours</a></li>
+            <li><a href="about.html">About Us</a></li>
           </ul>
         </div>
       </div>
@@ -1140,7 +1128,7 @@
       <!-- Footer Bottom -->
       <div class="footer-bottom">
         <div class="footer-legal">
-          <p>&copy; 2024 Interior Illusions LLC. All rights reserved. Construction company · Home improvement</p>
+          <p>&copy; 2024 Interior Illusions. All rights reserved.</p>
           <div class="footer-legal-links">
             <a href="#">Privacy Policy</a>
             <span class="footer-divider">|</span>

@@ -530,6 +530,37 @@
       opacity: 0;
     }
 
+    /* Gallery */
+    .gallery {
+      padding: 120px 40px; background: var(--color-light);
+    }
+    
+    .gallery .section-header {
+      max-width: 1400px; margin: 0 auto; margin-bottom: 80px;
+      text-align: left !important;
+    }
+    .gallery-grid {
+      display: grid; gap: 32px; 
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      max-width: 1400px; margin: 0 auto;
+    }
+    .gallery-item {
+      height: 400px; background-size: cover; background-position: center;
+      border-radius: 0px; transition: all 400ms ease; cursor: pointer;
+      position: relative; overflow: hidden;
+    }
+    .gallery-item::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(29,78,216,0); transition: all 400ms ease;
+    }
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 80px rgba(29,78,216,0.18);
+    }
+    .gallery-item:hover::before {
+      background: rgba(29,78,216,0.08);
+    }
+
     /* Gallery hover effect */
     body.cursor-view .cursor {
       transform: scale(2);
@@ -864,6 +895,23 @@
       </div>
     </div>
 
+
+    <!-- Portfolio Section -->
+    <section id="work" class="gallery" style="margin-top: 80px;">
+      <div class="section-header reveal" style="text-align: left;">
+        <p class="section-subtitle" style="text-align: left; color: #93C5FD;">PORTFOLIO</p>
+        <h2 class="section-title" style="text-align: left; color: #93C5FD;">Our Latest Work</h2>
+      </div>
+      
+      <div class="gallery-grid">
+        <a href="../portfolio/contemporary-living-room.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop');"></a>
+        <a href="../portfolio/luxury-bathroom-suite.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2000&auto=format&fit=crop');"></a>
+        <a href="../portfolio/modern-kitchen-renovation.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1556912167-f556f1f39fdf?q=80&w=2000&auto=format&fit=crop');"></a>
+        <a href="../portfolio/project-detail.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2000&auto=format&fit=crop');"></a>
+        <a href="../portfolio/elegant-master-bedroom.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=2000&auto=format&fit=crop');"></a>
+        <a href="../portfolio/modern-office-space.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop');"></a>
+      </div>
+    </section>
 
     <!-- Call to Action -->
     <div style="text-align: center; margin-top: 60px;">

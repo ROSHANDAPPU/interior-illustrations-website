@@ -48,22 +48,26 @@
     .mobile-menu-toggle span {
       width: 25px;
       height: 3px;
-      background: #E7EAEE;
+      background: #93C5FD; /* Azure color for brand consistency */
       margin: 3px 0;
-      transition: 0.3s;
+      transition: all 0.3s ease;
       border-radius: 2px;
+      transform-origin: center;
     }
     
     .mobile-menu-toggle.active span:nth-child(1) {
       transform: rotate(-45deg) translate(-5px, 6px);
+      background: #93C5FD; /* Maintain azure color when active */
     }
     
     .mobile-menu-toggle.active span:nth-child(2) {
       opacity: 0;
+      transform: translateX(-20px);
     }
     
     .mobile-menu-toggle.active span:nth-child(3) {
       transform: rotate(45deg) translate(-5px, -6px);
+      background: #93C5FD; /* Maintain azure color when active */
     }
     .nav a, .nav .brand { 
       color: #E7EAEE; /* Off-white color for consistency */

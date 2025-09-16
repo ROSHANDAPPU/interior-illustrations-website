@@ -35,6 +35,36 @@
       padding: 0 40px; z-index: 30;
       background: #0B0E14; /* Deep Navy background */
     }
+    
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 31;
+    }
+    
+    .mobile-menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #E7EAEE;
+      margin: 3px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
     .nav a, .nav .brand { 
       color: #E7EAEE; /* Off-white color for consistency */
       text-decoration: none; 
@@ -359,11 +389,93 @@
       text-decoration: underline;
     }
 
-    /* Responsive */
+    /* Large desktop responsive */
+    @media (max-width: 1400px) {
+      .nav {
+        padding: 0 30px;
+      }
+      
+      .nav .brand {
+        font-size: 22px;
+      }
+      
+      .nav .links {
+        gap: 24px;
+      }
+      
+      .nav .links a {
+        font-size: 15px;
+        padding: 8px 14px;
+      }
+    }
+    
+    /* Tablet and smaller desktop responsive */
+    @media (max-width: 1024px) {
+      .nav {
+        padding: 0 20px;
+      }
+      
+      .nav .brand {
+        font-size: 20px;
+      }
+      
+      .nav .links {
+        gap: 18px;
+      }
+      
+      .nav .links a {
+        font-size: 14px;
+        padding: 6px 10px;
+      }
+    }
+    
+    /* Mobile Responsive Styles */
     @media (max-width: 768px) {
-      .nav { padding: 0 20px; height: 70px; }
-      .nav .links { gap: 20px; }
-      .nav .links a { font-size: 14px; padding: 6px 12px; }
+      .mobile-menu-toggle {
+        display: flex;
+      }
+      
+      .nav .brand img {
+        height: 60px;
+      }
+      
+      .nav .links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(11, 14, 20, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+      }
+      
+      .nav .links.active {
+        left: 0;
+      }
+      
+      .nav .links a {
+        font-size: 18px;
+        padding: 12px 24px;
+        width: 200px;
+        text-align: center;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav {
+        height: 70px;
+      }
+      
+      .nav .brand {
+        font-size: 16px;
+      }
+      
       .page-hero { padding: 100px 20px 60px; }
       .page-content { padding: 60px 20px; }
       .form-grid { grid-template-columns: 1fr; }
@@ -522,7 +634,7 @@
     .dropdown-menu a {
       display: block;
       padding: 12px 20px;
-      color: var(--color-body);
+      color: #93C5FD; /* Azure text color */
       text-decoration: none;
       transition: all 0.3s ease;
       border-radius: 20px;
@@ -570,6 +682,14 @@
     <div class="brand">
       <img src="../assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" />
     </div>
+    
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
     <nav class="links">
       <a href="../index.html">Home</a>
       <div class="dropdown">
@@ -654,6 +774,11 @@
             <p>Tell us about your project</p>
           </label>
         </div>
+      </div>
+
+      <div class="form-group">
+        <label for="projectLocation">Project Location *</label>
+        <input type="text" id="projectLocation" name="projectLocation" placeholder="Enter the address or city where your project is located" required>
       </div>
 
       <div class="form-row">
@@ -754,37 +879,28 @@
     // Custom Floating Cursor
     const cursor = document.querySelector('.cursor');
     const cursorFollower = document.querySelector('.cursor-follower');
-    let mouseX = 0;
-    let mouseY = 0;
-    let followerX = 0;
-    let followerY = 0;
-
-    // Update cursor position with smooth interpolation
-    let cursorX = 0;
-    let cursorY = 0;
+    
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let followerX = 0, followerY = 0;
     
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
     
-    // Smooth cursor animation
     function animateCursor() {
-      const ease = 0.2; // Smooth easing for main cursor
-      cursorX += (mouseX - cursorX) * ease;
-      cursorY += (mouseY - cursorY) * ease;
+      cursorX += (mouseX - cursorX) * 0.1;
+      cursorY += (mouseY - cursorY) * 0.1;
       
-      // Use transform for better performance
       cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
       
       requestAnimationFrame(animateCursor);
     }
     
-    // Smooth follower animation
     function animateFollower() {
-      const ease = 0.1; // Slower easing for follower
-      followerX += (mouseX - followerX) * ease;
-      followerY += (mouseY - followerY) * ease;
+      followerX += (mouseX - followerX) * 0.05;
+      followerY += (mouseY - followerY) * 0.05;
       
       // Use transform for better performance
       cursorFollower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
@@ -795,47 +911,8 @@
     animateCursor();
     animateFollower();
     
-    // Dropdown functionality
-    const dropdown = document.querySelector('.dropdown');
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
-    
-    // Desktop hover behavior
-    if (window.innerWidth > 768) {
-      dropdown.addEventListener('mouseenter', () => {
-        dropdown.classList.add('active');
-      });
-      
-      dropdown.addEventListener('mouseleave', () => {
-        dropdown.classList.remove('active');
-      });
-    } else {
-      // Mobile click behavior
-      dropdownToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        dropdown.classList.toggle('active');
-      });
-      
-      // Close dropdown when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target)) {
-          dropdown.classList.remove('active');
-        }
-      });
-    }
-    
-    // Close dropdown when selecting an item
-    dropdownMenu.addEventListener('click', () => {
-      dropdown.classList.remove('active');
-    });
-    
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      dropdown.classList.remove('active');
-    });
-
     // Interactive elements
-    const hoverElements = document.querySelectorAll('a, button, .btn, input, textarea, .dropdown-toggle');
+    const hoverElements = document.querySelectorAll('a, button, .btn, .dropdown-toggle');
     const clickableElements = document.querySelectorAll('a, button, .btn, .dropdown-toggle');
     const textElements = document.querySelectorAll('input, textarea, p, h1, h2, h3, h4, h5, h6');
     
@@ -844,16 +921,18 @@
       el.addEventListener('mouseenter', () => {
         document.body.classList.add('cursor-hover');
       });
+      
       el.addEventListener('mouseleave', () => {
         document.body.classList.remove('cursor-hover');
       });
     });
-
+    
     // Click effects
     clickableElements.forEach(el => {
       el.addEventListener('mousedown', () => {
         document.body.classList.add('cursor-click');
       });
+      
       el.addEventListener('mouseup', () => {
         document.body.classList.remove('cursor-click');
       });
@@ -947,5 +1026,82 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // Dropdown functionality
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    
+    // Desktop hover behavior
+    if (window.innerWidth > 768) {
+      dropdown.addEventListener('mouseenter', () => {
+        dropdown.classList.add('active');
+      });
+      
+      dropdown.addEventListener('mouseleave', () => {
+        dropdown.classList.remove('active');
+      });
+    } else {
+      // Mobile click behavior
+      dropdownToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        dropdown.classList.toggle('active');
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+          dropdown.classList.remove('active');
+        }
+      });
+    }
+    
+    // Close dropdown when selecting an item
+    dropdownMenu.addEventListener('click', () => {
+      dropdown.classList.remove('active');
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      dropdown.classList.remove('active');
+    });
+    
+    // Mobile Menu Toggle Functionality
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileLinks = document.querySelector('.nav .links');
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenuToggle.classList.toggle('active');
+      mobileLinks.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    const mobileNavLinks = document.querySelectorAll('.nav .links a');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenuToggle.classList.remove('active');
+        mobileLinks.classList.remove('active');
+      });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!document.querySelector('.nav').contains(e.target)) {
+        mobileMenuToggle.classList.remove('active');
+        mobileLinks.classList.remove('active');
+      }
+    });
+    
+    // Handle window resize for mobile menu
+    window.addEventListener('resize', () => {
+      const mobileLinks = document.querySelector('.nav .links');
+      const mobileToggle = document.querySelector('.mobile-menu-toggle');
+      if (window.innerWidth > 768) {
+        mobileLinks.classList.remove('active');
+        mobileToggle.classList.remove('active');
+      }
+    });
+  </script>
 </body>
 </html>

@@ -71,6 +71,36 @@
       padding: 0 40px; z-index: 30;
       background: #0B0E14; /* Deep Navy background */
     }
+    
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 31;
+    }
+    
+    .mobile-menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #E7EAEE;
+      margin: 3px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
     .nav a, .nav .brand { 
       color: #E7EAEE; /* Off-white color for consistency */
       text-decoration: none; 
@@ -105,6 +135,59 @@
       background: #1D4ED8; /* Cobalt background on click */
       color: #FAF7F2; /* Ivory text on click */
       transform: scale(0.95);
+    }
+    
+    /* Responsive Navigation */
+    @media (max-width: 1024px) {
+      .nav .links {
+        gap: 20px;
+      }
+      .nav .links a {
+        font-size: 14px;
+        padding: 6px 12px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav {
+        padding: 0 20px;
+        height: 70px;
+      }
+      
+      .nav .brand img {
+        height: 60px !important;
+      }
+      
+      .mobile-menu-toggle {
+        display: flex;
+      }
+      
+      .nav .links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: #0B0E14;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 50px;
+        gap: 30px;
+        transition: left 0.3s ease;
+        z-index: 29;
+      }
+      
+      .nav .links.active {
+        left: 0;
+      }
+      
+      .nav .links a {
+        font-size: 18px;
+        padding: 12px 24px;
+        width: 200px;
+        text-align: center;
+      }
     }
 
     /* Hero */
@@ -897,6 +980,14 @@
   <!-- Header -->
   <header class="nav">
     <div class="brand"><img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" /></div>
+    
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
     <nav class="links">
       <a href="#work">Portfolio</a>
       <a href="#services">Services</a>
@@ -1387,6 +1478,42 @@
           introOverlay.style.display = 'none';
         }, 1000);
       }, 3000);
+    });
+
+    /* Mobile Menu Toggle Functionality */
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileLinks = document.querySelector('.nav .links');
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenuToggle.classList.toggle('active');
+      mobileLinks.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    const mobileNavLinks = document.querySelectorAll('.nav .links a');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenuToggle.classList.remove('active');
+        mobileLinks.classList.remove('active');
+      });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!document.querySelector('.nav').contains(e.target)) {
+        mobileMenuToggle.classList.remove('active');
+        mobileLinks.classList.remove('active');
+      }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      const mobileLinks = document.querySelector('.nav .links');
+      const mobileToggle = document.querySelector('.mobile-menu-toggle');
+      if (window.innerWidth > 768) {
+        mobileLinks.classList.remove('active');
+        mobileToggle.classList.remove('active');
+      }
     });
 
     /* Smooth scrolling */

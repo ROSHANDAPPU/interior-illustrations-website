@@ -35,6 +35,36 @@
       padding: 0 40px; z-index: 30;
       background: #0B0E14; /* Deep Navy background */
     }
+    
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1001;
+    }
+    
+    .mobile-menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: var(--color-accent); /* Azure color */
+      margin: 3px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
     .nav a, .nav .brand { 
       color: #E7EAEE; /* Off-white color for consistency */
       text-decoration: none; 
@@ -70,6 +100,214 @@
       color: #FAF7F2; /* Ivory text on click */
       transform: scale(0.95);
     }
+    
+    /* Dropdown Navigation Styles */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-toggle {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .dropdown-arrow {
+      font-size: 12px;
+      transition: transform 0.3s ease;
+    }
+    
+    .dropdown.active .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 200px;
+      background: #0B0E14;
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 8px 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1001;
+      border: 1px solid rgba(147, 197, 253, 0.2);
+    }
+    
+    .dropdown:hover .dropdown-menu,
+    .dropdown.active .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 20px;
+      color: #93C5FD; /* Azure text color */
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-radius: 20px;
+      margin: 4px 8px;
+      background: transparent;
+    }
+    
+    .dropdown-menu a:hover {
+      background: #1D4ED8;
+      color: #E7EAEE;
+      transform: scale(0.95);
+    }
+    
+    /* Large desktop responsive */
+    @media (max-width: 1400px) {
+      .nav {
+        padding: 0 30px;
+      }
+      
+      .nav .brand {
+        font-size: 22px;
+      }
+      
+      .nav .links {
+        gap: 24px;
+      }
+      
+      .nav .links a {
+        font-size: 15px;
+        padding: 8px 14px;
+      }
+    }
+    
+    /* Tablet and smaller desktop responsive */
+    @media (max-width: 1024px) {
+      .nav {
+        padding: 0 20px;
+      }
+      
+      .nav .brand {
+        font-size: 20px;
+      }
+      
+      .nav .links {
+        gap: 18px;
+      }
+      
+      .nav .links a {
+        font-size: 14px;
+        padding: 6px 10px;
+      }
+    }
+    
+    /* Mobile Responsive Styles */
+    @media (max-width: 1300px) {
+      .mobile-menu-toggle {
+        display: flex;
+      }
+      
+      .nav .brand img {
+        height: 60px;
+      }
+      
+      .nav .links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(11, 14, 20, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+      }
+      
+      .nav .links.active {
+        left: 0;
+      }
+      
+      .nav .links a {
+        font-size: 18px;
+        padding: 12px 24px;
+        width: 200px;
+        text-align: center;
+      }
+      
+      /* Hide desktop dropdown in mobile */
+      .dropdown {
+        display: none;
+      }
+      
+      /* Mobile dropdown styling */
+      .mobile-dropdown-toggle {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+        padding: 12px 24px;
+        width: 200px;
+        text-align: left;
+        color: #93C5FD; /* Azure text color */
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      
+      .mobile-dropdown-arrow {
+        font-size: 12px;
+        transition: transform 0.3s ease;
+      }
+      
+      .mobile-dropdown-arrow.active {
+        transform: rotate(180deg);
+      }
+      
+      .mobile-dropdown {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.3s ease;
+        background: rgba(11, 14, 20, 0.8);
+      }
+      
+      .mobile-dropdown.active {
+        max-height: 300px;
+      }
+      
+      .mobile-dropdown a {
+        display: block;
+        padding: 8px 40px;
+        font-size: 16px;
+        color: var(--color-accent);
+        text-decoration: none;
+        text-align: left;
+        transition: all 0.3s ease;
+      }
+      
+      .mobile-dropdown a:hover {
+        background: rgba(29, 78, 216, 0.2);
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav {
+        height: 70px;
+      }
+      
+      .nav .brand {
+        font-size: 16px;
+      }
+    }
 
     /* Footer Styles */
     .footer {
@@ -96,7 +334,7 @@
       margin-bottom: 24px;
     }
     .footer-description {
-      color: var(--color-body); /* Slate */
+      color: #93C5FD; /* Azure text color */ /* Slate */
       font-size: 16px;
       line-height: 1.6;
       margin-bottom: 32px;
@@ -161,7 +399,7 @@
       gap: 20px;
     }
     .footer-legal p {
-      color: var(--color-body); /* Slate */
+      color: #93C5FD; /* Azure text color */ /* Slate */
       font-size: 14px;
       margin: 0;
     }
@@ -223,7 +461,7 @@
     }
     .content-section p {
       font-size: 18px;
-      color: var(--color-body);
+      color: #93C5FD; /* Azure text color */
       margin-bottom: 20px;
       line-height: 1.7;
     }
@@ -279,7 +517,7 @@
       letter-spacing: 0.1em;
     }
     .value-item p {
-      color: var(--color-body);
+      color: #93C5FD; /* Azure text color */
       font-size: 16px;
     }
 
@@ -523,7 +761,7 @@
     .dropdown-menu a {
       display: block;
       padding: 12px 20px;
-      color: var(--color-body);
+      color: #93C5FD; /* Azure text color */
       text-decoration: none;
       transition: all 0.3s ease;
       border-radius: 20px;
@@ -569,8 +807,15 @@
   <!-- Header -->
   <header class="nav">
     <div class="brand">
-      <img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" />
+      <img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px; width: auto;" />
     </div>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
     <nav class="links">
       <a href="index.html">Home</a>
       <div class="dropdown">
@@ -728,44 +973,6 @@
     animateCursor();
     animateFollower();
     
-    // Dropdown functionality
-    const dropdown = document.querySelector('.dropdown');
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
-    
-    // Desktop hover behavior
-    if (window.innerWidth > 768) {
-      dropdown.addEventListener('mouseenter', () => {
-        dropdown.classList.add('active');
-      });
-      
-      dropdown.addEventListener('mouseleave', () => {
-        dropdown.classList.remove('active');
-      });
-    } else {
-      // Mobile click behavior
-      dropdownToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        dropdown.classList.toggle('active');
-      });
-      
-      // Close dropdown when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target)) {
-          dropdown.classList.remove('active');
-        }
-      });
-    }
-    
-    // Close dropdown when selecting an item
-    dropdownMenu.addEventListener('click', () => {
-      dropdown.classList.remove('active');
-    });
-    
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      dropdown.classList.remove('active');
-    });
 
     // Interactive elements
     const hoverElements = document.querySelectorAll('a, button, .btn, .dropdown-toggle');
@@ -874,11 +1081,126 @@
           <div class="footer-legal-links">
             <a href="#">Privacy Policy</a>
             <span class="footer-divider">|</span>
-            <a href="#">Terms of Service</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
 </body>
 </html>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-grid">
+      <!-- Company Info -->
+      <div class="footer-section">
+        <div class="footer-logo">
+          <img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 120px; width: auto;" />
+        </div>
+        <p class="footer-description">Specialists in providing luxury interior finishes in residential & commercial projects. Remodels & New Construction.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/interior_illusions_llc" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://facebook.com/interiorillusions" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="mailto:interiorillusionsllc@outlook.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="footer-section">
+        <h3 class="footer-label">Services</h3>
+        <h4 class="footer-heading">What We Do</h4>
+        <ul class="footer-links">
+          <li><a href="services/interior-design.html">Interior Design</a></li>
+          <li><a href="services/space-planning.html">Space Planning</a></li>
+          <li><a href="services/home-staging.html">Home Staging</a></li>
+          <li><a href="services/color-consultation.html">Color Consultation</a></li>
+        </ul>
+      </div>
+
+      <!-- Portfolio -->
+      <div class="footer-section">
+        <h3 class="footer-label">Portfolio</h3>
+        <h4 class="footer-heading">Our Work</h4>
+        <ul class="footer-links">
+          <li><a href="portfolio/residential-projects.html">Residential Projects</a></li>
+          <li><a href="portfolio/commercial-projects.html">Commercial Projects</a></li>
+          <li><a href="portfolio/before-after-gallery.html">Before & After Gallery</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-section">
+        <h3 class="footer-label">Contact</h3>
+        <h4 class="footer-heading">Get In Touch</h4>
+        <ul class="footer-links">
+          <li><strong>Dallas, TX, United States</strong></li>
+          <li><a href="tel:+19723704873">(972) 370-4873</a></li>
+          <li><a href="mailto:interiorillusionsllc@outlook.com">interiorillusionsllc@outlook.com</a></li>
+          <li><a href="https://instagram.com/interior_illusions_llc">@interior_illusions_llc</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        <p>&copy; 2024 Interior Illusions LLC. All rights reserved. Construction company · Home improvement</p>
+        <div class="footer-legal-links">
+          <a href="#">Privacy Policy</a>
+          <span class="footer-divider">|</span>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+
+  <script>
+    // Mobile Menu Toggle Functionality
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileLinks = document.querySelector('.nav .links');
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenuToggle.classList.toggle('active');
+      mobileLinks.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    const mobileNavLinks = document.querySelectorAll('.nav .links a');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenuToggle.classList.remove('active');
+        mobileLinks.classList.remove('active');
+      });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!document.querySelector('.nav').contains(e.target)) {
+        mobileMenuToggle.classList.remove('active');
+        mobileLinks.classList.remove('active');
+      }
+    });
+    
+    // Dropdown functionality
+    if (window.innerWidth > 768) {
+      dropdown.addEventListener('mouseenter', () => {
+        dropdown.classList.add('active');
+      });
+      
+      dropdown.addEventListener('mouseleave', () => {
+        dropdown.classList.remove('active');
+      });
+    } else {
+      dropdownToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        dropdown.classList.toggle('active');
+      });
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      const mobileLinks = document.querySelector('.nav .links');
+      const mobileToggle = document.querySelector('.mobile-menu-toggle');
+      if (window.innerWidth > 768) {
+        mobileLinks.classList.remove('active');
+        mobileToggle.classList.remove('active');
+      }
+      dropdown.classList.remove('active');
+    });
+  </script>

@@ -37,13 +37,52 @@
       padding: 0 40px; z-index: 30;
       background: #0B0E14; /* Deep Navy background */
     }
+    
+    .nav .brand img {
+      height: 200px;
+      width: auto;
+      transition: all 0.3s ease;
+    }
+    
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1001;
+    }
+    
+    .mobile-menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: var(--color-accent);
+      margin: 3px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+    
     .nav a, .nav .brand { 
       color: #E7EAEE; /* Off-white color for consistency */
       text-decoration: none; 
       font-weight: 500; 
       letter-spacing: 0.02em; 
       font-size: 16px;
-      transition: color 0.3s ease;
+      transition: all 0.3s ease;
+      padding: 8px 16px;
+      border-radius: 20px;
     }
     .nav .brand { 
       font-size: 24px; 
@@ -56,10 +95,166 @@
     }
     .nav a:hover { 
       color: #93C5FD; /* Azure on hover */
+      background: rgba(147, 197, 253, 0.1);
+    }
+    .nav a:active {
+      background: #1D4ED8;
+      color: #FAF7F2;
+      transform: scale(0.95);
     }
     .logo { 
       height: 40px; 
       width: auto; 
+    }
+    
+    /* Dropdown Styles */
+    .dropdown {
+      position: relative;
+    }
+    
+    .dropdown-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    
+    .dropdown-arrow {
+      font-size: 12px;
+      transition: transform 0.3s ease;
+    }
+    
+    .dropdown.active .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 200px;
+      background: rgba(11, 14, 20, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 8px 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1001;
+      border: 1px solid rgba(147, 197, 253, 0.2);
+    }
+    
+    .dropdown:hover .dropdown-menu,
+    .dropdown.active .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 20px;
+      color: var(--color-body);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-radius: 20px;
+      margin: 4px 8px;
+      background: transparent;
+    }
+    
+    .dropdown-menu a:hover {
+      background: #1D4ED8;
+      color: #E7EAEE;
+      transform: scale(0.95);
+    }
+    
+    /* Large desktop responsive */
+    @media (max-width: 1400px) {
+      .nav {
+        padding: 0 30px;
+      }
+      
+      .nav .brand img {
+        height: 180px;
+      }
+      
+      .nav .links {
+        gap: 24px;
+      }
+      
+      .nav .links a {
+        font-size: 15px;
+        padding: 8px 14px;
+      }
+    }
+    
+    /* Tablet and smaller desktop responsive */
+    @media (max-width: 1024px) {
+      .nav {
+        padding: 0 20px;
+      }
+      
+      .nav .brand img {
+        height: 150px;
+      }
+      
+      .nav .links {
+        gap: 18px;
+      }
+      
+      .nav .links a {
+        font-size: 14px;
+        padding: 6px 10px;
+      }
+    }
+    
+    /* Mobile Responsive Styles */
+    @media (max-width: 1300px) {
+      .mobile-menu-toggle {
+        display: flex;
+      }
+      
+      .nav .brand img {
+        height: 60px;
+      }
+      
+      .nav .links {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(11, 14, 20, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+      }
+      
+      .nav .links.active {
+        left: 0;
+      }
+      
+      .nav .links a {
+        font-size: 24px;
+        padding: 15px 30px;
+      }
+      
+      .dropdown-menu {
+        position: static;
+        background: rgba(29, 78, 216, 0.1);
+        backdrop-filter: none;
+        border: none;
+        border-radius: 8px;
+        margin-top: 10px;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
     }
 
     /* Main content */
@@ -351,6 +546,12 @@
         <img src="../assets/images/01-02_logo_mark/PNGs/deepnav.no-background.png" alt="Interior Illusions" class="logo">
       </a>
     </div>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <div class="links">
       <a href="../index.html">Home</a>
       <a href="../about.html">About</a>
@@ -565,6 +766,42 @@
     document.addEventListener('mouseenter', () => {
       cursor.style.opacity = '1';
       cursorFollower.style.opacity = '1';
+    });
+    
+    // Mobile Menu Toggle Functionality
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileLinks = document.querySelector('.nav .links');
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenuToggle.classList.toggle('active');
+      mobileLinks.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    const mobileNavLinks = document.querySelectorAll('.nav .links a');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenuToggle.classList.remove('active');
+        mobileLinks.classList.remove('active');
+      });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!document.querySelector('.nav').contains(e.target)) {
+        mobileMenuToggle.classList.remove('active');
+        mobileLinks.classList.remove('active');
+      }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      const mobileLinks = document.querySelector('.nav .links');
+      const mobileToggle = document.querySelector('.mobile-menu-toggle');
+      if (window.innerWidth > 768) {
+        mobileLinks.classList.remove('active');
+        mobileToggle.classList.remove('active');
+      }
     });
   </script>
   <!-- FOOTER -->

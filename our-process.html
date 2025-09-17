@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Interior Design Process | Interior Illusions</title>
+  <meta name="description" content="Discover Interior Illusions' proven design process. From consultation to completion, learn how we transform spaces into extraordinary environments." />
+  <link rel="icon" type="image/x-icon" href="assets/images/06_Favicon/favicon-high.png" />
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Shared Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    @font-face {
+      font-family: 'Satoshi';
+      src: url('assets/fonts/Satoshi-Variable.woff2') format('woff2');
+      font-weight: 300 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --color-bg-primary: #0B0E14; /* Deep Navy */
+      --color-action: #1D4ED8;    /* Cobalt */
+      --color-accent: #93C5FD;    /* Azure */
+      --color-heading: #E7EAEE;   /* Off-white */
+      --color-body: #A3AAB4;      /* Slate */
+      --color-light: #FAF7F2;     /* Ivory */
+    }
+
+    body, html { font-family: 'Satoshi', 'Inter', system-ui, -apple-system, sans-serif; background: var(--color-bg-primary); color: var(--color-heading); }
+
+    /* Local page styles */
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+    /* Hero */
+    .process-hero { padding: 160px 0 80px; position: relative; overflow: hidden; }
+    .process-hero::before {
+      content: ""; position: absolute; inset: 0; background: radial-gradient(1200px 600px at 80% -10%, rgba(29,78,216,0.18), rgba(11,14,20,0) 60%);
+      pointer-events: none; opacity: 0.7;
+    }
+    .process-eyebrow { color: var(--color-accent); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
+    .process-title { font-size: clamp(40px, 7vw, 96px); font-weight: 900; letter-spacing: -0.02em; line-height: 0.95; margin-bottom: 16px; }
+    .process-subtitle { font-size: clamp(18px, 3.2vw, 24px); color: var(--color-body); max-width: 900px; }
+
+    /* Steps */
+    .steps { padding: 80px 0; }
+    .steps .section-header { text-align: left; margin-bottom: 40px; }
+    .steps .section-title { font-size: clamp(26px, 5vw, 42px); font-weight: 800; letter-spacing: 0.0em; }
+    .steps .section-subtitle { color: var(--color-accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; margin-bottom: 6px; }
+
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .step-card { background: #0D111B; border: 1px solid rgba(163,170,180,0.25); padding: 28px; border-radius: 8px; transition: border-color .25s ease, background .25s ease, transform .25s ease; }
+    .step-card:hover { border-color: var(--color-accent); background: #111827; transform: translateY(-2px); }
+    .step-number { color: var(--color-accent); font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; margin-bottom: 10px; }
+    .step-icon { width: 56px; height: 56px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; background: rgba(147, 197, 253, 0.12); color: var(--color-accent); font-size: 26px; margin-bottom: 14px; }
+    .step-title { font-size: 22px; font-weight: 800; letter-spacing: 0.01em; margin-bottom: 10px; }
+    .step-desc { color: var(--color-body); font-size: 16px; line-height: 1.6; }
+
+    /* FAQ */
+    .faq { padding: 80px 0; }
+    .faq .section-header { text-align: left; margin-bottom: 24px; }
+    .faq .section-title { font-size: clamp(26px, 5vw, 42px); font-weight: 800; }
+    .faq .section-subtitle { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; font-size: 12px; margin-bottom: 8px; }
+    .accordion { display: grid; gap: 12px; }
+    .accordion-item { border: 1px solid rgba(163,170,180,0.25); background: #0D111B; border-radius: 8px; overflow: hidden; }
+    .accordion-header { width: 100%; text-align: left; background: transparent; color: var(--color-heading); padding: 18px 20px; font-size: 18px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .accordion-header .chevron { transition: transform .25s ease; color: var(--color-accent); }
+    .accordion-item.active .accordion-header { background: var(--color-light); color: #0B0E14; }
+    .accordion-item.active .accordion-header .chevron { transform: rotate(180deg); color: #0B0E14; }
+    .accordion-panel { max-height: 0; overflow: hidden; transition: max-height .3s ease; background: #111827; color: var(--color-body); }
+    .accordion-inner { padding: 0 20px 20px; }
+
+    /* CTA Blocks */
+    .cta-row { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 24px; }
+    .btn { background: #1D4ED8; color: #E7EAEE; border: none; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; letter-spacing: 0.02em; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all .25s ease; }
+    .btn:hover { background: #1E40AF; }
+    .btn:active { transform: scale(0.96); }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .process-hero { padding: 130px 0 60px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="brand">
+      <a href="index.html"><img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" /></a>
+    </div>
+
+    <!-- Mobile Toggle (reuse homepage style via style.css rules) -->
+    <div class="mobile-menu-toggle" id="mobileToggle">
+      <span></span><span></span><span></span>
+    </div>
+
+    <nav class="links" id="mainNavLinks">
+      <a href="index.html#work">Portfolio</a>
+      <a href="our-process.html" class="active">Our Process</a>
+      <a href="index.html#services">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact/get-quote.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="process-hero">
+    <div class="container">
+      <div class="process-eyebrow">Our Design Process</div>
+      <h1 class="process-title">From vision to reality</h1>
+      <p class="process-subtitle">Experience our proven methodology that transforms spaces into extraordinary environments.</p>
+      <div class="cta-row" style="margin-top: 24px;">
+        <a class="btn" href="contact/get-quote.html"><i class="fa-solid fa-calendar-check"></i> Schedule Your Consultation</a>
+        <a class="btn secondary" href="portfolio/residential-projects.html" style="background:transparent;border:2px solid var(--color-accent);color:var(--color-accent);"><i class="fa-solid fa-images"></i> View Our Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Steps -->
+  <section class="steps">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">How We Work</div>
+        <h2 class="section-title">Our structured approach ensures exceptional results every time</h2>
+      </div>
+
+      <div class="steps-grid">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-number">Step 1</div>
+          <div class="step-icon"><i class="fa-solid fa-handshake"></i></div>
+          <h3 class="step-title">Initial Consultation</h3>
+          <p class="step-desc">We begin with an in-depth discussion about your vision, lifestyle, budget, and project goals. This collaborative session helps us understand your unique needs and preferences.</p>
+        </div>
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-number">Step 2</div>
+          <div class="step-icon"><i class="fa-solid fa-ruler-combined"></i></div>
+          <h3 class="step-title">Space Assessment & Measurements</h3>
+          <p class="step-desc">Our team conducts a thorough analysis of your space, taking precise measurements and evaluating structural elements, lighting, and existing features.</p>
+        </div>
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-number">Step 3</div>
+          <div class="step-icon"><i class="fa-solid fa-lightbulb"></i></div>
+          <h3 class="step-title">Design Development</h3>
+          <p class="step-desc">We create detailed design concepts, mood boards, and 3D visualizations that bring your vision to life, incorporating your feedback at every stage.</p>
+        </div>
+        <!-- Step 4 -->
+        <div class="step-card">
+          <div class="step-number">Step 4</div>
+          <div class="step-icon"><i class="fa-solid fa-palette"></i></div>
+          <h3 class="step-title">Material Selection & Sourcing</h3>
+          <p class="step-desc">We curate premium materials, finishes, furniture, and fixtures that align with your design aesthetic and quality standards.</p>
+        </div>
+        <!-- Step 5 -->
+        <div class="step-card">
+          <div class="step-number">Step 5</div>
+          <div class="step-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <h3 class="step-title">Project Planning & Coordination</h3>
+          <p class="step-desc">Detailed project timelines, contractor coordination, and permit management ensure smooth execution from start to finish.</p>
+        </div>
+        <!-- Step 6 -->
+        <div class="step-card">
+          <div class="step-number">Step 6</div>
+          <div class="step-icon"><i class="fa-solid fa-house-circle-check"></i></div>
+          <h3 class="step-title">Installation & Final Reveal</h3>
+          <p class="step-desc">Professional installation, styling, and final walkthrough to ensure every detail exceeds your expectations.</p>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn" href="contact/get-quote.html"><i class="fa-solid fa-pen-to-square"></i> Ready to Start Your Project?</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">Frequently Asked Questions</div>
+        <h2 class="section-title">Everything you need to know about working with Interior Illusions</h2>
+      </div>
+
+      <div class="accordion" id="faqAccordion">
+        <!-- Getting Started -->
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            How do I begin a project with Interior Illusions?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Start by scheduling an initial consultation through our <a href="contact/get-quote.html">contact form</a>. We'll discuss your goals, timeline, and budget to determine the best approach.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            What information should I prepare for our initial consultation?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Any inspiration images, floor plans, measurements (if available), preferred styles, must-haves, and your target budget are helpful.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            Do you offer virtual consultations?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Yes, we offer virtual consultations for convenience and flexibility.</div></div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            How long does a typical project take?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Timelines vary by scope. Smaller rooms may take 4–8 weeks; whole-home projects can take several months. We provide a detailed schedule after design development.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            What factors can affect project timelines?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Material lead times, permitting, contractor availability, and scope changes can affect the timeline. We communicate proactively about any changes.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            How do you handle project delays?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">We maintain contingency plans, track milestones, and coordinate closely with all parties to minimize delays and keep you informed.</div></div>
+        </div>
+
+        <!-- Investment & Budget -->
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            How do you structure your pricing?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">We offer transparent pricing aligned to scope—typically a design fee plus procurement and project management as needed. We'll outline this clearly during consultation.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            What's included in your design fees?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Concept development, space planning, selections, and documentation. Rendering, procurement, and installation management can be added based on scope.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            Do you work with specific budget ranges?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Yes, we tailor our recommendations to your budget while ensuring quality and design integrity.</div></div>
+        </div>
+
+        <!-- Design Process -->
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            How many design revisions are included?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">We include rounds of revisions at key milestones. The exact number depends on scope and is defined at project start.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            Can I see 3D renderings of my space?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Yes. We can provide 3D visuals to help you envision the final result during design development.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            How do you incorporate my existing furniture?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">We evaluate which pieces complement the new design and can integrate them to maintain sentimental and budgetary value.</div></div>
+        </div>
+
+        <!-- Project Management -->
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            Do you handle contractor coordination?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Absolutely. We coordinate with vetted contractors, manage schedules, and oversee execution for a seamless experience.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            How often will we communicate during the project?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">We establish a communication cadence that suits you, with regular updates at milestones and proactive outreach as needed.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            What happens if I'm not satisfied with something?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">We address concerns quickly and collaboratively, proposing solutions that align with the design vision and your expectations.</div></div>
+        </div>
+
+        <!-- Services -->
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            Do you offer both residential and commercial services?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Yes. We serve both residential and commercial clients with tailored solutions.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            Can you work on just one room?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Absolutely. We frequently work on focused spaces like kitchens, bathrooms, or living rooms.</div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" type="button">
+            Do you provide furniture procurement services?
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </button>
+          <div class="accordion-panel"><div class="accordion-inner">Yes, we can handle sourcing, ordering, and logistics to streamline your experience.</div></div>
+        </div>
+      </div>
+
+      <div class="cta-row" style="margin-top: 24px;">
+        <a class="btn" href="contact/get-quote.html"><i class="fa-solid fa-envelope"></i> Still Have Questions? Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (reuse global styles) -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <div class="footer-logo">
+            <img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 120px; width: auto;" />
+          </div>
+          <p class="footer-description">Transforming spaces into extraordinary experiences through innovative design and superior craftsmanship.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/interiorillusionsllc" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/interiorillusionsllc" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="mailto:hello@interiorillusions.com" aria-label="Gmail"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h3 class="footer-label">Services</h3>
+          <h4 class="footer-heading">What We Do</h4>
+          <ul class="footer-links">
+            <li><a href="services/interior-design.html">Interior Design</a></li>
+            <li><a href="services/space-planning.html">Space Planning</a></li>
+            <li><a href="services/home-staging.html">Home Staging</a></li>
+            <li><a href="services/color-consultation.html">Color Consultation</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3 class="footer-label">Portfolio</h3>
+          <h4 class="footer-heading">Our Work</h4>
+          <ul class="footer-links">
+            <li><a href="portfolio/residential-projects.html">Residential Projects</a></li>
+            <li><a href="portfolio/commercial-projects.html">Commercial Projects</a></li>
+            <li><a href="portfolio/before-after-gallery.html">Before & After Gallery</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3 class="footer-label">Resources</h3>
+          <h4 class="footer-heading">Learn More</h4>
+          <ul class="footer-links">
+            <li><a href="our-process.html">Our Process</a></li>
+            <li><a href="resources/design-blog.html">Design Blog</a></li>
+            <li><a href="resources/design-tips.html">Design Tips</a></li>
+            <li><a href="resources/trend-insights.html">Trend Insights</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3 class="footer-label">Contact</h3>
+          <h4 class="footer-heading">Get In Touch</h4>
+          <ul class="footer-links">
+            <li><a href="contact/get-quote.html">Get Quote</a></li>
+            <li><a href="contact/schedule-consultation.html">Schedule Consultation</a></li>
+            <li><a href="contact/location-hours.html">Location & Hours</a></li>
+            <li><a href="about.html">About Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <p>&copy; 2024 Interior Illusions. All rights reserved.</p>
+          <div class="footer-legal-links">
+            <a href="#">Privacy Policy</a>
+            <span class="footer-divider">|</span>
+            <a href="#">Terms of Service</a>
+            <span class="footer-divider">|</span>
+            <a href="#">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FAQ Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"How do I begin a project with Interior Illusions?","acceptedAnswer":{"@type":"Answer","text":"Start by scheduling an initial consultation through our contact form. We'll discuss your goals, timeline, and budget to determine the best approach."}},
+      {"@type":"Question","name":"What information should I prepare for our initial consultation?","acceptedAnswer":{"@type":"Answer","text":"Any inspiration images, floor plans, measurements (if available), preferred styles, must-haves, and your target budget are helpful."}},
+      {"@type":"Question","name":"Do you offer virtual consultations?","acceptedAnswer":{"@type":"Answer","text":"Yes, we offer virtual consultations for convenience and flexibility."}},
+      {"@type":"Question","name":"How long does a typical project take?","acceptedAnswer":{"@type":"Answer","text":"Timelines vary by scope. Smaller rooms may take 4–8 weeks; whole-home projects can take several months. We provide a detailed schedule after design development."}},
+      {"@type":"Question","name":"What factors can affect project timelines?","acceptedAnswer":{"@type":"Answer","text":"Material lead times, permitting, contractor availability, and scope changes can affect the timeline. We communicate proactively about any changes."}},
+      {"@type":"Question","name":"How do you handle project delays?","acceptedAnswer":{"@type":"Answer","text":"We maintain contingency plans, track milestones, and coordinate closely with all parties to minimize delays and keep you informed."}},
+      {"@type":"Question","name":"How do you structure your pricing?","acceptedAnswer":{"@type":"Answer","text":"We offer transparent pricing aligned to scope—typically a design fee plus procurement and project management as needed."}},
+      {"@type":"Question","name":"What's included in your design fees?","acceptedAnswer":{"@type":"Answer","text":"Concept development, space planning, selections, and documentation. Rendering, procurement, and installation management can be added based on scope."}},
+      {"@type":"Question","name":"Do you work with specific budget ranges?","acceptedAnswer":{"@type":"Answer","text":"Yes, we tailor our recommendations to your budget while ensuring quality and design integrity."}},
+      {"@type":"Question","name":"How many design revisions are included?","acceptedAnswer":{"@type":"Answer","text":"We include rounds of revisions at key milestones. The exact number depends on scope and is defined at project start."}},
+      {"@type":"Question","name":"Can I see 3D renderings of my space?","acceptedAnswer":{"@type":"Answer","text":"Yes. We can provide 3D visuals to help you envision the final result during design development."}},
+      {"@type":"Question","name":"How do you incorporate my existing furniture?","acceptedAnswer":{"@type":"Answer","text":"We evaluate which pieces complement the new design and can integrate them to maintain sentimental and budgetary value."}},
+      {"@type":"Question","name":"Do you handle contractor coordination?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. We coordinate with vetted contractors, manage schedules, and oversee execution for a seamless experience."}},
+      {"@type":"Question","name":"How often will we communicate during the project?","acceptedAnswer":{"@type":"Answer","text":"We establish a communication cadence that suits you, with regular updates at milestones and proactive outreach as needed."}},
+      {"@type":"Question","name":"What happens if I'm not satisfied with something?","acceptedAnswer":{"@type":"Answer","text":"We address concerns quickly and collaboratively, proposing solutions that align with the design vision and your expectations."}},
+      {"@type":"Question","name":"Do you offer both residential and commercial services?","acceptedAnswer":{"@type":"Answer","text":"Yes. We serve both residential and commercial clients with tailored solutions."}},
+      {"@type":"Question","name":"Can you work on just one room?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. We frequently work on focused spaces like kitchens, bathrooms, or living rooms."}},
+      {"@type":"Question","name":"Do you provide furniture procurement services?","acceptedAnswer":{"@type":"Answer","text":"Yes, we can handle sourcing, ordering, and logistics to streamline your experience."}}
+    ]
+  }
+  </script>
+
+  <!-- Minimal JS for accordion and mobile nav toggle -->
+  <script>
+    // Mobile nav toggle (reuse classes from index)
+    const toggle = document.getElementById('mobileToggle');
+    const links = document.getElementById('mainNavLinks');
+    if (toggle && links) {
+      toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        links.classList.toggle('active');
+      });
+    }
+
+    // Accordion logic
+    document.querySelectorAll('.accordion-item').forEach((item) => {
+      const header = item.querySelector('.accordion-header');
+      const panel = item.querySelector('.accordion-panel');
+      header.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        // collapse others
+        document.querySelectorAll('.accordion-item').forEach((i) => {
+          i.classList.remove('active');
+          const p = i.querySelector('.accordion-panel');
+          if (p) p.style.maxHeight = null;
+        });
+        // expand current
+        if (!isActive) {
+          item.classList.add('active');
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

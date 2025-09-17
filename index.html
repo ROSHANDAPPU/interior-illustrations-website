@@ -61,6 +61,7 @@
       --color-body: #A3AAB4;      /* Slate */
       --color-light: #FAF7F2;     /* Ivory */
     }
+    
     /* Reset and base */
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif; }
@@ -1065,7 +1066,6 @@
       <h1 class="tagline">DESIGNING<br>LIFE'S<br>CANVAS</h1>
     </div>
 
-
     <!-- Calls to action -->
     <div class="cta">
       <a class="btn" href="#work">View Portfolio</a>
@@ -1247,6 +1247,7 @@
   </footer>
 
   <script>
+
     // Initialize WarpDrive effect on intro overlay background (blue tunnel style)
     $(document).ready(function() {
       var settings = {
@@ -1408,7 +1409,7 @@
       observer.observe(el);
     });
 
-    /* Synchronized taglines and background slides */
+    /* Synchronized taglines and background slides (guarded: legacy hero) */
     const taglines = Array.from(document.querySelectorAll(".tagline"));
     const track = document.querySelector(".track");
     const subtitles = [
@@ -1427,24 +1428,22 @@
     const totalSlides = 9; // Total number of slides in the track
     
     function updateSlide() {
+      if (!track || taglines.length === 0) return;
       // Remove active classes from current tagline
       taglines[tagIndex].classList.remove("active");
-      
       // Update indices
       tagIndex = (tagIndex + 1) % taglines.length;
       slideIndex = (slideIndex + 1) % totalSlides;
-      
       // Synchronize background slide with tagline
       track.className = `track slide-${slideIndex}`;
-      
       // Add active classes and update content after slide transition
-      setTimeout(() => {
-        taglines[tagIndex].classList.add("active");
-      }, 600); // Slightly longer delay to match slide transition
+      setTimeout(() => { taglines[tagIndex].classList.add("active"); }, 600);
     }
 
-    // Start the synchronized transitions
-    setInterval(updateSlide, 4500);
+    // Start the synchronized transitions (only if legacy elements exist)
+    if (track && taglines.length > 0) {
+      setInterval(updateSlide, 4500);
+    }
 
     /* Reveal on scroll */
     const io = new IntersectionObserver((entries) => {
@@ -1468,6 +1467,7 @@
           introOverlay.classList.add('hidden');
           setTimeout(() => {
             introOverlay.style.display = 'none';
+            // Overlay removed; cinematic hero shows immediately
           }, 1000);
         }, videoDuration * 1000);
       } else {
@@ -1476,6 +1476,7 @@
           introOverlay.classList.add('hidden');
           setTimeout(() => {
             introOverlay.style.display = 'none';
+            // Overlay removed; cinematic hero shows immediately
           }, 1000);
         }, 3000);
       }

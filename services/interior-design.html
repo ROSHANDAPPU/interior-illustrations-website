@@ -889,17 +889,24 @@
 
     /* Gallery */
     .gallery {
-      padding: 120px 40px; background: var(--color-bg-primary);
+      /* Widen by at least 2cm per side: remove side padding and expand max-width below */
+      padding: 0; 
+      margin-top: 40px; 
+      background: var(--color-bg-primary);
     }
     
     .gallery .section-header {
-      max-width: 1400px; margin: 0 auto; margin-bottom: 80px;
+      max-width: calc(1400px + 4cm); 
+      margin: 0 auto; 
+      margin-bottom: 40px; /* match .services-grid gap rhythm */
       text-align: left !important;
     }
     .gallery-grid {
-      display: grid; gap: 32px; 
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      max-width: 1400px; margin: 0 auto;
+      display: grid; 
+      gap: 40px; /* match .services-grid gap */
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* match card width */
+      max-width: calc(1400px + 4cm); 
+      margin: 0 auto;
     }
 
     /* Ivory CTA Banner below portfolio grid */
@@ -943,9 +950,14 @@
       .cta-banner p { font-size: 16px; }
     }
     .gallery-item {
-      height: 400px; background-size: cover; background-position: center;
-      border-radius: 0px; transition: all 400ms ease; cursor: pointer;
-      position: relative; overflow: hidden;
+      height: 400px; 
+      background-size: cover; 
+      background-position: center;
+      border-radius: 8px; /* match service-card radius */
+      transition: all 400ms ease; 
+      cursor: pointer;
+      position: relative; 
+      overflow: hidden;
     }
     .gallery-item::before {
       content: ''; position: absolute; inset: 0;
@@ -1137,104 +1149,23 @@
 
   <!-- Page Content -->
   <main class="page-content">
-    <!-- Process Section -->
-    <div class="process-section">
-      <h2 style="color: var(--color-heading); text-align: center; margin-bottom: 20px;">Our Design Process</h2>
-      <p style="color: var(--color-body); text-align: center; margin-bottom: 40px;">We follow a proven process to ensure your project exceeds expectations</p>
-      
-      <div class="process-accordion">
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <div class="step-number">1</div>
-            <h3 class="accordion-title">Consultation</h3>
-            <div class="accordion-arrow"></div>
-          </div>
-          <div class="accordion-content">
-            <p class="accordion-description">We start with a comprehensive consultation to understand your vision, needs, and budget.</p>
-            <ul class="sub-services">
-              <li>Initial home assessment and space analysis</li>
-              <li>Vision and lifestyle consultation</li>
-              <li>Budget planning and cost estimation</li>
-              <li>Timeline development and milestone planning</li>
-              <li>Style preference and inspiration gathering</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <div class="step-number">2</div>
-            <h3 class="accordion-title">Design</h3>
-            <div class="accordion-arrow"></div>
-          </div>
-          <div class="accordion-content">
-            <p class="accordion-description">Our team creates detailed designs, 3D renderings, and material selections for your approval.</p>
-            <ul class="sub-services">
-              <li>Detailed floor plans and space layouts</li>
-              <li>3D renderings and virtual walkthroughs</li>
-              <li>Material and finish selections</li>
-              <li>Color palette development</li>
-              <li>Furniture and fixture specifications</li>
-              <li>Lighting design and electrical planning</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <div class="step-number">3</div>
-            <h3 class="accordion-title">Planning</h3>
-            <div class="accordion-arrow"></div>
-          </div>
-          <div class="accordion-content">
-            <p class="accordion-description">We handle all permits, contractor coordination, and project scheduling.</p>
-            <ul class="sub-services">
-              <li>Building permits and code compliance</li>
-              <li>Contractor vetting and coordination</li>
-              <li>Material ordering and delivery scheduling</li>
-              <li>Project timeline and milestone tracking</li>
-              <li>Budget management and cost control</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <div class="step-number">4</div>
-            <h3 class="accordion-title">Construction</h3>
-            <div class="accordion-arrow"></div>
-          </div>
-          <div class="accordion-content">
-            <p class="accordion-description">Our experienced team manages the construction process with regular updates and quality control.</p>
-            <ul class="sub-services">
-              <li>Daily construction oversight and management</li>
-              <li>Quality control inspections and testing</li>
-              <li>Regular progress updates and communication</li>
-              <li>Problem resolution and change management</li>
-              <li>Safety compliance and site management</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <div class="step-number">5</div>
-            <h3 class="accordion-title">Completion</h3>
-            <div class="accordion-arrow"></div>
-          </div>
-          <div class="accordion-content">
-            <p class="accordion-description">Final walkthrough, cleanup, and handover of your beautifully transformed space.</p>
-            <ul class="sub-services">
-              <li>Final quality inspection and punch list</li>
-              <li>Professional cleaning and staging</li>
-              <li>Client walkthrough and approval</li>
-              <li>Warranty documentation and care instructions</li>
-              <li>Post-completion support and follow-up</li>
-            </ul>
-          </div>
-        </div>
+    
+    <!-- Portfolio Section -->
+    <section id="work" class="gallery" style="margin-top: 0;">
+      <div class="section-header reveal" style="text-align: left;">
+        <p class="section-subtitle" style="text-align: left; color: #93C5FD;">PORTFOLIO</p>
+        <h2 class="section-title" style="text-align: left; color: #93C5FD;">Our Latest Work</h2>
       </div>
-    </div>
+      
+      <div class="gallery-grid">
+        <a href="../portfolio/contemporary-living-room.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop');"></a>
+        <a href="../portfolio/luxury-bathroom-suite.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2000&auto=format&fit=crop');"></a>
+        <a href="../portfolio/modern-kitchen-renovation.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1556912167-f556f1f39fdf?q=80&w=2000&auto=format&fit=crop');"></a>
+        <a href="../portfolio/project-detail.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2000&auto=format&fit=crop');"></a>
+        <a href="../portfolio/elegant-master-bedroom.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=2000&auto=format&fit=crop');"></a>
+        <a href="../portfolio/modern-office-space.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop');"></a>
+      </div>
+    </section>
 
     <!-- Services Grid -->
     <div class="services-grid">
@@ -1322,24 +1253,6 @@
         <a href="../contact/get-quote.html" class="btn">Get Quote</a>
       </div>
     </div>
-
-
-    <!-- Portfolio Section -->
-    <section id="work" class="gallery" style="margin-top: 80px;">
-      <div class="section-header reveal" style="text-align: left;">
-        <p class="section-subtitle" style="text-align: left; color: #93C5FD;">PORTFOLIO</p>
-        <h2 class="section-title" style="text-align: left; color: #93C5FD;">Our Latest Work</h2>
-      </div>
-      
-      <div class="gallery-grid">
-        <a href="../portfolio/contemporary-living-room.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="../portfolio/luxury-bathroom-suite.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="../portfolio/modern-kitchen-renovation.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1556912167-f556f1f39fdf?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="../portfolio/project-detail.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="../portfolio/elegant-master-bedroom.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="../portfolio/modern-office-space.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop');"></a>
-      </div>
-    </section>
 
     <!-- Call to Action -->
     <div class="cta-banner">

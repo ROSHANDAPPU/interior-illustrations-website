@@ -50,10 +50,10 @@
     .nav {
       position: fixed; top: 0; left: 0; right: 0; height: 80px;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; z-index: 30;
+      padding: 0 40px; z-index: 1000;
       background: rgba(11, 14, 20, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(163, 170, 180, 0.1);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(147, 197, 253, 0.1);
     }
     
     .nav .brand img { 
@@ -267,17 +267,18 @@
       position: absolute;
       top: 100%;
       left: 0;
-      min-width: 200px;
-      background: rgba(11, 14, 20, 0.95);
+      min-width: 240px;
+      background: #0B0E14;
       backdrop-filter: blur(10px);
       border-radius: 12px;
-      padding: 8px 0;
+      padding: 6px 0;
       opacity: 0;
       visibility: hidden;
       transform: translateY(-10px);
       transition: all 0.3s ease;
       z-index: 1001;
       border: 1px solid rgba(147, 197, 253, 0.2);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.3);
     }
     
     .dropdown:hover .dropdown-menu,
@@ -289,23 +290,23 @@
     
     .dropdown-menu a {
       display: block;
-      padding: 10px 16px; /* compact */
-      color: #FFFFFF; /* white */
+      padding: 10px 16px;
+      color: #FFFFFF;
       text-decoration: none;
       transition: background 0.25s ease, color 0.25s ease;
       border-radius: 10px;
-      margin: 4px 8px; /* spacing */
-      background: #007FFF; /* azure button */
+      margin: 4px 8px;
+      background: #007FFF;
       font-size: 15px;
       line-height: 1.2;
       letter-spacing: 0.01em;
-      white-space: nowrap; /* prevent wrapping */
+      white-space: nowrap;
       text-align: center;
     }
     
     .dropdown-menu a:hover {
-      background: #1D4ED8; /* cobalt */
-      color: #FAF7F2; /* ivory */
+      background: #1D4ED8;
+      color: #FAF7F2;
     }
     
     /* Large desktop responsive */
@@ -425,34 +426,7 @@
         height: 50px;
       }
     }
-    
-    .dropdown:hover .dropdown-menu,
-    .dropdown.active .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-    
-    .dropdown-menu a {
-      display: block;
-      padding: 10px 16px; /* compact */
-      color: #FFFFFF; /* white */
-      text-decoration: none;
-      transition: background 0.25s ease, color 0.25s ease;
-      border-radius: 10px;
-      margin: 4px 8px; /* spacing */
-      background: #007FFF; /* azure button */
-      font-size: 15px;
-      line-height: 1.2;
-      letter-spacing: 0.01em;
-      white-space: nowrap; /* prevent wrapping */
-      text-align: center;
-    }
-    
-    .dropdown-menu a:hover {
-      background: #1D4ED8; /* cobalt */
-      color: #FAF7F2; /* ivory */
-    }
+    /* duplicate dropdown styles removed (standard styles declared above) */
 
     /* Footer Styles */
     .footer {
@@ -1094,7 +1068,7 @@
       </a>
     </div>
     <!-- Hamburger Menu -->
-    <div class="hamburger-menu">
+    <div class="hamburger-menu" id="hamburgerMenu">
       <div class="hamburger-icon">
         <div class="line line1"></div>
         <div class="line line2"></div>
@@ -1103,7 +1077,7 @@
       <div class="mobile-overlay">
         <nav class="mobile-nav">
           <a href="../about.html" class="mobile-link">About</a>
-          <div class="mobile-dropdown-section">
+          <div class="mobile-dropdown-section" id="mobileDropdown">
             <button class="mobile-dropdown-btn">
               Our Projects
               <span class="mobile-arrow">▼</span>
@@ -1114,6 +1088,7 @@
             </div>
           </div>
           <a href="../services/interior-design.html" class="mobile-link">Services</a>
+          <a href="../our-process.html" class="mobile-link">Our Process</a>
           <a href="../contact/get-quote.html" class="mobile-link">Contact</a>
         </nav>
       </div>
@@ -1129,6 +1104,7 @@
           <a href="commercial-projects.html">Commercial Projects</a>
         </div>
       </div>
+      <a href="../our-process.html">Our Process</a>
       <a href="../services/interior-design.html">Services</a>
       <a href="../about.html">About</a>
       <a href="../contact/get-quote.html">Contact</a>
@@ -1413,56 +1389,19 @@
       cursorFollower.style.opacity = '1';
     });
     
-    // Hamburger Menu Functionality
-    const hamburgerMenu = document.querySelector('.hamburger-menu');
-    const mobileOverlay = document.querySelector('.mobile-overlay');
-    const mobileDropdownSection = document.querySelector('.mobile-dropdown-section');
-    const mobileDropdownBtn = document.querySelector('.mobile-dropdown-btn');
-    const mobileDropdownContent = document.querySelector('.mobile-dropdown-content');
-    const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-sublink');
-
-    // Toggle hamburger menu
-    if (hamburgerMenu) {
-      hamburgerMenu.addEventListener('click', function(e) {
-        e.stopPropagation();
-        hamburgerMenu.classList.toggle('active');
-        document.body.style.overflow = hamburgerMenu.classList.contains('active') ? 'hidden' : 'auto';
-      });
+    // Mobile overlay toggle (standardized)
+    const hamburger = document.getElementById('hamburgerMenu');
+    if (hamburger) {
+      const icon = hamburger.querySelector('.hamburger-icon');
+      if (icon) icon.addEventListener('click', () => hamburger.classList.toggle('active'));
     }
 
-    // Close menu when clicking on overlay
-    if (mobileOverlay) {
-      mobileOverlay.addEventListener('click', function(e) {
-        if (e.target === mobileOverlay) {
-          hamburgerMenu.classList.remove('active');
-          document.body.style.overflow = 'auto';
-        }
-      });
+    // Mobile dropdown toggle (standardized)
+    const mobileDropdown = document.getElementById('mobileDropdown');
+    if (mobileDropdown) {
+      const btn = mobileDropdown.querySelector('.mobile-dropdown-btn');
+      btn.addEventListener('click', () => mobileDropdown.classList.toggle('active'));
     }
-
-    // Mobile dropdown toggle
-    if (mobileDropdownBtn) {
-      mobileDropdownBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        mobileDropdownSection.classList.toggle('active');
-      });
-    }
-
-    // Close menu when clicking on links
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        hamburgerMenu.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      });
-    });
-
-    // Handle escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && hamburgerMenu && hamburgerMenu.classList.contains('active')) {
-        hamburgerMenu.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      }
-    });
 
   </script>
 

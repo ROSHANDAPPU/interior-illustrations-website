@@ -198,6 +198,25 @@ h3, .eyebrow, .section-subtitle {
   cursor: not-allowed;
 }
 
+/* ================================ */
+/* Navigation: Azure hover buttons   */
+/* Turn non-dropdown nav links into  */
+/* azure pills on hover/focus.       */
+/* ================================ */
+header.nav .links a:hover:not(.dropdown-toggle),
+header.nav .links a:focus:not(.dropdown-toggle) {
+  background: var(--color-accent) !important; /* Azure */
+  color: var(--color-bg-primary) !important;  /* Deep Navy text on Azure */
+  text-decoration: none !important;           /* Remove underlines defined inline */
+  border-radius: 20px;                        /* Pill shape matches Our Projects */
+}
+/* Click (active) state also Azure for non-dropdown items */
+header.nav .links a:active:not(.dropdown-toggle) {
+  background: var(--color-accent) !important; /* Azure */
+  color: var(--color-bg-primary) !important;  /* Deep Navy */
+  border-radius: 20px;
+}
+
 /* Button Size Variants */
 .btn-small, .btn.small {
   font-size: 14px;
@@ -369,4 +388,44 @@ h3, .eyebrow, .section-subtitle {
   border: 2px solid var(--color-accent) !important;
   transform: none !important; /* No transform */
   box-shadow: none !important; /* No shadows */
+}
+
+/* ------------------------------ */
+/* Global Cobalt Click Interactions */
+/* Applies consistent active-state feedback across pages */
+/* ------------------------------ */
+
+/* Desktop navigation links */
+.nav .links a:active,
+/* Any nav anchor when pressed */
+.nav a:active,
+/* Dropdown menu items */
+.dropdown-menu a:active,
+/* Mobile overlay links */
+.mobile-link:active,
+/* Mobile dropdown trigger */
+.mobile-dropdown-btn:active {
+  background: var(--color-action); /* Cobalt */
+  color: var(--color-heading);     /* Off-white */
+  transform: scale(0.95);
+}
+
+/* Mobile dropdown trigger */
+.mobile-dropdown-btn:active {
+  background: var(--color-action); /* Cobalt */
+  color: var(--color-heading);     /* Off-white */
+  transform: scale(0.95);
+}
+
+/* ------------------------------ */
+/* Persistent Active Nav State */
+/* Highlights current page link as a cobalt button */
+/* ------------------------------ */
+
+.nav .links a.active,
+.dropdown-menu a.active,
+.dropdown .dropdown-toggle.active {
+  background: var(--color-action); /* Cobalt */
+  color: var(--color-heading);     /* Off-white */
+  border-radius: 20px;
 }

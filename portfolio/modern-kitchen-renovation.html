@@ -60,6 +60,168 @@
       transition: all 0.3s ease;
     }
     
+    /* Hamburger Menu Styles */
+    .hamburger-menu {
+      display: none;
+      position: relative;
+      z-index: 9999;
+    }
+
+    .hamburger-icon {
+      width: 30px;
+      height: 24px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.4s ease;
+    }
+
+    .line {
+      width: 100%;
+      height: 3px;
+      background: #1D4ED8;
+      border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transform-origin: center;
+    }
+
+    /* X Animation */
+    .hamburger-menu.active .line1 {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .hamburger-menu.active .line2 {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger-menu.active .line3 {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Mobile Overlay */
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(11, 14, 20, 0.95);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 9998;
+    }
+
+    .hamburger-menu.active .mobile-overlay {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Mobile Navigation */
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      padding: 40px;
+    }
+
+    .mobile-link {
+      font-size: 24px;
+      font-weight: 500;
+      color: #E7EAEE;
+      text-decoration: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      text-align: center;
+      min-width: 200px;
+    }
+
+    .mobile-link:hover {
+      background: rgba(29, 78, 216, 0.2);
+      color: #1D4ED8;
+      transform: translateY(-2px);
+    }
+
+    /* Mobile Dropdown */
+    .mobile-dropdown-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mobile-dropdown-btn {
+      font-size: 24px;
+      font-weight: 500;
+      color: #E7EAEE;
+      background: none;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      min-width: 200px;
+      justify-content: center;
+    }
+
+    .mobile-dropdown-btn:hover {
+      background: rgba(29, 78, 216, 0.2);
+      color: #1D4ED8;
+    }
+
+    .mobile-arrow {
+      transition: transform 0.3s ease;
+      font-size: 16px;
+    }
+
+    .mobile-dropdown-section.active .mobile-arrow {
+      transform: rotate(180deg);
+    }
+
+    .mobile-dropdown-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .mobile-dropdown-section.active .mobile-dropdown-content {
+      max-height: 200px;
+    }
+
+    .mobile-sublink {
+      font-size: 18px;
+      color: #1D4ED8;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .mobile-sublink:hover {
+      background: rgba(29, 78, 216, 0.1);
+      color: #60A5FA;
+    }
+    
+    .nav .links {
+      display: flex; gap: 32px; align-items: center;
+    }
+    
     /* Mobile Menu Toggle */
     .mobile-menu-toggle {
       display: none;
@@ -90,9 +252,6 @@
       transform: rotate(45deg) translate(-5px, -6px);
     }
     
-    .nav .links {
-      display: flex; gap: 32px; align-items: center;
-    }
     .nav .links a {
       color: var(--color-body);
       text-decoration: none;
@@ -214,9 +373,14 @@
     }
     
     /* Mobile Responsive Styles */
-    @media (max-width: 1300px) {
-      .mobile-menu-toggle {
-        display: flex;
+    @media (max-width: 1024px) {
+      .hamburger-menu {
+        display: block;
+      }
+      
+      /* Hide desktop navigation */
+      .nav .links {
+        display: none;
       }
       
       .nav .brand img {
@@ -288,7 +452,6 @@
     .footer-description {
       color: var(--color-body); /* Slate */
       font-size: 16px;
-      line-height: 1.6;
       margin-bottom: 32px;
       max-width: 300px;
     }
@@ -896,15 +1059,40 @@
   <!-- Navigation -->
   <header class="nav">
     <div class="brand">
-      <img src="../assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" />
+      <a href="../index.html">
+        <img src="../assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" />
+      </a>
     </div>
-    <div class="mobile-menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu">
+      <div class="hamburger-icon">
+        <div class="line line1"></div>
+        <div class="line line2"></div>
+        <div class="line line3"></div>
+      </div>
+      <div class="mobile-overlay">
+        <nav class="mobile-nav">
+          <a href="../about.html" class="mobile-link">About</a>
+          <div class="mobile-dropdown-section">
+            <button class="mobile-dropdown-btn">
+              Our Projects
+              <span class="mobile-arrow">▼</span>
+            </button>
+            <div class="mobile-dropdown-content">
+              <a href="../portfolio/before-after-gallery.html" class="mobile-sublink">All Projects</a>
+              <a href="../portfolio/modern-kitchen-renovation.html" class="mobile-sublink">Kitchen</a>
+              <a href="../portfolio/luxury-bathroom-suite.html" class="mobile-sublink">Bathroom</a>
+              <a href="../portfolio/contemporary-living-room.html" class="mobile-sublink">Living Room</a>
+              <a href="../portfolio/elegant-master-bedroom.html" class="mobile-sublink">Bedroom</a>
+              <a href="../portfolio/residential-projects.html" class="mobile-sublink">Whole Home</a>
+            </div>
+          </div>
+          <a href="../services/interior-design.html" class="mobile-link">Services</a>
+          <a href="../contact/get-quote.html" class="mobile-link">Contact</a>
+        </nav>
+      </div>
     </div>
     <nav class="links">
-      <a href="../index.html">Home</a>
       <div class="dropdown">
         <a href="#" class="dropdown-toggle" style="background: #1D4ED8; color: #E7EAEE; border-radius: 20px;">
           Our Projects
@@ -1199,59 +1387,55 @@
       cursorFollower.style.opacity = '1';
     });
     
-    // Mobile Menu Toggle Functionality
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileLinks = document.querySelector('.nav .links');
-    const dropdown = document.querySelector('.dropdown');
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    
-    mobileMenuToggle.addEventListener('click', () => {
-      mobileMenuToggle.classList.toggle('active');
-      mobileLinks.classList.toggle('active');
-    });
-    
-    // Close mobile menu when clicking on a link
-    const mobileNavLinks = document.querySelectorAll('.nav .links a');
-    mobileNavLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenuToggle.classList.remove('active');
-        mobileLinks.classList.remove('active');
-      });
-    });
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!document.querySelector('.nav').contains(e.target)) {
-        mobileMenuToggle.classList.remove('active');
-        mobileLinks.classList.remove('active');
-      }
-    });
-    
-    // Dropdown functionality
-    if (window.innerWidth > 768) {
-      dropdown.addEventListener('mouseenter', () => {
-        dropdown.classList.add('active');
-      });
-      
-      dropdown.addEventListener('mouseleave', () => {
-        dropdown.classList.remove('active');
-      });
-    } else {
-      dropdownToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        dropdown.classList.toggle('active');
+    // Hamburger Menu Functionality
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const mobileOverlay = document.querySelector('.mobile-overlay');
+    const mobileDropdownSection = document.querySelector('.mobile-dropdown-section');
+    const mobileDropdownBtn = document.querySelector('.mobile-dropdown-btn');
+    const mobileDropdownContent = document.querySelector('.mobile-dropdown-content');
+    const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-sublink');
+
+    // Toggle hamburger menu
+    if (hamburgerMenu) {
+      hamburgerMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+        hamburgerMenu.classList.toggle('active');
+        document.body.style.overflow = hamburgerMenu.classList.contains('active') ? 'hidden' : 'auto';
       });
     }
-    
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      const mobileLinks = document.querySelector('.nav .links');
-      const mobileToggle = document.querySelector('.mobile-menu-toggle');
-      if (window.innerWidth > 768) {
-        mobileLinks.classList.remove('active');
-        mobileToggle.classList.remove('active');
+
+    // Close menu when clicking on overlay
+    if (mobileOverlay) {
+      mobileOverlay.addEventListener('click', function(e) {
+        if (e.target === mobileOverlay) {
+          hamburgerMenu.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+      });
+    }
+
+    // Mobile dropdown toggle
+    if (mobileDropdownBtn) {
+      mobileDropdownBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        mobileDropdownSection.classList.toggle('active');
+      });
+    }
+
+    // Close menu when clicking on links
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        hamburgerMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+    });
+
+    // Handle escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && hamburgerMenu && hamburgerMenu.classList.contains('active')) {
+        hamburgerMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
       }
-      dropdown.classList.remove('active');
     });
   </script>
 
@@ -1322,4 +1506,5 @@
     </div>
   </footer>
 </body>
+<script src="../assets/js/nav-active.js"></script>
 </html>

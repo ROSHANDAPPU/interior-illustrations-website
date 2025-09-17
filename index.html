@@ -421,6 +421,16 @@
     .section {
       padding: 120px 40px; max-width: 1400px; margin: 0 auto;
     }
+    /* Enlarge Services width beyond other sections */
+    #services.section { padding: 120px 16px; }
+    #services .section-header {
+      max-width: calc(1920px + 2cm);
+      margin: 0 auto 80px;
+    }
+    #services .services-grid {
+      max-width: calc(1920px + 2cm);
+      margin: 0 auto;
+    }
     .section-header {
       text-align: left; margin-bottom: 80px;
     }
@@ -578,8 +588,9 @@
     .contact {
       padding: 120px 40px; background: var(--color-light);
     }
-    .contact-content {
-      max-width: 800px; margin: 0 auto; text-align: center;
+    .gallery .section-header {
+      max-width: 1400px; margin: 0 auto; margin-bottom: 80px;
+      text-align: right !important; /* override inline left on header */
     }
     .contact h2 {
       font-size: clamp(36px, 6vw, 64px); font-weight: 900; 
@@ -979,7 +990,7 @@
 
   <!-- Header -->
   <header class="nav">
-    <div class="brand"><img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" /></div>
+    <div class="brand"><a href="index.html"><img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" /></a></div>
     
     <!-- Mobile Menu Toggle -->
     <div class="mobile-menu-toggle">
@@ -1528,4 +1539,5 @@
     });
   </script>
 </body>
+<script src="assets/js/nav-active.js"></script>
 </html>

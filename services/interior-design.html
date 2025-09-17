@@ -8,6 +8,8 @@
   <link rel="icon" type="image/x-icon" href="../assets/images/06_Favicon/favicon-high.png">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Stylesheet for global nav interactions -->
+  <link rel="stylesheet" href="../css/style.css">
   
   <style>
     :root {
@@ -36,38 +38,162 @@
       background: #0B0E14; /* Deep Navy background */
     }
     
-    /* Mobile Menu Toggle */
-    .mobile-menu-toggle {
+    /* Hamburger Menu Styles */
+    .hamburger-menu {
       display: none;
-      flex-direction: column;
-      cursor: pointer;
-      padding: 8px;
-      z-index: 31;
+      position: relative;
+      z-index: 9999;
     }
-    
-    .mobile-menu-toggle span {
-      width: 25px;
+
+    .hamburger-icon {
+      width: 30px;
+      height: 24px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.4s ease;
+    }
+
+    .line {
+      width: 100%;
       height: 3px;
-      background: #93C5FD; /* Azure color for hamburger lines */
-      margin: 3px 0;
-      transition: all 0.3s ease;
+      background: #1D4ED8;
       border-radius: 2px;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       transform-origin: center;
     }
-    
-    .mobile-menu-toggle.active span:nth-child(1) {
-      transform: rotate(-45deg) translate(-6px, 6px);
-      background: #93C5FD; /* Maintain azure color when active */
+
+    /* X Animation */
+    .hamburger-menu.active .line1 {
+      transform: rotate(45deg) translate(6px, 6px);
     }
-    
-    .mobile-menu-toggle.active span:nth-child(2) {
+
+    .hamburger-menu.active .line2 {
       opacity: 0;
-      transform: translateX(20px);
+      transform: scaleX(0);
     }
-    
-    .mobile-menu-toggle.active span:nth-child(3) {
-      transform: rotate(45deg) translate(-6px, -6px);
-      background: #93C5FD; /* Maintain azure color when active */
+
+    .hamburger-menu.active .line3 {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Mobile Overlay */
+    .mobile-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(11, 14, 20, 0.95);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 9998;
+    }
+
+    .hamburger-menu.active .mobile-overlay {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Mobile Navigation */
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      padding: 40px;
+    }
+
+    .mobile-link {
+      font-size: 24px;
+      font-weight: 500;
+      color: #E7EAEE;
+      text-decoration: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      text-align: center;
+      min-width: 200px;
+    }
+
+    .mobile-link:hover {
+      background: rgba(29, 78, 216, 0.2);
+      color: #1D4ED8;
+      transform: translateY(-2px);
+    }
+
+    /* Mobile Dropdown */
+    .mobile-dropdown-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mobile-dropdown-btn {
+      font-size: 24px;
+      font-weight: 500;
+      color: #E7EAEE;
+      background: none;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      min-width: 200px;
+      justify-content: center;
+    }
+
+    .mobile-dropdown-btn:hover {
+      background: rgba(29, 78, 216, 0.2);
+      color: #1D4ED8;
+    }
+
+    .mobile-arrow {
+      transition: transform 0.3s ease;
+      font-size: 16px;
+    }
+
+    .mobile-dropdown-section.active .mobile-arrow {
+      transform: rotate(180deg);
+    }
+
+    .mobile-dropdown-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .mobile-dropdown-section.active .mobile-dropdown-content {
+      max-height: 200px;
+    }
+
+    .mobile-sublink {
+      font-size: 18px;
+      color: #1D4ED8;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .mobile-sublink:hover {
+      background: rgba(29, 78, 216, 0.1);
+      color: #60A5FA;
     }
     .nav a, .nav .brand { 
       color: #E7EAEE; /* Off-white color for consistency */
@@ -132,17 +258,18 @@
       position: absolute;
       top: 100%;
       left: 0;
-      min-width: 200px;
-      background: #0B0E14;
+      min-width: 240px; /* ensure single-line items */
+      background: #0B0E14; /* deep navy */
       backdrop-filter: blur(10px);
       border-radius: 12px;
-      padding: 8px 0;
+      padding: 6px 0;
       opacity: 0;
       visibility: hidden;
       transform: translateY(-10px);
       transition: all 0.3s ease;
       z-index: 1001;
       border: 1px solid rgba(147, 197, 253, 0.2);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.3); /* soft depth */
     }
     
     .dropdown:hover .dropdown-menu,
@@ -154,19 +281,23 @@
     
     .dropdown-menu a {
       display: block;
-      padding: 12px 20px;
-      color: #93C5FD; /* Azure text color */
+      padding: 10px 16px; /* compact */
+      color: #FFFFFF; /* white text */
       text-decoration: none;
-      transition: all 0.3s ease;
-      border-radius: 20px;
-      margin: 4px 8px;
-      background: transparent;
+      transition: background 0.25s ease, color 0.25s ease;
+      border-radius: 10px; /* rounded buttons */
+      margin: 4px 8px; /* spacing between buttons */
+      background: #007FFF; /* azure button */
+      font-size: 15px; /* compact size */
+      line-height: 1.2; /* tight line height */
+      letter-spacing: 0.01em; /* normal spacing */
+      white-space: nowrap; /* prevent wrapping */
+      text-align: center;
     }
     
     .dropdown-menu a:hover {
-      background: #1D4ED8; /* Cobalt hover background */
-      color: #E7EAEE; /* Off-white text on hover */
-      transform: scale(0.95);
+      background: #1D4ED8; /* cobalt hover */
+      color: #FAF7F2; /* ivory */
     }
     
     /* Large desktop responsive */
@@ -210,9 +341,14 @@
     }
     
     /* Mobile Responsive Styles */
-    @media (max-width: 768px) {
-      .mobile-menu-toggle {
-        display: flex;
+    @media (max-width: 1024px) {
+      .hamburger-menu {
+        display: block;
+      }
+      
+      /* Hide desktop navigation */
+      .nav .links {
+        display: none;
       }
       
       .nav .brand img {
@@ -235,8 +371,22 @@
         z-index: 1000;
       }
       
-      .nav .links.active {
-        left: 0;
+    }
+
+    @media (max-width: 480px) {
+      .mobile-link,
+      .mobile-dropdown-btn {
+        font-size: 20px;
+        min-width: 180px;
+      }
+      
+      .mobile-sublink {
+        font-size: 16px;
+      }
+      
+      .mobile-nav {
+        gap: 25px;
+        padding: 30px;
       }
       
       .nav .links a {
@@ -500,9 +650,14 @@
     .accordion-header:hover {
       background: rgba(147, 197, 253, 0.05);
     }
+    /* ACTIVE (expanded) state uses Ivory panel with contrasting text */
     .accordion-header.active {
-      background: linear-gradient(135deg, rgba(29, 78, 216, 0.1), rgba(147, 197, 253, 0.1));
+      background: var(--color-light); /* Ivory */
+      box-shadow: 0 6px 18px rgba(11,14,20,0.06);
     }
+    .accordion-header.active .accordion-title { color: var(--color-bg-primary); } /* Deep Navy */
+    .accordion-header.active .step-number { background: var(--color-action); color: var(--color-heading); }
+    .accordion-header.active + .accordion-content { background: var(--color-light); }
     .step-number {
       background: var(--color-action);
       color: var(--color-heading);
@@ -523,6 +678,7 @@
       font-size: 22px;
       font-weight: 600;
       margin: 0;
+      transition: color 0.25s ease;
     }
     .accordion-arrow {
       width: 24px;
@@ -531,21 +687,24 @@
       border-left: none;
       border-top: none;
       transform: rotate(45deg);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.25s ease;
       margin-left: 20px;
     }
+    .accordion-header.active .accordion-arrow { border-color: #334155; } /* dark slate on ivory */
     .accordion-header.active .accordion-arrow {
       transform: rotate(225deg);
     }
     .accordion-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.4s ease;
+      transition: max-height 0.4s ease, padding 0.4s ease, background 0.25s ease;
       background: linear-gradient(135deg, rgba(29, 78, 216, 0.05), rgba(147, 197, 253, 0.05));
     }
     .accordion-content.active {
       max-height: 500px;
       padding: 0 24px 24px;
+      background: var(--color-light); /* Ivory when expanded */
+      border-top: 1px solid rgba(11,14,20,0.08);
     }
     .accordion-description {
       color: #93C5FD; /* Azure text color */
@@ -730,7 +889,7 @@
 
     /* Gallery */
     .gallery {
-      padding: 120px 40px; background: var(--color-light);
+      padding: 120px 40px; background: var(--color-bg-primary);
     }
     
     .gallery .section-header {
@@ -741,6 +900,47 @@
       display: grid; gap: 32px; 
       grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
       max-width: 1400px; margin: 0 auto;
+    }
+
+    /* Ivory CTA Banner below portfolio grid */
+    .cta-banner {
+      background: var(--color-light); /* Ivory */
+      border: 1px solid rgba(11, 14, 20, 0.08); /* subtle Deep Navy tint */
+      border-radius: 12px;
+      padding: 40px 32px;
+      margin: 60px auto 20px;
+      max-width: 1000px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(11,14,20,0.06);
+    }
+    .cta-banner h2 {
+      color: var(--color-bg-primary); /* Deep Navy on Ivory */
+      margin: 0 0 16px 0;
+      letter-spacing: 0.02em;
+      font-weight: 700;
+    }
+    .cta-banner p {
+      color: #334155; /* Dark slate for readability on ivory */
+      margin: 0 0 24px 0;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .cta-actions {
+      display: inline-flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cta-banner .btn {
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+    .cta-banner .btn.secondary {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+    @media (max-width: 640px) {
+      .cta-banner { padding: 28px 20px; }
+      .cta-banner p { font-size: 16px; }
     }
     .gallery-item {
       height: 400px; background-size: cover; background-position: center;
@@ -879,20 +1079,40 @@
   <!-- Header -->
   <header class="nav">
     <div class="brand">
-      <img src="../assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" />
+      <a href="../index.html">
+        <img src="../assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" />
+      </a>
     </div>
     
-    <!-- Mobile Menu Toggle -->
-    <div class="mobile-menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu">
+      <div class="hamburger-icon">
+        <span class="line line1"></span>
+        <span class="line line2"></span>
+        <span class="line line3"></span>
+      </div>
+      <div class="mobile-overlay">
+        <nav class="mobile-nav">
+          <div class="mobile-dropdown-section">
+            <button class="mobile-dropdown-btn">
+              Our Projects
+              <span class="mobile-arrow">▼</span>
+            </button>
+            <div class="mobile-dropdown-content">
+              <a href="../portfolio/residential-projects.html" class="mobile-sublink">Residential Projects</a>
+              <a href="../portfolio/commercial-projects.html" class="mobile-sublink">Commercial Projects</a>
+            </div>
+          </div>
+          <a href="interior-design.html" class="mobile-link">Services</a>
+          <a href="../about.html" class="mobile-link">About</a>
+          <a href="../contact/get-quote.html" class="mobile-link">Contact</a>
+        </nav>
+      </div>
     </div>
     
     <nav class="links">
-      <a href="../index.html">Home</a>
       <div class="dropdown">
-        <a href="#" class="dropdown-toggle">
+        <a href="#" class="dropdown-toggle" style="background: #1D4ED8; color: #E7EAEE; border-radius: 20px;">
           Our Projects
           <span class="dropdown-arrow">▼</span>
         </a>
@@ -901,8 +1121,7 @@
           <a href="../portfolio/commercial-projects.html">Commercial Projects</a>
         </div>
       </div>
-      
-      <a href="interior-design.html" style="background: #1D4ED8; color: #E7EAEE; border-radius: 20px;">Services</a>
+      <a href="interior-design.html">Services</a>
       <a href="../about.html">About</a>
       <a href="../contact/get-quote.html">Contact</a>
     </nav>
@@ -1121,10 +1340,10 @@
     </section>
 
     <!-- Call to Action -->
-    <div style="text-align: center; margin-top: 60px;">
-      <h2 style="color: var(--color-heading); margin-bottom: 24px;">Ready to Start Your Project?</h2>
-      <p style="color: var(--color-body); margin-bottom: 30px;">Contact us today for a free consultation and quote.</p>
-      <div>
+    <div class="cta-banner">
+      <h2>Ready to Start Your Project?</h2>
+      <p>Contact us today for a free consultation and quote.</p>
+      <div class="cta-actions">
         <a href="../contact/get-quote.html" class="btn">Get a Quote</a>
         <a href="../portfolio/residential-projects.html" class="btn secondary">View Our Work</a>
       </div>
@@ -1241,37 +1460,52 @@
       cursorFollower.style.opacity = '1';
     });
 
-    // Mobile Menu Toggle Functionality
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileLinks = document.querySelector('.nav .links');
-    
-    mobileMenuToggle.addEventListener('click', () => {
-      mobileMenuToggle.classList.toggle('active');
-      mobileLinks.classList.toggle('active');
-    });
-    
-    // Close mobile menu when clicking on a link
-    const mobileNavLinks = document.querySelectorAll('.nav .links a');
-    mobileNavLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenuToggle.classList.remove('active');
-        mobileLinks.classList.remove('active');
+    // Hamburger Menu Functionality
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const hamburgerIcon = document.querySelector('.hamburger-icon');
+    const mobileOverlay = document.querySelector('.mobile-overlay');
+    const dropdownBtn = document.querySelector('.mobile-dropdown-btn');
+    const dropdownSection = document.querySelector('.mobile-dropdown-section');
+    const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-sublink');
+
+    // Toggle hamburger menu
+    if (hamburgerIcon) {
+      hamburgerIcon.addEventListener('click', function() {
+        hamburgerMenu.classList.toggle('active');
+        document.body.style.overflow = hamburgerMenu.classList.contains('active') ? 'hidden' : 'auto';
+      });
+    }
+
+    // Close menu when clicking on overlay
+    if (mobileOverlay) {
+      mobileOverlay.addEventListener('click', function(e) {
+        if (e.target === mobileOverlay) {
+          hamburgerMenu.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+      });
+    }
+
+    // Dropdown functionality
+    if (dropdownBtn) {
+      dropdownBtn.addEventListener('click', function() {
+        dropdownSection.classList.toggle('active');
+      });
+    }
+
+    // Close menu when clicking on links
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        hamburgerMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
       });
     });
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!document.querySelector('.nav').contains(e.target)) {
-        mobileMenuToggle.classList.remove('active');
-        mobileLinks.classList.remove('active');
-      }
-    });
-    
-    // Handle window resize for mobile menu
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        mobileLinks.classList.remove('active');
-        mobileMenuToggle.classList.remove('active');
+
+    // Handle escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && hamburgerMenu && hamburgerMenu.classList.contains('active')) {
+        hamburgerMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
       }
     });
   </script>
@@ -1336,6 +1570,6 @@
           <div class="footer-legal-links">
             <a href="#">Privacy Policy</a>
             <span class="footer-divider">|</span>
-</body>
+  </body>
+<script src="../assets/js/nav-active.js"></script>
 </html>
-

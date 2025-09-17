@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Shared Stylesheet for global nav interactions -->
+  <link rel="stylesheet" href="../css/style.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   
   <style>
@@ -137,7 +139,7 @@
       top: 100%;
       left: 0;
       min-width: 240px; /* ensure single-line items */
-      background: rgba(11, 14, 20, 0.95);
+      background: #0B0E14; /* deep navy */
       backdrop-filter: blur(10px);
       border-radius: 12px;
       padding: 6px 0;
@@ -147,6 +149,7 @@
       transition: all 0.3s ease;
       z-index: 1001;
       border: 1px solid rgba(147, 197, 253, 0.2);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.3);
     }
     
     .dropdown:hover .dropdown-menu,
@@ -159,20 +162,21 @@
     .dropdown-menu a {
       display: block;
       padding: 10px 16px; /* compact */
-      color: #E7EAEE; /* clean white text */
+      color: #FFFFFF; /* white */
       text-decoration: none;
       transition: background 0.25s ease, color 0.25s ease;
-      border-radius: 8px; /* simple button look */
-      margin: 2px 8px;
-      background: transparent;
+      border-radius: 10px; /* rounded buttons */
+      margin: 4px 8px;
+      background: #007FFF; /* azure button */
       font-size: 15px; /* compact font size */
       line-height: 1.2; /* tighter line height */
       letter-spacing: 0.01em; /* reduced letter spacing */
       white-space: nowrap; /* prevent wrapping */
+      text-align: center;
     }
     
     .dropdown-menu a:hover {
-      background: #1D4ED8; /* azure/cobalt hover */
+      background: #1D4ED8; /* cobalt hover */
       color: #FAF7F2;
     }
     
@@ -279,16 +283,17 @@
     .dropdown-menu a {
       display: block;
       padding: 10px 16px;
-      color: #E7EAEE; /* white text */
+      color: #FFFFFF;
       text-decoration: none;
       transition: background 0.25s ease, color 0.25s ease;
-      border-radius: 8px;
-      margin: 2px 8px;
-      background: transparent;
+      border-radius: 10px;
+      margin: 4px 8px;
+      background: #007FFF;
       font-size: 15px;
       line-height: 1.2;
       letter-spacing: 0.01em;
       white-space: nowrap; /* prevent wrapping */
+      text-align: center;
     }
     
     .dropdown-menu a:hover {

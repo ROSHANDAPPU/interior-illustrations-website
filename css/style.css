@@ -217,6 +217,31 @@ header.nav .links a:active:not(.dropdown-toggle) {
   border-radius: 20px;
 }
 
+/* Do NOT style the brand logo link as a button on hover/click */
+header.nav .brand a,
+header.nav .brand a:hover,
+header.nav .brand a:active,
+header.nav .brand a:focus,
+header.nav .brand a:visited {
+  background: transparent !important;
+  color: inherit !important;
+  transform: none !important;
+  border-radius: 0 !important;
+  text-decoration: none !important;
+}
+
+/* Standardize brand logo sizing across pages */
+header.nav .brand a { display: inline-block; padding: 0; }
+header.nav .brand img {
+  height: 200px; /* desktop */
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+@media (max-width: 768px) {
+  header.nav .brand img { height: 60px; }
+}
+
 /* Button Size Variants */
 .btn-small, .btn.small {
   font-size: 14px;
@@ -395,10 +420,8 @@ header.nav .links a:active:not(.dropdown-toggle) {
 /* Applies consistent active-state feedback across pages */
 /* ------------------------------ */
 
-/* Desktop navigation links */
+/* Desktop navigation links (exclude brand and dropdown toggle handled elsewhere) */
 .nav .links a:active,
-/* Any nav anchor when pressed */
-.nav a:active,
 /* Dropdown menu items */
 .dropdown-menu a:active,
 /* Mobile overlay links */

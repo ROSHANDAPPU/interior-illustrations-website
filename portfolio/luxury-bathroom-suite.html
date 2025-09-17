@@ -8,6 +8,8 @@
   <link rel="icon" type="image/x-icon" href="../assets/images/06_Favicon/favicon-high.png">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Stylesheet for global nav interactions -->
+  <link rel="stylesheet" href="../css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -287,19 +289,23 @@
     
     .dropdown-menu a {
       display: block;
-      padding: 12px 20px;
-      color: var(--color-body);
+      padding: 10px 16px; /* compact */
+      color: #FFFFFF; /* white */
       text-decoration: none;
-      transition: all 0.3s ease;
-      border-radius: 20px;
-      margin: 4px 8px;
-      background: transparent;
+      transition: background 0.25s ease, color 0.25s ease;
+      border-radius: 10px;
+      margin: 4px 8px; /* spacing */
+      background: #007FFF; /* azure button */
+      font-size: 15px;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      white-space: nowrap; /* prevent wrapping */
+      text-align: center;
     }
     
     .dropdown-menu a:hover {
-      background: #1D4ED8;
-      color: #E7EAEE;
-      transform: scale(0.95);
+      background: #1D4ED8; /* cobalt */
+      color: #FAF7F2; /* ivory */
     }
     
     /* Large desktop responsive */
@@ -429,19 +435,23 @@
     
     .dropdown-menu a {
       display: block;
-      padding: 12px 20px;
-      color: var(--color-body);
+      padding: 10px 16px; /* compact */
+      color: #FFFFFF; /* white */
       text-decoration: none;
-      transition: all 0.3s ease;
-      border-radius: 20px;
-      margin: 4px 8px;
-      background: transparent;
+      transition: background 0.25s ease, color 0.25s ease;
+      border-radius: 10px;
+      margin: 4px 8px; /* spacing */
+      background: #007FFF; /* azure button */
+      font-size: 15px;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      white-space: nowrap; /* prevent wrapping */
+      text-align: center;
     }
     
     .dropdown-menu a:hover {
-      background: #1D4ED8;
-      color: #E7EAEE;
-      transform: scale(0.95);
+      background: #1D4ED8; /* cobalt */
+      color: #FAF7F2; /* ivory */
     }
 
     /* Footer Styles */

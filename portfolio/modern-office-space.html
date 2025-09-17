@@ -9,6 +9,8 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Shared Stylesheet for global nav interactions -->
+  <link rel="stylesheet" href="../css/style.css">
   
   <style>
     @font-face {
@@ -273,17 +275,18 @@
       position: absolute;
       top: 100%;
       left: 0;
-      min-width: 200px;
-      background: #0B0E14;
+      min-width: 240px; /* ensure single-line items */
+      background: #0B0E14; /* deep navy */
       backdrop-filter: blur(10px);
       border-radius: 12px;
-      padding: 8px 0;
+      padding: 6px 0;
       opacity: 0;
       visibility: hidden;
       transform: translateY(-10px);
       transition: all 0.3s ease;
       z-index: 1001;
       border: 1px solid rgba(147, 197, 253, 0.2);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.3);
     }
     
     .dropdown:hover .dropdown-menu,
@@ -295,19 +298,23 @@
     
     .dropdown-menu a {
       display: block;
-      padding: 12px 20px;
-      color: var(--color-body);
+      padding: 10px 16px; /* compact */
+      color: #FFFFFF; /* white */
       text-decoration: none;
-      transition: all 0.3s ease;
-      border-radius: 20px;
-      margin: 4px 8px;
-      background: transparent;
+      transition: background 0.25s ease, color 0.25s ease;
+      border-radius: 10px;
+      margin: 4px 8px; /* spacing */
+      background: #007FFF; /* azure button */
+      font-size: 15px;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      white-space: nowrap; /* prevent wrapping */
+      text-align: center;
     }
     
     .dropdown-menu a:hover {
-      background: #1D4ED8;
-      color: #E7EAEE;
-      transform: scale(0.95);
+      background: #1D4ED8; /* cobalt */
+      color: #FAF7F2; /* ivory */
     }
 
     /* Large desktop responsive */
@@ -1084,12 +1091,8 @@
               <span class="mobile-arrow">▼</span>
             </button>
             <div class="mobile-dropdown-content">
-              <a href="../portfolio/before-after-gallery.html" class="mobile-sublink">All Projects</a>
-              <a href="../portfolio/modern-kitchen-renovation.html" class="mobile-sublink">Kitchen</a>
-              <a href="../portfolio/luxury-bathroom-suite.html" class="mobile-sublink">Bathroom</a>
-              <a href="../portfolio/contemporary-living-room.html" class="mobile-sublink">Living Room</a>
-              <a href="../portfolio/elegant-master-bedroom.html" class="mobile-sublink">Bedroom</a>
-              <a href="../portfolio/residential-projects.html" class="mobile-sublink">Whole Home</a>
+              <a href="../portfolio/residential-projects.html" class="mobile-sublink">Residential Projects</a>
+              <a href="../portfolio/commercial-projects.html" class="mobile-sublink">Commercial Projects</a>
             </div>
           </div>
           <a href="../services/interior-design.html" class="mobile-link">Services</a>

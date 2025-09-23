@@ -134,6 +134,7 @@
       transform: rotate(180deg);
     }
     
+    /* Force-hide dropdown menu by default */
     .dropdown-menu {
       position: absolute;
       top: 100%;
@@ -143,20 +144,24 @@
       backdrop-filter: blur(10px);
       border-radius: 12px;
       padding: 6px 0;
-      opacity: 0;
-      visibility: hidden;
+      opacity: 0 !important;
+      visibility: hidden !important;
       transform: translateY(-10px);
       transition: all 0.3s ease;
       z-index: 1001;
       border: 1px solid rgba(147, 197, 253, 0.2);
       box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+      pointer-events: none !important; /* prevent interaction when hidden */
+      display: none !important; /* ensure links are not visible by default */
     }
     
     .dropdown:hover .dropdown-menu,
     .dropdown.active .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
+      pointer-events: auto !important;
+      display: block !important; /* show on hover/active */
     }
     
     .dropdown-menu a {
@@ -966,16 +971,7 @@
       </div>
     </div>
     <nav class="links">
-      <div class="dropdown">
-        <a href="#" class="dropdown-toggle" style="background: #1D4ED8; color: #E7EAEE; border-radius: 20px;">
-          Our Projects
-          <span class="dropdown-arrow">▼</span>
-        </a>
-        <div class="dropdown-menu">
-          <a href="residential-projects.html">Residential Projects</a>
-          <a href="commercial-projects.html">Commercial Projects</a>
-        </div>
-      </div>
+      <a href="residential-projects.html" class="dropdown-toggle" style="background: #1D4ED8; color: #E7EAEE; border-radius: 20px;">Our Projects</a>
       <a href="../services/interior-design.html">Services</a>
       <a href="../about.html">About</a>
       <a href="../contact/get-quote.html">Contact</a>
@@ -983,6 +979,27 @@
   </header>
 
   <!-- Project Hero -->
+  <script>
+    // Defensive: hide desktop dropdown menus on load to avoid any raw text showing
+    document.addEventListener('DOMContentLoaded', function() {
+      const isMobile = window.matchMedia('(max-width: 1024px)').matches;
+      const dropdownMenus = document.querySelectorAll('header.nav .links .dropdown-menu');
+      dropdownMenus.forEach(menu => {
+        if (!isMobile) {
+          menu.style.display = 'none';
+        }
+      });
+      // Show on hover/focus for desktop
+      const dropdowns = document.querySelectorAll('header.nav .links .dropdown');
+      dropdowns.forEach(dd => {
+        const menu = dd.querySelector('.dropdown-menu');
+        if (!menu) return;
+        dd.addEventListener('mouseenter', () => { if (!isMobile) menu.style.display = 'block'; });
+        dd.addEventListener('mouseleave', () => { if (!isMobile) menu.style.display = 'none'; });
+        dd.querySelector('.dropdown-toggle')?.addEventListener('focus', () => { if (!isMobile) menu.style.display = 'block'; });
+      });
+    });
+  </script>
   <section class="project-hero">
     <div class="project-breadcrumb">
       <a href="../index.html">Home</a> / <a href="residential-projects.html">Our Projects</a> / Modern Luxury Penthouse

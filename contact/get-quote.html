@@ -628,6 +628,8 @@
       .page-hero { padding: 100px 20px 60px; }
       .page-content { padding: 60px 20px; }
       .form-grid { grid-template-columns: 1fr; }
+      /* Fix: ensure form rows stack on mobile */
+      .form-row { grid-template-columns: 1fr; }
       .project-types { grid-template-columns: 1fr; }
       .contact-info { grid-template-columns: 1fr; }
     }
@@ -843,19 +845,23 @@
       </div>
       <div class="mobile-overlay">
         <nav class="mobile-nav">
+          <a href="../about.html" class="mobile-link">About</a>
           <div class="mobile-dropdown-section">
             <button class="mobile-dropdown-btn">
               Our Projects
               <span class="mobile-arrow">▼</span>
             </button>
             <div class="mobile-dropdown-content">
-              <a href="../portfolio/residential-projects.html" class="mobile-sublink">Residential Projects</a>
-              <a href="../portfolio/commercial-projects.html" class="mobile-sublink">Commercial Projects</a>
+              <a href="../portfolio/before-after-gallery.html" class="mobile-sublink">All Projects</a>
+              <a href="../portfolio/modern-kitchen-renovation.html" class="mobile-sublink">Kitchen</a>
+              <a href="../portfolio/luxury-bathroom-suite.html" class="mobile-sublink">Bathroom</a>
+              <a href="../portfolio/contemporary-living-room.html" class="mobile-sublink">Living Room</a>
+              <a href="../portfolio/elegant-master-bedroom.html" class="mobile-sublink">Bedroom</a>
+              <a href="../portfolio/residential-projects.html" class="mobile-sublink">Whole Home</a>
             </div>
           </div>
           <a href="../services/interior-design.html" class="mobile-link">Services</a>
           <a href="../our-process.html" class="mobile-link">Our Process</a>
-          <a href="../about.html" class="mobile-link">About</a>
           <a href="get-quote.html" class="mobile-link">Contact</a>
         </nav>
       </div>
@@ -868,8 +874,12 @@
           <span class="dropdown-arrow">▼</span>
         </a>
         <div class="dropdown-menu">
-          <a href="../portfolio/residential-projects.html">Residential Projects</a>
-          <a href="../portfolio/commercial-projects.html">Commercial Projects</a>
+          <a href="../portfolio/before-after-gallery.html">All Projects</a>
+          <a href="../portfolio/modern-kitchen-renovation.html">Kitchen</a>
+          <a href="../portfolio/luxury-bathroom-suite.html">Bathroom</a>
+          <a href="../portfolio/contemporary-living-room.html">Living Room</a>
+          <a href="../portfolio/elegant-master-bedroom.html">Bedroom</a>
+          <a href="../portfolio/residential-projects.html">Whole Home</a>
         </div>
       </div>
       <a href="../our-process.html">Our Process</a>

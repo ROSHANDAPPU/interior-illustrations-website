@@ -35,19 +35,21 @@
     .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
     /* Hero */
-    .process-hero { padding: 160px 0 80px; position: relative; overflow: hidden; }
+    .process-hero { padding: 100px 0 40px; position: relative; overflow: hidden; }
     .process-hero::before {
       content: ""; position: absolute; inset: 0; background: radial-gradient(1200px 600px at 80% -10%, rgba(29,78,216,0.18), rgba(11,14,20,0) 60%);
       pointer-events: none; opacity: 0.7;
     }
-    .process-eyebrow { color: var(--color-accent); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
-    .process-title { font-size: clamp(40px, 7vw, 96px); font-weight: 900; letter-spacing: -0.02em; line-height: 0.95; margin-bottom: 16px; }
+    .process-eyebrow { color: var(--color-accent); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 4px; }
+    .process-title { font-size: clamp(36px, 5.5vw, 72px); font-weight: 900; letter-spacing: -0.02em; line-height: 0.98; margin-top: 0; margin-bottom: 12px; }
     .process-subtitle { font-size: clamp(18px, 3.2vw, 24px); color: var(--color-body); max-width: 900px; }
 
     /* Standardized Nav Additions (dropdown + mobile overlay) */
-    .nav { position: fixed; top: 0; left: 0; right: 0; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 1000; background: rgba(11,14,20,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(147,197,253,0.1); }
+    .nav { position: fixed; top: 0; left: 0; right: 0; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 1000; background: rgba(11,14,20,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(147,197,253,0.1); overflow: hidden; }
     .nav .brand img { height: 200px; width: auto; display: inline-block; vertical-align: middle; }
-    .nav .links { display: flex; gap: 32px; align-items: center; }
+    .nav .links { display: flex; gap: 32px; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
+    /* Enforce no-wrap with higher specificity to override global CSS */
+    header.nav .links { flex-wrap: nowrap !important; white-space: nowrap !important; overflow: hidden; }
     .nav .links a { color: var(--color-heading); text-decoration: none; font-weight: 500; font-size: 15px; padding: 8px 16px; border-radius: 20px; transition: all 0.3s ease; }
     .nav .links a:hover { color: #93C5FD; background: rgba(147,197,253,0.1); }
 
@@ -56,10 +58,19 @@
     .dropdown-toggle { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; }
     .dropdown-arrow { font-size: 12px; transition: transform 0.3s ease; }
     .dropdown.active .dropdown-arrow { transform: rotate(180deg); }
-    .dropdown-menu { position: absolute; top: 100%; left: 0; min-width: 240px; background: #0B0E14; backdrop-filter: blur(10px); border-radius: 12px; padding: 6px 0; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 1001; border: 1px solid rgba(147,197,253,0.2); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+    .dropdown-menu { position: absolute; top: 100%; left: 0; min-width: 220px; background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(10px); border-radius: 12px; padding: 10px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 1001; border: 1px solid rgba(147,197,253,0.2); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
     .dropdown:hover .dropdown-menu, .dropdown.active .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-    .dropdown-menu a { display: block; padding: 10px 16px; color: #FFFFFF; text-decoration: none; transition: background 0.25s ease, color 0.25s ease; border-radius: 10px; margin: 4px 8px; background: #007FFF; font-size: 15px; line-height: 1.2; letter-spacing: 0.01em; white-space: nowrap; text-align: center; }
-    .dropdown-menu a:hover { background: #1D4ED8; color: #FAF7F2; }
+    /* Only enable hover-open behavior on devices that support hover */
+    @media (hover: hover) and (pointer: fine) {
+      .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+      .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+    }
+    /* Guard: prevent dropdown from showing on smaller widths */
+    @media (max-width: 1024px) {
+      .dropdown-menu { opacity: 0 !important; visibility: hidden !important; transform: translateY(-10px) !important; }
+    }
+    .dropdown-menu a { display: block; padding: 10px 14px; color: #E7EAEE; text-decoration: none; transition: background 0.2s ease, color 0.2s ease; border-radius: 8px; margin: 4px 2px; background: transparent; font-size: 15px; line-height: 1.2; letter-spacing: 0.01em; white-space: nowrap; text-align: left; }
+    .dropdown-menu a:hover { background: rgba(29, 78, 216, 0.2); color: #93C5FD; }
 
     /* Mobile overlay */
     .hamburger-menu { display: none; position: relative; z-index: 9999; }
@@ -68,8 +79,8 @@
     .hamburger-menu.active .line1 { transform: rotate(45deg) translate(6px, 6px); }
     .hamburger-menu.active .line2 { opacity: 0; transform: scaleX(0); }
     .hamburger-menu.active .line3 { transform: rotate(-45deg) translate(6px, -6px); }
-    .mobile-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; z-index: 9998; }
-    .hamburger-menu.active .mobile-overlay { opacity: 1; visibility: visible; }
+    .mobile-overlay { position: fixed; top: 80px; left: 0; width: 100vw; height: calc(100vh - 80px); background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(20px); display: none; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; z-index: 900; }
+    .hamburger-menu.active .mobile-overlay { display: flex; opacity: 1; visibility: visible; }
     .mobile-nav { display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 40px; }
     .mobile-link { font-size: 24px; font-weight: 500; color: #E7EAEE; text-decoration: none; padding: 15px 30px; border-radius: 12px; transition: all 0.3s ease; text-align: center; min-width: 200px; }
     .mobile-dropdown-section { display: flex; flex-direction: column; align-items: center; }
@@ -81,7 +92,19 @@
     .mobile-sublink { font-size: 18px; color: #1D4ED8; text-decoration: none; padding: 10px 20px; border-radius: 8px; transition: all 0.3s ease; text-align: center; }
 
     @media (max-width: 1400px) { .nav { padding: 0 30px; } .nav .brand img { height: 180px; } .nav .links { gap: 24px; } .nav .links a { font-size: 15px; padding: 8px 14px; } }
-    @media (max-width: 1024px) { .nav { padding: 0 20px; } .nav .brand img { height: 150px; } .hamburger-menu { display: block; } .nav .links { display: none; } }
+    @media (max-width: 1024px) { 
+      .process-hero { padding: 90px 0 80px; }
+    }
+    @media (max-width: 1200px) { 
+      .nav { padding: 0 20px; }
+      .nav .brand img { height: 150px; }
+      .hamburger-menu { display: block !important; }
+      /* Force-hide desktop links to avoid wrapping/overlap on narrow widths */
+      .nav .links { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
+      .nav .links *,
+      .nav .links .dropdown,
+      .nav .links .dropdown-menu { display: none !important; visibility: hidden !important; }
+    }
 
     /* Steps */
     .steps { padding: 100px 0; }
@@ -99,17 +122,22 @@
 
     /* FAQ */
     .faq { padding: 80px 0; }
-    /* Constrain FAQ width */
-    .faq .container { max-width: 900px; }
+    /* Match 'How We Work' width */
+    .faq .container { max-width: 1400px; }
     
     /* Process (moved) minimal accordion styles */
     /* Constrain process width */
     .process-section { padding: 40px 0 80px; }
-    .process-section > h2,
-    .process-section > p { max-width: 900px; margin: 0 auto; padding: 0 10px; }
-    .process-section > h2 { margin-bottom: 20px; }
-    .process-section > p { margin-bottom: 40px; }
-    .process-accordion { max-width: 900px; margin: 0 auto; padding: 0 10px; }
+    .process-section .container > h2,
+    .process-section .container > p { max-width: 900px; margin: 0 auto; padding: 0 10px; text-align: left; }
+    .process-section .container > h2 { margin-bottom: 20px; }
+    .process-section .process-eyebrow { text-align: left; }
+    .process-section .container > p { margin-bottom: 40px; }
+    /* Match 'How We Work' header styling */
+    .process-section .section-header { text-align: left; margin-bottom: 40px; }
+    .process-section .section-title { font-size: clamp(26px, 5vw, 42px); font-weight: 800; letter-spacing: 0.0em; }
+    .process-section .section-subtitle { color: var(--color-accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; margin-bottom: 6px; }
+    .process-section .container .process-accordion { max-width: 900px; margin: 0 auto; padding: 0 10px; }
     /* Spacing between dropdown boxes */
     .process-accordion .accordion-item { margin-bottom: 20px; }
     .process-accordion .accordion-item:last-child { margin-bottom: 0; }
@@ -118,9 +146,9 @@
     .process-accordion .accordion-header { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; cursor: pointer; }
     .process-accordion .accordion-arrow { width: 12px; height: 12px; border: 2px solid var(--color-accent); border-left: 0; border-top: 0; transform: rotate(45deg); transition: transform .25s ease; }
     .process-accordion .accordion-item.open .accordion-arrow { transform: rotate(225deg); }
-    .faq .section-header { text-align: left; margin-bottom: 24px; }
+    .faq .section-header { text-align: left; margin-bottom: 40px; }
     .faq .section-title { font-size: clamp(26px, 5vw, 42px); font-weight: 800; }
-    .faq .section-subtitle { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; font-size: 12px; margin-bottom: 8px; }
+    .faq .section-subtitle { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.10em; font-weight: 600; font-size: 12px; margin-bottom: 6px; }
     /* Modern FAQ accordion */
     .accordion { display: grid; gap: 14px; }
     .accordion-item { position: relative; border: 1px solid rgba(147,197,253,0.18); background: rgba(13,17,27,0.9); backdrop-filter: blur(8px); border-radius: 12px; overflow: hidden; transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease; }
@@ -170,6 +198,22 @@
     .footer-legal-links a { color: var(--color-accent); font-size: 14px; text-decoration: none; transition: all 0.3s ease; }
     .footer-legal-links a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
     .footer-divider { color: rgba(163, 170, 180, 0.3); font-size: 14px; }
+
+    /* Post-Project Care */
+    .postcare { padding: 80px 0; }
+    .postcare .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+    .postcare .section-header { text-align: left; margin-bottom: 24px; }
+    .postcare .section-title { font-size: clamp(26px, 5vw, 42px); font-weight: 800; letter-spacing: 0.0em; }
+    .postcare .section-subtitle { color: var(--color-accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; margin-bottom: 6px; }
+    .postcare .content { max-width: 900px; margin: 0 auto; padding: 0 10px; }
+    .postcare .subheading { color: var(--color-heading); font-size: 20px; font-weight: 700; margin: 8px 0 12px; letter-spacing: 0.01em; }
+    .postcare p { color: var(--color-body); font-size: 17px; line-height: 1.7; }
+    .postcare-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 16px; }
+    .postcare-card { background: #0D111B; border: 1px solid rgba(163,170,180,0.25); padding: 24px; border-radius: 8px; transition: border-color .25s ease, background .25s ease, transform .25s ease; }
+    .postcare-card:hover { border-color: var(--color-accent); background: #111827; transform: translateY(-2px); }
+    .postcare-card h4 { color: var(--color-heading); font-size: 18px; font-weight: 800; margin: 0 0 10px; letter-spacing: 0.01em; }
+    .postcare-card ul { margin: 0; padding-left: 18px; color: var(--color-body); line-height: 1.7; }
+    .postcare .cta-row { margin-top: 24px; }
   </style>
 </head>
 <body>
@@ -197,8 +241,12 @@
               <span class="mobile-arrow">▼</span>
             </button>
             <div class="mobile-dropdown-content">
-              <a href="portfolio/residential-projects.html" class="mobile-sublink">Residential Projects</a>
-              <a href="portfolio/commercial-projects.html" class="mobile-sublink">Commercial Projects</a>
+              <a href="portfolio/before-after-gallery.html" class="mobile-sublink">All Projects</a>
+              <a href="portfolio/modern-kitchen-renovation.html" class="mobile-sublink">Kitchen</a>
+              <a href="portfolio/luxury-bathroom-suite.html" class="mobile-sublink">Bathroom</a>
+              <a href="portfolio/contemporary-living-room.html" class="mobile-sublink">Living Room</a>
+              <a href="portfolio/elegant-master-bedroom.html" class="mobile-sublink">Bedroom</a>
+              <a href="portfolio/residential-projects.html" class="mobile-sublink">Whole Home</a>
             </div>
           </div>
           <a href="services/interior-design.html" class="mobile-link">Services</a>
@@ -215,8 +263,12 @@
           <span class="dropdown-arrow">▼</span>
         </a>
         <div class="dropdown-menu">
-          <a href="portfolio/residential-projects.html">Residential Projects</a>
-          <a href="portfolio/commercial-projects.html">Commercial Projects</a>
+          <a href="portfolio/before-after-gallery.html">All Projects</a>
+          <a href="portfolio/modern-kitchen-renovation.html">Kitchen</a>
+          <a href="portfolio/luxury-bathroom-suite.html">Bathroom</a>
+          <a href="portfolio/contemporary-living-room.html">Living Room</a>
+          <a href="portfolio/elegant-master-bedroom.html">Bedroom</a>
+          <a href="portfolio/residential-projects.html">Whole Home</a>
         </div>
       </div>
       <a href="our-process.html" class="active">Our Process</a>
@@ -225,122 +277,7 @@
       <a href="contact/get-quote.html">Contact</a>
     </nav>
   </header>
-
-  <!-- Hero -->
-  <section class="process-hero">
-    <div class="container">
-      <div class="process-eyebrow">Our Design Process</div>
-      <h1 class="process-title">From vision to reality</h1>
-      <p class="process-subtitle">Experience our proven methodology that transforms spaces into extraordinary environments.</p>
-      <div class="cta-row" style="margin-top: 24px;">
-        <a class="btn" href="contact/get-quote.html"><i class="fa-solid fa-calendar-check"></i> Schedule Your Consultation</a>
-        <a class="btn secondary" href="portfolio/residential-projects.html" style="background:transparent;border:2px solid var(--color-accent);color:var(--color-accent);"><i class="fa-solid fa-images"></i> View Our Work</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Our Design Process (moved from Services) -->
-  <main class="page-content">
-    <!-- Process Section -->
-    <div class="process-section">
-      <h2 style="color: var(--color-heading); text-align: center; margin-bottom: 20px;">Our Design Process</h2>
-      <p style="color: var(--color-body); text-align: center; margin-bottom: 40px;">We follow a proven process to ensure your project exceeds expectations</p>
-      
-      <div class="process-accordion">
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <div class="step-number">1</div>
-            <h3 class="accordion-title">Consultation</h3>
-            <div class="accordion-arrow"></div>
-          </div>
-          <div class="accordion-content">
-            <p class="accordion-description">We start with a comprehensive consultation to understand your vision, needs, and budget.</p>
-            <ul class="sub-services">
-              <li>Initial home assessment and space analysis</li>
-              <li>Vision and lifestyle consultation</li>
-              <li>Budget planning and cost estimation</li>
-              <li>Timeline development and milestone planning</li>
-              <li>Style preference and inspiration gathering</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <div class="step-number">2</div>
-            <h3 class="accordion-title">Design</h3>
-            <div class="accordion-arrow"></div>
-          </div>
-          <div class="accordion-content">
-            <p class="accordion-description">Our team creates detailed designs, 3D renderings, and material selections for your approval.</p>
-            <ul class="sub-services">
-              <li>Detailed floor plans and space layouts</li>
-              <li>3D renderings and virtual walkthroughs</li>
-              <li>Material and finish selections</li>
-              <li>Color palette development</li>
-              <li>Furniture and fixture specifications</li>
-              <li>Lighting design and electrical planning</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <div class="step-number">3</div>
-            <h3 class="accordion-title">Planning</h3>
-            <div class="accordion-arrow"></div>
-          </div>
-          <div class="accordion-content">
-            <p class="accordion-description">We handle all permits, contractor coordination, and project scheduling.</p>
-            <ul class="sub-services">
-              <li>Building permits and code compliance</li>
-              <li>Contractor vetting and coordination</li>
-              <li>Material ordering and delivery scheduling</li>
-              <li>Project timeline and milestone tracking</li>
-              <li>Budget management and cost control</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <div class="step-number">4</div>
-            <h3 class="accordion-title">Construction</h3>
-            <div class="accordion-arrow"></div>
-          </div>
-          <div class="accordion-content">
-            <p class="accordion-description">Our experienced team manages the construction process with regular updates and quality control.</p>
-            <ul class="sub-services">
-              <li>Daily construction oversight and management</li>
-              <li>Quality control inspections and testing</li>
-              <li>Regular progress updates and communication</li>
-              <li>Problem resolution and change management</li>
-              <li>Safety compliance and site management</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <div class="step-number">5</div>
-            <h3 class="accordion-title">Completion</h3>
-            <div class="accordion-arrow"></div>
-          </div>
-          <div class="accordion-content">
-            <p class="accordion-description">Final walkthrough, cleanup, and handover of your beautifully transformed space.</p>
-            <ul class="sub-services">
-              <li>Final quality inspection and punch list</li>
-              <li>Professional cleaning and staging</li>
-              <li>Client walkthrough and approval</li>
-              <li>Warranty documentation and care instructions</li>
-              <li>Post-completion support and follow-up</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
+  
   <!-- Steps -->
   <section class="steps">
     <div class="container">
@@ -396,6 +333,173 @@
 
       <div class="cta-row">
         <a class="btn" href="contact/get-quote.html"><i class="fa-solid fa-pen-to-square"></i> Ready to Start Your Project?</a>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <!-- Our Design Process (moved from Services) -->
+  <main class="page-content">
+    <!-- Process Section -->
+    <div class="process-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-subtitle">Our Process</div>
+          <h2 class="section-title" style="color: var(--color-heading);">Client Journey</h2>
+        </div>
+
+        <div class="process-accordion">
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <div class="step-number">1</div>
+              <h3 class="accordion-title">Consultation</h3>
+              <div class="accordion-arrow"></div>
+            </div>
+            <div class="accordion-content">
+              <p class="accordion-description">We start with a comprehensive consultation to understand your vision, needs, and budget.</p>
+              <ul class="sub-services">
+                <li>Initial home assessment and space analysis</li>
+                <li>Vision and lifestyle consultation</li>
+                <li>Budget planning and cost estimation</li>
+                <li>Timeline development and milestone planning</li>
+                <li>Style preference and inspiration gathering</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <div class="step-number">2</div>
+              <h3 class="accordion-title">Design</h3>
+              <div class="accordion-arrow"></div>
+            </div>
+            <div class="accordion-content">
+              <p class="accordion-description">Our team creates detailed designs, 3D renderings, and material selections for your approval.</p>
+              <ul class="sub-services">
+                <li>Detailed floor plans and space layouts</li>
+                <li>3D renderings and virtual walkthroughs</li>
+                <li>Material and finish selections</li>
+                <li>Color palette development</li>
+                <li>Furniture and fixture specifications</li>
+                <li>Lighting design and electrical planning</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <div class="step-number">3</div>
+              <h3 class="accordion-title">Planning</h3>
+              <div class="accordion-arrow"></div>
+            </div>
+            <div class="accordion-content">
+              <p class="accordion-description">We handle all permits, contractor coordination, and project scheduling.</p>
+              <ul class="sub-services">
+                <li>Building permits and code compliance</li>
+                <li>Contractor vetting and coordination</li>
+                <li>Material ordering and delivery scheduling</li>
+                <li>Project timeline and milestone tracking</li>
+                <li>Budget management and cost control</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <div class="step-number">4</div>
+              <h3 class="accordion-title">Construction</h3>
+              <div class="accordion-arrow"></div>
+            </div>
+            <div class="accordion-content">
+              <p class="accordion-description">Our experienced team manages the construction process with regular updates and quality control.</p>
+              <ul class="sub-services">
+                <li>Daily construction oversight and management</li>
+                <li>Quality control inspections and testing</li>
+                <li>Regular progress updates and communication</li>
+                <li>Problem resolution and change management</li>
+                <li>Safety compliance and site management</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <div class="step-number">5</div>
+              <h3 class="accordion-title">Completion</h3>
+              <div class="accordion-arrow"></div>
+            </div>
+            <div class="accordion-content">
+              <p class="accordion-description">Final walkthrough, cleanup, and handover of your beautifully transformed space.</p>
+              <ul class="sub-services">
+                <li>Final quality inspection and punch list</li>
+                <li>Professional cleaning and staging</li>
+                <li>Client walkthrough and approval</li>
+                <li>Warranty documentation and care instructions</li>
+                <li>Post-completion support and follow-up</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Steps moved above header -->
+
+  <!-- Post-Project Care -->
+  <section class="postcare" id="postcare">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">Post-Project Care</div>
+        <h2 class="section-title">Aftercare & Customer Service</h2>
+      </div>
+      <div class="content">
+        <h3 class="subheading">One-Year Workmanship Correction (Callback) Period</h3>
+        <p>
+          After your project is completed, we stand behind our workmanship for one year. If something we
+          installed isn’t performing as intended, we return to correct it—calmly, promptly, and with minimal
+          disruption.
+        </p>
+      </div>
+
+      <div class="postcare-grid">
+        <!-- Warranty & Service -->
+        <div class="postcare-card">
+          <h4>Warranty & Service</h4>
+          <ul>
+            <li>1-year workmanship callback coverage</li>
+            <li>Typical response: within 2 business days</li>
+            <li>On-site visit target: within 7 business days</li>
+            <li>What’s covered vs. manufacturer items</li>
+          </ul>
+        </div>
+
+        <!-- Care & Maintenance Guides -->
+        <div class="postcare-card">
+          <h4>Care & Maintenance Guides</h4>
+          <ul>
+            <li>Surface care: stone, wood, tile, metals</li>
+            <li>Finish-specific tips: paints, lacquers, fabrics</li>
+            <li>Approved vs. avoid cleaning products</li>
+            <li>Seasonal checks and humidity control</li>
+          </ul>
+        </div>
+
+        <!-- Documentation & Codes -->
+        <div class="postcare-card">
+          <h4>Documentation & Codes</h4>
+          <ul>
+            <li>As-builts, finish schedules, spec sheets</li>
+            <li>Appliance and fixture warranty links</li>
+            <li>Paint codes and grout color references</li>
+            <li>Simple touch-up instructions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn" href="contact/service-request.html"><i class="fa-solid fa-screwdriver-wrench"></i> Request Service</a>
       </div>
     </div>
   </section>
@@ -746,6 +850,38 @@
         if (content) content.style.maxHeight = null;
       }
     }
+
+    // Desktop dropdown click behavior for "Our Projects"
+    (function() {
+      const dropdown = document.querySelector('.nav .links .dropdown');
+      const toggle = dropdown ? dropdown.querySelector('.dropdown-toggle') : null;
+      const menu = dropdown ? dropdown.querySelector('.dropdown-menu') : null;
+
+      function isDesktop() { return window.matchMedia('(min-width: 1201px)').matches; }
+
+      if (toggle && dropdown && menu) {
+        // Open/close on click for desktop
+        toggle.addEventListener('click', function(e) {
+          if (!isDesktop()) return; // let mobile handle via overlay
+          e.preventDefault();
+          e.stopPropagation();
+          dropdown.classList.toggle('active');
+        });
+
+        // Close on outside click
+        document.addEventListener('click', function(e) {
+          if (!isDesktop()) return;
+          if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('active');
+          }
+        });
+
+        // Close on resize to mobile
+        window.addEventListener('resize', function() {
+          if (!isDesktop()) dropdown.classList.remove('active');
+        });
+      }
+    })();
   </script>
 </body>
 </html>

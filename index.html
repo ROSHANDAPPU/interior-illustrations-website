@@ -74,6 +74,8 @@
       padding: 0 40px; z-index: 30;
       background: #0B0E14; /* Deep Navy background */
     }
+    /* Hide hamburger menu wrapper by default (desktop) */
+    .hamburger-menu { display: none; }
     
     /* Mobile Menu Toggle */
     .mobile-menu-toggle {
@@ -121,6 +123,45 @@
       display: flex; 
       gap: 32px; 
     }
+    /* Dropdown menu (desktop) */
+    .dropdown { position: relative; }
+    .dropdown-toggle { display: inline-flex; align-items: center; gap: 8px; }
+    .dropdown-arrow { transition: transform 0.3s ease; font-size: 12px; }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      min-width: 220px;
+      background: rgba(11, 14, 20, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(147, 197, 253, 0.25);
+      border-radius: 12px;
+      padding: 10px;
+      z-index: 1000;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 14px;
+      color: #E7EAEE;
+      border-radius: 8px;
+      transition: background 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+    }
+    .dropdown-menu a:hover {
+      background: rgba(29, 78, 216, 0.2);
+      color: #93C5FD;
+    }
+    /* Only enable hover-open behavior on devices that support hover */
+    @media (hover: hover) and (pointer: fine) {
+      .dropdown:hover .dropdown-menu { display: block; }
+      .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+    }
+    /* Guard: prevent dropdown from showing on smaller widths */
+    @media (max-width: 1024px) {
+      .dropdown-menu { display: none !important; }
+      .dropdown:hover .dropdown-menu { display: none !important; }
+    }
     .nav .links a { 
       color: #E7EAEE; /* Off-white default */
       padding: 8px 16px;
@@ -156,41 +197,35 @@
         padding: 0 20px;
         height: 70px;
       }
+      .nav .brand img { height: 60px !important; }
+      /* Show hamburger menu on mobile */
+      .hamburger-menu { display: block; position: relative; z-index: 9999; }
+      /* Hide desktop nav links on mobile (use overlay instead) */
+      .nav .links { display: none; }
       
-      .nav .brand img {
-        height: 60px !important;
+      /* Mobile overlay base */
+      .mobile-overlay {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(20px);
+        display: none; align-items: center; justify-content: center;
+        opacity: 0; visibility: hidden; transition: all 0.4s ease; z-index: 9998;
       }
-      
-      .mobile-menu-toggle {
-        display: flex;
-      }
-      
-      .nav .links {
-        position: fixed;
-        top: 70px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 70px);
-        background: #0B0E14;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        padding-top: 50px;
-        gap: 30px;
-        transition: left 0.3s ease;
-        z-index: 29;
-      }
-      
-      .nav .links.active {
-        left: 0;
-      }
-      
-      .nav .links a {
-        font-size: 18px;
-        padding: 12px 24px;
-        width: 200px;
-        text-align: center;
-      }
+      .hamburger-menu.active .mobile-overlay { display: flex; opacity: 1; visibility: visible; }
+      .mobile-nav { display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 40px; }
+      .mobile-link { font-size: 24px; font-weight: 500; color: #E7EAEE; text-decoration: none; padding: 15px 30px; border-radius: 12px; transition: all 0.3s ease; text-align: center; min-width: 200px; }
+      .mobile-link:hover { background: rgba(29, 78, 216, 0.2); color: #1D4ED8; transform: translateY(-2px); }
+      .hamburger-icon { width: 30px; height: 24px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s ease; }
+      .line { width: 100%; height: 3px; background: #1D4ED8; border-radius: 2px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform-origin: center; }
+      .hamburger-menu.active .line1 { transform: rotate(45deg) translate(6px, 6px); }
+      .hamburger-menu.active .line2 { opacity: 0; transform: scaleX(0); }
+      .hamburger-menu.active .line3 { transform: rotate(-45deg) translate(6px, -6px); }
+      /* Mobile dropdown within overlay */
+      .mobile-dropdown-section { display: flex; flex-direction: column; align-items: center; }
+      .mobile-dropdown-btn { font-size: 24px; font-weight: 500; color: #E7EAEE; background: none; border: none; padding: 15px 30px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s ease; min-width: 200px; justify-content: center; }
+      .mobile-arrow { transition: transform 0.3s ease; font-size: 16px; }
+      .mobile-dropdown-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px; }
+      .mobile-dropdown-section.active .mobile-dropdown-content { max-height: 220px; }
+      .mobile-dropdown-section.active .mobile-arrow { transform: rotate(180deg); }
     }
 
     /* Hero */
@@ -546,6 +581,13 @@
       display: grid; grid-template-columns: 1fr 1fr; gap: 80px; 
       align-items: center; max-width: 1400px; margin: 0 auto;
     }
+    /* Vertically center text to match image height */
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 500px; /* match .about-image height for alignment */
+    }
     .about-content h2 {
       font-size: clamp(36px, 6vw, 64px); font-weight: 900; 
       margin-bottom: 32px; color: var(--color-heading); letter-spacing: -0.02em;
@@ -834,6 +876,7 @@
       .cta { right: 5%; }
       .section { padding: 80px 20px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-content { min-height: auto; }
       .services-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: 1fr; }
     }
@@ -994,16 +1037,53 @@
   <!-- Header -->
   <header class="nav">
     <div class="brand"><a href="index.html"><img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" /></a></div>
-    
-    <!-- Mobile Menu Toggle -->
-    <div class="mobile-menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
+
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu" id="hamburgerMenu">
+      <div class="hamburger-icon">
+        <span class="line line1"></span>
+        <span class="line line2"></span>
+        <span class="line line3"></span>
+      </div>
+      <div class="mobile-overlay">
+        <nav class="mobile-nav">
+          <a href="#about" class="mobile-link">About</a>
+          <div class="mobile-dropdown-section">
+            <button class="mobile-dropdown-btn">
+              Our Projects
+              <span class="mobile-arrow">▼</span>
+            </button>
+            <div class="mobile-dropdown-content">
+              <a href="portfolio/before-after-gallery.html" class="mobile-sublink">All Projects</a>
+              <a href="portfolio/modern-kitchen-renovation.html" class="mobile-sublink">Kitchen</a>
+              <a href="portfolio/luxury-bathroom-suite.html" class="mobile-sublink">Bathroom</a>
+              <a href="portfolio/contemporary-living-room.html" class="mobile-sublink">Living Room</a>
+              <a href="portfolio/elegant-master-bedroom.html" class="mobile-sublink">Bedroom</a>
+              <a href="portfolio/residential-projects.html" class="mobile-sublink">Whole Home</a>
+            </div>
+          </div>
+          <a href="#services" class="mobile-link">Services</a>
+          <a href="our-process.html" class="mobile-link">Our Process</a>
+          <a href="#contact" class="mobile-link">Contact</a>
+        </nav>
+      </div>
     </div>
-    
+
     <nav class="links">
-      <a href="#work">Portfolio</a>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle" style="background: #1D4ED8; color: #E7EAEE; border-radius: 20px;">
+          Our Projects
+          <span class="dropdown-arrow">▼</span>
+        </a>
+        <div class="dropdown-menu">
+          <a href="portfolio/before-after-gallery.html">All Projects</a>
+          <a href="portfolio/modern-kitchen-renovation.html">Kitchen</a>
+          <a href="portfolio/luxury-bathroom-suite.html">Bathroom</a>
+          <a href="portfolio/contemporary-living-room.html">Living Room</a>
+          <a href="portfolio/elegant-master-bedroom.html">Bedroom</a>
+          <a href="portfolio/residential-projects.html">Whole Home</a>
+        </div>
+      </div>
       <a href="our-process.html">Our Process</a>
       <a href="#services">Services</a>
       <a href="#about">About</a>
@@ -1061,9 +1141,9 @@
 
     <!-- Rotating taglines with subtitles -->
     <div class="taglines" aria-live="polite">
-      <h1 class="tagline active">WHERE DREAMS<br>BECOME<br>SPACES</h1>
-      <h1 class="tagline">CRAFTING<br>EMOTIONAL<br>ARCHITECTURE</h1>
-      <h1 class="tagline">DESIGNING<br>LIFE'S<br>CANVAS</h1>
+      <h1 class="tagline active">QUIETLY<br>EXCEPTIONAL<br>INTERIORS</h1>
+      <h1 class="tagline">PLANS<br>CRAFT<br>CLARITY</h1>
+      <h1 class="tagline">DESIGN<br>BUILD<br>PRECISELY</h1>
     </div>
 
     <!-- Calls to action -->
@@ -1083,38 +1163,50 @@
     <div class="services-grid">
       <div class="service-card reveal">
         <div class="service-number">01</div>
-        <h3 class="service-title">Complete Home Renovation</h3>
-        <p class="service-description">Transform your entire home with our comprehensive renovation services, from initial design concepts to final construction completion.</p>
+        <h3 class="service-title">Selective Demolition</h3>
+        <p class="service-description">Targeted removal that protects structural elements and utilities, preparing the space for a clean, efficient build with minimal dust and disruption.</p>
       </div>
-      
+
       <div class="service-card reveal">
         <div class="service-number">02</div>
-        <h3 class="service-title">Kitchen Remodeling</h3>
-        <p class="service-description">Create the heart of your home with custom kitchen designs that seamlessly blend functionality, aesthetics, and modern convenience.</p>
+        <h3 class="service-title">General Construction &amp; Framing</h3>
+        <p class="service-description">Structural adjustments, framing, and assemblies built to spec — true lines, solid joins, and substrates ready for finish work.</p>
       </div>
-      
+
       <div class="service-card reveal">
         <div class="service-number">03</div>
-        <h3 class="service-title">Bathroom Remodeling</h3>
-        <p class="service-description">Luxury bathroom renovations that transform your space into a personal spa retreat with premium finishes and fixtures.</p>
+        <h3 class="service-title">Full-Home Remodels</h3>
+        <p class="service-description">Phased plans and cohesive finishes across rooms. One schedule, one team, consistent quality from first demo to final walk-through.</p>
       </div>
-      
+
       <div class="service-card reveal">
         <div class="service-number">04</div>
-        <h3 class="service-title">Home Additions</h3>
-        <p class="service-description">Expand your living space with seamlessly integrated additions that respect your home's architectural integrity.</p>
+        <h3 class="service-title">Kitchens</h3>
+        <p class="service-description">Functional layouts, custom storage, durable surfaces, and lighting that works — designed for daily use and built to last.</p>
       </div>
-      
+
       <div class="service-card reveal">
         <div class="service-number">05</div>
-        <h3 class="service-title">Custom Homes</h3>
-        <p class="service-description">Build your dream home from the ground up with our comprehensive custom home construction and design services.</p>
+        <h3 class="service-title">Bathrooms</h3>
+        <p class="service-description">Waterproof assemblies, accurate tile work, and clean geometry. Ventilation and lighting planned for comfort and longevity.</p>
       </div>
-      
+
       <div class="service-card reveal">
         <div class="service-number">06</div>
-        <h3 class="service-title">Durango, CO Projects</h3>
-        <p class="service-description">Specialized renovation services for luxury mountain homes and vacation properties in the Colorado region.</p>
+        <h3 class="service-title">Interior Painting &amp; Finishes</h3>
+        <p class="service-description">Surface prep, prime, and premium coatings for even coverage and crisp edges. Includes trim, doors, and specialty finishes as needed.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-number">07</div>
+        <h3 class="service-title">Custom Cabinetry &amp; Millwork</h3>
+        <p class="service-description">Built-ins, vanities, paneling, and doors with precise reveals and hardware alignment — tailored to your space and storage needs.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-number">08</div>
+        <h3 class="service-title">Flooring</h3>
+        <p class="service-description">Hardwood, engineered, tile, or luxury vinyl — flat substrates, tight transitions, and clean base details for a unified look.</p>
       </div>
     </div>
   </section>
@@ -1124,9 +1216,9 @@
     <div class="about-grid">
       <div class="about-content reveal">
         <h2>Building Dreams Into Reality</h2>
-        <p>At Interior Illustrations, we understand that home remodeling is more than just construction—it's about building spaces that enhance your life and reflect your vision.</p>
-        <p>We are dedicated to delivering stunning, high-end renovations through a seamless and stress-free process, integrating innovative design with superior craftsmanship.</p>
-        <p>Every project we undertake meets the highest standards of excellence, ensuring your home is both beautiful and functional for years to come.</p>
+        <p>At Interior Illusions, we believe home remodeling is more than construction, it is about creating spaces that enhance your life and reflect your vision.</p>
+        <p>We begin with a measured plan and cost clarity, so you know exactly what is happening and when. From design and permits to building and finishing, we manage every detail with tidy sites, precise craftsmanship, and weekly updates from one dedicated point of contact.</p>
+        <p>The result is a stunning, high-end renovation delivered through a seamless, stress-free process. Your new space is handed over with care—a detailed walk-through, a personalized care guide, and the assurance of a one-year workmanship callback—ensuring beauty, functionality, and peace of mind for years to come.</p>
       </div>
       <div class="about-image reveal"></div>
     </div>
@@ -1239,12 +1331,50 @@
             <span class="footer-divider">|</span>
             <a href="#">Terms of Service</a>
             <span class="footer-divider">|</span>
-            <a href="#">Cookie Policy</a>
           </div>
         </div>
       </div>
     </div>
   </footer>
+
+  <script>
+    // Mobile menu toggle and mobile dropdown behavior
+    (function() {
+      const hamburger = document.getElementById('hamburgerMenu');
+      if (!hamburger) return;
+      const icon = hamburger.querySelector('.hamburger-icon');
+      const overlay = hamburger.querySelector('.mobile-overlay');
+      const mobileLinks = overlay ? overlay.querySelectorAll('a') : [];
+      const mobileDropdown = overlay ? overlay.querySelector('.mobile-dropdown-section') : null;
+      const mobileDropdownBtn = mobileDropdown ? mobileDropdown.querySelector('.mobile-dropdown-btn') : null;
+
+      function closeMenu() { hamburger.classList.remove('active'); }
+      function openMenu() { hamburger.classList.add('active'); }
+      function toggleMenu() { hamburger.classList.toggle('active'); }
+
+      if (icon) icon.addEventListener('click', toggleMenu);
+      // Close when clicking a link
+      mobileLinks.forEach(a => a.addEventListener('click', closeMenu));
+      // Toggle mobile dropdown
+      if (mobileDropdownBtn && mobileDropdown) {
+        mobileDropdownBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          mobileDropdown.classList.toggle('active');
+        });
+      }
+      // Close on outside click
+      document.addEventListener('click', function(e) {
+        if (!hamburger.contains(e.target)) closeMenu();
+      });
+      // Close on resize > 1024
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 1024) closeMenu();
+      });
+    })();
+  </script>
+
+</body>
+</html>
 
   <script>
 

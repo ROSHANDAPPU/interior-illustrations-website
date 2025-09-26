@@ -41,7 +41,13 @@
     <h1>Service Request</h1>
     <p class="lead">Report an issue or request aftercare service for your completed project. We’ll respond within 2 business days.</p>
 
-    <form id="serviceForm" class="card" novalidate>
+    <form id="serviceForm" class="card" method="POST" action="https://formsubmit.co/roshan.dxxi@gmail.com">
+      <!-- FormSubmit configuration -->
+      <input type="hidden" name="_subject" value="New Service Request - Interior Illusions" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_next" value="service-request.html?success=1" />
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
       <div class="row">
         <div class="group">
           <label for="firstName">First Name *</label>
@@ -111,15 +117,15 @@
   </main>
 
   <script>
-    const form = document.getElementById('serviceForm');
-    const ok = document.getElementById('ok');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-      ok.style.display = 'block';
-      form.reset();
-      window.scrollTo({top: 0, behavior: 'smooth'});
-    });
+    // Show success banner if redirected back with ?success=1
+    (function() {
+      const ok = document.getElementById('ok');
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('success') === '1' && ok) {
+        ok.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    })();
   </script>
 </body>
 </html>

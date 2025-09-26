@@ -141,7 +141,10 @@
     /* Spacing between dropdown boxes */
     .process-accordion .accordion-item { margin-bottom: 20px; }
     .process-accordion .accordion-item:last-child { margin-bottom: 0; }
-    .process-accordion .accordion-content { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .process-accordion .accordion-content { max-height: 0; overflow: hidden; transition: max-height .3s ease; padding: 4px 10px 0 44px; }
+    .process-accordion .accordion-description { margin: 0 0 8px; color: var(--color-body); line-height: 1.62; }
+    .process-accordion .sub-services { margin: 0; padding-left: 18px; color: var(--color-body); }
+    .process-accordion .sub-services li { margin: 4px 0; }
     .process-accordion .accordion-item.open .accordion-content { max-height: 800px; }
     .process-accordion .accordion-header { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; cursor: pointer; }
     .process-accordion .accordion-arrow { width: 12px; height: 12px; border: 2px solid var(--color-accent); border-left: 0; border-top: 0; transform: rotate(45deg); transition: transform .25s ease; }
@@ -513,160 +516,82 @@
       </div>
 
       <div class="accordion" id="faqAccordion" role="tablist">
-        <!-- Getting Started -->
+        <!-- Q1: What's covered? -->
         <div class="accordion-item" role="tabpanel" aria-expanded="false">
           <button class="accordion-header" type="button" aria-controls="faq-1" aria-expanded="false">
             <span class="faq-chip">Q1</span>
-            <span class="accordion-title">How do I begin a project with Interior Illusions?</span>
+            <span class="accordion-title">What’s covered?</span>
             <span class="chevron" aria-hidden="true"></span>
           </button>
-          <div class="accordion-panel" id="faq-1"><div class="accordion-inner">Start by scheduling an initial consultation through our <a href="contact/get-quote.html">contact form</a>. We'll discuss your goals, timeline, and budget to determine the best approach.</div></div>
+          <div class="accordion-panel" id="faq-1"><div class="accordion-inner">
+            <ul>
+              <li>Corrections to our workmanship (fit, finish, installation quality).</li>
+              <li>Adjustments that naturally settle after use (door alignment, cabinet reveals, caulk touch-ups).</li>
+              <li>Warranty support coordination for covered items we installed.</li>
+            </ul>
+          </div></div>
         </div>
+
+        <!-- Q2: What's not covered? -->
         <div class="accordion-item" role="tabpanel" aria-expanded="false">
           <button class="accordion-header" type="button" aria-controls="faq-2" aria-expanded="false">
             <span class="faq-chip">Q2</span>
-            <span class="accordion-title">What information should I prepare for our initial consultation?</span>
+            <span class="accordion-title">What’s not covered?</span>
             <span class="chevron" aria-hidden="true"></span>
           </button>
-          <div class="accordion-panel" id="faq-2"><div class="accordion-inner">Any inspiration images, floor plans, measurements (if available), preferred styles, must-haves, and your target budget are helpful.</div></div>
+          <div class="accordion-panel" id="faq-2"><div class="accordion-inner">
+            <ul>
+              <li>Normal wear and tear, owner-caused damage, or lack of maintenance.</li>
+              <li>Issues tied to manufacturer defects (handled under the product’s own warranty; we’ll help coordinate).</li>
+              <li>Changes in scope or new work requests (quoted separately).</li>
+              <li>Environmental movement beyond industry tolerances (e.g., seasonal wood movement, building settlement).</li>
+            </ul>
+          </div></div>
         </div>
+
+        <!-- Q3: How to request service? -->
         <div class="accordion-item" role="tabpanel" aria-expanded="false">
           <button class="accordion-header" type="button" aria-controls="faq-3" aria-expanded="false">
             <span class="faq-chip">Q3</span>
-            <span class="accordion-title">Do you offer virtual consultations?</span>
+            <span class="accordion-title">How to request service?</span>
             <span class="chevron" aria-hidden="true"></span>
           </button>
-          <div class="accordion-panel" id="faq-3"><div class="accordion-inner">Yes, we offer virtual consultations for convenience and flexibility.</div></div>
+          <div class="accordion-panel" id="faq-3"><div class="accordion-inner">
+            <ul>
+              <li>Email or call with a brief description, photos/video, and your availability.</li>
+              <li>We acknowledge within 1 business day and schedule a visit if needed.</li>
+              <li>A tech or project lead assesses on site and performs the correction or orders parts.</li>
+              <li>If a manufacturer claim applies, we assist with documentation and coordinate next steps.</li>
+            </ul>
+          </div></div>
         </div>
 
-        <!-- Timeline -->
+        <!-- Q4: Typical response & scheduling -->
         <div class="accordion-item" role="tabpanel" aria-expanded="false">
           <button class="accordion-header" type="button" aria-controls="faq-4" aria-expanded="false">
             <span class="faq-chip">Q4</span>
-            <span class="accordion-title">How long does a typical project take?</span>
+            <span class="accordion-title">Typical response & scheduling</span>
             <span class="chevron" aria-hidden="true"></span>
           </button>
-          <div class="accordion-panel" id="faq-4"><div class="accordion-inner">Timelines vary by scope. Smaller rooms may take 4–8 weeks; whole-home projects can take several months. We provide a detailed schedule after design development.</div></div>
+          <div class="accordion-panel" id="faq-4"><div class="accordion-inner">
+            <ul>
+              <li>Assessment visit: 3–7 business days (availability may vary).</li>
+              <li>Minor adjustments: Often resolved during the visit.</li>
+              <li>Parts-dependent items: Scheduled upon arrival of materials.</li>
+            </ul>
+          </div></div>
         </div>
+
+        <!-- Q5: Manufacturer warranties -->
         <div class="accordion-item" role="tabpanel" aria-expanded="false">
           <button class="accordion-header" type="button" aria-controls="faq-5" aria-expanded="false">
             <span class="faq-chip">Q5</span>
-            <span class="accordion-title">What factors can affect project timelines?</span>
+            <span class="accordion-title">Manufacturer warranties</span>
             <span class="chevron" aria-hidden="true"></span>
           </button>
-          <div class="accordion-panel" id="faq-5"><div class="accordion-inner">Material lead times, permitting, contractor availability, and scope changes can affect the timeline. We communicate proactively about any changes.</div></div>
-        </div>
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-6" aria-expanded="false">
-            <span class="faq-chip">Q6</span>
-            <span class="accordion-title">How do you handle project delays?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-6"><div class="accordion-inner">We maintain contingency plans, track milestones, and coordinate closely with all parties to minimize delays and keep you informed.</div></div>
-        </div>
-
-        <!-- Investment & Budget -->
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-7" aria-expanded="false">
-            <span class="faq-chip">Q7</span>
-            <span class="accordion-title">How do you structure your pricing?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-7"><div class="accordion-inner">We offer transparent pricing aligned to scope—typically a design fee plus procurement and project management as needed. We'll outline this clearly during consultation.</div></div>
-        </div>
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-8" aria-expanded="false">
-            <span class="faq-chip">Q8</span>
-            <span class="accordion-title">What's included in your design fees?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-8"><div class="accordion-inner">Concept development, space planning, selections, and documentation. Rendering, procurement, and installation management can be added based on scope.</div></div>
-        </div>
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-9" aria-expanded="false">
-            <span class="faq-chip">Q9</span>
-            <span class="accordion-title">Do you work with specific budget ranges?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-9"><div class="accordion-inner">Yes, we tailor our recommendations to your budget while ensuring quality and design integrity.</div></div>
-        </div>
-
-        <!-- Design Process -->
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-10" aria-expanded="false">
-            <span class="faq-chip">Q10</span>
-            <span class="accordion-title">How many design revisions are included?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-10"><div class="accordion-inner">We include rounds of revisions at key milestones. The exact number depends on scope and is defined at project start.</div></div>
-        </div>
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-11" aria-expanded="false">
-            <span class="faq-chip">Q11</span>
-            <span class="accordion-title">Can I see 3D renderings of my space?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-11"><div class="accordion-inner">Yes. We can provide 3D visuals to help you envision the final result during design development.</div></div>
-        </div>
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-12" aria-expanded="false">
-            <span class="faq-chip">Q12</span>
-            <span class="accordion-title">How do you incorporate my existing furniture?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-12"><div class="accordion-inner">We evaluate which pieces complement the new design and can integrate them to maintain sentimental and budgetary value.</div></div>
-        </div>
-
-        <!-- Project Management -->
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-13" aria-expanded="false">
-            <span class="faq-chip">Q13</span>
-            <span class="accordion-title">Do you handle contractor coordination?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-13"><div class="accordion-inner">Absolutely. We coordinate with vetted contractors, manage schedules, and oversee execution for a seamless experience.</div></div>
-        </div>
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-14" aria-expanded="false">
-            <span class="faq-chip">Q14</span>
-            <span class="accordion-title">How often will we communicate during the project?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-14"><div class="accordion-inner">We establish a communication cadence that suits you, with regular updates at milestones and proactive outreach as needed.</div></div>
-        </div>
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-15" aria-expanded="false">
-            <span class="faq-chip">Q15</span>
-            <span class="accordion-title">What happens if I'm not satisfied with something?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-15"><div class="accordion-inner">We address concerns quickly and collaboratively, proposing solutions that align with the design vision and your expectations.</div></div>
-        </div>
-
-        <!-- Services -->
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-16" aria-expanded="false">
-            <span class="faq-chip">Q16</span>
-            <span class="accordion-title">Do you offer both residential and commercial services?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-16"><div class="accordion-inner">Yes. We serve both residential and commercial clients with tailored solutions.</div></div>
-        </div>
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-17" aria-expanded="false">
-            <span class="faq-chip">Q17</span>
-            <span class="accordion-title">Can you work on just one room?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-17"><div class="accordion-inner">Absolutely. We frequently work on focused spaces like kitchens, bathrooms, or living rooms.</div></div>
-        </div>
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-18" aria-expanded="false">
-            <span class="faq-chip">Q18</span>
-            <span class="accordion-title">Do you provide furniture procurement services?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-18"><div class="accordion-inner">Yes, we can handle sourcing, ordering, and logistics to streamline your experience.</div></div>
+          <div class="accordion-panel" id="faq-5"><div class="accordion-inner">
+            Many products carry their own warranties (tile membranes, fixtures, appliances, flooring). We register or record details where applicable and assist you in initiating claims. Decisions and timelines are set by the manufacturer; we keep you informed.
+          </div></div>
         </div>
       </div>
 

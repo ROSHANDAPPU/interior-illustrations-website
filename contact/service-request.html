@@ -23,8 +23,10 @@
     .meta{font-size:13px;color:var(--body);margin-top:8px}
     .ok{display:none;margin-top:12px;color:var(--accent);font-weight:700}
     .topbar{position:fixed;inset:0 0 auto 0;height:80px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:#0B0E14;z-index:30}
-    .topbar img{height:60px}
-    .links a{color:var(--head);text-decoration:none;margin-left:16px;font-size:14px}
+    .topbar img{height:200px}
+    .links a{color:var(--head);text-decoration:none;margin-left:16px;font-size:14px;padding:8px 14px;border-radius:12px;transition:all .25s ease}
+    .links a:hover{background:var(--action);color:#fff}
+    @media(max-width:768px){.topbar img{height:60px}}
     @media(max-width:720px){.row{grid-template-columns:1fr}.wrap{padding-top:100px}}
   </style>
 </head>
@@ -46,7 +48,7 @@
       <input type="hidden" name="_subject" value="New Service Request - Interior Illusions" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="_next" value="service-request.html?success=1" />
+      <input type="hidden" name="_next" value="thank-you.html" />
       <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
       <div class="row">
         <div class="group">

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank You - Interior Illusions</title>
+  <link rel="icon" type="image/x-icon" href="../assets/images/06_Favicon/favicon-high.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    :root{--bg:#0B0E14;--head:#E7EAEE;--body:#A3AAB4;--accent:#93C5FD;--action:#1D4ED8}
+    html,body{margin:0;background:var(--bg);color:var(--body);font-family:'Satoshi','Inter',system-ui,-apple-system,sans-serif}
+    .topbar{position:fixed;inset:0 0 auto 0;height:80px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:#0B0E14;z-index:30}
+    .topbar img{height:200px}
+    @media(max-width:768px){.topbar img{height:60px}}
+    .links a{color:var(--head);text-decoration:none;margin-left:16px;font-size:14px;padding:8px 14px;border-radius:12px;transition:all .25s ease}
+    .links a:hover{background:var(--action);color:#fff}
+    .wrap{max-width:900px;margin:0 auto;padding:120px 20px 60px;text-align:left}
+    h1{color:var(--head);font-size:clamp(32px,6vw,48px);margin:0 0 10px}
+    p.lead{color:var(--accent);font-size:18px;margin:0 0 20px}
+    .btn{display:inline-flex;align-items:center;gap:8px;background:var(--action);color:#fff;border:none;border-radius:8px;padding:12px 18px;font-weight:700;text-decoration:none}
+    .btn:hover{background:#1E40AF}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index.html"><img src="../assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions" /></a>
+    <nav class="links">
+      <a href="../our-process.html#postcare">Post-Project Care</a>
+      <a href="get-quote.html">Get Quote</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1>Thank You</h1>
+    <p class="lead">We received your service request. Our team will reach out within 2 business days.</p>
+    <p>In the meantime, you can review our <a href="../our-process.html#postcare">Post-Project Care</a> information or contact us if your situation is urgent.</p>
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn" href="../our-process.html#postcare"><i class="fa-solid fa-screwdriver-wrench"></i> Post-Project Care</a>
+      <a class="btn" href="get-quote.html"><i class="fa-solid fa-envelope"></i> Get Quote</a>
+    </div>
+  </main>
+</body>
+</html>

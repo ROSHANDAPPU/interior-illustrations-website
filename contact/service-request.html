@@ -132,5 +132,61 @@
       }
     })();
   </script>
+  <!-- Custom Floating Cursor JS (mirrors index.html) -->
+  <script>
+    (function() {
+      const cursor = document.querySelector('.cursor');
+      const cursorFollower = document.querySelector('.cursor-follower');
+      if (!cursor || !cursorFollower) return;
+
+      let mouseX = 0, mouseY = 0;
+      let cursorX = 0, cursorY = 0;
+      let followerX = 0, followerY = 0;
+
+      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+      function animateCursor() {
+        const ease = 0.2;
+        cursorX += (mouseX - cursorX) * ease;
+        cursorY += (mouseY - cursorY) * ease;
+        cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+        requestAnimationFrame(animateCursor);
+      }
+      function animateFollower() {
+        const ease = 0.15;
+        followerX += (mouseX - followerX) * ease;
+        followerY += (mouseY - followerY) * ease;
+        cursorFollower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
+        requestAnimationFrame(animateFollower);
+      }
+      animateCursor();
+      animateFollower();
+
+      const hoverElements = document.querySelectorAll('a, button, .service-card, .gallery-item');
+      const textElements = document.querySelectorAll('h1, h2, h3, p, span');
+      const clickableElements = document.querySelectorAll('button, .btn');
+      const viewElements = document.querySelectorAll('.gallery-item');
+
+      hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      });
+      clickableElements.forEach(el => {
+        el.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
+        el.addEventListener('mouseup', () => document.body.classList.remove('cursor-click'));
+      });
+      textElements.forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-text'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-text'));
+      });
+      viewElements.forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-view'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-view'));
+      });
+
+      document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; cursorFollower.style.opacity = '0'; });
+      document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; cursorFollower.style.opacity = '1'; });
+    })();
+  </script>
 </body>
 </html>

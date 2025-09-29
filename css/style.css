@@ -88,7 +88,7 @@ h3, .eyebrow, .section-subtitle {
   padding: 12px 24px; /* 12px vertical, 20-24px horizontal */
   min-height: 44px; /* Touch target */
   border-radius: 8px;
-  border: none;
+  border: 1px solid rgba(147, 197, 253, 0.35); /* Azure outline */
   
   /* Display */
   display: inline-flex;
@@ -100,31 +100,39 @@ h3, .eyebrow, .section-subtitle {
   
   /* Transitions */
   transition: all 300ms ease;
+  
+  /* Glass base */
+  background: rgba(29, 78, 216, 0.18); /* Cobalt tinted glass */
+  color: var(--color-heading); /* Off-white */
+  backdrop-filter: saturate(120%) blur(10px);
+  -webkit-backdrop-filter: saturate(120%) blur(10px);
+  box-shadow: 0 8px 24px rgba(29, 78, 216, 0.18), inset 0 1px 0 rgba(255,255,255,0.12);
 }
 
 /* Primary Button (CTA) - Cobalt */
+/* Primary buttons inherit glass base; keep brand tint stronger */
 .btn, .btn-primary {
-  /* Colors - Default */
-  background: var(--color-action); /* Cobalt */
-  color: var(--color-heading); /* Off-white */
+  background: rgba(29, 78, 216, 0.22);
 }
 
 /* Primary Button Hover State */
 .btn:hover, .btn-primary:hover {
-  background: #1E40AF; /* Cobalt darken ~8% */
-  color: var(--color-heading);
+  background: rgba(29, 78, 216, 0.30);
+  border-color: rgba(147, 197, 253, 0.55);
+  box-shadow: 0 12px 32px rgba(29, 78, 216, 0.28), inset 0 1px 0 rgba(255,255,255,0.18);
 }
 
 /* Primary Button Active State */
 .btn:active, .btn-primary:active {
-  background: #1E3A8A; /* Cobalt darken ~12% */
-  color: var(--color-heading);
+  background: rgba(29, 78, 216, 0.36);
+  transform: scale(0.97);
+  box-shadow: 0 6px 20px rgba(29, 78, 216, 0.24) inset;
 }
 
 /* Primary Button Focus State */
 .btn:focus, .btn-primary:focus {
   outline: none;
-  box-shadow: 0 0 0 2px var(--color-accent), 0 0 0 5px rgba(147, 197, 253, 0.2); /* 2px Azure ring + 2-3px offset */
+  box-shadow: 0 0 0 2px var(--color-accent), 0 0 0 8px rgba(147, 197, 253, 0.15);
 }
 
 /* Primary Button Disabled State */
@@ -136,26 +144,26 @@ h3, .eyebrow, .section-subtitle {
 
 /* Secondary (Ghost Button) - Azure */
 .btn-secondary {
-  background: transparent;
+  background: rgba(147, 197, 253, 0.10); /* Lighter glass */
   color: var(--color-accent); /* Azure text */
-  border: 2px solid var(--color-accent); /* 2px Azure border */
+  border: 1px solid rgba(147, 197, 253, 0.45);
+  backdrop-filter: saturate(120%) blur(10px);
+  -webkit-backdrop-filter: saturate(120%) blur(10px);
 }
 
 /* Secondary Button Hover State */
 .btn-secondary:hover {
-  background: var(--color-bg-primary); /* Deep Navy fill */
+  background: rgba(147, 197, 253, 0.18);
   color: var(--color-accent);
-  border-color: var(--color-accent);
-  text-decoration: underline;
-  text-decoration-color: var(--color-accent);
-  text-underline-offset: 4px;
+  border-color: rgba(147, 197, 253, 0.65);
+  box-shadow: 0 10px 28px rgba(147, 197, 253, 0.20);
 }
 
 /* Secondary Button Active State */
 .btn-secondary:active {
-  background: var(--color-bg-primary);
-  color: #7DD3FC; /* Azure reduced ~10% luminance */
-  border-color: #7DD3FC;
+  background: rgba(147, 197, 253, 0.26);
+  color: #7DD3FC;
+  border-color: rgba(147, 197, 253, 0.75);
 }
 
 /* Secondary Button Focus State */

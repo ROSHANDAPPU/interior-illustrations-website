@@ -13,6 +13,9 @@ body, html {
   background-color: var(--color-bg-primary); /* Deep Navy */
   color: var(--color-heading); /* Off-white text */
   font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  /* Enforce numeric styles site-wide */
+  font-variant-numeric: lining-nums tabular-nums; /* Prefer lining/tabular numbers */
+  font-feature-settings: 'lnum' 1, 'tnum' 1; /* Fallback for browsers without font-variant support */
 }
 
 /* Page sections with Deep Navy background */
@@ -54,6 +57,9 @@ body, html {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700 !important; /* Bold weight for all headings */
   letter-spacing: 0.02em !important; /* Prevent character overlap */
+  font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
 }
 
 h3, .eyebrow, .section-subtitle {
@@ -75,6 +81,8 @@ h3, .eyebrow, .section-subtitle {
   text-transform: none; /* Sentence case */
   text-decoration: none;
   font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
   
   /* Layout */
   padding: 12px 24px; /* 12px vertical, 20-24px horizontal */
@@ -521,6 +529,13 @@ img, svg, video, canvas, iframe {
 /* 4) Forms and tables should not overflow on mobile */
 table { width: 100%; border-collapse: collapse; }
 input, select, textarea, button { max-width: 100%; }
+
+/* Reinforce Satoshi + numeric features on common text elements */
+p, a, li, label, input, select, textarea, button, small, .eyebrow, .section-subtitle, .section-title, .info-box, .card, .panel {
+  font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+}
 
 /* 5) Responsive container utility */
 .container,

@@ -132,25 +132,26 @@
 
     .lightbox-content {
       position: relative;
-      width: 40vw;
-      height: 80vh;
-      max-width: 600px;
-      max-height: 1200px;
+      width: 80vw;
+      max-width: 1200px;
+      max-height: 85vh;
       animation: lightboxZoom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .lightbox-content img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      max-height: 85vh;
+      object-fit: contain;
       border: 2px solid rgba(147, 197, 253, 0.3);
       border-radius: 8px;
+      display: block;
     }
 
     .lightbox-close {
       position: absolute;
-      top: -50px;
-      right: 0;
+      top: 20px;
+      right: -70px;
       background: rgba(147, 197, 253, 0.2);
       border: 2px solid rgba(147, 197, 253, 0.5);
       color: #93C5FD;
@@ -165,6 +166,7 @@
       transition: all 0.3s ease;
       font-weight: 300;
       line-height: 1;
+      z-index: 10001;
     }
 
     .lightbox-close:hover {
@@ -184,15 +186,25 @@
       }
     }
 
+    @media (max-width: 1024px) {
+      .lightbox-content {
+        width: 85vw;
+        max-width: 900px;
+      }
+    }
+
     @media (max-width: 768px) {
       .lightbox-content {
-        width: 70vw;
-        height: 140vw;
+        width: 90vw;
         max-width: none;
-        max-height: none;
+        max-height: 80vh;
+      }
+      .lightbox-content img {
+        max-height: 80vh;
       }
       .lightbox-close {
-        top: -40px;
+        top: 10px;
+        right: 10px;
         width: 40px;
         height: 40px;
         font-size: 24px;
@@ -1331,9 +1343,17 @@
           Our Projects
           <span class="dropdown-arrow">▼</span>
         </a>
-        <div class="dropdown-menu">
-          <a href="../portfolio/residential-projects.html">Residential Projects</a>
-          <a href="../portfolio/commercial-projects.html">Commercial Projects</a>
+        <div class="dropdown-menu mega-projects">
+          <div class="projects-grid">
+            <a class="proj-card" href="../portfolio/residential-projects.html">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80" alt="Warm residential living room interior" referrerpolicy="no-referrer" crossorigin="anonymous" loading="eager" decoding="async" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1600585154340-1e4d1f9be0c6?auto=format&fit=crop&w=1200&q=80';" />
+              <div class="label">Residential Projects</div>
+            </a>
+            <a class="proj-card" href="../portfolio/commercial-projects.html">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80" alt="Commercial interior showcase" />
+              <div class="label">Commercial Projects</div>
+            </a>
+          </div>
         </div>
       </div>
       <a href="interior-design.html">Services</a>

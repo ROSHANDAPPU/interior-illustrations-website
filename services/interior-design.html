@@ -11,34 +11,6 @@
   <!-- Shared Stylesheet for global nav interactions -->
   <link rel="stylesheet" href="../css/style.css">
   
-  <!-- Portfolio (6 pictures 1:1) -->
-  <section class="portfolio-six" id="services-portfolio">
-    <div class="section-header">
-      <div class="footer-label">Portfolio</div>
-      <h2 class="footer-heading" style="margin:0">Featured Work</h2>
-    </div>
-    <div class="portfolio-grid-1x1">
-      <a class="tile" href="../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" target="_blank" rel="noopener">
-        <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" alt="Portfolio image 1" />
-      </a>
-      <a class="tile" href="../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" target="_blank" rel="noopener">
-        <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" alt="Portfolio image 2" />
-      </a>
-      <a class="tile" href="../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" target="_blank" rel="noopener">
-        <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" alt="Portfolio image 3" />
-      </a>
-      <a class="tile" href="../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" target="_blank" rel="noopener">
-        <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" alt="Portfolio image 4" />
-      </a>
-      <a class="tile" href="../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" target="_blank" rel="noopener">
-        <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Portfolio image 5" />
-      </a>
-      <a class="tile" href="../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" target="_blank" rel="noopener">
-        <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" alt="Portfolio image 6" />
-      </a>
-    </div>
-  </section>
-  
   <style>
     :root {
       --color-bg-primary: #0B0E14; /* Deep Navy */
@@ -56,6 +28,175 @@
       height: 100%;
       margin: 0;
       line-height: 1.6;
+    }
+
+    /* Portfolio Grid Hover Effects - FORCE FIX */
+    @keyframes portfolioSheen {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    #services-portfolio .portfolio-grid-1x1 {
+      max-width: 1400px !important;
+      margin: 0 auto !important;
+      display: grid !important;
+      gap: 24px !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      padding: 0 20px !important;
+    }
+
+    #services-portfolio .portfolio-grid-1x1 .tile {
+      position: relative !important;
+      display: block !important;
+      overflow: hidden !important;
+      border: 1px solid rgba(255, 255, 255, 0.05) !important;
+      background: #0D111B !important;
+      cursor: pointer !important;
+      aspect-ratio: 1 / 1 !important;
+    }
+
+    #services-portfolio .portfolio-grid-1x1 .tile img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+      transform: none !important;
+    }
+
+    #services-portfolio .portfolio-grid-1x1 .tile::after {
+      content: "" !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      pointer-events: none !important;
+      background: linear-gradient(120deg, rgba(255,255,255,0.00) 10%, rgba(255,255,255,0.25) 30%, rgba(255,255,255,0.40) 40%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.00) 70%) !important;
+      background-size: 240% 100% !important;
+      background-position: 200% 0 !important;
+      mix-blend-mode: screen !important;
+      opacity: 0 !important;
+      transition: opacity 0.3s ease !important;
+      z-index: 2 !important;
+    }
+
+    #services-portfolio .portfolio-grid-1x1 .tile:hover {
+      transform: none !important;
+    }
+
+    #services-portfolio .portfolio-grid-1x1 .tile:hover img {
+      transform: none !important;
+    }
+
+    #services-portfolio .portfolio-grid-1x1 .tile:hover::after {
+      opacity: 1 !important;
+      animation: portfolioSheen 1.6s ease-out forwards !important;
+    }
+
+    @media (max-width: 1024px) {
+      #services-portfolio .portfolio-grid-1x1 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      #services-portfolio .portfolio-grid-1x1 {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+    }
+
+    /* Lightbox Modal */
+    .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(11, 14, 20, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .lightbox-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-content {
+      position: relative;
+      width: 40vw;
+      height: 80vh;
+      max-width: 600px;
+      max-height: 1200px;
+      animation: lightboxZoom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .lightbox-content img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 2px solid rgba(147, 197, 253, 0.3);
+      border-radius: 8px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: rgba(147, 197, 253, 0.2);
+      border: 2px solid rgba(147, 197, 253, 0.5);
+      color: #93C5FD;
+      font-size: 32px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 300;
+      line-height: 1;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(147, 197, 253, 0.3);
+      border-color: #93C5FD;
+      transform: rotate(90deg);
+    }
+
+    @keyframes lightboxZoom {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-content {
+        width: 70vw;
+        height: 140vw;
+        max-width: none;
+        max-height: none;
+      }
+      .lightbox-close {
+        top: -40px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+      }
     }
 
     /* Navigation */
@@ -611,20 +752,49 @@
     .service-card h3 {
       color: var(--color-heading);
       font-size: 24px;
-      margin-bottom: 16px;
-      font-weight: 600;
+      margin-bottom: 12px;
+      font-weight: 700;
     }
     .service-card .price {
       color: var(--color-accent);
       font-size: 18px;
       font-weight: 600;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
     .service-card p {
-      color: #93C5FD; /* Azure text color */
+      color: #93C5FD;
       font-size: 16px;
       line-height: 1.6;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
+    }
+    .service-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+    .service-card ul li {
+      color: var(--color-body);
+      font-size: 15px;
+      line-height: 1.8;
+      padding-left: 24px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .service-card ul li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--color-accent);
+      font-weight: 700;
+    }
+    .service-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .service-buttons .btn {
+      flex: 1;
+      min-width: 140px;
     }
     .service-features {
       list-style: none;
@@ -847,7 +1017,7 @@
       border: 2px solid rgba(147, 197, 253, 0.8); /* Azure border */
       border-radius: 50%;
       pointer-events: none;
-      z-index: 9999;
+      z-index: 99999;
       transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
@@ -858,8 +1028,8 @@
       border: 2px solid rgba(147, 197, 253, 0.3); /* Azure */
       border-radius: 50%;
       pointer-events: none;
-      z-index: 9998;
-      background: rgba(147, 197, 253, 0.1); /* Azure */
+      z-index: 99998;
+      background: rgba(147, 197, 253, 0.1); /* Azure - very transparent */
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
@@ -1175,126 +1345,221 @@
 
   <!-- Page Hero -->
   <section class="page-hero">
-    <h1>Interior Design Services</h1>
-    <p>Transform your space with our comprehensive interior design and home remodeling services</p>
+    <p style="color: var(--color-accent); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 16px;">OUR SERVICES</p>
+    <h1>What We Offer</h1>
+    <p>Transform your space with our comprehensive interior design, construction and home remodeling services</p>
   </section>
 
   <!-- Page Content -->
   <main class="page-content">
-    
-    <!-- Portfolio Section -->
-    <section id="work" class="gallery" style="margin-top: 0;">
-      <div class="section-header reveal" style="text-align: left;">
-        <p class="section-subtitle" style="text-align: left; color: #93C5FD;">PORTFOLIO</p>
-        <h2 class="section-title" style="text-align: left; color: #93C5FD;">Our Latest Work</h2>
-      </div>
-      
-      <div class="gallery-grid">
-        <a href="../portfolio/contemporary-living-room.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="../portfolio/luxury-bathroom-suite.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="../portfolio/modern-kitchen-renovation.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1556912167-f556f1f39fdf?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="../portfolio/project-detail.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="../portfolio/elegant-master-bedroom.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="../portfolio/modern-office-space.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop');"></a>
-      </div>
-    </section>
 
     <!-- Services Grid -->
     <div class="services-grid">
+      <!-- Service 1: Selective Demolition -->
       <div class="service-card">
-        <h3>Complete Home Renovation</h3>
-        <div class="price">Starting at $50,000</div>
-        <p>Transform your entire home with our comprehensive renovation services, from initial design concepts to final construction completion.</p>
-        <ul class="service-features">
-          <li>Full home design consultation</li>
-          <li>3D renderings and floor plans</li>
-          <li>Material selection and sourcing</li>
-          <li>Project management</li>
-          <li>Quality assurance</li>
+        <h3>Selective Demolition</h3>
+        <div class="price">Starting at $1,500 (per room)</div>
+        <p>Targeted removal that protects structural elements and utilities, setting the stage for a clean, efficient build.</p>
+        <ul>
+          <li>Dust containment and site protection</li>
+          <li>Careful removal of finishes/fixtures</li>
+          <li>Utility capping by licensed trades</li>
+          <li>Debris haul-off and recycling where possible</li>
+          <li>Sweep/vac clean to "ready for rough-in"</li>
         </ul>
-        <a href="../contact/get-quote.html" class="btn">Get Quote</a>
+        <div class="service-buttons">
+          <a href="../contact/get-quote.html?service=selective-demolition" class="btn">Get Quote</a>
+          <a href="selective-demolition.html" class="btn secondary">Learn More</a>
+        </div>
       </div>
 
+      <!-- Service 2: General Construction & Framing -->
       <div class="service-card">
-        <h3>Kitchen Remodeling</h3>
-        <div class="price">Starting at $25,000</div>
-        <p>Create the heart of your home with custom kitchen designs that seamlessly blend functionality, aesthetics, and modern convenience.</p>
-        <ul class="service-features">
-          <li>Custom cabinet design</li>
-          <li>Countertop selection</li>
-          <li>Appliance integration</li>
-          <li>Lighting design</li>
-          <li>Storage optimization</li>
+        <h3>General Construction & Framing</h3>
+        <div class="price">Starting at $2,500</div>
+        <p>Straight, true framing for new walls, openings, and structural adjustments—built to plan and ready for MEP and finishes.</p>
+        <ul>
+          <li>Layout and blocking to spec</li>
+          <li>Non-bearing and bearing wall work (as scoped)</li>
+          <li>Header/joist reinforcement where required</li>
+          <li>Rough openings for doors/windows</li>
+          <li>Inspection coordination</li>
         </ul>
-        <a href="../contact/get-quote.html" class="btn">Get Quote</a>
+        <div class="service-buttons">
+          <a href="../contact/get-quote.html?service=general-construction" class="btn">Get Quote</a>
+          <a href="general-construction.html" class="btn secondary">Learn More</a>
+        </div>
       </div>
 
+      <!-- Service 3: Full-Home Remodels -->
       <div class="service-card">
-        <h3>Bathroom Remodeling</h3>
-        <div class="price">Starting at $15,000</div>
-        <p>Luxury bathroom renovations that transform your space into a personal spa retreat with premium finishes and fixtures.</p>
-        <ul class="service-features">
-          <li>Luxury fixtures and fittings</li>
-          <li>Custom vanity design</li>
-          <li>Tile and stone selection</li>
-          <li>Plumbing and electrical</li>
-          <li>Storage solutions</li>
-        </ul>
-        <a href="../contact/get-quote.html" class="btn">Get Quote</a>
-      </div>
-
-      <div class="service-card">
-        <h3>Home Additions</h3>
+        <h3>Full-Home Remodels</h3>
         <div class="price">Starting at $75,000</div>
-        <p>Expand your living space with seamlessly integrated additions that respect your home's architectural integrity.</p>
-        <ul class="service-features">
-          <li>Architectural planning</li>
-          <li>Permit assistance</li>
-          <li>Structural engineering</li>
-          <li>Seamless integration</li>
-          <li>Quality construction</li>
+        <p>A cohesive, phased renovation across your interior—one schedule, one team, consistent quality from demo to handover.</p>
+        <ul>
+          <li>Full home design consultation and scope</li>
+          <li>Phased scheduling and permits</li>
+          <li>Trade coordination (MEP, carpentry, finishes)</li>
+          <li>Weekly progress updates and walk-throughs</li>
+          <li>Quality assurance and final punch-list</li>
         </ul>
-        <a href="../contact/get-quote.html" class="btn">Get Quote</a>
+        <div class="service-buttons">
+          <a href="../contact/get-quote.html?service=full-home-remodel" class="btn">Get Quote</a>
+          <a href="full-home-remodels.html" class="btn secondary">Learn More</a>
+        </div>
       </div>
 
+      <!-- Service 4: Kitchens -->
       <div class="service-card">
-        <h3>Custom Homes</h3>
-        <div class="price">Starting at $200,000</div>
-        <p>Build your dream home from the ground up with our comprehensive custom home construction and design services.</p>
-        <ul class="service-features">
-          <li>Custom home design</li>
-          <li>Site planning</li>
-          <li>Construction management</li>
-          <li>Interior design</li>
-          <li>Landscaping coordination</li>
+        <h3>Kitchens</h3>
+        <div class="price">Starting at $25,000</div>
+        <p>Design-led kitchen remodels with durable surfaces, efficient storage, and precise installation.</p>
+        <ul>
+          <li>Layout and elevation plans</li>
+          <li>Cabinetry (custom or semi-custom) and hardware</li>
+          <li>Countertops and backsplash installation</li>
+          <li>Appliance set-in, plumbing, and lighting</li>
+          <li>Protection, inspections, and punch-list</li>
         </ul>
-        <a href="../contact/get-quote.html" class="btn">Get Quote</a>
+        <div class="service-buttons">
+          <a href="../contact/get-quote.html?service=kitchen" class="btn">Get Quote</a>
+          <a href="#kitchens" class="btn secondary">Learn More</a>
+        </div>
       </div>
 
+      <!-- Service 5: Bathrooms -->
       <div class="service-card">
-        <h3>Durango, CO Projects</h3>
-        <div class="price">Starting at $30,000</div>
-        <p>Specialized renovation services for luxury mountain homes and vacation properties in the Colorado region.</p>
-        <ul class="service-features">
-          <li>Mountain home expertise</li>
-          <li>Weather-resistant materials</li>
-          <li>Energy efficiency</li>
-          <li>Local contractor network</li>
-          <li>Vacation rental optimization</li>
+        <h3>Bathrooms</h3>
+        <div class="price">Starting at $12,000</div>
+        <p>Waterproof assemblies, accurate tile, and balanced lighting for a clean, long-lasting bath.</p>
+        <ul>
+          <li>Demolition and substrate prep</li>
+          <li>Plumbing/electrical updates to code</li>
+          <li>Waterproofing, tile, and shower glass</li>
+          <li>Vanity, fixtures, mirrors, accessories</li>
+          <li>Ventilation and final caulk/seal</li>
         </ul>
-        <a href="../contact/get-quote.html" class="btn">Get Quote</a>
+        <div class="service-buttons">
+          <a href="../contact/get-quote.html?service=bathroom" class="btn">Get Quote</a>
+          <a href="#bathrooms" class="btn secondary">Learn More</a>
+        </div>
+      </div>
+
+      <!-- Service 6: Interior Painting & Finishes -->
+      <div class="service-card">
+        <h3>Interior Painting & Finishes</h3>
+        <div class="price">Starting at $2,000 (per room)</div>
+        <p>Premium surface prep and coatings for even coverage, crisp lines, and a durable, uniform finish.</p>
+        <ul>
+          <li>Masking, protection, and primer as needed</li>
+          <li>Two finish coats in specified sheen</li>
+          <li>Trim/doors/windows finishing (as scoped)</li>
+          <li>Minor patching and caulk</li>
+          <li>Labeled touch-up kit at handover</li>
+        </ul>
+        <div class="service-buttons">
+          <a href="../contact/get-quote.html?service=painting-finishes" class="btn">Get Quote</a>
+          <a href="#painting-finishes" class="btn secondary">Learn More</a>
+        </div>
+      </div>
+
+      <!-- Service 7: Custom Cabinetry & Millwork -->
+      <div class="service-card">
+        <h3>Custom Cabinetry & Millwork</h3>
+        <div class="price">Starting at $4,500</div>
+        <p>Built-ins, vanities, paneling, and doors with precise reveals and hardware alignment.</p>
+        <ul>
+          <li>Design and shop drawings</li>
+          <li>Casework fabrication and finishing</li>
+          <li>Hardware, soft-close systems, adjustments</li>
+          <li>Site templating and installation</li>
+          <li>Care and maintenance guide</li>
+        </ul>
+        <div class="service-buttons">
+          <a href="../contact/get-quote.html?service=custom-cabinetry" class="btn">Get Quote</a>
+          <a href="#custom-cabinetry" class="btn secondary">Learn More</a>
+        </div>
+      </div>
+
+      <!-- Service 8: Flooring -->
+      <div class="service-card">
+        <h3>Flooring</h3>
+        <div class="price">Starting at $6/sq ft installed</div>
+        <p>Hardwood, engineered, tile, or luxury vinyl—flat substrates, tight transitions, and a unified look.</p>
+        <ul>
+          <li>Demo and disposal (as scoped)</li>
+          <li>Subfloor leveling and underlayments</li>
+          <li>Material installation and trims</li>
+          <li>Base re-set or new baseboards</li>
+          <li>Final clean and care guidance</li>
+        </ul>
+        <div class="service-buttons">
+          <a href="../contact/get-quote.html?service=flooring" class="btn">Get Quote</a>
+          <a href="#flooring" class="btn secondary">Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio-six" id="services-portfolio" style="padding: 80px 0; margin-top: 80px;">
+      <div class="section-header" style="max-width: 1400px; margin: 0 auto 60px; padding: 0 20px; text-align: left;">
+        <p style="color: var(--color-accent); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 12px;">PORTFOLIO</p>
+        <h2 style="color: var(--color-heading); font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin: 0;">Our Latest Work</h2>
+      </div>
+      <div class="portfolio-grid-1x1">
+        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG')">
+          <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" alt="Portfolio image 1" />
+        </div>
+        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG')">
+          <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" alt="Portfolio image 2" />
+        </div>
+        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG')">
+          <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" alt="Portfolio image 3" />
+        </div>
+        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG')">
+          <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" alt="Portfolio image 4" />
+        </div>
+        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG')">
+          <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Portfolio image 5" />
+        </div>
+        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG')">
+          <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" alt="Portfolio image 6" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
+      <div class="lightbox-content">
+        <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
+        <img id="lightboxImage" src="" alt="Portfolio Image" />
       </div>
     </div>
 
     <!-- Call to Action -->
-    <div class="cta-banner">
-      <h2>Ready to Start Your Project?</h2>
-      <p>Contact us today for a free consultation and quote.</p>
-      <div class="cta-actions">
-        <a href="../contact/get-quote.html" class="btn">Get a Quote</a>
-        <a href="../portfolio/residential-projects.html" class="btn secondary">View Our Work</a>
+    <section class="cta-banner" style="background: #0D111B; padding: 80px 40px; text-align: center; margin-top: 80px; transition: background 0.4s ease, transform 0.3s ease;">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 class="cta-banner-title" style="color: var(--color-heading); font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin-bottom: 24px; transition: color 0.4s ease;">Ready to Start Your Project?</h2>
+        <p class="cta-banner-text" style="color: var(--color-accent); font-size: clamp(16px, 2.5vw, 20px); margin-bottom: 40px; line-height: 1.6; transition: color 0.4s ease;">Contact us today for a free consultation and quote.</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+          <a href="../contact/get-quote.html" class="btn" style="min-width: 180px;">Get a Quote</a>
+          <a href="../portfolio/residential-projects.html" class="btn secondary" style="min-width: 180px;">View Our Work</a>
+        </div>
       </div>
-    </div>
+    </section>
+    <style>
+      .cta-banner:hover {
+        background: #FAF7F2 !important;
+        transform: translateY(-4px);
+        box-shadow: 0 10px 40px rgba(147, 197, 253, 0.3);
+      }
+      .cta-banner:hover .cta-banner-title {
+        color: #0B0E14 !important;
+      }
+      .cta-banner:hover .cta-banner-text {
+        color: #1D4ED8 !important;
+      }
+    </style>
   </main>
   <script>
     // Custom Floating Cursor
@@ -1517,6 +1782,36 @@
           <div class="footer-legal-links">
             <a href="#">Privacy Policy</a>
             <span class="footer-divider">|</span>
+  <script>
+    // Lightbox Functions
+    function openLightbox(imageSrc) {
+      const modal = document.getElementById('lightboxModal');
+      const image = document.getElementById('lightboxImage');
+      image.src = imageSrc;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closeLightbox(event) {
+      // Only close if clicking the background or close button, not the image
+      if (event.target.id === 'lightboxModal' || event.target.classList.contains('lightbox-close')) {
+        const modal = document.getElementById('lightboxModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+    }
+
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const modal = document.getElementById('lightboxModal');
+        if (modal.classList.contains('active')) {
+          modal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+  </script>
   </body>
 <script src="../assets/js/nav-active.js"></script>
 </html>

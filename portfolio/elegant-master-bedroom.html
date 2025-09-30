@@ -1276,14 +1276,29 @@
     </div>
 
     <!-- Call to Action -->
-    <div class="cta-section">
-      <h3>Ready to Transform Your Space?</h3>
-      <p>Let's create your dream bedroom together</p>
-      <div class="cta-buttons">
-        <a href="../contact/get-quote.html" class="cta-button primary">Get a Quote</a>
-        <a href="../contact/schedule-consultation.html" class="cta-button secondary">Schedule Consultation</a>
+    <section class="cta-banner" style="background: #0D111B; padding: 80px 40px; text-align: center; margin-top: 80px; transition: background 0.4s ease, transform 0.3s ease;">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 class="cta-banner-title" style="color: var(--color-heading); font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin-bottom: 24px; transition: color 0.4s ease;">Ready to Transform Your Space?</h2>
+        <p class="cta-banner-text" style="color: var(--color-accent); font-size: clamp(16px, 2.5vw, 20px); margin-bottom: 40px; line-height: 1.6; transition: color 0.4s ease;">Let's create your dream bedroom together</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+          <a href="../contact/get-quote.html" class="btn" style="min-width: 180px;">Get a Quote</a>
+          <a href="../contact/schedule-consultation.html" class="btn secondary" style="min-width: 180px;">Schedule Consultation</a>
+        </div>
       </div>
-    </div>
+    </section>
+    <style>
+      .cta-banner:hover {
+        background: #FAF7F2 !important;
+        transform: translateY(-4px);
+        box-shadow: 0 10px 40px rgba(147, 197, 253, 0.3);
+      }
+      .cta-banner:hover .cta-banner-title {
+        color: #0B0E14 !important;
+      }
+      .cta-banner:hover .cta-banner-text {
+        color: #1D4ED8 !important;
+      }
+    </style>
   </section>
 
   <!-- Lightbox -->

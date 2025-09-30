@@ -734,6 +734,8 @@
       .page-content { padding: 60px 20px; }
       .team-grid { grid-template-columns: 1fr; }
       .values-grid { grid-template-columns: 1fr; }
+      .founder-section { grid-template-columns: 1fr !important; gap: 40px !important; }
+      .founder-image { height: 400px !important; }
     }
 
     /* Custom Floating Cursor */
@@ -968,30 +970,20 @@
         <img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px; width: auto;" />
       </a>
     </div>
-    <!-- Hamburger Menu -->
-    <div class="hamburger-menu">
-      <div class="hamburger-icon">
+    <!-- Hamburger Menu (mobile/minimized) -->
+    <div class="hamburger-menu" id="hamburgerMenu">
+      <div class="hamburger-icon" aria-label="Open Menu" role="button" tabindex="0">
         <span class="line line1"></span>
         <span class="line line2"></span>
         <span class="line line3"></span>
       </div>
-      <div class="mobile-overlay">
-        <nav class="mobile-nav">
+      <div class="mobile-overlay" id="mobileOverlay">
+        <button class="mobile-close" type="button" aria-label="Close">×</button>
+        <nav class="mobile-nav" aria-label="Mobile Navigation">
           <a href="about.html" class="mobile-link">About</a>
-          <div class="mobile-dropdown-section">
-            <button class="mobile-dropdown-btn">
-              Our Projects
-              <span class="mobile-arrow">▼</span>
-            </button>
-            <div class="mobile-dropdown-content">
-              <a href="portfolio/before-after-gallery.html" class="mobile-sublink">All Projects</a>
-              <a href="portfolio/modern-kitchen-renovation.html" class="mobile-sublink">Kitchen</a>
-              <a href="portfolio/luxury-bathroom-suite.html" class="mobile-sublink">Bathroom</a>
-              <a href="portfolio/contemporary-living-room.html" class="mobile-sublink">Living Room</a>
-              <a href="portfolio/elegant-master-bedroom.html" class="mobile-sublink">Bedroom</a>
-              <a href="portfolio/residential-projects.html" class="mobile-sublink">Whole Home</a>
-            </div>
-          </div>
+          <!-- No dropdown on mobile: show plain links -->
+          <a href="portfolio/residential-projects.html" class="mobile-link">Residential Projects</a>
+          <a href="portfolio/commercial-projects.html" class="mobile-link">Commercial Projects</a>
           <a href="services/interior-design.html" class="mobile-link">Services</a>
           <a href="our-process.html" class="mobile-link">Our Process</a>
           <a href="contact/get-quote.html" class="mobile-link">Contact</a>
@@ -1005,9 +997,17 @@
           Our Projects
           <span class="dropdown-arrow">▼</span>
         </a>
-        <div class="dropdown-menu">
-          <a href="portfolio/residential-projects.html">Residential Projects</a>
-          <a href="portfolio/commercial-projects.html">Commercial Projects</a>
+        <div class="dropdown-menu mega-projects">
+          <div class="projects-grid">
+            <a class="proj-card" href="portfolio/residential-projects.html">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80" alt="Warm residential living room interior" />
+              <div class="label">Residential Projects</div>
+            </a>
+            <a class="proj-card" href="portfolio/commercial-projects.html">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80" alt="Commercial interior showcase" />
+              <div class="label">Commercial Projects</div>
+            </a>
+          </div>
         </div>
       </div>
       <a href="our-process.html">Our Process</a>
@@ -1020,7 +1020,7 @@
   <!-- Page Hero -->
   <section class="page-hero">
     <h1>About Interior Illusions</h1>
-    <p>Transforming spaces into living art through innovative design and exceptional craftsmanship</p>
+    <p>One team. Clear scope. Flawless handover.</p>
   </section>
 
   <!-- External CSS -->
@@ -1030,57 +1030,43 @@
 
   <!-- Page Content -->
   <main class="page-content">
-    <div class="content-section">
-      <h2>Our Story</h2>
-      <p>At Interior Illusions, we believe that every space has the potential to become a masterpiece. Founded with a passion for creating environments that inspire, comfort, and reflect your unique story, we specialize in luxury interior design and home remodeling services.</p>
-      <p>Our team combines years of experience with innovative design approaches to deliver stunning results that exceed expectations. From concept to completion, we work closely with our clients to ensure every detail reflects their vision and lifestyle.</p>
+    <!-- Founder Section -->
+    <div class="content-section founder-section" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 80px;">
+      <div class="founder-image" style="width: 100%; height: 500px; background: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80') center/cover; border-radius: 0px;"></div>
+      <div class="founder-content">
+        <h2 style="color: var(--color-accent); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 16px;">FOUNDER</h2>
+        <h3 style="color: var(--color-heading); font-size: 32px; font-weight: 700; margin-bottom: 24px;">Andy Chavira</h3>
+        <p>I grew up on job sites with my dad and never left the craft. I later earned a degree in construction project management. What keeps me here is the mix of design and problem-solving—every project is different, and the best part is seeing a space transform from plan to finished detail.</p>
+      </div>
     </div>
 
+    <!-- Interior Illusions Section -->
     <div class="content-section">
-      <h2>Our Mission</h2>
-      <p>To transform ordinary spaces into extraordinary environments that enhance your quality of life. We are committed to delivering exceptional design solutions that blend functionality, aesthetics, and personal style.</p>
+      <h2>Interior Illusions</h2>
+      <p>Interior Illusions (Interior Illusions Construction) delivers full-service, design-build remodeling—luxury kitchens, baths, and whole-home interiors. We blend craftsmanship, innovation, and attentive service from concept to completion. Expect itemized scope, predictable timelines, and crisp finishes. We work with homeowners, builders, and designers so each space reflects the client's vision and lifestyle.</p>
     </div>
 
+    <!-- Mission Section -->
+    <div class="content-section">
+      <h2>Mission</h2>
+      <p>Interior Illusions exists to turn thoughtful plans into refined, durable interiors. We combine design clarity, cost transparency, and precise execution to deliver calm projects, crisp finishes, and homes that work beautifully day to day.</p>
+    </div>
+
+    <!-- Our Values Section -->
     <div class="content-section">
       <h2>Our Values</h2>
       <div class="values-grid">
         <div class="value-item">
-          <h3>Excellence</h3>
-          <p>We strive for perfection in every project, ensuring the highest quality standards in design and execution.</p>
+          <h3>Calm</h3>
+          <p>We run a steady, transparent process—clear plans, tidy sites, and one point of contact—so projects feel organized, predictable, and stress-free.</p>
         </div>
         <div class="value-item">
-          <h3>Innovation</h3>
-          <p>We embrace cutting-edge design trends and technologies to create unique, forward-thinking spaces.</p>
+          <h3>Precise</h3>
+          <p>We measure twice and build to spec. True lines, tight reveals, clean transitions, and documented quality checks at every stage.</p>
         </div>
         <div class="value-item">
-          <h3>Integrity</h3>
-          <p>We maintain transparency, honesty, and professionalism in all our client relationships and business practices.</p>
-        </div>
-        <div class="value-item">
-          <h3>Collaboration</h3>
-          <p>We work closely with our clients, listening to their needs and incorporating their vision into every design.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="content-section">
-      <h2>Our Team</h2>
-      <p>Meet the talented professionals behind Interior Illusions. Our diverse team brings together expertise in interior design, architecture, project management, and craftsmanship.</p>
-      <div class="team-grid">
-        <div class="team-member">
-          <h3>Sarah Johnson</h3>
-          <div class="role">Lead Interior Designer</div>
-          <p>With over 10 years of experience in luxury residential design, Sarah brings a keen eye for detail and a passion for creating spaces that tell a story.</p>
-        </div>
-        <div class="team-member">
-          <h3>Michael Chen</h3>
-          <div class="role">Project Manager</div>
-          <p>Michael ensures every project runs smoothly from start to finish, coordinating with contractors and keeping clients informed throughout the process.</p>
-        </div>
-        <div class="team-member">
-          <h3>Emily Rodriguez</h3>
-          <div class="role">Color Specialist</div>
-          <p>Emily's expertise in color theory and material selection helps create harmonious spaces that reflect each client's personality and lifestyle.</p>
+          <h3>Modern</h3>
+          <p>We favor clean geometry, smart materials, and efficient systems—design that looks timeless, works hard, and simplifies daily living.</p>
         </div>
       </div>
     </div>
@@ -1102,14 +1088,30 @@
       </div>
     </section>
 
-    <div class="content-section" style="text-align: center;">
-      <h2>Ready to Start Your Project?</h2>
-      <p>Let's discuss how we can transform your space into something extraordinary.</p>
-      <div style="margin-top: 30px;">
-        <a href="contact/get-quote.html" class="btn">Get a Quote</a>
-        <a href="portfolio/residential-projects.html" class="btn secondary">View Our Work</a>
+    <!-- CTA Banner -->
+    <section class="cta-banner" style="background: #0D111B; padding: 80px 40px; text-align: center; margin-top: 80px; transition: background 0.4s ease, transform 0.3s ease;">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 class="cta-banner-title" style="color: var(--color-heading); font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin-bottom: 24px; transition: color 0.4s ease;">Ready to Start Your Project?</h2>
+        <p class="cta-banner-text" style="color: var(--color-accent); font-size: clamp(16px, 2.5vw, 20px); margin-bottom: 40px; line-height: 1.6; transition: color 0.4s ease;">Let's discuss how we can transform your space into something extraordinary.</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+          <a href="contact/get-quote.html" class="btn" style="min-width: 180px;">Get a Quote</a>
+          <a href="portfolio/residential-projects.html" class="btn secondary" style="min-width: 180px;">View Our Work</a>
+        </div>
       </div>
-    </div>
+    </section>
+    <style>
+      .cta-banner:hover {
+        background: #FAF7F2 !important; /* Ivory */
+        transform: translateY(-4px);
+        box-shadow: 0 10px 40px rgba(147, 197, 253, 0.3);
+      }
+      .cta-banner:hover .cta-banner-title {
+        color: #0B0E14 !important; /* Deep Navy */
+      }
+      .cta-banner:hover .cta-banner-text {
+        color: #1D4ED8 !important; /* Cobalt */
+      }
+    </style>
   </main>
   <script>
     // Custom Floating Cursor

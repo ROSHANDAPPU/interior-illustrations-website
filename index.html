@@ -71,7 +71,7 @@
     .nav {
       position: fixed; top: 0; left: 0; right: 0; height: 80px;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; z-index: 30;
+      padding: 0 40px; z-index: 2000;
       background: #0B0E14; /* Deep Navy background */
     }
     /* Hide hamburger menu wrapper by default (desktop) */
@@ -139,6 +139,23 @@
       border-radius: 12px;
       padding: 10px;
       z-index: 1000;
+    }
+    /* Click-to-open support */
+    .dropdown.active .dropdown-menu { display: block; }
+    .dropdown.active .dropdown-arrow { transform: rotate(180deg); }
+    /* Prevent clipping of dropdown */
+    .nav, .nav .links, .nav .links .dropdown { overflow: visible; }
+
+    /* Force show on desktop/tablet (fallback) */
+    @media (min-width: 768px) {
+      header.nav .links .dropdown:hover .dropdown-menu,
+      header.nav .links .dropdown.active .dropdown-menu {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+      }
+      header.nav .links .dropdown-menu { z-index: 3000; }
     }
     .dropdown-menu a {
       display: block;
@@ -1353,16 +1370,6 @@
       // No-op: no mobile dropdown
       // Auto-close if resized wider than 1200px
       window.addEventListener('resize', ()=>{ if (window.innerWidth > 1200) closeMenu(); });
-
-      // Header-wide sheen when hovering the logo
-      if (headerEl && logoLink) {
-        logoLink.addEventListener('mouseenter', ()=> headerEl.classList.add('logo-sheen-active'));
-        logoLink.addEventListener('mouseleave', ()=> headerEl.classList.remove('logo-sheen-active'));
-        // Also remove sheen when menu opens/closes to avoid lingering
-        if (icon) {
-          icon.addEventListener('click', ()=> headerEl.classList.remove('logo-sheen-active'));
-        }
-      }
     })();
   </script>
 
@@ -1575,6 +1582,36 @@
       });
     }, { threshold: 0.1 });
     document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+    // Desktop "Our Projects" dropdown: click-to-open with outside-click close
+    (function() {
+      const dropdown = document.querySelector('header.nav .links .dropdown');
+      if (!dropdown) return;
+      const toggle = dropdown.querySelector('.dropdown-toggle');
+      const menu = dropdown.querySelector('.dropdown-menu');
+      const isDesktop = () => window.matchMedia('(min-width: 1025px)').matches;
+
+      if (toggle && menu) {
+        // Toggle on click (desktop only)
+        toggle.addEventListener('click', (e) => {
+          if (!isDesktop()) return; // mobile handled by overlay
+          e.preventDefault();
+          e.stopPropagation();
+          dropdown.classList.toggle('active');
+        });
+
+        // Close on outside click (desktop only)
+        document.addEventListener('click', (e) => {
+          if (!isDesktop()) return;
+          if (!dropdown.contains(e.target)) dropdown.classList.remove('active');
+        });
+
+        // Close when resizing down to mobile/tablet
+        window.addEventListener('resize', () => {
+          if (!isDesktop()) dropdown.classList.remove('active');
+        });
+      }
+    })();
 
     /* Intro Video Handler */
     const introOverlay = document.getElementById('intro-overlay');

@@ -1,20 +1,235 @@
 /* ------------------------------------------ */
-/* Reusable 1:1 portfolio grid                */
+/* Portfolio Grid Layouts                     */
 /* ------------------------------------------ */
-.portfolio-six { padding: 60px 16px; }
-.portfolio-six .section-header { max-width: 1400px; margin: 0 auto 24px; }
-.portfolio-grid-1x1 { 
-  max-width: 1400px; margin: 0 auto; 
-  display: grid; gap: 16px; 
-  grid-template-columns: repeat(3, 1fr);
+
+/* Portfolio Grid Animation */
+@keyframes portfolioSheen {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
-.portfolio-grid-1x1 .tile { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #0D111B; }
-.portfolio-grid-1x1 .tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
-.portfolio-grid-1x1 .tile::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(120deg, rgba(255,255,255,0.00) 10%, rgba(255,255,255,0.28) 30%, rgba(255,255,255,0.46) 40%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.00) 70%); background-size: 240% 100%; background-position: 200% 0; mix-blend-mode: screen; opacity: 0; transition: opacity .25s ease; }
-.portfolio-grid-1x1 .tile:hover img { transform: scale(1.04); }
-.portfolio-grid-1x1 .tile:hover::after { opacity: 1; animation: cardSheen 1.2s ease-out forwards; }
-@media (max-width: 900px) { .portfolio-grid-1x1 { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .portfolio-grid-1x1 { grid-template-columns: 1fr; } }
+
+/* 1:1 Square Portfolio Grid (3 columns) */
+.portfolio-grid-1x1 { 
+  max-width: 1400px; 
+  margin: 0 auto; 
+  display: grid; 
+  gap: 24px; 
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 20px;
+}
+.portfolio-grid-1x1 .tile { 
+  position: relative; 
+  width: 100%; 
+  aspect-ratio: 1 / 1; 
+  overflow: hidden; 
+  border: 1px solid rgba(147, 197, 253, 0.1); 
+  background: #0D111B;
+  border-radius: 0;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+}
+.portfolio-grid-1x1 .tile img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  display: block; 
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+}
+.portfolio-grid-1x1 .tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(29, 78, 216, 0);
+  transition: background 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.portfolio-grid-1x1 .tile::after { 
+  content: ""; 
+  position: absolute; 
+  inset: 0; 
+  pointer-events: none; 
+  background: linear-gradient(120deg, rgba(147,197,253,0.00) 10%, rgba(147,197,253,0.35) 30%, rgba(147,197,253,0.55) 40%, rgba(147,197,253,0.35) 50%, rgba(147,197,253,0.00) 70%); 
+  background-size: 240% 100%; 
+  background-position: 200% 0; 
+  mix-blend-mode: screen; 
+  opacity: 0; 
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+.portfolio-grid-1x1 .tile:hover { 
+  border-color: var(--color-accent); 
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(147, 197, 253, 0.3);
+}
+.portfolio-grid-1x1 .tile:hover::before {
+  background: rgba(29, 78, 216, 0.08);
+}
+.portfolio-grid-1x1 .tile:hover img { 
+  transform: scale(1.08); 
+}
+.portfolio-grid-1x1 .tile:hover::after { 
+  opacity: 1; 
+  animation: portfolioSheen 1.4s ease-out forwards; 
+}
+
+/* 2-Column Portfolio Grid */
+.portfolio-grid-2col {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0 20px;
+}
+.portfolio-grid-2col .tile {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid rgba(147, 197, 253, 0.1);
+  background: #0D111B;
+  transition: all 0.3s ease;
+}
+.portfolio-grid-2col .tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.portfolio-grid-2col .tile:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(147, 197, 253, 0.2);
+}
+.portfolio-grid-2col .tile:hover img { transform: scale(1.05); }
+
+/* Masonry-style Portfolio Grid */
+.portfolio-grid-masonry {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 300px;
+  padding: 0 20px;
+}
+.portfolio-grid-masonry .tile {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(147, 197, 253, 0.1);
+  background: #0D111B;
+  transition: all 0.3s ease;
+}
+.portfolio-grid-masonry .tile.tall { grid-row: span 2; }
+.portfolio-grid-masonry .tile.wide { grid-column: span 2; }
+.portfolio-grid-masonry .tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.portfolio-grid-masonry .tile:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(147, 197, 253, 0.2);
+}
+.portfolio-grid-masonry .tile:hover img { transform: scale(1.05); }
+
+/* Portfolio Grid with Overlay Text */
+.portfolio-grid-overlay {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 20px;
+}
+.portfolio-grid-overlay .tile {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid rgba(147, 197, 253, 0.1);
+  background: #0D111B;
+  transition: all 0.3s ease;
+}
+.portfolio-grid-overlay .tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.portfolio-grid-overlay .tile-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 14, 20, 0) 0%, rgba(11, 14, 20, 0.9) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.portfolio-grid-overlay .tile:hover .tile-overlay { opacity: 1; }
+.portfolio-grid-overlay .tile-title {
+  color: var(--color-heading);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+.portfolio-grid-overlay .tile-category {
+  color: var(--color-accent);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+.portfolio-grid-overlay .tile:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(147, 197, 253, 0.2);
+}
+.portfolio-grid-overlay .tile:hover img { transform: scale(1.05); }
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) { 
+  .portfolio-grid-1x1 { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .portfolio-grid-2col { grid-template-columns: 1fr; gap: 24px; }
+  .portfolio-grid-masonry { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .portfolio-grid-overlay { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+@media (max-width: 640px) { 
+  .portfolio-grid-1x1 { grid-template-columns: 1fr; gap: 16px; }
+  .portfolio-grid-masonry { grid-template-columns: 1fr; gap: 16px; }
+  .portfolio-grid-masonry .tile.wide { grid-column: span 1; }
+  .portfolio-grid-overlay { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* Section Wrapper for Portfolio */
+.portfolio-section { 
+  padding: 80px 0; 
+  background: var(--color-bg-primary);
+}
+.portfolio-section .section-header { 
+  max-width: 1400px; 
+  margin: 0 auto 60px; 
+  padding: 0 20px;
+  text-align: left;
+}
+.portfolio-section .section-subtitle {
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  margin-bottom: 12px;
+}
+.portfolio-section .section-title {
+  color: var(--color-heading);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 700;
+  margin: 0;
+}
 /* Brand Color Variables */
 :root {
   --color-bg-primary: #0B0E14; /* Deep Navy */
@@ -762,62 +977,9 @@ header.nav .links {
 /* Make dropdown positioning reliable */
 header.nav .links .dropdown { position: relative; }
 
-/* Brand logo hover: subtle light sheen to indicate it's a link */
-header.nav { position: relative; }
-header.nav .brand a { position: relative; display: inline-block; overflow: visible; cursor: pointer; }
-header.nav .brand a::after {
-  content: "";
-  position: absolute; inset: 0;
-  pointer-events: none;
-  background: linear-gradient(120deg,
-              rgba(255,255,255,0.00) 10%,
-              rgba(255,255,255,0.30) 30%,
-              rgba(255,255,255,0.50) 40%,
-              rgba(255,255,255,0.30) 50%,
-              rgba(255,255,255,0.00) 70%);
-  background-size: 240% 100%;
-  background-position: 200% 0;
-  mix-blend-mode: screen;
-  border-radius: 6px;
-  z-index: 2;
-  opacity: 0;
-  transition: opacity .2s ease;
-}
-header.nav .brand a:hover::after { opacity: 1; animation: logoSheen 0.9s ease-out forwards; }
-header.nav .brand a:hover { transform: translateY(-1px); transition: transform .2s ease; box-shadow: 0 0 0 2px rgba(255,255,255,0.15), 0 0 18px rgba(255,255,255,0.12); }
-header.nav .brand a img { display: block; position: relative; z-index: 1; transition: transform .2s ease, filter .2s ease; }
-header.nav .brand a:hover img { transform: translateY(-0.5px); filter: drop-shadow(0 0 12px rgba(255,255,255,0.22)); }
-
-@keyframes logoSheen {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* Header-wide sheen when logo is hovered */
-header.nav::after {
-  content: "";
-  position: absolute; inset: 0;
-  pointer-events: none;
-  background: linear-gradient(110deg,
-              rgba(255,255,255,0.00) 0%,
-              rgba(255,255,255,0.18) 18%,
-              rgba(255,255,255,0.36) 26%,
-              rgba(255,255,255,0.18) 34%,
-              rgba(255,255,255,0.00) 52%);
-  background-size: 220% 100%;
-  background-position: 200% 0;
-  mix-blend-mode: screen;
-  opacity: 0;
-}
-header.nav.logo-sheen-active::after {
-  opacity: 1;
-  animation: navSheen 1.1s ease-out forwards;
-}
-@keyframes navSheen {
-  0%   { background-position: 200% 0; opacity: 0.0; }
-  20%  { opacity: 1; }
-  100% { background-position: -200% 0; opacity: 0; }
-}
+/* Ensure header and dropdown are never clipped and sit above content */
+header.nav { z-index: 3000; }
+header.nav, header.nav .links, header.nav .links .dropdown { overflow: visible; }
 
 /* Ensure dropdown menus don’t cause overflow on mobile */
 @media (max-width: 768px) {

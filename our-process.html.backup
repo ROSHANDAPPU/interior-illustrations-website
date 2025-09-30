@@ -28,8 +28,7 @@
       --color-light: #FAF7F2;     /* Ivory */
     }
 
-    body, html { font-family: 'Satoshi', 'Inter', system-ui, -apple-system, sans-serif; background: var(--color-bg-primary); color: var(--color-heading); height: 100%; }
-    body { display: flex; flex-direction: column; min-height: 100vh; }
+    body, html { font-family: 'Satoshi', 'Inter', system-ui, -apple-system, sans-serif; background: var(--color-bg-primary); color: var(--color-heading); }
 
     /* Local page styles */
     .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
@@ -45,31 +44,26 @@
     .process-subtitle { font-size: clamp(18px, 3.2vw, 24px); color: var(--color-body); max-width: 900px; }
 
     /* Standardized Nav Additions (dropdown + mobile overlay) */
-    .nav { position: fixed; top: 0; left: 0; right: 0; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 1000; background: rgba(11,14,20,0.95); backdrop-filter: blur(1px); border-bottom: 1px solid rgba(147,197,253,0.1); overflow: hidden; }
+    .nav { position: fixed; top: 0; left: 0; right: 0; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 1000; background: rgba(11,14,20,0.95); backdrop-filter: blur(1px); border-bottom: 1px solid rgba(147,197,253,0.1); overflow: visible; }
     .nav .brand img { height: 200px; width: auto; display: inline-block; vertical-align: middle; }
     .nav .links { display: flex; gap: 32px; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
     /* Enforce no-wrap with higher specificity to override global CSS */
-    header.nav .links { flex-wrap: nowrap !important; white-space: nowrap !important; overflow: hidden; }
+    header.nav .links { flex-wrap: nowrap !important; white-space: nowrap !important; overflow: visible !important; }
     .nav .links a { color: var(--color-heading); text-decoration: none; font-weight: 500; font-size: 15px; padding: 8px 16px; border-radius: 20px; transition: all 0.3s ease; }
     .nav .links a:hover { color: #93C5FD; background: rgba(147,197,253,0.1); }
 
     /* Dropdown */
     .dropdown { position: relative; }
-    .dropdown-toggle { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; background: #1D4ED8; color: #E7EAEE; transition: all 0.3s ease; cursor: pointer; position: relative; z-index: 1002; }
-    .dropdown-toggle:hover { background: #1E40AF; transform: translateY(-1px); }
+    .dropdown-toggle { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; }
     .dropdown-arrow { font-size: 12px; transition: transform 0.3s ease; }
     .dropdown.active .dropdown-arrow { transform: rotate(180deg); }
-    .dropdown:hover .dropdown-menu, .dropdown.active .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
-      .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
-      .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
-    }
+    .dropdown-menu { position: absolute; top: 100%; left: 0; min-width: 220px; background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(1px); border-radius: 12px; padding: 10px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 1001; border: 1px solid rgba(147,197,253,0.2); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+    .dropdown:hover .dropdown-menu, .dropdown.active .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
     /* Only enable hover-open behavior on devices that support hover */
+    @media (hover: hover) and (pointer: fine) {
+      .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
       .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
-    /* Guard: prevent dropdown from showing on smaller widths */
-    @media (max-width: 1024px) {
-      .dropdown-menu { opacity: 0 !important; visibility: hidden !important; transform: translateY(-10px) !important; pointer-events: none !important; }
     }
-
     /* Guard: prevent dropdown from showing on smaller widths */
     @media (max-width: 1024px) {
       .dropdown-menu { opacity: 0 !important; visibility: hidden !important; transform: translateY(-10px) !important; }
@@ -77,29 +71,19 @@
     .dropdown-menu a { display: block; padding: 10px 14px; color: #E7EAEE; text-decoration: none; transition: background 0.2s ease, color 0.2s ease; border-radius: 8px; margin: 4px 2px; background: transparent; font-size: 15px; line-height: 1.2; letter-spacing: 0.01em; white-space: nowrap; text-align: left; }
     .dropdown-menu a:hover { background: rgba(29, 78, 216, 0.2); color: #93C5FD; }
 
-    .projects-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
-    .proj-card { display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 8px; transition: background 0.2s ease; }
-    .proj-card:hover { background: rgba(147, 197, 253, 0.1); }
-    .thumb-img { width: 40px; height: 30px; object-fit: cover; border-radius: 4px; }
-    .label { font-size: 14px; color: #E7EAEE; font-weight: 500; }
-
-
     /* Mobile overlay */
-    .hamburger-menu { display: none; position: relative; z-index: 9999; }
-    .hamburger-icon { width: 30px; height: 24px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; }
-      .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
-    }
-    /* Guard: prevent dropdown from showing on smaller widths */
-    @media (max-width: 1024px) {
-      .dropdown-menu { opacity: 0 !important; visibility: hidden !important; transform: translateY(-10px) !important; pointer-events: none !important; }
-    }
+    .hamburger-menu { display: none; position: relative; z-index: 2001; }
+    .hamburger-icon { width: 30px; height: 24px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 2002; pointer-events: auto; }
+    .line { width: 100%; height: 3px; background: #1D4ED8; border-radius: 2px; transition: all 0.4s cubic-bezier(0.68,-0.55,0.265,1.55); transform-origin: center; }
     .hamburger-menu.active .line1 { transform: rotate(45deg) translate(6px, 6px); }
     .hamburger-menu.active .line2 { opacity: 0; transform: scaleX(0); }
     .hamburger-menu.active .line3 { transform: rotate(-45deg) translate(6px, -6px); }
-    .mobile-overlay { position: fixed; top: 80px; left: 0; width: 100vw; height: calc(100vh - 80px); background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(1px); display: none; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; z-index: 900; }
+    /* When open, hide the hamburger icon itself and use the X button inside overlay */
+    .hamburger-menu.active .hamburger-icon { opacity: 0; pointer-events: none; }
+    .mobile-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0B0E14; display: none; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; z-index: 2000; pointer-events: auto; }
     .hamburger-menu.active .mobile-overlay { display: flex; opacity: 1; visibility: visible; }
-    .mobile-nav { display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 40px; }
-    .mobile-link { font-size: 24px; font-weight: 500; color: #E7EAEE; text-decoration: none; padding: 15px 30px; border-radius: 12px; transition: all 0.3s ease; text-align: center; min-width: 200px; }
+    .mobile-nav { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 32px; }
+    .mobile-link { font-size: 18px; font-weight: 500; color: #E7EAEE; text-decoration: none; padding: 10px 16px; border-radius: 10px; transition: all 0.3s ease; text-align: center; min-width: 180px; }
     .mobile-dropdown-section { display: flex; flex-direction: column; align-items: center; }
     .mobile-dropdown-btn { font-size: 24px; font-weight: 500; color: #E7EAEE; background: none; border: none; padding: 15px 30px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s ease; min-width: 200px; justify-content: center; }
     .mobile-arrow { transition: transform 0.3s ease; font-size: 16px; }
@@ -108,24 +92,22 @@
     .mobile-dropdown-section.active .mobile-dropdown-content { max-height: 200px; }
     .mobile-sublink { font-size: 18px; color: #1D4ED8; text-decoration: none; padding: 10px 20px; border-radius: 8px; transition: all 0.3s ease; text-align: center; }
 
+    /* Match homepage neutral glass effect for mobile links (no solid color) */
+    .mobile-nav .mobile-link { background: transparent !important; }
+    .mobile-nav .mobile-link:hover { background: transparent !important; }
+
     @media (max-width: 1400px) { .nav { padding: 0 30px; } .nav .brand img { height: 180px; } .nav .links { gap: 24px; } .nav .links a { font-size: 15px; padding: 8px 14px; } }
     @media (max-width: 1024px) { 
       .process-hero { padding: 90px 0 80px; }
     }
-    @media (max-width: 1200px) { 
+    @media (max-width: 1024px) { 
       .nav { padding: 0 20px; }
       .nav .brand img { height: 150px; }
       .hamburger-menu { display: block !important; }
       /* Force-hide desktop links to avoid wrapping/overlap on narrow widths */
       .nav .links { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
-      .nav .links { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
       .nav .links *,
       .nav .links .dropdown,
-      .nav .links .dropdown,
-      .nav .links .dropdown-menu { display: none !important; visibility: hidden !important; }
-
-
-      .nav .links .dropdown-menu { display: none !important; visibility: hidden !important; }
       .nav .links .dropdown-menu { display: none !important; visibility: hidden !important; }
     }
 
@@ -135,12 +117,12 @@
     .steps .section-title { font-size: clamp(26px, 5vw, 42px); font-weight: 800; letter-spacing: 0.0em; }
     .steps .section-subtitle { color: var(--color-accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; margin-bottom: 6px; }
 
-    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 60px; max-width: 1200px; margin-left: auto; margin-right: auto; }
-    .step-card { background: #0D111B; border: 1px solid rgba(163,170,180,0.25); padding: 40px 32px; border-radius: 12px; transition: border-color .25s ease, background .25s ease, transform .25s ease; min-height: 280px; display: flex; flex-direction: column; justify-content: space-between; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
+    .step-card { background: #0D111B; border: 1px solid rgba(163,170,180,0.25); padding: 28px; border-radius: 8px; transition: border-color .25s ease, background .25s ease, transform .25s ease; }
     .step-card:hover { border-color: var(--color-accent); background: #111827; transform: translateY(-2px); }
-    .step-icon { width: 72px; height: 72px; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; background: rgba(147, 197, 253, 0.12); color: var(--color-accent); font-size: 32px; margin-bottom: 20px; }
-    .step-title { font-size: 26px; font-weight: 800; letter-spacing: 0.01em; margin-bottom: 16px; line-height: 1.2; }
-    .step-desc { color: var(--color-body); font-size: 18px; line-height: 1.6; }
+    .step-number { color: var(--color-accent); font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; margin-bottom: 10px; }
+    .step-icon { width: 56px; height: 56px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; background: rgba(147, 197, 253, 0.12); color: var(--color-accent); font-size: 26px; margin-bottom: 14px; }
+    .step-title { font-size: 22px; font-weight: 800; letter-spacing: 0.01em; margin-bottom: 10px; }
     .step-desc { color: var(--color-body); font-size: 16px; line-height: 1.6; }
 
     /* FAQ */
@@ -152,15 +134,7 @@
     /* Constrain process width */
     .process-section { padding: 40px 0 80px; }
     .process-section .container > h2,
-    /* Responsive grid layout */
-    @media (max-width: 1024px) {
-      .steps-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
-    }
-    @media (max-width: 768px) {
-      .steps-grid { grid-template-columns: 1fr; gap: 24px; }
-      .step-card { padding: 32px 24px; min-height: 240px; }
-    }
-
+    .process-section .container > p { max-width: 900px; margin: 0 auto; padding: 0 10px; text-align: left; }
     .process-section .container > h2 { margin-bottom: 20px; }
     .process-section .process-eyebrow { text-align: left; }
     .process-section .container > p { margin-bottom: 40px; }
@@ -169,17 +143,17 @@
     .process-section .section-title { font-size: clamp(26px, 5vw, 42px); font-weight: 800; letter-spacing: 0.0em; }
     .process-section .section-subtitle { color: var(--color-accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; margin-bottom: 6px; }
     .process-section .container .process-accordion { max-width: 900px; margin: 0 auto; padding: 0 10px; }
-    /* Spacing between dropdown boxes */
+    /* Process accordion - ORIGINAL MINIMAL CLIENT JOURNEY STYLE */
     .process-accordion .accordion-item { margin-bottom: 20px; }
     .process-accordion .accordion-item:last-child { margin-bottom: 0; }
+    .process-accordion .accordion-header { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; cursor: pointer; }
+    .process-accordion .accordion-arrow { width: 12px; height: 12px; border: 2px solid var(--color-accent); border-left: 0; border-top: 0; transform: rotate(45deg); transition: transform .25s ease; }
+    .process-accordion .accordion-item.open .accordion-arrow { transform: rotate(225deg); }
     .process-accordion .accordion-content { max-height: 0; overflow: hidden; transition: max-height .3s ease; padding: 4px 10px 0 44px; }
     .process-accordion .accordion-description { margin: 0 0 8px; color: var(--color-body); line-height: 1.62; }
     .process-accordion .sub-services { margin: 0; padding-left: 18px; color: var(--color-body); }
     .process-accordion .sub-services li { margin: 4px 0; }
     .process-accordion .accordion-item.open .accordion-content { max-height: 800px; }
-    .process-accordion .accordion-header { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; cursor: pointer; }
-    .process-accordion .accordion-arrow { width: 12px; height: 12px; border: 2px solid var(--color-accent); border-left: 0; border-top: 0; transform: rotate(45deg); transition: transform .25s ease; }
-    .process-accordion .accordion-item.open .accordion-arrow { transform: rotate(225deg); }
     .faq .section-header { text-align: left; margin-bottom: 40px; }
     .faq .section-title { font-size: clamp(26px, 5vw, 42px); font-weight: 800; }
     .faq .section-subtitle { color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.10em; font-weight: 600; font-size: 12px; margin-bottom: 6px; }
@@ -197,19 +171,23 @@
     .accordion-panel { max-height: 0; overflow: hidden; transition: max-height .35s ease; background: transparent; color: var(--color-body); }
     .accordion-inner { padding: 0 20px 20px; }
 
-    /* CTA Blocks */
-    .cta-row { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 24px; }
-    .btn { background: #1D4ED8; color: #E7EAEE; border: none; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; letter-spacing: 0.02em; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all .25s ease; }
-    .btn:hover { background: #1E40AF; }
-    .btn:active { transform: scale(0.96); }
+    /* Post-Project Care Section */
+    .postcare { padding: 80px 0; background: var(--color-bg-primary); }
+    .postcare .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+    .postcare .section-header { text-align: left; margin-bottom: 24px; }
+    .postcare .section-title { font-size: clamp(26px, 5vw, 42px); font-weight: 800; letter-spacing: 0.0em; color: var(--color-heading); }
+    .postcare .section-subtitle { color: var(--color-accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; margin-bottom: 6px; }
+    .postcare .content { max-width: 900px; margin: 0 auto; padding: 0 10px; }
+    .postcare .subheading { color: var(--color-heading); font-size: 20px; font-weight: 700; margin: 8px 0 12px; letter-spacing: 0.01em; }
+    .postcare p { color: var(--color-body); font-size: 17px; line-height: 1.7; }
+    .postcare-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 16px; }
+    .postcare-card { background: #0D111B; border: 1px solid rgba(163,170,180,0.25); padding: 24px; border-radius: 8px; transition: border-color .25s ease, background .25s ease, transform .25s ease; }
+    .postcare-card:hover { border-color: var(--color-accent); background: #111827; transform: translateY(-2px); }
+    .postcare-card h4 { color: var(--color-heading); font-size: 18px; font-weight: 800; margin: 0 0 10px; letter-spacing: 0.01em; }
+    .postcare-card ul { margin: 0; padding-left: 18px; color: var(--color-body); line-height: 1.7; }
+    .postcare .cta-row { margin-top: 24px; }
 
-    /* Responsive tweaks */
-    @media (max-width: 768px) {
-      .container { padding: 0 20px; }
-      .process-hero { padding: 130px 0 60px; }
-    }
-
-    /* Footer Styles (consistent site-wide) */
+    /* Footer Section */
     .footer { background: var(--color-bg-primary); padding: 80px 0 40px; border-top: 1px solid rgba(163, 170, 180, 0.2); }
     .footer-content { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
@@ -232,31 +210,6 @@
     .footer-legal-links a { color: var(--color-accent); font-size: 14px; text-decoration: none; transition: all 0.3s ease; }
     .footer-legal-links a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
     .footer-divider { color: rgba(163, 170, 180, 0.3); font-size: 14px; }
-
-    /* Post-Project Care */
-    .postcare { padding: 80px 0; }
-    .postcare .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
-    .postcare .section-header { text-align: left; margin-bottom: 24px; }
-    .postcare .section-title { font-size: clamp(26px, 5vw, 42px); font-weight: 800; letter-spacing: 0.0em; }
-    .postcare .section-subtitle { color: var(--color-accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; margin-bottom: 6px; }
-    .postcare .content { max-width: 900px; margin: 0 auto; padding: 0 10px; }
-    .postcare .subheading { color: var(--color-heading); font-size: 20px; font-weight: 700; margin: 8px 0 12px; letter-spacing: 0.01em; }
-    .postcare p { color: var(--color-body); font-size: 17px; line-height: 1.7; }
-    .postcare-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 16px; }
-    .postcare-card { background: #0D111B; border: 1px solid rgba(163,170,180,0.25); padding: 24px; border-radius: 8px; transition: border-color .25s ease, background .25s ease, transform .25s ease; }
-    .postcare-card:hover { border-color: var(--color-accent); background: #111827; transform: translateY(-2px); }
-    .postcare-card h4 { color: var(--color-heading); font-size: 18px; font-weight: 800; margin: 0 0 10px; letter-spacing: 0.01em; }
-    .postcare-card ul { margin: 0; padding-left: 18px; color: var(--color-body); line-height: 1.7; }
-    .postcare .cta-row { margin-top: 24px; }
-    /* Custom Floating Cursor (azure) */
-    .cursor { position: fixed; width: 20px; height: 20px; background: rgba(147, 197, 253, 0.6); border: 2px solid rgba(147, 197, 253, 0.8); border-radius: 50%; pointer-events: none; z-index: 99999; transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-    .cursor-follower { position: fixed; width: 40px; height: 40px; border: 2px solid rgba(147, 197, 253, 0.3); border-radius: 50%; pointer-events: none; z-index: 99998; background: rgba(147, 197, 253, 0.1); transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-    body.cursor-hover .cursor { transform: scale(1.5); background: rgba(147, 197, 253, 0.3); border: 2px solid rgba(147, 197, 253, 1); box-shadow: 0 0 15px rgba(147, 197, 253, 0.8), 0 0 30px rgba(147, 197, 253, 0.4); }
-    body.cursor-click .cursor { transform: scale(0.8); background: rgba(0,0,0,0.8); }
-    body.cursor-text .cursor { transform: scaleX(0.3) scaleY(1.5); background: rgba(147,197,253,0.4); border: 1px solid rgba(147,197,253,0.9); border-radius: 2px; }
-    body.cursor-view .cursor { transform: scale(2); background: rgba(147, 197, 253, 0.2); border: 2px solid rgba(147, 197, 253, 0.8); }
-    * { cursor: none !important; }
-    @media (max-width: 768px) { .cursor, .cursor-follower { display: none; } * { cursor: auto !important; } }
   </style>
 </head>
 <body>
@@ -273,24 +226,18 @@
 
     <!-- Hamburger Menu -->
     <div class="hamburger-menu" id="hamburgerMenu">
-      <div class="hamburger-icon">
-        <div class="line line1"></div>
-        <div class="line line2"></div>
-        <div class="line line3"></div>
+      <div class="hamburger-icon" aria-label="Open Menu" role="button" tabindex="0">
+        <span class="line line1"></span>
+        <span class="line line2"></span>
+        <span class="line line3"></span>
       </div>
-      <div class="mobile-overlay">
+      <div class="mobile-overlay" id="mobileOverlay">
+        <button class="mobile-close" type="button" aria-label="Close">×</button>
         <nav class="mobile-nav">
           <a href="about.html" class="mobile-link">About</a>
-          <div class="mobile-dropdown-section" id="mobileDropdown">
-            <button class="mobile-dropdown-btn">
-              Our Projects
-              <span class="mobile-arrow">▼</span>
-            </button>
-            <div class="mobile-dropdown-content">
-              <a href="portfolio/residential-projects.html" class="mobile-sublink">Residential Projects</a>
-              <a href="portfolio/commercial-projects.html" class="mobile-sublink">Commercial Projects</a>
-            </div>
-          </div>
+          <!-- No dropdown on mobile: show plain links -->
+          <a href="portfolio/residential-projects.html" class="mobile-link">Residential Projects</a>
+          <a href="portfolio/commercial-projects.html" class="mobile-link">Commercial Projects</a>
           <a href="services/interior-design.html" class="mobile-link">Services</a>
           <a href="our-process.html" class="mobile-link">Our Process</a>
           <a href="contact/get-quote.html" class="mobile-link">Contact</a>
@@ -300,14 +247,14 @@
 
     <nav class="links">
       <div class="dropdown">
-        <a href="#" class="dropdown-toggle" >
+        <a href="#" class="dropdown-toggle" style="background: #1D4ED8; color: #E7EAEE; border-radius: 20px;">
           Our Projects
           <span class="dropdown-arrow">▼</span>
         </a>
         <div class="dropdown-menu mega-projects">
           <div class="projects-grid">
             <a class="proj-card" href="portfolio/residential-projects.html">
-              <img class="thumb-img" src="https://images.unsplash.com/photo-1600585154340-1e4d1f9be0c6?auto=format&fit=crop&w=1200&q=80" alt="Residential interior showcase" />
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80" alt="Warm residential living room interior" />
               <div class="label">Residential Projects</div>
             </a>
             <a class="proj-card" href="portfolio/commercial-projects.html">
@@ -323,19 +270,102 @@
       <a href="contact/get-quote.html">Contact</a>
     </nav>
   </header>
-  
-  <!-- Hero -->
-  <section class="process-hero">
-    <div class="container">
-      <div class="process-eyebrow">OUR PROCESS</div>
-      <h1 class="process-title">Client Journey</h1>
-      <p class="process-subtitle">We follow a proven process to ensure your project exceeds expectations</p>
-    </div>
-  </section>
 
+  <script>
+    // Standard hamburger + overlay + header sheen (match homepage)
+    (function() {
+      const menu = document.getElementById('hamburgerMenu');
+      const icon = menu ? menu.querySelector('.hamburger-icon') : null;
+      const overlay = document.getElementById('mobileOverlay');
+      const closeBtn = overlay ? overlay.querySelector('.mobile-close') : null;
+      const links = overlay ? overlay.querySelectorAll('a, .mobile-close') : [];
+      const headerEl = document.querySelector('header.nav');
+      const logoLink = headerEl ? headerEl.querySelector('.brand a') : null;
+      const dropdown = headerEl ? headerEl.querySelector('.dropdown') : null;
+      const dropdownToggle = dropdown ? dropdown.querySelector('.dropdown-toggle') : null;
+
+      function closeMenu() {
+        if (!menu) return;
+        menu.classList.remove('active');
+        if (icon) icon.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        if (overlay) {
+          overlay.style.display = 'none';
+          overlay.style.opacity = '0';
+          overlay.style.visibility = 'hidden';
+        }
+      }
+      function openMenu() {
+        if (!menu) return;
+        menu.classList.add('active');
+        if (icon) icon.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        if (overlay) {
+          overlay.style.display = 'flex';
+          overlay.style.opacity = '1';
+          overlay.style.visibility = 'visible';
+        }
+      }
+      function toggleMenu() {
+        if (!menu) return;
+        if (menu.classList.contains('active')) { closeMenu(); } else { openMenu(); }
+      }
+
+      // Toggle via hamburger icon and container (fallback)
+      if (icon) {
+        icon.setAttribute('aria-expanded', 'false');
+        icon.addEventListener('click', (e)=>{ e.stopPropagation(); toggleMenu(); });
+        icon.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); e.stopPropagation(); toggleMenu(); }});
+      }
+      if (menu) {
+        menu.addEventListener('click', (e)=>{
+          const target = e.target;
+          const isIconOrLine = target.classList.contains('hamburger-icon') || target.classList.contains('line') || target.closest('.hamburger-icon');
+          if (isIconOrLine) { e.stopPropagation(); toggleMenu(); }
+        }, true);
+        // Touch support
+        menu.addEventListener('touchstart', (e)=>{
+          const target = e.target;
+          const isIconOrLine = target.classList.contains('hamburger-icon') || target.classList.contains('line') || (target.closest && target.closest('.hamburger-icon'));
+          if (isIconOrLine) { e.stopPropagation(); toggleMenu(); }
+        }, { passive: true });
+      }
+      if (overlay) {
+        overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeMenu(); });
+        overlay.addEventListener('touchstart', (e)=>{ if(e.target === overlay) closeMenu(); }, { passive: true });
+      }
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      links.forEach(el => el.addEventListener('click', closeMenu));
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
+      window.addEventListener('resize', ()=>{ if (window.innerWidth > 1024) closeMenu(); });
+
+      // Header-wide sheen on logo hover
+      if (headerEl && logoLink) {
+        logoLink.addEventListener('mouseenter', ()=> headerEl.classList.add('logo-sheen-active'));
+        logoLink.addEventListener('mouseleave', ()=> headerEl.classList.remove('logo-sheen-active'));
+        if (icon) icon.addEventListener('click', ()=> headerEl.classList.remove('logo-sheen-active'));
+      }
+
+      // Click-to-open for Our Projects dropdown (desktop)
+      if (dropdown && dropdownToggle) {
+        dropdownToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropdown.classList.toggle('active');
+        });
+        // Close when clicking elsewhere
+        document.addEventListener('click', () => dropdown.classList.remove('active'));
+      }
+    })();
+  </script>
+  
   <!-- Steps -->
   <section class="steps">
     <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">How We Work</div>
+        <h2 class="section-title">Our structured approach ensures exceptional results every time</h2>
+      </div>
 
       <div class="steps-grid">
         <!-- Step 1 -->
@@ -382,8 +412,121 @@
         </div>
       </div>
 
+      <div class="cta-row">
+        <a class="btn" href="contact/get-quote.html"><i class="fa-solid fa-pen-to-square"></i> Ready to Start Your Project?</a>
+      </div>
     </div>
   </section>
+
+  
+
+  <!-- Our Design Process (moved from Services) -->
+  <main class="page-content">
+    <!-- Process Section -->
+    <div class="process-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-subtitle">Our Process</div>
+          <h2 class="section-title" style="color: var(--color-heading);">Client Journey</h2>
+        </div>
+
+        <div class="process-accordion">
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <div class="step-number">1</div>
+              <h3 class="accordion-title">Consultation</h3>
+              <div class="accordion-arrow"></div>
+            </div>
+            <div class="accordion-content">
+              <p class="accordion-description">We start with a comprehensive consultation to understand your vision, needs, and budget.</p>
+              <ul class="sub-services">
+                <li>Initial home assessment and space analysis</li>
+                <li>Vision and lifestyle consultation</li>
+                <li>Budget planning and cost estimation</li>
+                <li>Timeline development and milestone planning</li>
+                <li>Style preference and inspiration gathering</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <div class="step-number">2</div>
+              <h3 class="accordion-title">Design</h3>
+              <div class="accordion-arrow"></div>
+            </div>
+            <div class="accordion-content">
+              <p class="accordion-description">Our team creates detailed designs, 3D renderings, and material selections for your approval.</p>
+              <ul class="sub-services">
+                <li>Detailed floor plans and space layouts</li>
+                <li>3D renderings and virtual walkthroughs</li>
+                <li>Material and finish selections</li>
+                <li>Color palette development</li>
+                <li>Furniture and fixture specifications</li>
+                <li>Lighting design and electrical planning</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <div class="step-number">3</div>
+              <h3 class="accordion-title">Planning</h3>
+              <div class="accordion-arrow"></div>
+            </div>
+            <div class="accordion-content">
+              <p class="accordion-description">We handle all permits, contractor coordination, and project scheduling.</p>
+              <ul class="sub-services">
+                <li>Building permits and code compliance</li>
+                <li>Contractor vetting and coordination</li>
+                <li>Material ordering and delivery scheduling</li>
+                <li>Project timeline and milestone tracking</li>
+                <li>Budget management and cost control</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <div class="step-number">4</div>
+              <h3 class="accordion-title">Construction</h3>
+              <div class="accordion-arrow"></div>
+            </div>
+            <div class="accordion-content">
+              <p class="accordion-description">Our experienced team manages the construction process with regular updates and quality control.</p>
+              <ul class="sub-services">
+                <li>Daily construction oversight and management</li>
+                <li>Quality control inspections and testing</li>
+                <li>Regular progress updates and communication</li>
+                <li>Problem resolution and change management</li>
+                <li>Safety compliance and site management</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <div class="step-number">5</div>
+              <h3 class="accordion-title">Completion</h3>
+              <div class="accordion-arrow"></div>
+            </div>
+            <div class="accordion-content">
+              <p class="accordion-description">Final walkthrough, cleanup, and handover of your beautifully transformed space.</p>
+              <ul class="sub-services">
+                <li>Final quality inspection and punch list</li>
+                <li>Professional cleaning and staging</li>
+                <li>Client walkthrough and approval</li>
+                <li>Warranty documentation and care instructions</li>
+                <li>Post-completion support and follow-up</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Steps moved above header -->
 
   <!-- Post-Project Care -->
   <section class="postcare" id="postcare">
@@ -401,12 +544,61 @@
         </p>
       </div>
 
-      <div class="accordion" id="postcareAccordion" role="tablist">
+      <div class="postcare-grid">
+        <!-- Warranty & Service -->
+        <div class="postcare-card">
+          <h4>Warranty & Service</h4>
+          <ul>
+            <li>1-year workmanship callback coverage</li>
+            <li>Typical response: within 2 business days</li>
+            <li>On-site visit target: within 7 business days</li>
+            <li>What’s covered vs. manufacturer items</li>
+          </ul>
+        </div>
+
+        <!-- Care & Maintenance Guides -->
+        <div class="postcare-card">
+          <h4>Care & Maintenance Guides</h4>
+          <ul>
+            <li>Surface care: stone, wood, tile, metals</li>
+            <li>Finish-specific tips: paints, lacquers, fabrics</li>
+            <li>Approved vs. avoid cleaning products</li>
+            <li>Seasonal checks and humidity control</li>
+          </ul>
+        </div>
+
+        <!-- Documentation & Codes -->
+        <div class="postcare-card">
+          <h4>Documentation & Codes</h4>
+          <ul>
+            <li>As-builts, finish schedules, spec sheets</li>
+            <li>Appliance and fixture warranty links</li>
+            <li>Paint codes and grout color references</li>
+            <li>Simple touch-up instructions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn" href="contact/service-request.html"><i class="fa-solid fa-screwdriver-wrench"></i> Request Service</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-subtitle">Frequently Asked Questions</div>
+        <h2 class="section-title">Everything you need to know about working with Interior Illusions</h2>
+      </div>
+
+      <div class="accordion" id="faqAccordion" role="tablist">
         <!-- Q1: What's covered? -->
         <div class="accordion-item" role="tabpanel" aria-expanded="false">
           <button class="accordion-header" type="button" aria-controls="faq-1" aria-expanded="false">
             <span class="faq-chip">Q1</span>
-            <span class="accordion-title">What’s covered?</span>
+            <span class="accordion-title">What's covered?</span>
             <span class="chevron" aria-hidden="true"></span>
           </button>
           <div class="accordion-panel" id="faq-1"><div class="accordion-inner">
@@ -422,13 +614,13 @@
         <div class="accordion-item" role="tabpanel" aria-expanded="false">
           <button class="accordion-header" type="button" aria-controls="faq-2" aria-expanded="false">
             <span class="faq-chip">Q2</span>
-            <span class="accordion-title">What’s not covered?</span>
+            <span class="accordion-title">What's not covered?</span>
             <span class="chevron" aria-hidden="true"></span>
           </button>
           <div class="accordion-panel" id="faq-2"><div class="accordion-inner">
             <ul>
               <li>Normal wear and tear, owner-caused damage, or lack of maintenance.</li>
-              <li>Issues tied to manufacturer defects (handled under the product’s own warranty; we’ll help coordinate).</li>
+              <li>Issues tied to manufacturer defects (handled under the product's own warranty; we'll help coordinate).</li>
               <li>Changes in scope or new work requests (quoted separately).</li>
               <li>Environmental movement beyond industry tolerances (e.g., seasonal wood movement, building settlement).</li>
             </ul>
@@ -485,51 +677,11 @@
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- Portfolio Section -->
-  <section class="gallery" style="padding: 80px 40px; background: var(--color-light);">
-    <div style="max-width: 1400px; margin: 0 auto;">
-      <div class="section-header" style="text-align: left; margin-bottom: 60px;">
-        <p style="color: var(--color-accent); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 12px;">PORTFOLIO</p>
-        <h2 style="color: var(--color-heading); font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin: 0;">Our Latest Work</h2>
-      </div>
-      <div class="gallery-grid" style="display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
-        <a href="portfolio/contemporary-living-room.html" class="gallery-item" style="height: 400px; background-size: cover; background-position: center; border-radius: 0px; transition: all 400ms ease; cursor: pointer; position: relative; overflow: hidden; background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="portfolio/luxury-bathroom-suite.html" class="gallery-item" style="height: 400px; background-size: cover; background-position: center; border-radius: 0px; transition: all 400ms ease; cursor: pointer; position: relative; overflow: hidden; background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="portfolio/modern-kitchen-renovation.html" class="gallery-item" style="height: 400px; background-size: cover; background-position: center; border-radius: 0px; transition: all 400ms ease; cursor: pointer; position: relative; overflow: hidden; background-image: url('https://images.unsplash.com/photo-1556912167-f556f1f39fdf?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="portfolio/project-detail.html" class="gallery-item" style="height: 400px; background-size: cover; background-position: center; border-radius: 0px; transition: all 400ms ease; cursor: pointer; position: relative; overflow: hidden; background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="portfolio/elegant-master-bedroom.html" class="gallery-item" style="height: 400px; background-size: cover; background-position: center; border-radius: 0px; transition: all 400ms ease; cursor: pointer; position: relative; overflow: hidden; background-image: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=2000&auto=format&fit=crop');"></a>
-        <a href="portfolio/modern-office-space.html" class="gallery-item" style="height: 400px; background-size: cover; background-position: center; border-radius: 0px; transition: all 400ms ease; cursor: pointer; position: relative; overflow: hidden; background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop');"></a>
+      <div class="cta-row" style="margin-top: 24px;">
+        <a class="btn" href="contact/get-quote.html"><i class="fa-solid fa-envelope"></i> Still Have Questions? Contact Us</a>
       </div>
     </div>
   </section>
-
-  <!-- CTA Banner -->
-  <section class="cta-banner" style="background: #0D111B; padding: 80px 40px; text-align: center; transition: background 0.4s ease, transform 0.3s ease;">
-    <div style="max-width: 900px; margin: 0 auto;">
-      <h2 class="cta-banner-title" style="color: var(--color-heading); font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin-bottom: 24px; transition: color 0.4s ease;">Ready to Start Your Project?</h2>
-      <p class="cta-banner-text" style="color: var(--color-accent); font-size: clamp(16px, 2.5vw, 20px); margin-bottom: 40px; line-height: 1.6; transition: color 0.4s ease;">Let's discuss how we can transform your space into something extraordinary.</p>
-      <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-        <a href="contact/get-quote.html" class="btn" style="min-width: 180px;">Get a Quote</a>
-        <a href="portfolio/residential-projects.html" class="btn secondary" style="min-width: 180px;">View Our Work</a>
-      </div>
-    </div>
-  </section>
-  <style>
-    .cta-banner:hover {
-      background: #FAF7F2 !important;
-      transform: translateY(-4px);
-      box-shadow: 0 10px 40px rgba(147, 197, 253, 0.3);
-    }
-    .cta-banner:hover .cta-banner-title {
-      color: #0B0E14 !important;
-    }
-    .cta-banner:hover .cta-banner-text {
-      color: #1D4ED8 !important;
-    }
-  </style>
 
   <!-- Footer (reuse global styles) -->
   <footer class="footer" style="margin-top:auto;">
@@ -649,8 +801,8 @@
       btn.addEventListener('click', () => mobileDropdown.classList.toggle('active'));
     }
 
-    // Accordion logic with ARIA & smooth height (scoped to postcare accordion)
-    const accordionItems = document.querySelectorAll('#postcareAccordion .accordion-item');
+    // Accordion logic with ARIA & smooth height (scoped to FAQ only)
+    const accordionItems = document.querySelectorAll('#faqAccordion .accordion-item');
     function collapseAll() {
       accordionItems.forEach((i) => {
         i.classList.remove('active');

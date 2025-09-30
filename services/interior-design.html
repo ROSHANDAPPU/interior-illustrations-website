@@ -245,19 +245,9 @@
       transform-origin: center;
     }
 
-    /* X Animation */
-    .hamburger-menu.active .line1 {
-      transform: rotate(45deg) translate(6px, 6px);
-    }
-
-    .hamburger-menu.active .line2 {
-      opacity: 0;
-      transform: scaleX(0);
-    }
-
-    .hamburger-menu.active .line3 {
-      transform: rotate(-45deg) translate(6px, -6px);
-    }
+    .hamburger-menu.active .line1 { transform: rotate(45deg) translate(6px, 6px) !important; }
+    .hamburger-menu.active .line2 { opacity: 0 !important; transform: scaleX(0) !important; }
+    .hamburger-menu.active .line3 { transform: rotate(-45deg) translate(6px, -6px) !important; }
 
     /* Mobile Overlay */
     .mobile-overlay {
@@ -292,7 +282,7 @@
     }
 
     .mobile-link {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 500;
       color: #E7EAEE;
       text-decoration: none;
@@ -557,7 +547,7 @@
     @media (max-width: 480px) {
       .mobile-link,
       .mobile-dropdown-btn {
-        font-size: 20px;
+        font-size: 18px;
         min-width: 180px;
       }
       
@@ -1316,20 +1306,8 @@
       <div class="mobile-overlay">
         <nav class="mobile-nav">
           <a href="../about.html" class="mobile-link">About</a>
-          <div class="mobile-dropdown-section">
-            <button class="mobile-dropdown-btn">
-              Our Projects
-              <span class="mobile-arrow">▼</span>
-            </button>
-            <div class="mobile-dropdown-content">
-              <a href="../portfolio/before-after-gallery.html" class="mobile-sublink">All Projects</a>
-              <a href="../portfolio/modern-kitchen-renovation.html" class="mobile-sublink">Kitchen</a>
-              <a href="../portfolio/luxury-bathroom-suite.html" class="mobile-sublink">Bathroom</a>
-              <a href="../portfolio/contemporary-living-room.html" class="mobile-sublink">Living Room</a>
-              <a href="../portfolio/elegant-master-bedroom.html" class="mobile-sublink">Bedroom</a>
-              <a href="../portfolio/residential-projects.html" class="mobile-sublink">Whole Home</a>
-            </div>
-          </div>
+          <a href="../portfolio/residential-projects.html" class="mobile-link">Residential Projects</a>
+          <a href="../portfolio/commercial-projects.html" class="mobile-link">Commercial Projects</a>
           <a href="interior-design.html" class="mobile-link">Services</a>
           <a href="../our-process.html" class="mobile-link">Our Process</a>
           <a href="../contact/get-quote.html" class="mobile-link">Contact</a>

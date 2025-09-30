@@ -45,7 +45,7 @@
     .process-subtitle { font-size: clamp(18px, 3.2vw, 24px); color: var(--color-body); max-width: 900px; }
 
     /* Standardized Nav Additions (dropdown + mobile overlay) */
-    .nav { position: fixed; top: 0; left: 0; right: 0; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 1000; background: rgba(11,14,20,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(147,197,253,0.1); overflow: hidden; }
+    .nav { position: fixed; top: 0; left: 0; right: 0; height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 1000; background: rgba(11,14,20,0.95); backdrop-filter: blur(1px); border-bottom: 1px solid rgba(147,197,253,0.1); overflow: hidden; }
     .nav .brand img { height: 200px; width: auto; display: inline-block; vertical-align: middle; }
     .nav .links { display: flex; gap: 32px; align-items: center; flex-wrap: nowrap; white-space: nowrap; }
     /* Enforce no-wrap with higher specificity to override global CSS */
@@ -58,7 +58,7 @@
     .dropdown-toggle { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; }
     .dropdown-arrow { font-size: 12px; transition: transform 0.3s ease; }
     .dropdown.active .dropdown-arrow { transform: rotate(180deg); }
-    .dropdown-menu { position: absolute; top: 100%; left: 0; min-width: 220px; background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(10px); border-radius: 12px; padding: 10px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 1001; border: 1px solid rgba(147,197,253,0.2); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
+    .dropdown-menu { position: absolute; top: 100%; left: 0; min-width: 220px; background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(1px); border-radius: 12px; padding: 10px; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; z-index: 1001; border: 1px solid rgba(147,197,253,0.2); box-shadow: 0 10px 24px rgba(0,0,0,0.3); }
     .dropdown:hover .dropdown-menu, .dropdown.active .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
     /* Only enable hover-open behavior on devices that support hover */
     @media (hover: hover) and (pointer: fine) {
@@ -79,7 +79,7 @@
     .hamburger-menu.active .line1 { transform: rotate(45deg) translate(6px, 6px); }
     .hamburger-menu.active .line2 { opacity: 0; transform: scaleX(0); }
     .hamburger-menu.active .line3 { transform: rotate(-45deg) translate(6px, -6px); }
-    .mobile-overlay { position: fixed; top: 80px; left: 0; width: 100vw; height: calc(100vh - 80px); background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(20px); display: none; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; z-index: 900; }
+    .mobile-overlay { position: fixed; top: 80px; left: 0; width: 100vw; height: calc(100vh - 80px); background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(1px); display: none; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; z-index: 900; }
     .hamburger-menu.active .mobile-overlay { display: flex; opacity: 1; visibility: visible; }
     .mobile-nav { display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 40px; }
     .mobile-link { font-size: 24px; font-weight: 500; color: #E7EAEE; text-decoration: none; padding: 15px 30px; border-radius: 12px; transition: all 0.3s ease; text-align: center; min-width: 200px; }
@@ -256,12 +256,8 @@
               <span class="mobile-arrow">▼</span>
             </button>
             <div class="mobile-dropdown-content">
-              <a href="portfolio/before-after-gallery.html" class="mobile-sublink">All Projects</a>
-              <a href="portfolio/modern-kitchen-renovation.html" class="mobile-sublink">Kitchen</a>
-              <a href="portfolio/luxury-bathroom-suite.html" class="mobile-sublink">Bathroom</a>
-              <a href="portfolio/contemporary-living-room.html" class="mobile-sublink">Living Room</a>
-              <a href="portfolio/elegant-master-bedroom.html" class="mobile-sublink">Bedroom</a>
-              <a href="portfolio/residential-projects.html" class="mobile-sublink">Whole Home</a>
+              <a href="portfolio/residential-projects.html" class="mobile-sublink">Residential Projects</a>
+              <a href="portfolio/commercial-projects.html" class="mobile-sublink">Commercial Projects</a>
             </div>
           </div>
           <a href="services/interior-design.html" class="mobile-link">Services</a>
@@ -277,13 +273,17 @@
           Our Projects
           <span class="dropdown-arrow">▼</span>
         </a>
-        <div class="dropdown-menu">
-          <a href="portfolio/before-after-gallery.html">All Projects</a>
-          <a href="portfolio/modern-kitchen-renovation.html">Kitchen</a>
-          <a href="portfolio/luxury-bathroom-suite.html">Bathroom</a>
-          <a href="portfolio/contemporary-living-room.html">Living Room</a>
-          <a href="portfolio/elegant-master-bedroom.html">Bedroom</a>
-          <a href="portfolio/residential-projects.html">Whole Home</a>
+        <div class="dropdown-menu mega-projects">
+          <div class="projects-grid">
+            <a class="proj-card" href="portfolio/residential-projects.html">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1600585154340-1e4d1f9be0c6?auto=format&fit=crop&w=1200&q=80" alt="Residential interior showcase" />
+              <div class="label">Residential Projects</div>
+            </a>
+            <a class="proj-card" href="portfolio/commercial-projects.html">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80" alt="Commercial interior showcase" />
+              <div class="label">Commercial Projects</div>
+            </a>
+          </div>
         </div>
       </div>
       <a href="our-process.html" class="active">Our Process</a>
@@ -602,7 +602,11 @@
             <span class="chevron" aria-hidden="true"></span>
           </button>
           <div class="accordion-panel" id="faq-5"><div class="accordion-inner">
-            Many products carry their own warranties (tile membranes, fixtures, appliances, flooring). We register or record details where applicable and assist you in initiating claims. Decisions and timelines are set by the manufacturer; we keep you informed.
+            <ul>
+              <li>Many products carry their own warranties (tile membranes, fixtures, appliances, flooring).</li>
+              <li>We register/record details where applicable and assist you in initiating claims.</li>
+              <li>Decisions and timelines are set by the manufacturer. We keep you informed.</li>
+            </ul>
           </div></div>
         </div>
       </div>

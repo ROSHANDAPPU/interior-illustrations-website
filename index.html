@@ -133,8 +133,8 @@
       top: calc(100% + 10px);
       left: 0;
       min-width: 220px;
-      background: rgba(11, 14, 20, 0.95);
-      backdrop-filter: blur(10px);
+      background: #0B0E14;
+      backdrop-filter: none;
       border: 1px solid rgba(147, 197, 253, 0.25);
       border-radius: 12px;
       padding: 10px;
@@ -206,7 +206,7 @@
       /* Mobile overlay base */
       .mobile-overlay {
         position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-        background: rgba(11, 14, 20, 0.95); backdrop-filter: blur(20px);
+        background: #0B0E14; backdrop-filter: none;
         display: none; align-items: center; justify-content: center;
         opacity: 0; visibility: hidden; transition: all 0.4s ease; z-index: 9998;
       }
@@ -1036,32 +1036,26 @@
 
   <!-- Header -->
   <header class="nav">
-    <div class="brand"><a href="index.html"><img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 200px;width:auto;display:inline-block;vertical-align:middle;filter:none;" /></a></div>
+    <div class="brand">
+      <a href="index.html">
+        <img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" />
+      </a>
+    </div>
 
-    <!-- Hamburger Menu -->
+    <!-- Hamburger Menu (shown on <=1200px) -->
     <div class="hamburger-menu" id="hamburgerMenu">
-      <div class="hamburger-icon">
+      <div class="hamburger-icon" aria-label="Open Menu" role="button" tabindex="0">
         <span class="line line1"></span>
         <span class="line line2"></span>
         <span class="line line3"></span>
       </div>
-      <div class="mobile-overlay">
+      <div class="mobile-overlay" id="mobileOverlay">
+        <button class="mobile-close" type="button" aria-label="Close">×</button>
         <nav class="mobile-nav">
           <a href="#about" class="mobile-link">About</a>
-          <div class="mobile-dropdown-section">
-            <button class="mobile-dropdown-btn">
-              Our Projects
-              <span class="mobile-arrow">▼</span>
-            </button>
-            <div class="mobile-dropdown-content">
-              <a href="portfolio/before-after-gallery.html" class="mobile-sublink">All Projects</a>
-              <a href="portfolio/modern-kitchen-renovation.html" class="mobile-sublink">Kitchen</a>
-              <a href="portfolio/luxury-bathroom-suite.html" class="mobile-sublink">Bathroom</a>
-              <a href="portfolio/contemporary-living-room.html" class="mobile-sublink">Living Room</a>
-              <a href="portfolio/elegant-master-bedroom.html" class="mobile-sublink">Bedroom</a>
-              <a href="portfolio/residential-projects.html" class="mobile-sublink">Whole Home</a>
-            </div>
-          </div>
+          <!-- No dropdown on mobile: show plain links -->
+          <a href="portfolio/residential-projects.html" class="mobile-link">Residential Projects</a>
+          <a href="portfolio/commercial-projects.html" class="mobile-link">Commercial Projects</a>
           <a href="#services" class="mobile-link">Services</a>
           <a href="our-process.html" class="mobile-link">Our Process</a>
           <a href="#contact" class="mobile-link">Contact</a>
@@ -1075,13 +1069,17 @@
           Our Projects
           <span class="dropdown-arrow">▼</span>
         </a>
-        <div class="dropdown-menu">
-          <a href="portfolio/before-after-gallery.html">All Projects</a>
-          <a href="portfolio/modern-kitchen-renovation.html">Kitchen</a>
-          <a href="portfolio/luxury-bathroom-suite.html">Bathroom</a>
-          <a href="portfolio/contemporary-living-room.html">Living Room</a>
-          <a href="portfolio/elegant-master-bedroom.html">Bedroom</a>
-          <a href="portfolio/residential-projects.html">Whole Home</a>
+        <div class="dropdown-menu mega-projects">
+          <div class="projects-grid">
+            <a class="proj-card" href="portfolio/residential-projects.html">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80" alt="Warm residential living room interior" referrerpolicy="no-referrer" crossorigin="anonymous" loading="eager" decoding="async" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80';" />
+              <div class="label">Residential Projects</div>
+            </a>
+            <a class="proj-card" href="portfolio/commercial-projects.html">
+              <img class="thumb-img" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80" alt="Commercial interior showcase" />
+              <div class="label">Commercial Projects</div>
+            </a>
+          </div>
         </div>
       </div>
       <a href="our-process.html">Our Process</a>
@@ -1111,31 +1109,13 @@
     <!-- Sliding track with luxury home images -->
     <div class="track" aria-hidden="true">
       <div class="slide">
-        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop" alt="Luxury Kitchen Interior">
+        <img src="assets/images/SLIDER%20%20HOMEPAGE/IMG_7545.jpeg" alt="Project Slide 1">
       </div>
       <div class="slide">
-        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2000&auto=format&fit=crop" alt="Modern Living Room">
+        <img src="assets/images/SLIDER%20%20HOMEPAGE/SLIDE%201.jpeg" alt="Project Slide 2">
       </div>
       <div class="slide">
-        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop" alt="Elegant Dining Space">
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop" alt="Luxury Kitchen Interior">
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2000&auto=format&fit=crop" alt="Modern Living Room">
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop" alt="Elegant Dining Space">
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop" alt="Luxury Kitchen Interior">
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2000&auto=format&fit=crop" alt="Modern Living Room">
-      </div>
-      <div class="slide">
-        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop" alt="Elegant Dining Space">
+        <img src="assets/images/SLIDER%20%20HOMEPAGE/SLIDE%202.jpeg" alt="Project Slide 3">
       </div>
     </div>
 
@@ -1232,12 +1212,12 @@
     </div>
     
     <div class="gallery-grid">
-      <a href="portfolio/contemporary-living-room.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2000&auto=format&fit=crop');"></a>
-      <a href="portfolio/luxury-bathroom-suite.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2000&auto=format&fit=crop');"></a>
-      <a href="portfolio/modern-kitchen-renovation.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1556912167-f556f1f39fdf?q=80&w=2000&auto=format&fit=crop');"></a>
-      <a href="portfolio/project-detail.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2000&auto=format&fit=crop');"></a>
-      <a href="portfolio/elegant-master-bedroom.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=2000&auto=format&fit=crop');"></a>
-      <a href="portfolio/modern-office-space.html" class="gallery-item reveal" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop');"></a>
+      <a href="portfolio/contemporary-living-room.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG');"></a>
+      <a href="portfolio/luxury-bathroom-suite.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG');"></a>
+      <a href="portfolio/modern-kitchen-renovation.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG');"></a>
+      <a href="portfolio/project-detail.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG');"></a>
+      <a href="portfolio/elegant-master-bedroom.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG');"></a>
+      <a href="portfolio/modern-office-space.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG');"></a>
     </div>
   </section>
 
@@ -1340,36 +1320,49 @@
   <script>
     // Mobile menu toggle and mobile dropdown behavior
     (function() {
-      const hamburger = document.getElementById('hamburgerMenu');
-      if (!hamburger) return;
-      const icon = hamburger.querySelector('.hamburger-icon');
-      const overlay = hamburger.querySelector('.mobile-overlay');
-      const mobileLinks = overlay ? overlay.querySelectorAll('a') : [];
-      const mobileDropdown = overlay ? overlay.querySelector('.mobile-dropdown-section') : null;
-      const mobileDropdownBtn = mobileDropdown ? mobileDropdown.querySelector('.mobile-dropdown-btn') : null;
+      const menu = document.getElementById('hamburgerMenu');
+      const icon = menu ? menu.querySelector('.hamburger-icon') : null;
+      const overlay = document.getElementById('mobileOverlay');
+      const closeBtn = overlay ? overlay.querySelector('.mobile-close') : null;
+      const links = overlay ? overlay.querySelectorAll('a, button.mobile-dropdown-btn, .mobile-close') : [];
+      const mobileProjects = null; // no dropdown on mobile
+      const mobileProjectsBtn = null;
+      const headerEl = document.querySelector('header.nav');
+      const logoLink = headerEl ? headerEl.querySelector('.brand a') : null;
 
-      function closeMenu() { hamburger.classList.remove('active'); }
-      function openMenu() { hamburger.classList.add('active'); }
-      function toggleMenu() { hamburger.classList.toggle('active'); }
+      function closeMenu() { if (menu) menu.classList.remove('active'); }
+      function openMenu() { if (menu) menu.classList.add('active'); }
+      function toggleMenu() { if (menu) menu.classList.toggle('active'); }
 
-      if (icon) icon.addEventListener('click', toggleMenu);
-      // Close when clicking a link
-      mobileLinks.forEach(a => a.addEventListener('click', closeMenu));
-      // Toggle mobile dropdown
-      if (mobileDropdownBtn && mobileDropdown) {
-        mobileDropdownBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          mobileDropdown.classList.toggle('active');
-        });
+      // Toggle via hamburger icon
+      if (icon) {
+        icon.addEventListener('click', toggleMenu);
+        icon.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggleMenu(); }});
       }
-      // Close on outside click
-      document.addEventListener('click', function(e) {
-        if (!hamburger.contains(e.target)) closeMenu();
-      });
-      // Close on resize > 1024
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 1024) closeMenu();
-      });
+      // Backdrop click closes
+      if (overlay) {
+        overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeMenu(); });
+      }
+      // Close (X) button
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      // Close on any link/button inside overlay
+      links.forEach(el => el.addEventListener('click', closeMenu));
+      // Esc closes
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
+      // Mobile Our Projects expand/collapse
+      // No-op: no mobile dropdown
+      // Auto-close if resized wider than 1200px
+      window.addEventListener('resize', ()=>{ if (window.innerWidth > 1200) closeMenu(); });
+
+      // Header-wide sheen when hovering the logo
+      if (headerEl && logoLink) {
+        logoLink.addEventListener('mouseenter', ()=> headerEl.classList.add('logo-sheen-active'));
+        logoLink.addEventListener('mouseleave', ()=> headerEl.classList.remove('logo-sheen-active'));
+        // Also remove sheen when menu opens/closes to avoid lingering
+        if (icon) {
+          icon.addEventListener('click', ()=> headerEl.classList.remove('logo-sheen-active'));
+        }
+      }
     })();
   </script>
 
@@ -1555,7 +1548,7 @@
 
     let tagIndex = 0;
     let slideIndex = 0;
-    const totalSlides = 9; // Total number of slides in the track
+    const totalSlides = 3; // Total number of slides in the track
     
     function updateSlide() {
       if (!track || taglines.length === 0) return;

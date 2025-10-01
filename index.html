@@ -689,7 +689,7 @@
       border: 2px solid rgba(147, 197, 253, 0.9); /* Azure border */
       border-radius: 50%;
       pointer-events: none;
-      z-index: 9999;
+      z-index: 10002;
       transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
@@ -701,7 +701,7 @@
       border: 2px solid rgba(147, 197, 253, 0.3); /* Azure */
       border-radius: 50%;
       pointer-events: none;
-      z-index: 9998;
+      z-index: 10001;
       transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       transform: translate(-50%, -50%);
     }
@@ -794,6 +794,102 @@
       font-weight: bold;
       color: #000;
       letter-spacing: 0.5px;
+    }
+
+    /* Lightbox Modal */
+    .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(11, 14, 20, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .lightbox-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-content {
+      position: relative;
+      width: 80vw;
+      max-width: 1200px;
+      max-height: 85vh;
+      animation: lightboxZoom 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .lightbox-content img {
+      width: 100%;
+      height: auto;
+      max-height: 85vh;
+      object-fit: contain;
+      border: 2px solid rgba(147, 197, 253, 0.3);
+      border-radius: 8px;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: -70px;
+      background: rgba(147, 197, 253, 0.2);
+      border: 2px solid rgba(147, 197, 253, 0.5);
+      color: #93C5FD;
+      font-size: 32px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 300;
+      line-height: 1;
+      z-index: 10003;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(147, 197, 253, 0.3);
+      border-color: #93C5FD;
+      transform: rotate(90deg);
+    }
+
+    @keyframes lightboxZoom {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+      opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-content {
+        width: 90vw;
+        max-height: 80vh;
+      }
+      .lightbox-content img {
+        max-height: 80vh;
+      }
+      .lightbox-close {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+      }
     }
 
     /* Intro Video Overlay */
@@ -1219,14 +1315,22 @@
     </div>
     
     <div class="gallery-grid">
-      <a href="portfolio/contemporary-living-room.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG');"></a>
-      <a href="portfolio/luxury-bathroom-suite.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG');"></a>
-      <a href="portfolio/modern-kitchen-renovation.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG');"></a>
-      <a href="portfolio/project-detail.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG');"></a>
-      <a href="portfolio/elegant-master-bedroom.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG');"></a>
-      <a href="portfolio/modern-office-space.html" class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG');"></a>
+      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG')"></div>
+      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG')"></div>
+      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG')"></div>
+      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG')"></div>
+      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG')"></div>
+      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG')"></div>
     </div>
   </section>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
+      <img id="lightboxImage" src="" alt="Portfolio Image" />
+    </div>
+  </div>
 
   <!-- CONTACT SECTION -->
   <section id="contact" class="contact">
@@ -1691,6 +1795,34 @@
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
+    });
+
+    // Lightbox Functions
+    function openLightbox(imageSrc) {
+      const modal = document.getElementById('lightboxModal');
+      const image = document.getElementById('lightboxImage');
+      image.src = imageSrc;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(event) {
+      if (event.target.id === 'lightboxModal' || event.target.classList.contains('lightbox-close')) {
+        const modal = document.getElementById('lightboxModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const modal = document.getElementById('lightboxModal');
+        if (modal.classList.contains('active')) {
+          modal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      }
     });
   </script>
 </body>

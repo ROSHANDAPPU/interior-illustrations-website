@@ -216,7 +216,7 @@
       }
       .nav .brand img { height: 60px !important; }
       /* Show hamburger menu on mobile */
-      .hamburger-menu { display: block; position: relative; z-index: 9999; }
+      .hamburger-menu { display: block; position: relative; z-index: 9999; pointer-events: auto !important; }
       /* Hide desktop nav links on mobile (use overlay instead) */
       .nav .links { display: none; }
       
@@ -231,7 +231,7 @@
       .mobile-nav { display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 40px; }
       .mobile-link { font-size: 24px; font-weight: 500; color: #E7EAEE; text-decoration: none; padding: 15px 30px; border-radius: 12px; transition: all 0.3s ease; text-align: center; min-width: 200px; }
       .mobile-link:hover { background: rgba(29, 78, 216, 0.2); color: #1D4ED8; transform: translateY(-2px); }
-      .hamburger-icon { width: 30px; height: 24px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s ease; }
+      .hamburger-icon { width: 30px; height: 24px; cursor: pointer !important; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s ease; pointer-events: auto !important; position: relative; z-index: 10000; }
       .line { width: 100%; height: 3px; background: #1D4ED8; border-radius: 2px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform-origin: center; }
       .hamburger-menu.active .line1 { transform: rotate(45deg) translate(6px, 6px); }
       .hamburger-menu.active .line2 { opacity: 0; transform: scaleX(0); }
@@ -1171,7 +1171,6 @@
         <span class="line line3"></span>
       </div>
       <div class="mobile-overlay" id="mobileOverlay">
-        <button class="mobile-close" type="button" aria-label="Close">×</button>
         <nav class="mobile-nav">
           <a href="#about" class="mobile-link">About</a>
           <a href="#services" class="mobile-link">Services</a>
@@ -1427,42 +1426,59 @@
   </footer>
 
   <script>
-    // Mobile menu toggle and mobile dropdown behavior
-    (function() {
+    // Mobile menu toggle - Wrapped in DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded, initializing hamburger menu...'); // Debug log
+      
       const menu = document.getElementById('hamburgerMenu');
       const icon = menu ? menu.querySelector('.hamburger-icon') : null;
       const overlay = document.getElementById('mobileOverlay');
-      const closeBtn = overlay ? overlay.querySelector('.mobile-close') : null;
-      const links = overlay ? overlay.querySelectorAll('a, button.mobile-dropdown-btn, .mobile-close') : [];
-      const mobileProjects = null; // no dropdown on mobile
-      const mobileProjectsBtn = null;
-      const headerEl = document.querySelector('header.nav');
-      const logoLink = headerEl ? headerEl.querySelector('.brand a') : null;
+      const links = overlay ? overlay.querySelectorAll('a, button.mobile-dropdown-btn') : [];
 
-      function closeMenu() { if (menu) menu.classList.remove('active'); }
-      function openMenu() { if (menu) menu.classList.add('active'); }
-      function toggleMenu() { if (menu) menu.classList.toggle('active'); }
+      console.log('Hamburger menu found:', !!menu); // Debug log
+      console.log('Hamburger icon found:', !!icon); // Debug log
 
-      // Toggle via hamburger icon
-      if (icon) {
-        icon.addEventListener('click', toggleMenu);
-        icon.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggleMenu(); }});
+      function closeMenu() { 
+        if (menu) {
+          menu.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
       }
+      function toggleMenu() { 
+        if (menu) {
+          menu.classList.toggle('active');
+          document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+          console.log('Menu active:', menu.classList.contains('active')); // Debug log
+        }
+      }
+
+      // Toggle via hamburger icon (opens and closes)
+      if (icon) {
+        icon.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Hamburger clicked!'); // Debug log
+          toggleMenu();
+        });
+        icon.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); toggleMenu(); }});
+      } else {
+        console.log('Hamburger icon not found!'); // Debug log
+      }
+      
       // Backdrop click closes
       if (overlay) {
         overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeMenu(); });
       }
-      // Close (X) button
-      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-      // Close on any link/button inside overlay
+      
+      // Close on any link inside overlay
       links.forEach(el => el.addEventListener('click', closeMenu));
+      
       // Esc closes
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
-      // Mobile Our Projects expand/collapse
-      // No-op: no mobile dropdown
+      
       // Auto-close if resized wider than 1200px
       window.addEventListener('resize', ()=>{ if (window.innerWidth > 1200) closeMenu(); });
-    })();
+    }); // Close DOMContentLoaded
   </script>
 
 </body>

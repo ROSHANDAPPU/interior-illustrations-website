@@ -244,6 +244,33 @@
       background: rgba(29, 78, 216, 0.1);
       color: #60A5FA;
     }
+
+    /* Mobile Close Button */
+    .mobile-close {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: transparent;
+      border: none;
+      color: #93C5FD;
+      font-size: 48px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10000;
+      transition: all 0.3s ease;
+      line-height: 1;
+      padding: 0;
+    }
+
+    .mobile-close:hover {
+      color: #1D4ED8;
+      transform: rotate(90deg);
+    }
+
     .nav a, .nav .brand { 
       color: #E7EAEE; /* Off-white color for consistency */
       text-decoration: none; 
@@ -913,6 +940,7 @@
         <span class="line line3"></span>
       </div>
       <div class="mobile-overlay">
+        <button class="mobile-close" type="button" aria-label="Close">×</button>
         <nav class="mobile-nav">
           <a href="../about.html" class="mobile-link">About</a>
           <a href="../services/interior-design.html" class="mobile-link">Services</a>
@@ -1395,15 +1423,26 @@
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     const hamburgerIcon = document.querySelector('.hamburger-icon');
     const mobileOverlay = document.querySelector('.mobile-overlay');
+    const mobileCloseBtn = document.querySelector('.mobile-close');
     const dropdownBtn = document.querySelector('.mobile-dropdown-btn');
     const dropdownSection = document.querySelector('.mobile-dropdown-section');
     const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-sublink');
 
     // Toggle hamburger menu
     if (hamburgerIcon) {
-      hamburgerIcon.addEventListener('click', function() {
+      hamburgerIcon.addEventListener('click', function(e) {
+        e.stopPropagation();
         hamburgerMenu.classList.toggle('active');
         document.body.style.overflow = hamburgerMenu.classList.contains('active') ? 'hidden' : 'auto';
+      });
+    }
+
+    // Close button functionality
+    if (mobileCloseBtn) {
+      mobileCloseBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        hamburgerMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
       });
     }
 

@@ -92,16 +92,20 @@
       display: none;
       position: relative;
       z-index: 9999;
+      pointer-events: auto !important;
     }
 
     .hamburger-icon {
       width: 30px;
       height: 24px;
-      cursor: pointer;
+      cursor: pointer !important;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       transition: all 0.4s ease;
+      position: relative;
+      z-index: 10000;
+      pointer-events: auto !important;
     }
 
     .line {
@@ -1431,10 +1435,15 @@
     // Toggle hamburger menu
     if (hamburgerIcon) {
       hamburgerIcon.addEventListener('click', function(e) {
+        e.preventDefault();
         e.stopPropagation();
+        console.log('Hamburger clicked!'); // Debug log
         hamburgerMenu.classList.toggle('active');
         document.body.style.overflow = hamburgerMenu.classList.contains('active') ? 'hidden' : 'auto';
+        console.log('Menu active:', hamburgerMenu.classList.contains('active')); // Debug log
       });
+    } else {
+      console.log('Hamburger icon not found!'); // Debug log
     }
 
     // Close button functionality

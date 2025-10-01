@@ -55,11 +55,12 @@
     .nav .links a:hover { color: #93C5FD; background: rgba(147,197,253,0.1); }
 
     /* Hamburger Menu */
-    .hamburger-menu { display: none; position: relative; z-index: 9999; }
+    .hamburger-menu { display: none; position: relative; z-index: 10002; pointer-events: auto !important; }
     .hamburger-icon {
-      width: 30px; height: 24px; cursor: pointer;
+      width: 30px; height: 24px; cursor: pointer !important;
       display: flex; flex-direction: column; justify-content: space-between;
       transition: all 0.4s ease;
+      position: relative; z-index: 10002; pointer-events: auto !important;
     }
     .line {
       width: 100%; height: 3px; background: #1D4ED8; border-radius: 2px;
@@ -362,8 +363,6 @@
       <div class="mobile-overlay">
         <nav class="mobile-nav">
           <a href="../about.html" class="mobile-link">About</a>
-          <a href="../portfolio/residential-projects.html" class="mobile-link">Residential Projects</a>
-          <a href="../portfolio/commercial-projects.html" class="mobile-link">Commercial Projects</a>
           <a href="interior-design.html" class="mobile-link">Services</a>
           <a href="../our-process.html" class="mobile-link">Our Process</a>
           <a href="../contact/get-quote.html" class="mobile-link">Contact</a>
@@ -573,12 +572,41 @@
       }
     }
 
-    // Hamburger Menu Toggle
-    const hamburger = document.getElementById('hamburgerMenu');
-    if (hamburger) {
-      const icon = hamburger.querySelector('.hamburger-icon');
-      if (icon) icon.addEventListener('click', () => hamburger.classList.toggle('active'));
-    }
+    // Hamburger Menu Toggle - Wrapped in DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburger = document.getElementById('hamburgerMenu');
+      const icon = hamburger ? hamburger.querySelector('.hamburger-icon') : null;
+      const overlay = hamburger ? hamburger.querySelector('.mobile-overlay') : null;
+      const links = overlay ? overlay.querySelectorAll('.mobile-link') : [];
+      if (icon) {
+        icon.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          hamburger.classList.toggle('active');
+          document.body.style.overflow = hamburger.classList.contains('active') ? 'hidden' : 'auto';
+        });
+      }
+      if (overlay) {
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) {
+            hamburger.classList.remove('active');
+            document.body.style.overflow = 'auto';
+          }
+        });
+      }
+      links.forEach(link => {
+        link.addEventListener('click', function() {
+          hamburger.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        });
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && hamburger && hamburger.classList.contains('active')) {
+          hamburger.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+      });
+    });
 
     // Custom Floating Cursor
     (function() {

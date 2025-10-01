@@ -41,16 +41,20 @@
       display: none;
       position: relative;
       z-index: 9999;
+      pointer-events: auto !important;
     }
 
     .hamburger-icon {
       width: 30px;
       height: 24px;
-      cursor: pointer;
+      cursor: pointer !important;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       transition: all 0.4s ease;
+      position: relative;
+      z-index: 10000;
+      pointer-events: auto !important;
     }
 
     .line {
@@ -184,31 +188,7 @@
       color: #60A5FA;
     }
 
-    /* Mobile Close Button */
-    .mobile-close {
-      position: absolute;
-      top: 30px;
-      right: 30px;
-      background: transparent;
-      border: none;
-      color: #93C5FD;
-      font-size: 48px;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 10000;
-      transition: all 0.3s ease;
-      line-height: 1;
-      padding: 0;
-    }
-
-    .mobile-close:hover {
-      color: #1D4ED8;
-      transform: rotate(90deg);
-    }
+    /* Mobile Close Button - REMOVED (using hamburger icon instead) */
 
     .nav a, .nav .brand { 
       color: #E7EAEE; /* Off-white color for consistency */
@@ -1181,7 +1161,6 @@
         <span class="line line3"></span>
       </div>
       <div class="mobile-overlay" id="mobileOverlay">
-        <button class="mobile-close" type="button" aria-label="Close">×</button>
         <nav class="mobile-nav" aria-label="Mobile Navigation">
           <a href="about.html" class="mobile-link">About</a>
           <!-- No dropdown on mobile: show plain links -->
@@ -1412,64 +1391,67 @@
       cursorFollower.style.opacity = '1';
     });
 
-    // Hamburger Menu Functionality
-    const hamburgerMenu = document.querySelector('.hamburger-menu');
-    const hamburgerIcon = document.querySelector('.hamburger-icon');
-    const mobileOverlay = document.querySelector('.mobile-overlay');
-    const mobileCloseBtn = document.querySelector('.mobile-close');
-    const dropdownBtn = document.querySelector('.mobile-dropdown-btn');
-    const dropdownSection = document.querySelector('.mobile-dropdown-section');
-    const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-sublink');
+    // Hamburger Menu Functionality - Wrapped in DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM loaded, initializing hamburger menu...'); // Debug log
+      
+      const hamburgerMenu = document.querySelector('.hamburger-menu');
+      const hamburgerIcon = document.querySelector('.hamburger-icon');
+      const mobileOverlay = document.querySelector('.mobile-overlay');
+      const dropdownBtn = document.querySelector('.mobile-dropdown-btn');
+      const dropdownSection = document.querySelector('.mobile-dropdown-section');
+      const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-sublink');
 
-    // Toggle hamburger menu
-    if (hamburgerIcon) {
-      hamburgerIcon.addEventListener('click', function() {
-        hamburgerMenu.classList.toggle('active');
-        document.body.style.overflow = hamburgerMenu.classList.contains('active') ? 'hidden' : 'auto';
+      console.log('Hamburger menu found:', !!hamburgerMenu); // Debug log
+      console.log('Hamburger icon found:', !!hamburgerIcon); // Debug log
+
+      // Toggle hamburger menu (opens and closes)
+      if (hamburgerIcon) {
+        hamburgerIcon.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Hamburger clicked!'); // Debug log
+          hamburgerMenu.classList.toggle('active');
+          document.body.style.overflow = hamburgerMenu.classList.contains('active') ? 'hidden' : 'auto';
+          console.log('Menu active:', hamburgerMenu.classList.contains('active')); // Debug log
+        });
+      } else {
+        console.log('Hamburger icon not found!'); // Debug log
+      }
+
+      // Close menu when clicking on overlay
+      if (mobileOverlay) {
+        mobileOverlay.addEventListener('click', function(e) {
+          if (e.target === mobileOverlay) {
+            hamburgerMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+          }
+        });
+      }
+
+      // Dropdown functionality
+      if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', function() {
+          dropdownSection.classList.toggle('active');
+        });
+      }
+
+      // Close menu when clicking on links
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          hamburgerMenu.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        });
       });
-    }
 
-    // Close button functionality
-    if (mobileCloseBtn) {
-      mobileCloseBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        hamburgerMenu.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      });
-    }
-
-    // Close menu when clicking on overlay
-    if (mobileOverlay) {
-      mobileOverlay.addEventListener('click', function(e) {
-        if (e.target === mobileOverlay) {
+      // Handle escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && hamburgerMenu && hamburgerMenu.classList.contains('active')) {
           hamburgerMenu.classList.remove('active');
           document.body.style.overflow = 'auto';
         }
       });
-    }
-
-    // Dropdown functionality
-    if (dropdownBtn) {
-      dropdownBtn.addEventListener('click', function() {
-        dropdownSection.classList.toggle('active');
-      });
-    }
-
-    // Close menu when clicking on links
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        hamburgerMenu.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      });
-    });
-
-    // Handle escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && hamburgerMenu && hamburgerMenu.classList.contains('active')) {
-        hamburgerMenu.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      }
-    });
+    }); // Close DOMContentLoaded
   </script>
 
   <!-- FOOTER -->

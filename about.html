@@ -1532,11 +1532,22 @@
       const modal = document.getElementById('lightboxModal');
       const image = document.getElementById('lightboxImage');
       const footnote = document.getElementById('lightboxFootnote');
-      // Normalize path: if not absolute or protocol, make root-relative
-      if (typeof imageSrc === 'string' && !/^([a-zA-Z0-9]+:)?\//.test(imageSrc)) {
-        image.src = '/' + imageSrc.replace(/^\.?\//, '');
-      } else {
-        image.src = imageSrc || '';
+      // Resolve imageSrc relative to the current document so paths work
+      // whether the site is served (http/https) or opened via file://
+      try {
+        if (typeof imageSrc === 'string') {
+          // new URL(base) will correctly resolve relative paths against the page
+          image.src = new URL(imageSrc, window.location.href).href;
+        } else {
+          image.src = imageSrc || '';
+        }
+      } catch (err) {
+        // Fallback: naive handling for older browsers or unusual inputs
+        if (typeof imageSrc === 'string' && !/^([a-zA-Z0-9]+:)?\//.test(imageSrc)) {
+          image.src = '/' + imageSrc.replace(/^\.?\//, '');
+        } else {
+          image.src = imageSrc || '';
+        }
       }
       // Populate footnote from clicked element if available
       if (footnote) {

@@ -1015,23 +1015,21 @@ p, a, li, label, input, select, textarea, button, small, .eyebrow, .section-subt
 
 /* Shimmer + pulse, disabled for reduced motion */
 .lightbox-footnote::after {
+  /* fill the banner and let the banner's overflow: hidden + border-radius fully contain the sheen */
   content: "";
   position: absolute;
-  left: -10%;
-  top: 0;
-  width: 120%;
-  height: 100%;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
   background: linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.00) 100%);
-  transform: skewX(-12deg) translateX(0);
+  /* create an angled strip by rotating the full-size layer; translation animates the strip across the banner */
+  transform: translateX(-150%) rotate(-12deg);
+  transform-origin: center;
   pointer-events: none;
-  /* slightly tighter blur so the sheen reads inside the curved shape */
-  filter: blur(8px) saturate(110%);
+  filter: blur(6px) saturate(110%);
   opacity: 0;
-  transition: opacity 300ms ease;
+  transition: opacity 220ms ease;
   mix-blend-mode: overlay;
-  /* ensure the pseudo-element respects the parent's rounded corners */
-  border-radius: inherit;
-  clip-path: inset(0 round 24px);
+  border-radius: inherit; /* stay inside rounded corners */
+  will-change: transform, opacity;
 }
 
 .lightbox-footnote:hover::after,
@@ -1041,9 +1039,10 @@ p, a, li, label, input, select, textarea, button, small, .eyebrow, .section-subt
 }
 
 @keyframes shimmer {
-  0% { transform: skewX(-18deg) translateX(-10%); opacity: 0; }
-  30% { opacity: 0.9; }
-  100% { transform: skewX(-18deg) translateX(180%); opacity: 0; }
+  0% { transform: translateX(-150%) rotate(-12deg); opacity: 0; }
+  30% { opacity: 0.95; }
+  55% { opacity: 0.9; }
+  100% { transform: translateX(150%) rotate(-12deg); opacity: 0; }
 }
 
 @keyframes footnotePulse {

@@ -1528,10 +1528,27 @@
   
   <script>
     // Lightbox Functions
-    function openLightbox(imageSrc) {
+    function openLightbox(imageSrc, clickedElement) {
       const modal = document.getElementById('lightboxModal');
       const image = document.getElementById('lightboxImage');
-      image.src = imageSrc;
+      const footnote = document.getElementById('lightboxFootnote');
+      // Normalize path: if not absolute or protocol, make root-relative
+      if (typeof imageSrc === 'string' && !/^([a-zA-Z0-9]+:)?\//.test(imageSrc)) {
+        image.src = '/' + imageSrc.replace(/^\.?\//, '');
+      } else {
+        image.src = imageSrc || '';
+      }
+      // Populate footnote from clicked element if available
+      if (footnote) {
+        if (clickedElement && clickedElement.dataset && clickedElement.dataset.footnote) {
+          footnote.innerHTML = '<span class="footnote-desc">' + clickedElement.dataset.footnote + '</span>';
+          footnote.style.display = 'block';
+          try { footnote.focus(); } catch (e) {}
+        } else {
+          footnote.innerHTML = '';
+          footnote.style.display = 'none';
+        }
+      }
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }

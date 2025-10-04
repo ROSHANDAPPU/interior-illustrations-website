@@ -949,10 +949,14 @@ p, a, li, label, input, select, textarea, button, small, .eyebrow, .section-subt
   -webkit-backdrop-filter: blur(8px) saturate(120%);
   backdrop-filter: blur(8px) saturate(120%);
   background-color: rgba(15,18,24,0.36); /* slight dark tint to improve contrast */
-  padding: 18px 22px;
-  border-radius: 12px;
+  padding: 16px 20px;
+  /* stronger rounding so the bottom appears curved (not flat) */
+  border-radius: 24px;
+  /* keep the banner narrower than the modal so the curve is visible on both sides */
+  max-width: min(1100px, 96%);
+  margin: 0 auto;
   border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 12px 40px rgba(11,14,20,0.65), inset 0 1px 0 rgba(255,255,255,0.02);
+  box-shadow: 0 14px 48px rgba(11,14,20,0.66), inset 0 1px 0 rgba(255,255,255,0.02);
   max-height: 320px;
   overflow: auto;
   width: 100%;
@@ -1020,10 +1024,14 @@ p, a, li, label, input, select, textarea, button, small, .eyebrow, .section-subt
   background: linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.00) 100%);
   transform: skewX(-12deg) translateX(0);
   pointer-events: none;
-  filter: blur(10px) saturate(110%);
+  /* slightly tighter blur so the sheen reads inside the curved shape */
+  filter: blur(8px) saturate(110%);
   opacity: 0;
   transition: opacity 300ms ease;
   mix-blend-mode: overlay;
+  /* ensure the pseudo-element respects the parent's rounded corners */
+  border-radius: inherit;
+  clip-path: inset(0 round 24px);
 }
 
 .lightbox-footnote:hover::after,

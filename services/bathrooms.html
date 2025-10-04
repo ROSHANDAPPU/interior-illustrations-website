@@ -493,22 +493,22 @@
       </div>
       
       <div class="portfolio-grid-1x1">
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG')">
+        <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" alt="Luxury Bathroom with Freestanding Tub">
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG')">
+        <div class="tile" data-footnote="LVP flooring install throughout" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" alt="Contemporary Living Room with Fireplace">
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG')">
+        <div class="tile" data-footnote="Nail down install" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" alt="Modern Kitchen with Dark Cabinets">
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG')">
+        <div class="tile" data-footnote="Full home remodel" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" alt="Modern Kitchen with Island">
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG')">
+        <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Luxury Bathroom with Glass Shower">
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG')">
+        <div class="tile" data-footnote="Custom Tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" alt="Modern Bathroom with Round Mirror">
         </div>
       </div>
@@ -519,6 +519,7 @@
       <div class="lightbox-content">
         <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
         <img id="lightboxImage" src="" alt="Portfolio Image" />
+        <div id="lightboxFootnote" class="lightbox-footnote" aria-live="polite" tabindex="0" role="complementary" aria-label="Image details" onclick="event.stopPropagation()"></div>
       </div>
     </div>
 
@@ -645,10 +646,17 @@
     })();
 
     // Lightbox Functions
-    function openLightbox(imageSrc) {
+    function openLightbox(imageSrc, clickedElement) {
       const modal = document.getElementById('lightboxModal');
       const image = document.getElementById('lightboxImage');
       image.src = imageSrc;
+      const footnoteEl = document.getElementById('lightboxFootnote');
+      const srcEl = clickedElement || window.__lastClickedTile || null;
+      if (footnoteEl) {
+        const note = srcEl && srcEl.getAttribute ? srcEl.getAttribute('data-footnote') : '';
+        footnoteEl.textContent = note || '';
+        if (note) footnoteEl.focus();
+      }
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -657,6 +665,8 @@
         const modal = document.getElementById('lightboxModal');
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        const footnoteEl = document.getElementById('lightboxFootnote');
+        if (footnoteEl) footnoteEl.textContent = '';
       }
     }
     document.addEventListener('keydown', function(event) {

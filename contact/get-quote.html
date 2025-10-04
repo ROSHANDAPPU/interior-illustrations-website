@@ -1092,22 +1092,22 @@
       </div>
       
       <div class="portfolio-grid-1x1">
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG')">
+        <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" alt="Luxury Bathroom with Freestanding Tub">
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG')">
+        <div class="tile" data-footnote="LVP flooring install throughout" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" alt="Contemporary Living Room with Fireplace">
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG')">
+        <div class="tile" data-footnote="Nail down install" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" alt="Modern Kitchen with Dark Cabinets">
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG')">
+        <div class="tile" data-footnote="Full home remodel" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" alt="Modern Kitchen with Island">
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG')">
+        <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Luxury Bathroom with Glass Shower">
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG')">
+        <div class="tile" data-footnote="Custom Tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" alt="Modern Bathroom with Round Mirror">
         </div>
       </div>
@@ -1116,8 +1116,9 @@
     <!-- Lightbox Modal -->
     <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
       <div class="lightbox-content">
-        <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
+        <button class="lightbox-close" onclick="closeLightbox(event)"> d7</button>
         <img id="lightboxImage" src="" alt="Portfolio Image" />
+        <div id="lightboxFootnote" class="lightbox-footnote" aria-live="polite" tabindex="0" role="complementary" aria-label="Image details" onclick="event.stopPropagation()"></div>
       </div>
     </div>
   </main>
@@ -1180,18 +1181,30 @@
     });
 
     // Lightbox Functions
-    function openLightbox(imageSrc) {
+    function openLightbox(imageSrc, clickedElement) {
       const modal = document.getElementById('lightboxModal');
       const image = document.getElementById('lightboxImage');
+      const footnote = document.getElementById('lightboxFootnote');
       image.src = imageSrc;
+      // Populate footnote if available
+      if (clickedElement && clickedElement.dataset && clickedElement.dataset.footnote) {
+        const desc = clickedElement.dataset.footnote;
+        footnote.innerHTML = `<span class="footnote-desc">${desc}</span>`;
+        // Move focus to footnote for assistive tech
+        footnote.focus();
+      } else if (footnote) {
+        footnote.innerHTML = '';
+      }
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
     function closeLightbox(event) {
       if (event.target.id === 'lightboxModal' || event.target.classList.contains('lightbox-close')) {
         const modal = document.getElementById('lightboxModal');
+        const footnote = document.getElementById('lightboxFootnote');
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        if (footnote) footnote.innerHTML = '';
       }
     }
     // Close lightbox with Escape key

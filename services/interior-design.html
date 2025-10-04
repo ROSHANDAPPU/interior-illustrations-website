@@ -1509,22 +1509,22 @@
         <h2 style="color: var(--color-heading); font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin: 0;">Our Latest Work</h2>
       </div>
       <div class="portfolio-grid-1x1">
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG')">
+        <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" alt="Portfolio image 1" />
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG')">
+        <div class="tile" data-footnote="LVP flooring install throughout" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" alt="Portfolio image 2" />
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG')">
+        <div class="tile" data-footnote="Nail down install" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" alt="Portfolio image 3" />
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG')">
+        <div class="tile" data-footnote="Full home remodel" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" alt="Portfolio image 4" />
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG')">
+        <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Portfolio image 5" />
         </div>
-        <div class="tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG')">
+        <div class="tile" data-footnote="Custom Tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" alt="Portfolio image 6" />
         </div>
       </div>
@@ -1535,6 +1535,7 @@
       <div class="lightbox-content">
         <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
         <img id="lightboxImage" src="" alt="Portfolio Image" />
+        <div id="lightboxFootnote" class="lightbox-footnote" aria-live="polite" tabindex="0" role="complementary" aria-label="Image details" onclick="event.stopPropagation()"></div>
       </div>
     </div>
 
@@ -1835,3 +1836,48 @@
   </body>
 <script src="../assets/js/nav-active.js"></script>
 </html>
+
+<script>
+  (function(){
+    function ensureFootnoteInModal(modal){
+      if(!modal) return;
+      var content = modal.querySelector('.lightbox-content') || modal;
+      if(!content) return;
+      if(!content.querySelector('#lightboxFootnote')){
+        var div = document.createElement('div');
+        div.id = 'lightboxFootnote';
+        div.className = 'lightbox-footnote';
+        div.setAttribute('aria-live','polite');
+        div.setAttribute('tabindex','0');
+        div.setAttribute('role','complementary');
+        div.setAttribute('aria-label','Image details');
+        content.appendChild(div);
+      }
+    }
+    ['#lightboxModal','#lightbox','.lightbox-modal','.lightbox'].forEach(sel=>{
+      document.querySelectorAll(sel).forEach(ensureFootnoteInModal);
+    });
+    var origOpen = window.openLightbox;
+    if(typeof origOpen === 'function'){
+      window.openLightbox = function(arg1,arg2){
+        try{ origOpen.apply(this, arguments); }catch(e){ try{ origOpen(arg1); }catch(e){} }
+        var modal = document.getElementById('lightboxModal') || document.getElementById('lightbox') || document.querySelector('.lightbox-modal') || document.querySelector('.lightbox');
+        if(modal){ ensureFootnoteInModal(modal);
+          var footnote = modal.querySelector('#lightboxFootnote');
+          if(footnote){
+            if(arg2 && arg2.dataset && arg2.dataset.footnote){ footnote.innerHTML = '<span class="footnote-desc">'+arg2.dataset.footnote+'</span>'; footnote.focus(); }
+            else footnote.innerHTML = '';
+          }
+        }
+      };
+    }
+    var origClose = window.closeLightbox;
+    if(typeof origClose === 'function'){
+      window.closeLightbox = function(e){
+        try{ origClose.apply(this, arguments); }catch(err){ try{ origClose(e); }catch(e){} }
+        var modal = document.getElementById('lightboxModal') || document.getElementById('lightbox') || document.querySelector('.lightbox-modal') || document.querySelector('.lightbox');
+        if(modal){ var footnote = modal.querySelector('#lightboxFootnote'); if(footnote) footnote.innerHTML = ''; }
+      };
+    }
+  })();
+</script>

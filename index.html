@@ -837,6 +837,106 @@
       display: block;
     }
 
+    /* Lightbox footnote (wider, stylish display inside the modal) */
+    .lightbox-footnote {
+      margin-top: 16px;
+      color: var(--color-heading);
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: center; /* center everything in the banner */
+      background: linear-gradient(180deg, rgba(147,197,253,0.04), rgba(11,14,20,0.02));
+      padding: 18px 22px;
+      border-radius: 12px;
+      border: 1px solid rgba(147,197,253,0.08);
+      box-shadow: 0 12px 40px rgba(11,14,20,0.6);
+      max-height: 320px;
+      overflow: auto;
+      width: 100%;
+      font-style: normal;
+      letter-spacing: 0.01em;
+      display: block;
+      align-items: center;
+      justify-content: center;
+      transition: transform 240ms cubic-bezier(0.2,0.9,0.2,1),
+                  box-shadow 240ms ease, border-color 240ms ease, background 240ms ease;
+      will-change: transform, box-shadow;
+      cursor: default;
+    }
+
+    /* Eyebrow label to give the footnote a stylish header — keep the same size but centered */
+    .lightbox-footnote::before {
+      content: "Details";
+      display: block;
+      font-size: 12px;
+      color: var(--color-accent);
+      font-weight: 700;
+      font-family: 'Satoshi', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin: 0 0 10px 0;
+      text-align: center;
+    }
+
+    /* Center the display description and make it larger to fit the banner */
+    .lightbox-footnote .footnote-desc {
+      font-family: 'Calcio', 'Satoshi', 'Georgia', serif;
+      font-size: 26px; /* larger display size */
+      color: var(--color-heading);
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 auto;
+      max-width: 1000px;
+      width: 100%;
+      text-align: center;
+      text-shadow: 0 8px 22px rgba(11,14,20,0.5);
+    }
+
+    @media (max-width: 1024px) {
+      .lightbox-footnote { padding: 14px 16px; }
+      .lightbox-footnote .footnote-desc { font-size: 22px; }
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-footnote { font-size: 15px; padding: 12px 14px; max-height: 220px; }
+      .lightbox-footnote::before { font-size: 11px; }
+      .lightbox-footnote .footnote-desc { font-size: 18px; }
+    }
+
+    /* Optional: add DOPE font files to assets/fonts/DOPE-*.woff2 and enable the @font-face below
+       Example filenames: assets/fonts/DOPE-Regular.woff2
+    @font-face {
+      font-family: 'DOPE';
+      src: url('assets/fonts/DOPE-Regular.woff2') format('woff2'),
+           url('assets/fonts/DOPE-Regular.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    */
+
+    /* Description text inside the lightbox footnote uses Satoshi */
+    .lightbox-footnote .footnote-desc {
+      font-family: 'Satoshi', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 26px; /* large display size */
+      color: var(--color-heading);
+      font-weight: 600;
+      font-style: normal;
+      letter-spacing: 0.01em;
+      text-transform: none;
+      display: block;
+      margin-top: 4px;
+      /* subtle text treatment to feel stylish */
+      text-shadow: 0 8px 22px rgba(11,14,20,0.5);
+    }
+
+    @media (max-width: 1024px) {
+      .lightbox-footnote .footnote-desc { font-size: 22px; }
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-footnote .footnote-desc { font-size: 18px; }
+    }
+
     .lightbox-close {
       position: absolute;
       top: 20px;
@@ -862,6 +962,84 @@
       background: rgba(147, 197, 253, 0.3);
       border-color: #93C5FD;
       transform: rotate(90deg);
+    }
+
+    /* Focus-visible treatment for the footnote banner (mouse hover removed) */
+    .lightbox-footnote:focus-visible {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(11,14,20,0.7);
+      border-color: rgba(147,197,253,0.18);
+      background: linear-gradient(180deg, rgba(147,197,253,0.06), rgba(11,14,20,0.04));
+      outline: 3px solid rgba(147,197,253,0.12);
+      outline-offset: 6px;
+    }
+
+    .lightbox-footnote:focus-visible::before {
+      color: var(--color-accent);
+      transform: translateY(-2px);
+    }
+
+    .lightbox-footnote:focus-visible .footnote-desc {
+      text-shadow: 0 10px 30px rgba(11,14,20,0.6);
+      letter-spacing: 0.02em;
+    }
+
+    /* Subtle light / shimmer effect using a pseudo-element */
+    .lightbox-footnote {
+      position: relative; /* establish containing block for pseudo */
+      overflow: visible; /* allow shimmer to extend */
+    }
+
+    .lightbox-footnote::after {
+      content: "";
+      position: absolute;
+      left: -40%;
+      top: -10%;
+      width: 60%;
+      height: 120%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.00) 100%);
+      transform: skewX(-18deg) translateX(0);
+      pointer-events: none;
+      filter: blur(18px) saturate(120%);
+      opacity: 0;
+      transition: opacity 300ms ease;
+      mix-blend-mode: screen;
+    }
+
+    .lightbox-footnote:hover::after,
+    .lightbox-footnote:focus-visible::after {
+      animation: shimmer 900ms ease-in-out forwards;
+      opacity: 1;
+    }
+
+    @keyframes shimmer {
+      0% { transform: skewX(-18deg) translateX(-10%); opacity: 0; }
+      30% { opacity: 0.9; }
+      100% { transform: skewX(-18deg) translateX(180%); opacity: 0; }
+    }
+
+    /* Gentle pulsing glow while hovered/focused */
+    .lightbox-footnote:hover,
+    .lightbox-footnote:focus-visible {
+      animation: footnotePulse 1400ms ease-in-out 1;
+    }
+
+    @keyframes footnotePulse {
+      0% { box-shadow: 0 18px 44px rgba(11,14,20,0.62); }
+      50% { box-shadow: 0 26px 60px rgba(11,14,20,0.7); }
+      100% { box-shadow: 0 18px 44px rgba(11,14,20,0.62); }
+    }
+
+    /* Respect users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .lightbox-footnote::after,
+      .lightbox-footnote:hover::after,
+      .lightbox-footnote:focus-visible::after,
+      .lightbox-footnote:hover,
+      .lightbox-footnote:focus-visible {
+        animation: none !important;
+        transition: none !important;
+      }
     }
 
     @keyframes lightboxZoom {
@@ -1319,12 +1497,35 @@
     </div>
     
     <div class="gallery-grid">
-      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG')"></div>
-      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG')"></div>
-      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG')"></div>
-      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG')"></div>
-      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG')"></div>
-      <div class="gallery-item reveal" style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG');" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG')"></div>
+   <div class="gallery-item reveal"
+     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG');"
+     data-footnote="Custom tile in Primary Bathroom"
+     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG', this)"></div>
+
+   <div class="gallery-item reveal"
+     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG');"
+     data-footnote="LVP flooring install throughout"
+     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG', this)"></div>
+
+   <div class="gallery-item reveal"
+     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG');"
+     data-footnote="Nail down install"
+     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG', this)"></div>
+
+   <div class="gallery-item reveal"
+     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG');"
+     data-footnote="Full home remodel"
+     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG', this)"></div>
+
+   <div class="gallery-item reveal"
+     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG');"
+     data-footnote="Custom tile in Primary Bathroom"
+     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', this)"></div>
+
+   <div class="gallery-item reveal"
+     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG');"
+     data-footnote="Custom Tile"
+     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG', this)"></div>
     </div>
   </section>
 
@@ -1333,6 +1534,7 @@
     <div class="lightbox-content">
       <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
       <img id="lightboxImage" src="" alt="Portfolio Image" />
+  <div id="lightboxFootnote" class="lightbox-footnote" aria-live="polite" tabindex="0" role="complementary" aria-label="Image details" onclick="event.stopPropagation()"></div>
     </div>
   </div>
 
@@ -1823,10 +2025,21 @@
     });
 
     // Lightbox Functions
-    function openLightbox(imageSrc) {
+    function openLightbox(imageSrc, clickedElement) {
       const modal = document.getElementById('lightboxModal');
       const image = document.getElementById('lightboxImage');
+      const footnote = document.getElementById('lightboxFootnote');
       image.src = imageSrc;
+      // Populate footnote from the clicked element's data-footnote attribute, if present
+      if (clickedElement && clickedElement.dataset && clickedElement.dataset.footnote) {
+        // Wrap description in a styled span so it uses the Calcio display font (if available)
+        const desc = clickedElement.dataset.footnote;
+        footnote.innerHTML = `<span class="footnote-desc">${desc}</span>`;
+        footnote.style.display = 'block';
+      } else {
+        footnote.innerHTML = '';
+        footnote.style.display = 'none';
+      }
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -1834,7 +2047,10 @@
     function closeLightbox(event) {
       if (event.target.id === 'lightboxModal' || event.target.classList.contains('lightbox-close')) {
         const modal = document.getElementById('lightboxModal');
+        const footnote = document.getElementById('lightboxFootnote');
         modal.classList.remove('active');
+        // Clear footnote for next open
+        if (footnote) footnote.textContent = '';
         document.body.style.overflow = '';
       }
     }
@@ -1845,6 +2061,8 @@
         const modal = document.getElementById('lightboxModal');
         if (modal.classList.contains('active')) {
           modal.classList.remove('active');
+          const footnote = document.getElementById('lightboxFootnote');
+          if (footnote) footnote.textContent = '';
           document.body.style.overflow = '';
         }
       }

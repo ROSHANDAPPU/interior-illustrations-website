@@ -1557,3 +1557,52 @@
   <script src="assets/js/nav-active.js"></script>
 </body>
 </html>
+
+<script>
+  (function(){
+    function ensureFootnoteInModal(modal){
+      if(!modal) return;
+      var content = modal.querySelector('.lightbox-content') || modal;
+      if(!content) return;
+      if(!content.querySelector('#lightboxFootnote')){
+        var div = document.createElement('div');
+        div.id = 'lightboxFootnote';
+        div.className = 'lightbox-footnote';
+        div.setAttribute('aria-live','polite');
+        div.setAttribute('tabindex','0');
+        div.setAttribute('role','complementary');
+        div.setAttribute('aria-label','Image details');
+        content.appendChild(div);
+      }
+    }
+
+    // Inject into common modal selectors
+    ['#lightboxModal','#lightbox','.lightbox-modal','.lightbox'].forEach(sel=>{
+      document.querySelectorAll(sel).forEach(ensureFootnoteInModal);
+    });
+
+    var origOpen = window.openLightbox;
+    if(typeof origOpen === 'function'){
+      window.openLightbox = function(arg1,arg2){
+        try{ origOpen.apply(this, arguments); }catch(e){ try{ origOpen(arg1); }catch(e){} }
+        var modal = document.getElementById('lightboxModal') || document.getElementById('lightbox') || document.querySelector('.lightbox-modal') || document.querySelector('.lightbox');
+        if(modal){ ensureFootnoteInModal(modal);
+          var footnote = modal.querySelector('#lightboxFootnote');
+          if(footnote){
+            if(arg2 && arg2.dataset && arg2.dataset.footnote){ footnote.innerHTML = '<span class="footnote-desc">'+arg2.dataset.footnote+'</span>'; footnote.focus(); }
+            else footnote.innerHTML = '';
+          }
+        }
+      };
+    }
+
+    var origClose = window.closeLightbox;
+    if(typeof origClose === 'function'){
+      window.closeLightbox = function(e){
+        try{ origClose.apply(this, arguments); }catch(err){ try{ origClose(e); }catch(e){} }
+        var modal = document.getElementById('lightboxModal') || document.getElementById('lightbox') || document.querySelector('.lightbox-modal') || document.querySelector('.lightbox');
+        if(modal){ var footnote = modal.querySelector('#lightboxFootnote'); if(footnote) footnote.innerHTML = ''; }
+      };
+    }
+  })();
+</script>

@@ -50,3 +50,73 @@
     // Fail silently to avoid breaking pages
   }
 })();
+
+/* Lightbox footnote helper (site-wide)
+   - Captures clicks on gallery tiles to remember the last clicked element
+   - Injects a #lightboxFootnote into existing lightbox modals if missing
+   - Wraps openLightbox/closeLightbox so the footnote is populated from data-footnote
+*/
+(function(){
+  try{
+    var lastClickedTile = null;
+    document.addEventListener('click', function(e){
+      var tile = e.target.closest('.tile, .gallery-item, .gallery-image, .featured-image');
+      if(tile) lastClickedTile = tile;
+    }, true);
+
+    function ensureFootnoteInModal(modal){
+      if(!modal) return;
+      var content = modal.querySelector('.lightbox-content') || modal;
+      if(!content) return;
+      if(!content.querySelector('#lightboxFootnote')){
+  var div = document.createElement('div');
+  div.id = 'lightboxFootnote';
+  div.className = 'lightbox-footnote';
+  div.setAttribute('aria-live','polite');
+  div.setAttribute('tabindex','0');
+  div.setAttribute('role','complementary');
+  div.setAttribute('aria-label','Image details');
+  // Prevent clicks inside the footnote from bubbling to the overlay which closes the modal
+  div.addEventListener('click', function(e){ e.stopPropagation(); });
+  content.appendChild(div);
+      }
+    }
+
+    ['#lightboxModal','#lightbox','.lightbox-modal','.lightbox'].forEach(function(sel){
+      document.querySelectorAll(sel).forEach(ensureFootnoteInModal);
+    });
+
+    // Wrap openLightbox if present
+    var origOpen = window.openLightbox;
+    if(typeof origOpen === 'function'){
+      window.openLightbox = function(){
+        try{ origOpen.apply(this, arguments); }catch(e){ try{ origOpen(arguments[0]); }catch(e){} }
+        var modal = document.getElementById('lightboxModal') || document.getElementById('lightbox') || document.querySelector('.lightbox-modal') || document.querySelector('.lightbox');
+        if(!modal) return;
+        ensureFootnoteInModal(modal);
+        var footnote = modal.querySelector('#lightboxFootnote');
+        var clicked = arguments[1] || lastClickedTile;
+        if(footnote){
+          if(clicked && clicked.dataset && clicked.dataset.footnote){
+            footnote.innerHTML = '<span class="footnote-desc">'+clicked.dataset.footnote+'</span>';
+            try{ footnote.focus(); }catch(e){}
+          } else {
+            footnote.innerHTML = '';
+          }
+        }
+      };
+    }
+
+    // Wrap closeLightbox if present
+    var origClose = window.closeLightbox;
+    if(typeof origClose === 'function'){
+      window.closeLightbox = function(){
+        try{ origClose.apply(this, arguments); }catch(e){ try{ origClose(arguments[0]); }catch(e){} }
+        var modal = document.getElementById('lightboxModal') || document.getElementById('lightbox') || document.querySelector('.lightbox-modal') || document.querySelector('.lightbox');
+        if(!modal) return;
+        var footnote = modal.querySelector('#lightboxFootnote');
+        if(footnote) footnote.innerHTML = '';
+      };
+    }
+  }catch(e){ /* fail silently */ }
+})();

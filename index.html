@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interior Illusions - Luxury Interior Design</title>
   <meta name="description" content="Interior Illusions LLC - luxury interior design and home remodeling services. Transform your space with our expert craftsmanship and design expertise.">
-  <!-- Favicon setup - using specific favicon file -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/06_Favicon/favicon-high.png?v=5">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/06_Favicon/favicon-small.png?v=5">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/images/06_Favicon/favicon-high.png?v=5">
-  <link rel="icon" href="assets/images/06_Favicon/favicon-high.png?v=5" type="image/png">
+  <!-- Favicon setup - FORCE FIX -->
+  <link rel="icon" type="image/png" href="assets/images/06_Favicon/favicon-high.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="assets/images/06_Favicon/favicon-high.png">
+  <meta name="msapplication-TileImage" content="assets/images/06_Favicon/favicon-high.png">
   <!-- External CSS -->
   <link rel="stylesheet" href="css/style.css">
   <!-- Font Awesome for social icons -->
@@ -1785,28 +1786,43 @@
   </footer>
 
   <script>
-    // Force favicon reload to ensure correct favicon displays
+    // AGGRESSIVE FAVICON FORCE FIX
     (function() {
-      const timestamp = new Date().getTime();
-      const faviconUrl = `assets/images/06_Favicon/favicon-high.png?v=${timestamp}`;
+      const faviconUrl = 'assets/images/06_Favicon/favicon-high.png';
       
-      // Remove existing favicon links
-      const existingFavicons = document.querySelectorAll('link[rel*="icon"]');
-      existingFavicons.forEach(link => link.remove());
+      // Remove ALL existing favicon-related elements
+      const elementsToRemove = document.querySelectorAll('link[rel*="icon"], link[rel*="shortcut"], meta[name*="msapplication"]');
+      elementsToRemove.forEach(el => el.remove());
       
-      // Add new favicon
-      const link = document.createElement('link');
-      link.rel = 'icon';
-      link.type = 'image/png';
-      link.href = faviconUrl;
-      document.head.appendChild(link);
+      // Force create new favicon elements
+      const favicon = document.createElement('link');
+      favicon.rel = 'icon';
+      favicon.type = 'image/png';
+      favicon.href = faviconUrl;
+      document.head.appendChild(favicon);
       
-      // Also add shortcut icon
-      const shortcutLink = document.createElement('link');
-      shortcutLink.rel = 'shortcut icon';
-      shortcutLink.type = 'image/x-icon';
-      shortcutLink.href = faviconUrl;
-      document.head.appendChild(shortcutLink);
+      const shortcut = document.createElement('link');
+      shortcut.rel = 'shortcut icon';
+      shortcut.href = faviconUrl;
+      document.head.appendChild(shortcut);
+      
+      const apple = document.createElement('link');
+      apple.rel = 'apple-touch-icon';
+      apple.href = faviconUrl;
+      document.head.appendChild(apple);
+      
+      // Force reload favicon by changing href
+      setTimeout(() => {
+        favicon.href = faviconUrl + '?force=' + Date.now();
+        shortcut.href = faviconUrl + '?force=' + Date.now();
+      }, 100);
+      
+      // Also try to set document.title to force refresh
+      const originalTitle = document.title;
+      document.title = originalTitle + ' ';
+      setTimeout(() => {
+        document.title = originalTitle;
+      }, 50);
     })();
     
     // Mobile menu toggle - Wrapped in DOMContentLoaded

@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interior Illusions - Luxury Interior Design</title>
   <meta name="description" content="Interior Illusions LLC - luxury interior design and home remodeling services. Transform your space with our expert craftsmanship and design expertise.">
-  <!-- Favicon setup - same as other pages -->
-  <link rel="icon" type="image/x-icon" href="assets/images/06_Favicon/favicon-high.png">
+  <!-- Favicon setup - using specific favicon file -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/06_Favicon/favicon-high.png?v=5">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/06_Favicon/favicon-small.png?v=5">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/images/06_Favicon/favicon-high.png?v=5">
+  <link rel="icon" href="assets/images/06_Favicon/favicon-high.png?v=5" type="image/png">
   <!-- External CSS -->
   <link rel="stylesheet" href="css/style.css">
   <!-- Font Awesome for social icons -->
@@ -1782,6 +1785,29 @@
   </footer>
 
   <script>
+    // Force favicon reload to ensure correct favicon displays
+    (function() {
+      const timestamp = new Date().getTime();
+      const faviconUrl = `assets/images/06_Favicon/favicon-high.png?v=${timestamp}`;
+      
+      // Remove existing favicon links
+      const existingFavicons = document.querySelectorAll('link[rel*="icon"]');
+      existingFavicons.forEach(link => link.remove());
+      
+      // Add new favicon
+      const link = document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/png';
+      link.href = faviconUrl;
+      document.head.appendChild(link);
+      
+      // Also add shortcut icon
+      const shortcutLink = document.createElement('link');
+      shortcutLink.rel = 'shortcut icon';
+      shortcutLink.type = 'image/x-icon';
+      shortcutLink.href = faviconUrl;
+      document.head.appendChild(shortcutLink);
+    })();
     
     // Mobile menu toggle - Wrapped in DOMContentLoaded
     document.addEventListener('DOMContentLoaded', function() {

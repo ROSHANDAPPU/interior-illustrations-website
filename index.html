@@ -5,10 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interior Illusions - Luxury Interior Design</title>
   <meta name="description" content="Interior Illusions LLC - luxury interior design and home remodeling services. Transform your space with our expert craftsmanship and design expertise.">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=2">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=2">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=2">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=2">
+  <!-- Favicon setup with multiple formats and cache busting -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="apple-touch-icon" sizes="144x144" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="apple-touch-icon" sizes="114x114" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="apple-touch-icon" sizes="72x72" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="apple-touch-icon" sizes="60x60" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?v=3">
+  <link rel="shortcut icon" href="favicon.ico?v=3">
+  <link rel="icon" href="favicon.ico?v=3" type="image/x-icon">
+  <meta name="msapplication-TileImage" content="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=3">
+  <meta name="msapplication-TileColor" content="#1D4ED8">
   <!-- External CSS -->
   <link rel="stylesheet" href="css/style.css">
   <!-- Font Awesome for social icons -->
@@ -1784,6 +1798,17 @@
   </footer>
 
   <script>
+    // Force favicon reload to overcome browser caching
+    (function() {
+      const favicon = document.querySelector('link[rel="icon"]') || document.querySelector('link[rel="shortcut icon"]');
+      if (favicon) {
+        const newFavicon = favicon.cloneNode(true);
+        newFavicon.href = newFavicon.href.split('?')[0] + '?v=' + new Date().getTime();
+        document.head.removeChild(favicon);
+        document.head.appendChild(newFavicon);
+      }
+    })();
+    
     // Mobile menu toggle - Wrapped in DOMContentLoaded
     document.addEventListener('DOMContentLoaded', function() {
       console.log('DOM loaded, initializing hamburger menu...'); // Debug log

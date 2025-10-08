@@ -103,7 +103,7 @@
     }
 
     .mobile-link {
-      font-size: 20px;
+      font-size: 24px;
       font-weight: 500;
       color: #E7EAEE;
       text-decoration: none;
@@ -376,7 +376,7 @@
     @media (max-width: 480px) {
       .mobile-link,
       .mobile-dropdown-btn {
-        font-size: 18px;
+        font-size: 20px;
         min-width: 180px;
       }
       
@@ -730,7 +730,112 @@
       transform: scale(0.95);
     }
 
+    /* Founder Section Styles */
+    .founder-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+    
+    .founder-image {
+      width: 100%;
+      height: 500px;
+      background: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80') center/cover;
+      border-radius: 0px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .founder-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(11, 14, 20, 0.1) 0%, rgba(29, 78, 216, 0.05) 100%);
+      pointer-events: none;
+    }
+    
+    .founder-content h2 {
+      color: var(--color-accent);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      margin-bottom: 16px;
+    }
+    
+    .founder-content h3 {
+      color: var(--color-heading);
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    
+    .founder-content p {
+      color: #93C5FD;
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
     /* Responsive */
+    @media (max-width: 1400px) {
+      .founder-section {
+        gap: 50px;
+      }
+      
+      .founder-image {
+        height: 480px;
+      }
+    }
+    
+    @media (max-width: 1200px) {
+      .founder-section {
+        gap: 45px;
+      }
+      
+      .founder-image {
+        height: 450px;
+      }
+    }
+    
+    @media (max-width: 1024px) {
+      .founder-section {
+        gap: 40px;
+      }
+      
+      .founder-image {
+        height: 400px;
+      }
+      
+      .founder-content h3 {
+        font-size: 28px;
+      }
+    }
+    
+    /* Handle narrow desktop windows (minimized browser) */
+    @media (max-width: 900px) and (min-width: 769px) {
+      .founder-section {
+        gap: 35px;
+      }
+      
+      .founder-image {
+        height: 380px;
+      }
+      
+      .founder-content h3 {
+        font-size: 26px;
+      }
+      
+      .founder-content p {
+        font-size: 17px;
+      }
+    }
+    
     @media (max-width: 768px) {
       .nav { padding: 0 20px; height: 70px; }
       .nav .links { gap: 20px; }
@@ -739,8 +844,29 @@
       .page-content { padding: 60px 20px; }
       .team-grid { grid-template-columns: 1fr; }
       .values-grid { grid-template-columns: 1fr; }
-      .founder-section { grid-template-columns: 1fr !important; gap: 40px !important; }
-      .founder-image { height: 400px !important; }
+      
+      .founder-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 60px;
+      }
+      
+      .founder-image {
+        height: 350px;
+        order: 1;
+      }
+      
+      .founder-content {
+        order: 2;
+      }
+      
+      .founder-content h3 {
+        font-size: 24px;
+      }
+      
+      .founder-content p {
+        font-size: 16px;
+      }
       
       .footer-content { padding: 0 20px; }
       .footer-grid { 
@@ -752,6 +878,52 @@
         flex-direction: column; 
         text-align: center; 
         gap: 16px; 
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .founder-section {
+        gap: 30px;
+        margin-bottom: 50px;
+      }
+      
+      .founder-image {
+        height: 300px;
+      }
+      
+      .founder-content h3 {
+        font-size: 22px;
+      }
+      
+      .founder-content p {
+        font-size: 15px;
+      }
+    }
+    
+    /* Extra small screens */
+    @media (max-width: 360px) {
+      .founder-section {
+        gap: 25px;
+        margin-bottom: 40px;
+      }
+      
+      .founder-image {
+        height: 250px;
+      }
+      
+      .founder-content h3 {
+        font-size: 20px;
+      }
+      
+      .founder-content p {
+        font-size: 14px;
+      }
+    }
+    
+    /* Ensure image quality on high DPI displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .founder-image {
+        background-image: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80');
       }
     }
 
@@ -1192,11 +1364,11 @@
   <!-- Page Content -->
   <main class="page-content">
     <!-- Founder Section -->
-    <div class="content-section founder-section" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 80px;">
-      <div class="founder-image" style="width: 100%; height: 500px; background: url('https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80') center/cover; border-radius: 0px;"></div>
+    <div class="content-section founder-section">
+      <div class="founder-image"></div>
       <div class="founder-content">
-        <h2 style="color: var(--color-accent); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 16px;">FOUNDER</h2>
-        <h3 style="color: var(--color-heading); font-size: 32px; font-weight: 700; margin-bottom: 24px;">Andy Chavira</h3>
+        <h2>FOUNDER</h2>
+        <h3>Andy Chavira</h3>
         <p>At the heart of Interior Illusions Construction is founder Andy Chavira, a dedicated professional with a passion for transforming spaces into refined, functional, and lasting works of craftsmanship. With years of hands-on experience in remodeling and construction, Andy built Interior Illusions Construction on a foundation of integrity, precision, and a deep respect for clients’ visions.</p>
         <p>Andy is known not only for his technical expertise, but also for his commitment to client relationships. He has guided countless projects from concept to completion, ensuring each detail reflects both quality workmanship and the client’s unique lifestyle. His leadership has earned Interior Illusions Construction a reputation for reliability, transparency, and delivering exceptional results in every phase of a remodel.</p>
         <p>Driven by a belief that a home should be both beautiful and enduring, Andy continues to lead his team with the same dedication that started the company: treating every project as if it were his own home.</p>

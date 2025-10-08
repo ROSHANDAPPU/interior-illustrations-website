@@ -1229,7 +1229,63 @@ header.nav .hamburger-menu { margin-left: auto; }
 .mobile-close:focus { outline: none; box-shadow: 0 0 0 2px var(--color-action), 0 0 0 5px rgba(29, 78, 216, 0.25); }
 .mobile-nav { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 40px; }
 .mobile-section-label { color: var(--color-accent); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 6px; }
-.mobile-link { font-size: 22px; font-weight: 500; color: var(--color-heading); text-decoration: none; padding: 14px 24px; border-radius: 12px; transition: all 0.3s ease; }
+.mobile-link { font-size: 24px !important; font-weight: 500 !important; color: var(--color-heading) !important; text-decoration: none !important; padding: 15px 30px !important; border-radius: 12px !important; transition: all 0.3s ease !important; text-align: center !important; min-width: 200px !important; } /* FORCE FIX: Standardized mobile link font size */
+
+/* FORCE OVERRIDE: Ensure mobile link font size is always 24px */
+.mobile-nav .mobile-link,
+.mobile-overlay .mobile-link,
+.hamburger-menu .mobile-link,
+nav .mobile-link,
+a.mobile-link {
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  padding: 15px 30px !important;
+  min-width: 200px !important;
+  text-align: center !important;
+}
+
+/* FORCE OVERRIDE: Media query overrides */
+@media (max-width: 1024px) {
+  .mobile-nav .mobile-link,
+  .mobile-overlay .mobile-link,
+  .hamburger-menu .mobile-link,
+  nav .mobile-link,
+  a.mobile-link {
+    font-size: 24px !important;
+    font-weight: 500 !important;
+    padding: 15px 30px !important;
+    min-width: 200px !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-nav .mobile-link,
+  .mobile-overlay .mobile-link,
+  .hamburger-menu .mobile-link,
+  nav .mobile-link,
+  a.mobile-link {
+    font-size: 24px !important;
+    font-weight: 500 !important;
+    padding: 15px 30px !important;
+    min-width: 200px !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-nav .mobile-link,
+  .mobile-overlay .mobile-link,
+  .hamburger-menu .mobile-link,
+  nav .mobile-link,
+  a.mobile-link {
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    padding: 15px 30px !important;
+    min-width: 180px !important;
+    text-align: center !important;
+  }
+}
 .mobile-link:hover { background: rgba(29, 78, 216, 0.18); color: var(--color-action); }
 .mobile-dropdown-section { display: flex; flex-direction: column; align-items: center; }
 .mobile-dropdown-btn { font-size: 22px; font-weight: 500; color: var(--color-heading); background: none; border: none; padding: 14px 24px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s ease; }

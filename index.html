@@ -3,7 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Interior Illustrations - Luxury Interior Design</title>
+  <title>Interior Illusions - Luxury Interior Design</title>
+  <meta name="description" content="Interior Illusions LLC - luxury interior design and home remodeling services. Transform your space with our expert craftsmanship and design expertise.">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=2">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/images/01-02_logo_mark/PNGs/cobalt.no-background.png?v=2">
   <!-- External CSS -->
   <link rel="stylesheet" href="css/style.css">
   <!-- Font Awesome for social icons -->
@@ -16,27 +21,27 @@
     /* Satoshi Font Faces */
     @font-face {
       font-family: 'Satoshi';
-      src: url('assets/fonts/Satoshi-Regular.woff2') format('woff2'),
-           url('assets/fonts/Satoshi-Regular.woff') format('woff'),
-           url('assets/fonts/Satoshi-Regular.ttf') format('truetype');
+      src: url('assets/images/05_Typography/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Regular.woff2') format('woff2'),
+           url('assets/images/05_Typography/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Regular.woff') format('woff'),
+           url('assets/images/05_Typography/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Regular.ttf') format('truetype');
       font-weight: 400;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
       font-family: 'Satoshi';
-      src: url('assets/fonts/Satoshi-Medium.woff2') format('woff2'),
-           url('assets/fonts/Satoshi-Medium.woff') format('woff'),
-           url('assets/fonts/Satoshi-Medium.ttf') format('truetype');
+      src: url('assets/images/05_Typography/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Medium.woff2') format('woff2'),
+           url('assets/images/05_Typography/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Medium.woff') format('woff'),
+           url('assets/images/05_Typography/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Medium.ttf') format('truetype');
       font-weight: 500;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
       font-family: 'Satoshi';
-      src: url('assets/fonts/Satoshi-Bold.woff2') format('woff2'),
-           url('assets/fonts/Satoshi-Bold.woff') format('woff'),
-           url('assets/fonts/Satoshi-Bold.ttf') format('truetype');
+      src: url('assets/images/05_Typography/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Bold.woff2') format('woff2'),
+           url('assets/images/05_Typography/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Bold.woff') format('woff'),
+           url('assets/images/05_Typography/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Bold.ttf') format('truetype');
       font-weight: 600;
       font-style: normal;
       font-display: swap;
@@ -214,9 +219,23 @@
         padding: 0 20px;
         height: 70px;
       }
-      .nav .brand img { height: 60px !important; }
+      .nav .brand img { height: 80px !important; }
+      .nav .brand { 
+        display: flex !important; 
+        align-items: center !important; 
+        justify-content: center !important; 
+        width: 100% !important; 
+        margin-left: -60px !important; /* Center the logo by offsetting hamburger menu space */
+      }
+      .nav .brand img {
+        filter: brightness(1.2) contrast(1.1) !important; /* Make logo more visible */
+        transition: all 0.3s ease !important;
+      }
+      .nav .brand img:hover {
+        filter: brightness(1.4) contrast(1.2) !important;
+      }
       /* Show hamburger menu on mobile */
-      .hamburger-menu { display: block; position: fixed; top: 20px; right: 20px; z-index: 10001; pointer-events: auto !important; }
+      .hamburger-menu { display: block; position: fixed; top: 25px; right: 25px; z-index: 10001; pointer-events: auto !important; }
       /* Hide desktop nav links on mobile (use overlay instead) */
       .nav .links { display: none; }
       
@@ -231,11 +250,40 @@
       .mobile-nav { display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 40px; }
       .mobile-link { font-size: 24px; font-weight: 500; color: #E7EAEE; text-decoration: none; padding: 15px 30px; border-radius: 12px; transition: all 0.3s ease; text-align: center; min-width: 200px; }
       .mobile-link:hover { background: rgba(29, 78, 216, 0.2); color: #1D4ED8; transform: translateY(-2px); }
-      .hamburger-icon { width: 30px; height: 24px; cursor: pointer !important; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s ease; pointer-events: auto !important; position: relative; z-index: 10000; }
-      .line { width: 100%; height: 3px; background: #1D4ED8; border-radius: 2px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform-origin: center; }
-      .hamburger-menu.active .line1 { transform: rotate(45deg) translate(6px, 6px); }
-      .hamburger-menu.active .line2 { opacity: 0; transform: scaleX(0); }
-      .hamburger-menu.active .line3 { transform: rotate(-45deg) translate(6px, -6px); }
+      .hamburger-icon { 
+        width: 35px; 
+        height: 28px; 
+        cursor: pointer !important; 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: space-between; 
+        transition: all 0.4s ease; 
+        pointer-events: auto !important; 
+        position: relative; 
+        z-index: 10000; 
+        padding: 4px;
+      }
+      .line { 
+        width: 100%; 
+        height: 4px; 
+        background: #1D4ED8; 
+        border-radius: 3px; 
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+        transform-origin: center;
+        box-shadow: 0 0 8px rgba(29, 78, 216, 0.3);
+      }
+      .hamburger-menu.active .line1 { transform: rotate(45deg) translate(7px, 7px) !important; }
+      .hamburger-menu.active .line2 { opacity: 0 !important; transform: scaleX(0) !important; }
+      .hamburger-menu.active .line3 { transform: rotate(-45deg) translate(7px, -7px) !important; }
+      
+      /* Ensure hamburger icon stays visible and clickable when menu is open */
+      .hamburger-menu.active .hamburger-icon { z-index: 10001 !important; }
+      
+      /* Add hover effect for better visibility */
+      .hamburger-icon:hover .line {
+        background: #60A5FA;
+        box-shadow: 0 0 12px rgba(29, 78, 216, 0.5);
+      }
       /* Mobile dropdown within overlay */
       .mobile-dropdown-section { display: flex; flex-direction: column; align-items: center; }
       .mobile-dropdown-btn { font-size: 24px; font-weight: 500; color: #E7EAEE; background: none; border: none; padding: 15px 30px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s ease; min-width: 200px; justify-content: center; }
@@ -887,104 +935,128 @@
       display: block;
     }
 
-    /* Lightbox footnote (wider, stylish display inside the modal) */
+    /* Lightbox Footnote Styles - Standardized */
     .lightbox-footnote {
       margin-top: 16px;
       color: var(--color-heading);
       font-size: 18px;
       line-height: 1.6;
-      text-align: center; /* center everything in the banner */
-      background: linear-gradient(180deg, rgba(147,197,253,0.04), rgba(11,14,20,0.02));
-      padding: 18px 22px;
-      border-radius: 12px;
-      border: 1px solid rgba(147,197,253,0.08);
-      box-shadow: 0 12px 40px rgba(11,14,20,0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+      backdrop-filter: blur(8px) saturate(120%);
+      background-color: rgba(15,18,24,0.36);
+      padding: 16px 20px;
+      border-radius: 24px;
+      max-width: min(1100px, 96%);
+      margin: 0 auto;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 14px 48px rgba(11,14,20,0.66), inset 0 1px 0 rgba(255,255,255,0.02);
       max-height: 320px;
       overflow: auto;
       width: 100%;
       font-style: normal;
       letter-spacing: 0.01em;
-      display: block;
-      align-items: center;
-      justify-content: center;
-      transition: transform 240ms cubic-bezier(0.2,0.9,0.2,1),
-                  box-shadow 240ms ease, border-color 240ms ease, background 240ms ease;
+      position: relative;
+      overflow: hidden;
+      transition: transform 240ms cubic-bezier(0.2,0.9,0.2,1), box-shadow 240ms ease, border-color 240ms ease, background 240ms ease;
       will-change: transform, box-shadow;
-      cursor: default;
     }
 
-    /* Eyebrow label to give the footnote a stylish header — keep the same size but centered */
     .lightbox-footnote::before {
       content: "Details";
       display: block;
       font-size: 12px;
-      color: var(--color-accent);
+      color: var(--color-accent, #93C5FD);
       font-weight: 700;
       font-family: 'Satoshi', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       text-transform: uppercase;
       letter-spacing: 0.14em;
-      margin: 0 0 10px 0;
+      margin: 0 0 6px 0;
       text-align: center;
-    }
-
-    /* Center the display description and make it larger to fit the banner */
-    .lightbox-footnote .footnote-desc {
-      font-family: 'Calcio', 'Satoshi', 'Georgia', serif;
-      font-size: 26px; /* larger display size */
-      color: var(--color-heading);
-      font-weight: 600;
-      display: inline-block;
-      margin: 0 auto;
-      max-width: 1000px;
       width: 100%;
-      text-align: center;
-      text-shadow: 0 8px 22px rgba(11,14,20,0.5);
     }
 
-    @media (max-width: 1024px) {
-      .lightbox-footnote { padding: 14px 16px; }
-      .lightbox-footnote .footnote-desc { font-size: 22px; }
-    }
-
-    @media (max-width: 768px) {
-      .lightbox-footnote { font-size: 15px; padding: 12px 14px; max-height: 220px; }
-      .lightbox-footnote::before { font-size: 11px; }
-      .lightbox-footnote .footnote-desc { font-size: 18px; }
-    }
-
-    /* Optional: add DOPE font files to assets/fonts/DOPE-*.woff2 and enable the @font-face below
-       Example filenames: assets/fonts/DOPE-Regular.woff2
-    @font-face {
-      font-family: 'DOPE';
-      src: url('assets/fonts/DOPE-Regular.woff2') format('woff2'),
-           url('assets/fonts/DOPE-Regular.woff') format('woff');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    */
-
-    /* Description text inside the lightbox footnote uses Satoshi */
     .lightbox-footnote .footnote-desc {
       font-family: 'Satoshi', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 26px; /* large display size */
+      font-size: 22px;
       color: var(--color-heading);
       font-weight: 600;
-      font-style: normal;
-      letter-spacing: 0.01em;
-      text-transform: none;
       display: block;
-      margin-top: 4px;
-      /* subtle text treatment to feel stylish */
+      margin: 0;
+      padding: 0 8px;
       text-shadow: 0 8px 22px rgba(11,14,20,0.5);
+      max-width: 96%;
     }
 
-    @media (max-width: 1024px) {
-      .lightbox-footnote .footnote-desc { font-size: 22px; }
+    .lightbox-footnote:focus-visible {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(11,14,20,0.7);
+      border-color: rgba(147,197,253,0.18);
+      background: linear-gradient(180deg, rgba(147,197,253,0.06), rgba(11,14,20,0.04));
+      outline: 3px solid rgba(147,197,253,0.12);
+    }
+
+    .lightbox-footnote:focus-visible::before {
+      color: var(--color-accent);
+      transform: translateY(-2px);
+    }
+
+    .lightbox-footnote:focus-visible .footnote-desc {
+      text-shadow: 0 10px 30px rgba(11,14,20,0.6);
+      letter-spacing: 0.02em;
+    }
+
+    .lightbox-footnote::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.00) 100%);
+      transform: translateX(-150%) rotate(-12deg);
+      transform-origin: center;
+      pointer-events: none;
+      filter: blur(6px) saturate(110%);
+      opacity: 0;
+      transition: opacity 220ms ease;
+      mix-blend-mode: overlay;
+      border-radius: inherit;
+      will-change: transform, opacity;
+    }
+
+    .lightbox-footnote:hover::after,
+    .lightbox-footnote:focus-visible::after {
+      animation: shimmer 900ms ease-in-out forwards;
+      opacity: 1;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-150%) rotate(-12deg); opacity: 0; }
+      30% { opacity: 0.95; }
+      55% { opacity: 0.9; }
+      100% { transform: translateX(150%) rotate(-12deg); opacity: 0; }
+    }
+
+    @keyframes footnotePulse {
+      0% { box-shadow: 0 18px 44px rgba(11,14,20,0.62); }
+      50% { box-shadow: 0 26px 60px rgba(11,14,20,0.7); }
+      100% { box-shadow: 0 18px 44px rgba(11,14,20,0.62); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .lightbox-footnote::after,
+      .lightbox-footnote:focus-visible::after,
+      .lightbox-footnote:hover,
+      .lightbox-footnote:focus-visible {
+        animation: footnotePulse 1400ms ease-in-out 1;
+      }
     }
 
     @media (max-width: 768px) {
-      .lightbox-footnote .footnote-desc { font-size: 18px; }
+      .lightbox-footnote { max-height: 180px; }
     }
 
     .lightbox-close {
@@ -1375,6 +1447,19 @@
         gap: 16px; 
       }
     }
+    
+    /* Extra small mobile devices */
+    @media (max-width: 480px) {
+      .nav .brand img { height: 70px !important; }
+      .nav .brand { margin-left: -50px !important; }
+      .hamburger-menu { top: 20px; right: 20px; }
+    }
+    
+    /* Very small mobile devices */
+    @media (max-width: 360px) {
+      .nav .brand img { height: 65px !important; }
+      .nav .brand { margin-left: -45px !important; }
+    }
   </style>
 </head>
 <body>
@@ -1393,10 +1478,10 @@
 
     <!-- Hamburger Menu (shown on <=1200px) -->
     <div class="hamburger-menu" id="hamburgerMenu">
-      <div class="hamburger-icon" aria-label="Open Menu" role="button" tabindex="0">
-        <span class="line line1"></span>
-        <span class="line line2"></span>
-        <span class="line line3"></span>
+      <div class="hamburger-icon" aria-label="Toggle Menu" role="button" tabindex="0">
+        <div class="line line1"></div>
+        <div class="line line2"></div>
+        <div class="line line3"></div>
       </div>
       <div class="mobile-overlay" id="mobileOverlay">
         <nav class="mobile-nav">

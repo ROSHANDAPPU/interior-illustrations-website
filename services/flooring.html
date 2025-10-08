@@ -144,6 +144,130 @@
       0% { transform: scale(0.8); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
+
+    /* Lightbox Footnote Styles - Standardized */
+    .lightbox-footnote {
+      margin-top: 16px;
+      color: var(--color-heading);
+      font-size: 18px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+      backdrop-filter: blur(8px) saturate(120%);
+      background-color: rgba(15,18,24,0.36);
+      padding: 16px 20px;
+      border-radius: 24px;
+      max-width: min(1100px, 96%);
+      margin: 0 auto;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 14px 48px rgba(11,14,20,0.66), inset 0 1px 0 rgba(255,255,255,0.02);
+      max-height: 320px;
+      overflow: auto;
+      width: 100%;
+      font-style: normal;
+      letter-spacing: 0.01em;
+      position: relative;
+      overflow: hidden;
+      transition: transform 240ms cubic-bezier(0.2,0.9,0.2,1), box-shadow 240ms ease, border-color 240ms ease, background 240ms ease;
+      will-change: transform, box-shadow;
+    }
+
+    .lightbox-footnote::before {
+      content: "Details";
+      display: block;
+      font-size: 12px;
+      color: var(--color-accent, #93C5FD);
+      font-weight: 700;
+      font-family: 'Satoshi', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin: 0 0 6px 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    .lightbox-footnote .footnote-desc {
+      font-family: 'Satoshi', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 22px;
+      color: var(--color-heading);
+      font-weight: 600;
+      display: block;
+      margin: 0;
+      padding: 0 8px;
+      text-shadow: 0 8px 22px rgba(11,14,20,0.5);
+      max-width: 96%;
+    }
+
+    .lightbox-footnote:focus-visible {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(11,14,20,0.7);
+      border-color: rgba(147,197,253,0.18);
+      background: linear-gradient(180deg, rgba(147,197,253,0.06), rgba(11,14,20,0.04));
+      outline: 3px solid rgba(147,197,253,0.12);
+    }
+
+    .lightbox-footnote:focus-visible::before {
+      color: var(--color-accent);
+      transform: translateY(-2px);
+    }
+
+    .lightbox-footnote:focus-visible .footnote-desc {
+      text-shadow: 0 10px 30px rgba(11,14,20,0.6);
+      letter-spacing: 0.02em;
+    }
+
+    .lightbox-footnote::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.00) 100%);
+      transform: translateX(-150%) rotate(-12deg);
+      transform-origin: center;
+      pointer-events: none;
+      filter: blur(6px) saturate(110%);
+      opacity: 0;
+      transition: opacity 220ms ease;
+      mix-blend-mode: overlay;
+      border-radius: inherit;
+      will-change: transform, opacity;
+    }
+
+    .lightbox-footnote:hover::after,
+    .lightbox-footnote:focus-visible::after {
+      animation: shimmer 900ms ease-in-out forwards;
+      opacity: 1;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-150%) rotate(-12deg); opacity: 0; }
+      30% { opacity: 0.95; }
+      55% { opacity: 0.9; }
+      100% { transform: translateX(150%) rotate(-12deg); opacity: 0; }
+    }
+
+    @keyframes footnotePulse {
+      0% { box-shadow: 0 18px 44px rgba(11,14,20,0.62); }
+      50% { box-shadow: 0 26px 60px rgba(11,14,20,0.7); }
+      100% { box-shadow: 0 18px 44px rgba(11,14,20,0.62); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .lightbox-footnote::after,
+      .lightbox-footnote:focus-visible::after,
+      .lightbox-footnote:hover,
+      .lightbox-footnote:focus-visible {
+        animation: footnotePulse 1400ms ease-in-out 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-footnote { max-height: 180px; }
+    }
     @media (max-width: 768px) {
       .lightbox-content { width: 90vw; max-height: 80vh; }
       .lightbox-close { top: 10px; right: 10px; width: 40px; height: 40px; font-size: 24px; }
@@ -650,10 +774,20 @@
     })();
 
     // Lightbox Functions
-    function openLightbox(imageSrc) {
+    function openLightbox(imageSrc, clickedElement) {
       const modal = document.getElementById('lightboxModal');
       const image = document.getElementById('lightboxImage');
+      const footnote = document.getElementById('lightboxFootnote');
       image.src = imageSrc;
+      // Populate footnote from the clicked element's data-footnote attribute, if present
+      if (clickedElement && clickedElement.dataset && clickedElement.dataset.footnote) {
+        // Wrap description in a styled span so it uses the proper display font
+        const desc = clickedElement.dataset.footnote;
+        footnote.innerHTML = `<span class="footnote-desc">${desc}</span>`;
+        footnote.style.display = 'block';
+      } else {
+        footnote.style.display = 'none';
+      }
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }

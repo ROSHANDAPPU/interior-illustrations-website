@@ -286,7 +286,7 @@
     }
 
     .mobile-link {
-      font-size: 20px;
+      font-size: 24px;
       font-weight: 500;
       color: #E7EAEE;
       text-decoration: none;
@@ -551,7 +551,7 @@
     @media (max-width: 480px) {
       .mobile-link,
       .mobile-dropdown-btn {
-        font-size: 18px;
+        font-size: 20px;
         min-width: 180px;
       }
       
@@ -1805,10 +1805,20 @@
             <span class="footer-divider">|</span>
   <script>
     // Lightbox Functions
-    function openLightbox(imageSrc) {
+    function openLightbox(imageSrc, clickedElement) {
       const modal = document.getElementById('lightboxModal');
       const image = document.getElementById('lightboxImage');
+      const footnote = document.getElementById('lightboxFootnote');
       image.src = imageSrc;
+      // Populate footnote from the clicked element's data-footnote attribute, if present
+      if (clickedElement && clickedElement.dataset && clickedElement.dataset.footnote) {
+        // Wrap description in a styled span so it uses the proper display font
+        const desc = clickedElement.dataset.footnote;
+        footnote.innerHTML = `<span class="footnote-desc">${desc}</span>`;
+        footnote.style.display = 'block';
+      } else {
+        footnote.style.display = 'none';
+      }
       modal.classList.add('active');
       document.body.style.overflow = 'hidden'; // Prevent background scrolling
     }

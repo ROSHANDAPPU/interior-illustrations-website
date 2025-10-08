@@ -646,14 +646,16 @@
     function openLightbox(imageSrc, clickedElement) {
       const modal = document.getElementById('lightboxModal');
       const image = document.getElementById('lightboxImage');
+      const footnote = document.getElementById('lightboxFootnote');
       image.src = imageSrc;
-      // populate footnote from clicked element or fallback
-      const footnoteEl = document.getElementById('lightboxFootnote');
-      const srcEl = clickedElement || window.__lastClickedTile || null;
-      if (footnoteEl) {
-        const note = srcEl && srcEl.getAttribute ? srcEl.getAttribute('data-footnote') : '';
-        footnoteEl.textContent = note || '';
-        if (note) footnoteEl.focus();
+      // Populate footnote from the clicked element's data-footnote attribute, if present
+      if (clickedElement && clickedElement.dataset && clickedElement.dataset.footnote) {
+        // Wrap description in a styled span so it uses the proper display font
+        const desc = clickedElement.dataset.footnote;
+        footnote.innerHTML = `<span class="footnote-desc">${desc}</span>`;
+        footnote.style.display = 'block';
+      } else {
+        footnote.style.display = 'none';
       }
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';

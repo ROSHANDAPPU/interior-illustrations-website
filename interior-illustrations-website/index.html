@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced 3D Carousel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+        }
+        /* Canvas-based 3D carousel styles */
+        .scene { width: 100%; max-width: 1200px; height: 600px; margin: 0 auto; }
+        #portfolioCanvas { width: 100%; height: 100%; display: block; border-radius: 14px; background: #0b0e14; }
+        .carousel-controls { display:flex; gap:12px; justify-content:center; margin-top:18px; }
+        .carousel-controls button { background: rgba(11,14,20,0.75); color: #fff; border: 0; padding: 10px 16px; border-radius: 10px; cursor: pointer; box-shadow: 0 8px 24px rgba(2,6,23,0.4); }
+        @media (max-width: 1024px) { .scene { height: 460px; } }
+        @media (max-width: 640px) { .scene { height: 320px; } }
+    </style>
+</head>
+<body class="text-white flex flex-col items-center justify-center min-h-screen p-4 overflow-hidden">
+
+    <div class="scene relative">
+        <canvas id="portfolioCanvas" aria-label="Portfolio carousel canvas"></canvas>
+    </div>
+
+    <div class="carousel-controls">
+        <button id="portfolioPrev">Prev</button>
+        <button id="portfolioNext">Next</button>
+    </div>
+
+    <script>
+        // Canvas-based 3D carousel
+        document.addEventListener('DOMContentLoaded', function () {
+            const slidesData = [
+                { src: 'assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG', title: 'Custom tile in Primary Bathroom' },
+                { src: 'assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG', title: 'LVP flooring install throughout' },
+                { src: 'assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG', title: 'Nail down install' },
+                { src: 'assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG', title: 'Full home remodel' },
+                { src: 'assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', title: 'Custom tile in Primary Bathroom' },
+                { src: 'assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG', title: 'Custom Tile' }
+            ];
+
+            const canvas = document.getElementById('portfolioCanvas');
+            const ctx = canvas.getContext('2d');
+            const prevBtn = document.getElementById('portfolioPrev');
+            const nextBtn = document.getElementById('portfolioNext');
+
+            let images = [];
+            let loaded = 0;
+            const cellCount = slidesData.length;
+
+            // carousel geometry/state
+            let radius = 400;
+            let baseW = 360;
+            let baseH = 240;
+            let centerX = 0;
+            let centerY = 0;
+            let dpr = Math.max(1, window.devicePixelRatio || 1);
+            const angleStep = (Math.PI * 2) / cellCount;
+            let selectedIndex = 0;
+            let currentRotation = 0;
+            let targetRotation = 0;
+
+            // preload images
+            slidesData.forEach((s, i) => {
+                const img = new Image();
+                img.src = s.src;
+                img.onload = () => {
+                    images[i] = img;
+                    loaded++;
+                    if (loaded === cellCount) start();
+                };
+                img.onerror = () => {
+                    // still allow start even if image fails
+                    images[i] = img;
+                    loaded++;
+                    if (loaded === cellCount) start();
+                };
+            });
+
+            function resize() {
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = Math.round(rect.width * dpr);
+                canvas.height = Math.round(rect.height * dpr);
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                centerX = rect.width / 2;
+                centerY = rect.height / 2;
+
+                // responsive sizing for cards
+                baseW = Math.max(160, rect.width * 0.36);
+                baseH = Math.round(baseW * 0.66);
+                radius = Math.max(220, Math.min(rect.width, rect.height) * 0.44);
+            }
+
+            function roundRect(ctx, x, y, w, h, r) {
+                const min = Math.min(w, h) / 2;
+                if (r > min) r = min;
+                ctx.beginPath();
+                ctx.moveTo(x + r, y);
+                ctx.arcTo(x + w, y, x + w, y + h, r);
+                ctx.arcTo(x + w, y + h, x, y + h, r);
+                ctx.arcTo(x, y + h, x, y, r);
+                ctx.arcTo(x, y, x + w, y, r);
+                ctx.closePath();
+            }
+
+            function project(x, z, fov) {
+                // simple perspective projection
+                const scale = fov / (fov + (radius - z));
+                return scale;
+            }
+
+            function draw() {
+                const rect = canvas.getBoundingClientRect();
+                ctx.clearRect(0, 0, rect.width, rect.height);
+
+                // easing rotation
+                currentRotation += (targetRotation - currentRotation) * 0.12;
+
+                // build render list
+                const renderList = [];
+                for (let i = 0; i < cellCount; i++) {
+                    const angle = i * angleStep + currentRotation;
+                    const x = Math.sin(angle) * radius;
+                    const z = Math.cos(angle) * radius;
+                    const fov = radius * 2;
+                    const scale = project(x, z, fov);
+                    const screenX = centerX + x * scale;
+                    const screenY = centerY + (0.06 * (Math.sin(angle * 2))) * radius * scale; // slight vertical wobble
+
+                    const w = baseW * scale;
+                    const h = baseH * scale;
+
+                    renderList.push({ i, x, z, angle, scale, screenX, screenY, w, h });
+                }
+
+                // sort by depth (far to near)
+                renderList.sort((a, b) => a.z - b.z);
+
+                // draw each item
+                renderList.forEach(item => {
+                    const img = images[item.i];
+                    const x = item.screenX - item.w / 2;
+                    const y = item.screenY - item.h / 2;
+
+                    // shadow
+                    ctx.save();
+                    ctx.globalAlpha = Math.min(1, 0.65 * item.scale + 0.15);
+                    ctx.fillStyle = 'rgba(2,6,23,0.65)';
+                    roundRect(ctx, x + 6, y + 10, item.w, item.h, Math.max(10, 12 * item.scale));
+                    ctx.fill();
+                    ctx.restore();
+
+                    // image clipped to rounded rect
+                    ctx.save();
+                    roundRect(ctx, x, y, item.w, item.h, Math.max(10, 12 * item.scale));
+                    ctx.clip();
+                    if (img && img.complete) {
+                        // cover behavior
+                        const iw = img.width;
+                        const ih = img.height;
+                        const imgRatio = iw / ih;
+                        const boxRatio = item.w / item.h;
+                        let drawW = item.w, drawH = item.h, srcX = 0, srcY = 0, srcW = iw, srcH = ih;
+                        if (imgRatio > boxRatio) {
+                            // image wider -> crop sides
+                            drawH = item.h;
+                            drawW = drawH * imgRatio;
+                            srcW = Math.round(ih * boxRatio);
+                            srcX = Math.round((iw - srcW) / 2);
+                        } else {
+                            // image taller -> crop top/bottom
+                            drawW = item.w;
+                            drawH = drawW / imgRatio;
+                            srcH = Math.round(iw / boxRatio);
+                            srcY = Math.round((ih - srcH) / 2);
+                        }
+                        try {
+                            ctx.drawImage(img, srcX, srcY, srcW, srcH, x, y, item.w, item.h);
+                        } catch (e) {
+                            // fallback if drawImage fails
+                            ctx.fillStyle = '#222';
+                            ctx.fillRect(x, y, item.w, item.h);
+                        }
+                    } else {
+                        ctx.fillStyle = '#222';
+                        ctx.fillRect(x, y, item.w, item.h);
+                    }
+                    ctx.restore();
+
+                    // overlay gradient
+                    ctx.save();
+                    const g = ctx.createLinearGradient(x, y + item.h * 0.5, x, y + item.h);
+                    g.addColorStop(0, 'rgba(0,0,0,0)');
+                    g.addColorStop(1, 'rgba(0,0,0,0.6)');
+                    ctx.fillStyle = g;
+                    ctx.globalAlpha = 1 * item.scale + 0.0;
+                    roundRect(ctx, x, y + item.h * 0.5, item.w, item.h * 0.5, Math.max(6, 8 * item.scale));
+                    ctx.fill();
+                    ctx.restore();
+
+                    // title
+                    ctx.save();
+                    ctx.fillStyle = '#fff';
+                    ctx.font = `${Math.max(12, 16 * item.scale)}px Inter, system-ui, -apple-system, 'Segoe UI', Roboto`;
+                    ctx.textAlign = 'left';
+                    ctx.textBaseline = 'bottom';
+                    const title = slidesData[item.i].title;
+                    const padding = 12 * item.scale;
+                    ctx.fillText(title, x + padding, y + item.h - padding);
+                    ctx.restore();
+                });
+
+                requestAnimationFrame(draw);
+            }
+
+            function start() {
+                resize();
+                window.addEventListener('resize', () => {
+                    resize();
+                });
+                // initialize rotation to center first item
+                targetRotation = -selectedIndex * angleStep;
+                currentRotation = targetRotation;
+                requestAnimationFrame(draw);
+            }
+
+            prevBtn.addEventListener('click', () => {
+                selectedIndex = (selectedIndex - 1 + cellCount) % cellCount;
+                targetRotation = -selectedIndex * angleStep;
+            });
+
+            nextBtn.addEventListener('click', () => {
+                selectedIndex = (selectedIndex + 1) % cellCount;
+                targetRotation = -selectedIndex * angleStep;
+            });
+        });
+    </script>
+</body>
+</html>

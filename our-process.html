@@ -718,26 +718,77 @@
         <p style="color: var(--color-accent); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 12px;">PORTFOLIO</p>
         <h2 style="color: var(--color-heading); font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin: 0;">Our Latest Work</h2>
       </div>
-      <div class="portfolio-grid-1x1">
-        <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG', this)">
-          <img src="assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" alt="Portfolio image 1" />
+      <!-- Portfolio slider (replaces grid) -->
+      <div class="portfolio-slider" id="processPortfolioSlider" aria-label="Portfolio slider">
+        <style>
+          /* Inline slider styles (scoped to this slider) */
+          #processPortfolioSlider{ position:relative; overflow:hidden; border-radius:12px; }
+          #processPortfolioSlider .slider-track{ display:flex; transition:transform 480ms cubic-bezier(.22,.9,.36,1); will-change:transform; }
+          #processPortfolioSlider .slide{ min-width:100%; flex:0 0 100%; position:relative; }
+          #processPortfolioSlider img{ width:100%; height:480px; object-fit:cover; display:block; }
+          @media (max-width:768px){ #processPortfolioSlider img{ height:320px; } }
+          #processPortfolioSlider .slider-controls{ position:absolute; top:50%; left:0; right:0; display:flex; justify-content:space-between; transform:translateY(-50%); pointer-events:none; }
+          #processPortfolioSlider .slider-controls button{ pointer-events:auto; background:rgba(11,14,20,0.6); color:#fff; border:0; width:44px; height:44px; border-radius:8px; margin:0 12px; font-size:22px; display:flex; align-items:center; justify-content:center; }
+          #processPortfolioSlider .slider-indicators{ position:absolute; left:50%; bottom:12px; transform:translateX(-50%); display:flex; gap:8px; }
+          #processPortfolioSlider .slider-indicators button{ width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.45); border:0; }
+          #processPortfolioSlider .slider-indicators button.active{ background:#1D4ED8; }
+        </style>
+
+        <div class="slider-track">
+          <div class="slide"><img src="assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" alt="Tile Install at Primary Bathroom" data-src="assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" data-footnote="Custom tile in Primary Bathroom"></div>
+          <div class="slide"><img src="assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" alt="LVP flooring install throughout" data-src="assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" data-footnote="LVP flooring install throughout"></div>
+          <div class="slide"><img src="assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" alt="Nail down install" data-src="assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" data-footnote="Nail down install"></div>
+          <div class="slide"><img src="assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" alt="Full home remodel" data-src="assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" data-footnote="Full home remodel"></div>
+          <div class="slide"><img src="assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Custom tile in Primary Bathroom" data-src="assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" data-footnote="Custom tile in Primary Bathroom"></div>
+          <div class="slide"><img src="assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" alt="Custom Tile" data-src="assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" data-footnote="Custom Tile"></div>
         </div>
-        <div class="tile" data-footnote="LVP flooring install throughout" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG', this)">
-          <img src="assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" alt="Portfolio image 2" />
+
+        <div class="slider-controls">
+          <button class="slider-prev" aria-label="Previous slide">‹</button>
+          <button class="slider-next" aria-label="Next slide">›</button>
         </div>
-        <div class="tile" data-footnote="Nail down install" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG', this)">
-          <img src="assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" alt="Portfolio image 3" />
-        </div>
-        <div class="tile" data-footnote="Full home remodel" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG', this)">
-          <img src="assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" alt="Portfolio image 4" />
-        </div>
-        <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', this)">
-          <img src="assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Portfolio image 5" />
-        </div>
-        <div class="tile" data-footnote="Custom Tile" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG', this)">
-          <img src="assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" alt="Portfolio image 6" />
-        </div>
+        <div class="slider-indicators" role="tablist" aria-label="Slide indicators"></div>
       </div>
+
+      <script>
+        (function(){
+          var slider = document.getElementById('processPortfolioSlider');
+          if(!slider) return;
+          var track = slider.querySelector('.slider-track');
+          var slides = Array.prototype.slice.call(slider.querySelectorAll('.slide'));
+          var prev = slider.querySelector('.slider-prev');
+          var next = slider.querySelector('.slider-next');
+          var indicators = slider.querySelector('.slider-indicators');
+          var index = 0;
+
+          function update(){
+            track.style.transform = 'translateX(-'+(index*100)+'%)';
+            Array.prototype.forEach.call(indicators.children, function(btn,i){ btn.classList.toggle('active', i===index); btn.setAttribute('aria-selected', i===index ? 'true' : 'false'); });
+          }
+
+          // build indicators
+          slides.forEach(function(_,i){
+            var b = document.createElement('button');
+            b.setAttribute('role','tab');
+            b.setAttribute('aria-selected', i===0 ? 'true' : 'false');
+            b.addEventListener('click', function(){ index = i; update(); });
+            if(i===0) b.classList.add('active');
+            indicators.appendChild(b);
+          });
+
+          prev.addEventListener('click', function(){ index = (index-1+slides.length)%slides.length; update(); });
+          next.addEventListener('click', function(){ index = (index+1)%slides.length; update(); });
+
+          // clicking an image opens existing lightbox
+          slides.forEach(function(s){ var img = s.querySelector('img'); img.style.cursor = 'pointer'; img.addEventListener('click', function(){ if(typeof openLightbox === 'function'){ openLightbox(img.getAttribute('data-src'), img); } }); });
+
+          // keyboard navigation
+          slider.addEventListener('keydown', function(e){ if(e.key==='ArrowLeft') prev.click(); if(e.key==='ArrowRight') next.click(); });
+
+          // initial
+          update();
+        })();
+      </script>
     </div>
   </section>
 

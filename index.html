@@ -1839,6 +1839,58 @@
 </body>
 </html>
 
+<!-- Robust hamburger fallback: ensures toggle works even if other CSS/JS conflicts exist -->
+<style>
+  /* Fallback higher-specificity rules using `.open` class to guarantee transform */
+  .hamburger-menu.open .line1 { transform: rotate(45deg) translate(7px, 7px) !important; }
+  .hamburger-menu.open .line2 { opacity: 0 !important; transform: scaleX(0) !important; }
+  .hamburger-menu.open .line3 { transform: rotate(-45deg) translate(7px, -7px) !important; }
+  .hamburger-menu.open .hamburger-icon { z-index: 10001 !important; }
+</style>
+
+<script>
+  (function(){
+    function initRobustHamburger(){
+      var menu = document.getElementById('hamburgerMenu');
+      if(!menu) return;
+      var icon = menu.querySelector('.hamburger-icon');
+
+      function setOpen(open){
+        if(open){
+          menu.classList.add('active');
+          menu.classList.add('open');
+          menu.setAttribute('aria-expanded','true');
+          try{ document.body.style.overflow = 'hidden'; } catch(e){}
+        } else {
+          menu.classList.remove('active');
+          menu.classList.remove('open');
+          menu.setAttribute('aria-expanded','false');
+          try{ document.body.style.overflow = 'auto'; } catch(e){}
+        }
+      }
+
+      if(icon){
+        icon.addEventListener('click', function(e){ e.preventDefault(); setOpen(!menu.classList.contains('open')); });
+        icon.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); setOpen(!menu.classList.contains('open')); }});
+      }
+
+      var overlay = document.getElementById('mobileOverlay');
+      if(overlay){
+        overlay.addEventListener('click', function(e){ if(e.target === overlay) setOpen(false); });
+        Array.prototype.forEach.call(overlay.querySelectorAll('a, button.mobile-dropdown-btn'), function(el){ el.addEventListener('click', function(){ setOpen(false); }); });
+      }
+
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setOpen(false); });
+      window.addEventListener('resize', function(){ if(window.innerWidth > 1200) setOpen(false); });
+
+      // ensure initial aria state
+      menu.setAttribute('aria-expanded', menu.classList.contains('open') ? 'true' : 'false');
+    }
+
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initRobustHamburger); else initRobustHamburger();
+  })();
+</script>
+
   <script>
 
     // Initialize WarpDrive effect on intro overlay background (blue tunnel style)

@@ -1403,3 +1403,71 @@ button:hover::after,
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
+
+/* Gallery Slider */
+.gallery-slider {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow: hidden;
+  height: 800px;
+}
+
+.gallery-slider .slide-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.gallery-slider .slide {
+  min-width: 100%;
+  position: relative;
+  height: 100%;
+}
+
+.gallery-slider .slide img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.gallery-slider .slide-description {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.gallery-slider .prev-btn,
+.gallery-slider .next-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgba(0,0,0,0.5);
+  border: none;
+}
+
+.gallery-slider .next-btn {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.gallery-slider .prev-btn:hover,
+.gallery-slider .next-btn:hover {
+  background-color: rgba(0,0,0,0.8);
+}

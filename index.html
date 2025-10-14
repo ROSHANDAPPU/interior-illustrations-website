@@ -1630,54 +1630,46 @@
     </div>
   </section>
 
-  <!-- GALLERY SECTION -->
+  <!-- GALLERY SLIDER SECTION -->
   <section id="work" class="gallery">
     <div class="section-header reveal" style="text-align: left;">
       <p class="section-subtitle" style="text-align: left;">PORTFOLIO</p>
       <h2 class="section-title" style="text-align: left;">Our Latest Work</h2>
     </div>
-    
-    <div class="gallery-grid">
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG');"
-     data-footnote="Custom tile in Primary Bathroom"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG', this)"></div>
 
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG');"
-     data-footnote="LVP flooring install throughout"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG');"
-     data-footnote="Nail down install"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG');"
-     data-footnote="Full home remodel"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG');"
-     data-footnote="Custom tile in Primary Bathroom"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG');"
-     data-footnote="Custom Tile"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG', this)"></div>
+    <div class="gallery-slider">
+        <div class="slide-container">
+            <div class="slide">
+                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" alt="Custom tile in Primary Bathroom">
+                <div class="slide-description">Custom tile in Primary Bathroom</div>
+            </div>
+            <div class="slide">
+                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" alt="LVP flooring install throughout">
+                <div class="slide-description">LVP flooring install throughout</div>
+            </div>
+            <div class="slide">
+                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" alt="Nail down install">
+                <div class="slide-description">Nail down install</div>
+            </div>
+            <div class="slide">
+                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" alt="Full home remodel">
+                <div class="slide-description">Full home remodel</div>
+            </div>
+            <div class="slide">
+                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Custom tile in Primary Bathroom">
+                <div class="slide-description">Custom tile in Primary Bathroom</div>
+            </div>
+            <div class="slide">
+                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" alt="Custom Tile">
+                <div class="slide-description">Custom Tile</div>
+            </div>
+        </div>
+        <button class="prev-btn">&#10094;</button>
+        <button class="next-btn">&#10095;</button>
     </div>
   </section>
 
-  <!-- Lightbox Modal -->
-  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
-    <div class="lightbox-content">
-      <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
-      <img id="lightboxImage" src="" alt="Portfolio Image" />
-  <div id="lightboxFootnote" class="lightbox-footnote" aria-live="polite" tabindex="0" role="complementary" aria-label="Image details" onclick="event.stopPropagation()"></div>
-    </div>
-  </div>
+
 
   <!-- CONTACT SECTION -->
   <section id="contact" class="contact">
@@ -1835,6 +1827,52 @@
       window.addEventListener('resize', ()=>{ if (window.innerWidth > 1200) closeMenu(); });
     }); // Close DOMContentLoaded
   </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const slideContainer = document.querySelector('.gallery-slider .slide-container');
+    if (slideContainer) {
+      const slides = Array.from(document.querySelectorAll('.gallery-slider .slide'));
+      const nextBtn = document.querySelector('.gallery-slider .next-btn');
+      const prevBtn = document.querySelector('.gallery-slider .prev-btn');
+      let currentIndex = 0;
+
+      function updateSlider() {
+        if (slides.length > 0) {
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            slideContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+        }
+      }
+
+      function showNextSlide() {
+        if (slides.length > 0) {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateSlider();
+        }
+      }
+
+      function showPrevSlide() {
+        if (slides.length > 0) {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateSlider();
+        }
+      }
+
+      if(nextBtn) {
+        nextBtn.addEventListener('click', showNextSlide);
+      }
+
+      if(prevBtn) {
+        prevBtn.addEventListener('click', showPrevSlide);
+      }
+
+      window.addEventListener('resize', updateSlider);
+      
+      // Initial update
+      updateSlider();
+    }
+  });
+</script>
 
 </body>
 </html>

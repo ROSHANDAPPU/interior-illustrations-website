@@ -848,6 +848,77 @@ header.nav .brand img {
   color: var(--color-body); /* Slate body text */
 }
 
+/* =============================== */
+/* Responsive Hero Visibility      */
+/* Desktop first: show desktop, hide mobile */
+/* =============================== */
+.hero-desktop { display: block; }
+.hero-mobile { display: none; }
+
+/* Mobile: flip visibility */
+@media (max-width: 768px) {
+  .hero-desktop { display: none; }
+  .hero-mobile { 
+    display: block; 
+    position: relative; 
+    overflow: hidden; 
+    min-height: 100vh;
+    background: var(--color-bg-primary);
+  }
+}
+
+/* =============================== */
+/* Mobile Hero Slider (CSS-only)   */
+/* =============================== */
+.hero-mobile .mobile-slider {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Behind text */
+}
+
+.hero-mobile .slider-track {
+  display: flex;
+  width: 300%; /* 3 images */
+  height: 100%;
+  animation: slide-animation 15s linear infinite;
+}
+
+.hero-mobile .slide-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+@keyframes slide-animation {
+  0%   { transform: translateX(0%); }
+  33%  { transform: translateX(-100%); }
+  66%  { transform: translateX(-200%); }
+  100% { transform: translateX(0%); }
+}
+
+.hero-mobile .hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100vh;
+  padding: 24px;
+  text-align: center;
+}
+
+.hero-mobile .hero-content h1 {
+  color: var(--color-heading);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
 /* Service Cards - Keep existing functionality but update styling */
 .service-card {
   background: #0D111B !important;

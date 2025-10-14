@@ -4,8 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interior Illusions - Luxury Interior Design</title>
-  <meta name="description" content="Interior Illusions LLC - luxury interior design and home remodeling services. Transform your space with our expert craftsmanship and design expertise.">
-  <link rel="icon" type="image/x-icon" href="assets/images/06_Favicon/favicon-high.png">
+  <meta name="description" content="Interior Illusions LLC - luxury interior design and home remodeling services. Transform your space with our expert craftsmanship and design expertise." />
+  <link rel="icon" type="image/png" href="assets/images/06_Favicon/favicon-high.png" />
+  <link rel="shortcut icon" href="assets/images/06_Favicon/favicon-high.png" />
   <!-- External CSS -->
   <link rel="stylesheet" href="css/style.css">
   <!-- Font Awesome for social icons -->
@@ -216,18 +217,6 @@
         padding: 0 20px;
         height: 90px;
       }
-      .nav .brand img { height: 100px !important; }
-      .nav .brand { 
-        display: flex !important; 
-        align-items: center !important; 
-        justify-content: center !important; 
-        width: 100% !important; 
-        margin-left: -60px !important; /* Center the logo by offsetting hamburger menu space */
-      }
-      .nav .brand img {
-        filter: brightness(1.2) contrast(1.1) !important; /* Make logo more visible */
-        transition: all 0.3s ease !important;
-      }
       .nav .brand img:hover {
         filter: brightness(1.4) contrast(1.2) !important;
       }
@@ -277,10 +266,6 @@
       .hamburger-menu.active .hamburger-icon { z-index: 10001 !important; }
       
       /* Add hover effect for better visibility */
-      .hamburger-icon:hover .line {
-        background: #60A5FA;
-        box-shadow: 0 0 12px rgba(29, 78, 216, 0.5);
-      }
       /* Mobile dropdown within overlay */
       .mobile-dropdown-section { display: flex; flex-direction: column; align-items: center; }
       .mobile-dropdown-btn { font-size: 24px; font-weight: 500; color: #E7EAEE; background: none; border: none; padding: 15px 30px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s ease; min-width: 200px; justify-content: center; }
@@ -288,6 +273,11 @@
       .mobile-dropdown-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px; }
       .mobile-dropdown-section.active .mobile-dropdown-content { max-height: 220px; }
       .mobile-dropdown-section.active .mobile-arrow { transform: rotate(180deg); }
+
+      /* Force logo size on mobile and tablet */
+      .nav .brand img {
+        height: 200px !important;
+      }
     }
 
     /* Hero */
@@ -1447,14 +1437,12 @@
     
     /* Extra small mobile devices */
     @media (max-width: 480px) {
-      .nav .brand img { height: 90px !important; }
       .nav .brand { margin-left: -50px !important; }
       .hamburger-menu { top: 30px; right: 20px; }
     }
     
     /* Very small mobile devices */
     @media (max-width: 360px) {
-      .nav .brand img { height: 80px !important; }
       .nav .brand { margin-left: -45px !important; }
     }
   </style>
@@ -1664,9 +1652,24 @@
      onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', this)"></div>
 
    <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG');"
-     data-footnote="Custom Tile"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG', this)"></div>
+     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7851.JPG');"
+     data-footnote="Bathroom tile installation"
+     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7851.JPG', this)"></div>
+
+   <div class="gallery-item reveal"
+     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7852.JPG');"
+     data-footnote="Custom cabinetry work"
+     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7852.JPG', this)"></div>
+
+   <div class="gallery-item reveal"
+     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7855.JPG');"
+     data-footnote="Interior painting and finishes"
+     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7855.JPG', this)"></div>
+
+   <div class="gallery-item reveal"
+     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7857.JPG');"
+     data-footnote="Selective demolition and rebuild"
+     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7857.JPG', this)"></div>
     </div>
   </section>
 

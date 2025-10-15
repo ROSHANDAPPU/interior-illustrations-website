@@ -1506,7 +1506,7 @@
     <!-- Sliding track with luxury home images -->
     <div class="track" aria-hidden="true">
   <div class="slide" data-footnote="Tile Install at Primary Bathroom for a Custom Home Builder">
-        <img src="assets/images/slider-homepage/photo-output.jpeg" alt="Project Slide 1">
+        <img src="assets/images/slider-homepage/IMG_7545.jpeg" alt="Project Slide 1">
         <div class="slide-footnote" role="note" aria-hidden="false">
           <div class="slide-footnote-desc">Tile Install at Primary Bathroom for a Custom Home Builder</div>
         </div>
@@ -1518,7 +1518,7 @@
         </div>
       </div>
   <div class="slide" data-footnote="Tile Install at Primary Bathroom for a Custom Home Builder">
-        <img src="assets/images/slider-homepage/SLIDE 3.jpeg" alt="Project Slide 3">
+        <img src="assets/images/slider-homepage/SLIDE 2.jpeg" alt="Project Slide 3">
         <div class="slide-footnote" role="note" aria-hidden="false">
           <div class="slide-footnote-desc">Tile Install at Primary Bathroom for a Custom Home Builder</div>
         </div>
@@ -1540,26 +1540,35 @@
   </section>
 
   <!-- MOBILE HERO: Vertical Slider with External Buttons -->
-  <section class="hero-mobile-wrapper" aria-label="Mobile Hero">
-    <div class="hero-slider-container">
+   <section class="hero-mobile-wrapper" aria-label="Mobile Hero">
+     <div class="hero-slider-container">
       <div class="slider-track">
-        <div class="slide" style="background-image: url('assets/images/slider-homepage/photo-output.jpeg');">
-          <div class="slide-content">
-            <h1 class="slide-hero-text">PLANS CRAFT CLARITY</h1>
-            <p class="slide-tag">Tile install at primary bathroom for a custom home builder</p>
-          </div>
-        </div>
-        <div class="slide" style="background-image: url('assets/images/slider-homepage/SLIDE 1.jpeg');">
+        <div class="slide">
           <div class="slide-content">
             <h1 class="slide-hero-text">DESIGN BUILD PRECISELY</h1>
-            <p class="slide-tag">Detailed craftsmanship from framing to finishes</p>
+            <div class="slide-footnote" role="note" aria-hidden="false">
+              <div class="slide-footnote-desc">Tile Install at Primary Bathroom for a Custom Home Builder</div>
+            </div>
           </div>
+          <img src="assets/images/slider-homepage/IMG_7545.jpeg" alt="Project Slide 1" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
-        <div class="slide" style="background-image: url('assets/images/slider-homepage/SLIDE 3.jpeg');">
+        <div class="slide">
           <div class="slide-content">
-            <h1 class="slide-hero-text">QUIETLY EXCEPTIONAL INTERIORS</h1>
-            <p class="slide-tag">Refined spaces tailored to daily living</p>
+            <h1 class="slide-hero-text">DESIGN BUILD PRECISELY</h1>
+            <div class="slide-footnote" role="note" aria-hidden="false">
+              <div class="slide-footnote-desc">Tile Install at Primary Bathroom for a Custom Home Builder</div>
+            </div>
           </div>
+          <img src="assets/images/slider-homepage/SLIDE 1.jpeg" alt="Project Slide 2" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="slide">
+          <div class="slide-content">
+            <h1 class="slide-hero-text">DESIGN BUILD PRECISELY</h1>
+            <div class="slide-footnote" role="note" aria-hidden="false">
+              <div class="slide-footnote-desc">Tile Install at Primary Bathroom for a Custom Home Builder</div>
+            </div>
+          </div>
+          <img src="assets/images/slider-homepage/SLIDE 2.jpeg" alt="Project Slide 3" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
       </div>
     </div>
@@ -2294,6 +2303,142 @@
         }
       }
     });
+
+    // Mobile Hero Slider Animation with image preloading
+    let mobileSliderInterval = null;
+    let mobileCurrentSlide = 0;
+    let imageCache = {}; // Cache for preloaded images
+
+    // Preload all slider images on page load
+    function preloadSliderImages() {
+      const imageUrls = [
+        'assets/images/slider-homepage/IMG_7545.jpeg',
+        'assets/images/slider-homepage/SLIDE 1.jpeg',
+        'assets/images/slider-homepage/SLIDE 2.jpeg'
+      ];
+
+      imageUrls.forEach(url => {
+        if (!imageCache[url]) {
+          const img = new Image();
+          img.onload = () => {
+            console.log('Preloaded image:', url);
+            imageCache[url] = true;
+          };
+          img.onerror = () => {
+            console.warn('Failed to preload image:', url);
+          };
+          img.src = url;
+          imageCache[url] = img;
+        }
+      });
+    }
+
+    function updateMobileSlide() {
+      console.log('Mobile slider transitioning to slide:', mobileCurrentSlide);
+      const mobileSliderTrack = document.querySelector('.hero-mobile-wrapper .slider-track');
+      const mobileSlides = mobileSliderTrack ? mobileSliderTrack.children : [];
+
+      console.log('Mobile slider update - Current slide:', mobileCurrentSlide, 'Total slides:', mobileSlides.length);
+
+      if (!mobileSliderTrack || mobileSlides.length === 0) {
+        console.warn('Mobile slider: Track or slides not found');
+        return;
+      }
+
+      // Increment slide index first
+      const nextSlideIndex = (mobileCurrentSlide + 1) % mobileSlides.length;
+
+      console.log('Mobile slider: Switching to slide', nextSlideIndex);
+
+      // Check if next slide image is loaded before transitioning
+      const nextSlide = mobileSlides[nextSlideIndex];
+      const nextSlideImg = nextSlide ? nextSlide.querySelector('img') : null;
+
+      if (nextSlideImg) {
+        console.log('Next slide image src:', nextSlideImg.src, 'loaded:', nextSlideImg.complete);
+
+        // If image is not loaded, wait for it or use cached version
+        if (!nextSlideImg.complete) {
+          console.warn('Next slide image not loaded yet, waiting...');
+
+          // Wait for image to load, then proceed
+          nextSlideImg.onload = () => {
+            console.log('Image loaded, proceeding with transition');
+            performSlideTransition(nextSlideIndex);
+          };
+
+          // Timeout fallback after 2 seconds to prevent infinite waiting
+          setTimeout(() => {
+            if (!nextSlideImg.complete) {
+              console.warn('Image load timeout, proceeding anyway');
+              performSlideTransition(nextSlideIndex);
+            }
+          }, 2000);
+
+          return; // Don't proceed until image loads
+        }
+      }
+
+      // Image is loaded, proceed immediately
+      performSlideTransition(nextSlideIndex);
+    }
+
+    function performSlideTransition(slideIndex) {
+      const mobileSliderTrack = document.querySelector('.hero-mobile-wrapper .slider-track');
+
+      if (!mobileSliderTrack) return;
+
+      mobileCurrentSlide = slideIndex;
+
+      // Use class-based transitions for smoother animation
+      // Remove all active classes first
+      mobileSliderTrack.classList.remove('slide-0', 'slide-1', 'slide-2');
+
+      // Add the appropriate active class
+      mobileSliderTrack.classList.add(`slide-${mobileCurrentSlide}`);
+
+      console.log('Applied slide class: slide-' + mobileCurrentSlide);
+    }
+
+    function startMobileSlider() {
+      if (mobileSliderInterval) clearInterval(mobileSliderInterval);
+      mobileSliderInterval = setInterval(updateMobileSlide, 4000); // Change slide every 4 seconds
+      console.log('Mobile slider started');
+    }
+
+    function stopMobileSlider() {
+      if (mobileSliderInterval) {
+        clearInterval(mobileSliderInterval);
+        mobileSliderInterval = null;
+      }
+      // Reset to first slide
+      const mobileSliderTrack = document.querySelector('.hero-mobile-wrapper .slider-track');
+      if (mobileSliderTrack) {
+        mobileSliderTrack.style.transform = 'translateX(0)';
+      }
+      mobileCurrentSlide = 0;
+    }
+
+    // Start/stop mobile slider based on screen size
+    function checkMobileSlider() {
+      const mobileHero = document.querySelector('.hero-mobile-wrapper');
+      console.log('Checking mobile slider - window width:', window.innerWidth, 'mobile hero exists:', !!mobileHero);
+      if (mobileHero && window.innerWidth <= 768) {
+        startMobileSlider();
+      } else {
+        stopMobileSlider();
+      }
+    }
+
+    // Preload images on page load
+    preloadSliderImages();
+
+    // Initial check
+    console.log('Initial mobile slider check');
+    checkMobileSlider();
+
+    // Handle window resize
+    window.addEventListener('resize', checkMobileSlider);
   </script>
 </body>
 <script src="assets/js/nav-active.js"></script>

@@ -871,9 +871,31 @@ header.nav .brand img {
 /* Mobile Hero: Vertical Slider    */
 /* =============================== */
 @media (max-width: 768px) {
+  /* --- Mobile Hero Wrapper --- */
+  .hero-mobile-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px); /* Adjust for fixed navigation */
+    background-color: #0c0c0f; /* Ensure background if content doesn't fill */
+  }
+
+  /* --- NEW: Top Text Container --- */
+  .hero-top-text-container {
+    padding: 20px; /* Space around the top text */
+    text-align: center;
+    color: white;
+  }
+
+  .main-mobile-hero-heading {
+    font-size: 2.8rem; /* Adjust as needed */
+    font-weight: bold;
+    margin: 0; /* Remove default margins */
+  }
+
+  /* --- Slider Container (now below the top text) --- */
   .hero-slider-container {
     width: 100%;
-    aspect-ratio: 3 / 4; /* vertical shape */
+    flex-grow: 1; /* This makes the slider take up available space */
     overflow: hidden;
     position: relative;
     background: #000; /* fallback while images load */
@@ -901,36 +923,39 @@ header.nav .brand img {
     padding: 24px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* hero text top, tag bottom */
+    justify-content: center; /* Center the hero text vertically */
+    align-items: center; /* Center horizontally */
     color: #fff;
-    background: linear-gradient(rgba(0,0,0,0.5), transparent, rgba(0,0,0,0.5));
+    background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%);
+    backdrop-filter: none; /* 0% blur - completely clear images */
+    z-index: 10;
   }
 
   .hero-slider-container .slide-hero-text {
-    font-size: 2.4rem;
-    line-height: 1.15;
+    font-size: clamp(28px, 8vw, 48px);
+    line-height: 1.2;
     text-transform: uppercase;
     color: var(--color-heading);
     margin: 0;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   }
 
+  /* Hide the old slide-tag since we're using footnote now */
   .hero-slider-container .slide-tag {
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    align-self: flex-start;
-    margin: 0;
+    display: none;
   }
 
+  /* --- Buttons Container (at the bottom) --- */
   .hero-buttons-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding: 28px 20px; /* spacing below slider */
+    padding: 25px 20px;
     align-items: center;
-    justify-content: center;
-    flex: 1 0 auto;
+    background-color: #0c0c0f;
   }
 
   @keyframes new-slide-animation {
@@ -1498,4 +1523,133 @@ button:hover::after,
 @keyframes glassSheen {
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+/* Mobile Hero Styles */
+.hero-mobile-wrapper {
+  display: none; /* Hide by default, show on mobile */
+  position: relative;
+  height: 100vh;
+  background: var(--color-bg-primary);
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.hero-top-text-container {
+  padding: 20px;
+  text-align: center;
+  background: var(--color-bg-primary);
+  z-index: 10;
+}
+
+.main-mobile-hero-heading {
+  font-size: clamp(28px, 8vw, 48px);
+  font-weight: 700;
+  color: var(--color-heading);
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.hero-slider-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.slider-track {
+  display: flex;
+  height: 100%;
+  width: 300vw; /* 3 slides */
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateX(0);
+}
+
+/* Class-based slide transitions */
+.slider-track.slide-0 {
+  transform: translateX(0);
+}
+
+.slider-track.slide-1 {
+  transform: translateX(-100vw);
+}
+
+.slider-track.slide-2 {
+  transform: translateX(-200vw);
+}
+
+.hero-mobile-wrapper .slide {
+  width: 100vw;
+  height: 100%;
+  position: relative;
+  overflow: hidden; /* Ensure images don't spill out */
+}
+
+.hero-mobile-wrapper .slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.slide-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%);
+  backdrop-filter: none; /* 0% blur - completely clear images */
+  z-index: 10;
+}
+
+.slide-hero-text {
+  font-size: clamp(28px, 8vw, 48px);
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.slide-tag {
+  font-size: 16px;
+  color: #ccc;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .hero.hero-desktop { display: none; } /* Hide desktop hero on mobile */
+  .hero-mobile-wrapper { display: flex; } /* Show mobile hero on mobile */
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .nav .brand { margin-left: -50px !important; }
+  .hamburger-menu { top: 30px; right: 20px; }
+  .slide-content {
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    padding: 15px;
+  }
+  .slide-hero-text {
+    font-size: clamp(20px, 6vw, 32px);
+  }
+  .slide-tag {
+    font-size: 14px;
+  }
+}
+
+/* Very small mobile devices */
+@media (max-width: 360px) {
+  .nav .brand { margin-left: -45px !important; }
 }

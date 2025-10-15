@@ -905,7 +905,8 @@ header.nav .brand img {
     display: flex;
     height: 100%;
     width: 300%; /* 3 slides */
-    animation: new-slide-animation 18s ease-in-out infinite;
+    /* Disable auto keyframe animation; JS controls transitions */
+    animation: none !important;
   }
 
   .hero-slider-container .slide {
@@ -943,9 +944,16 @@ header.nav .brand img {
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   }
 
-  /* Hide the old slide-tag since we're using footnote now */
+  /* Repositioned subtext: visible under hero text */
   .hero-slider-container .slide-tag {
-    display: none;
+    margin-top: 1rem;
+    font-size: 1rem;
+    max-width: 90%;
+    line-height: 1.5;
+    color: var(--color-heading);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* --- Buttons Container (at the bottom) --- */

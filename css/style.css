@@ -907,6 +907,18 @@ header.nav .brand img {
     background-position: center;    background-repeat: no-repeat; /* Prevent image tiling */
   }
 
+  /* Ensure desktop hero's .slide min-width doesn't affect mobile slider */
+  .hero-mobile-wrapper .slide {
+    width: 33.333% !important;
+    min-width: 0 !important;
+  }
+
+  /* Reinforce animation on mobile slider track */
+  .hero-mobile-wrapper .slider-track {
+    animation: dynamic-slide 18s ease-in-out infinite !important;
+    will-change: transform;
+  }
+
   /* The text content overlaid on each slide */
   .slide-content {
     position: absolute;
@@ -985,6 +997,28 @@ header.nav .brand img {
     66%  { transform: translateX(-66.666%); }
     97%  { transform: translateX(-66.666%); }
     100% { transform: translateX(0%); }
+  }
+}
+
+/* Reduced motion fallback: make mobile slider scrollable instead of animated */
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .hero-mobile-wrapper .hero-slider-container {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  .hero-mobile-wrapper .slider-track {
+    width: auto !important;
+    animation: none !important;
+    gap: 0;
+  }
+
+  .hero-mobile-wrapper .slide {
+    min-width: 100% !important;
+    width: 100% !important;
+    scroll-snap-align: start;
   }
 }
 

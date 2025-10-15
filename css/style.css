@@ -853,14 +853,129 @@ header.nav .brand img {
 /* Desktop first: show desktop, hide mobile wrapper */
 /* =============================== */
 .hero-desktop { display: block; }
+.hero-mobile { display: none; }
 .hero-mobile-wrapper { display: none; }
 
 /* Mobile: show new hero wrapper */
 @media (max-width: 768px) {
   .hero-desktop { display: none; }
-  .hero-mobile-wrapper { 
-    display: flex; 
-    flex-direction: column; 
+  .hero-mobile { display: block; }
+
+  /* ================================ */
+  /* New Mobile Hero: Image Slider    */
+  /* ================================ */
+  .hero-mobile {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    aspect-ratio: 4 / 3; /* Actual rectangle ratio of the images */
+    background: var(--color-bg-primary);
+  }
+
+  .hero-mobile .slider-track {
+    display: flex;
+    width: 300%; /* 100% for each of the 3 slides */
+    height: 100%;
+    animation: slide-animation 15s ease-in-out infinite;
+    position: relative;
+  }
+
+  .hero-mobile .slide {
+    width: 33.333%;
+    height: 100%;
+    background-size: cover; /* Fills the container */
+    background-position: center;
+  }
+
+  .hero-mobile .hero-content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 5;
+    padding: 40px 20px 80px;
+  }
+
+  .hero-mobile .taglines {
+    margin-bottom: 24px;
+    display: none; /* Hide static tagline since we're using dynamic one */
+  }
+
+  .hero-mobile .tagline {
+    font-size: clamp(32px, 6vw, 48px);
+    font-weight: 700;
+    color: var(--color-heading);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    text-align: center;
+  }
+
+  .hero-mobile .cta {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .hero-mobile .btn {
+    min-width: 200px;
+  }
+}
+
+@keyframes slide-animation {
+  0% { transform: translateX(0%); }
+  30% { transform: translateX(0%); }
+  33% { transform: translateX(-33.333%); }
+  63% { transform: translateX(-33.333%); }
+  66% { transform: translateX(-66.666%); }
+  97% { transform: translateX(-66.666%); }
+  100% { transform: translateX(0%); }
+}
+
+/* Dynamic text updates during slider animation */
+.hero-mobile .slider-track {
+  animation: slide-animation 15s ease-in-out infinite, text-sync 15s ease-in-out infinite;
+}
+
+.hero-mobile .slider-track::before {
+  content: "QUIETLY\nEXCEPTIONAL\nINTERIORS";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(32px, 6vw, 48px);
+  font-weight: 700;
+  color: var(--color-heading);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  text-align: center;
+  white-space: pre-line;
+  z-index: 10;
+  animation: text-sync 15s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes text-sync {
+  0%, 32% { content: "QUIETLY\nEXCEPTIONAL\nINTERIORS"; }
+  33%, 65% { content: "PLANS\nCRAFT\nCLARITY"; }
+  66%, 99% { content: "DESIGN\nBUILD\nPRECISELY"; }
+  100% { content: "QUIETLY\nEXCEPTIONAL\nINTERIORS"; }
+}
+
+/* Mobile: show new hero wrapper */
+@media (max-width: 768px) {
+  .hero-desktop { display: none; }
+  .hero-mobile { display: block; }
+  .hero-mobile-wrapper {
+    display: flex;
+    flex-direction: column;
     height: calc(100vh - 80px);
     width: 100%;
     background: var(--color-bg-primary);
@@ -916,6 +1031,9 @@ header.nav .brand img {
     position: relative;
     background-size: cover;
     background-position: center;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
   }
 
   .hero-slider-container .slide-content {
@@ -942,6 +1060,8 @@ header.nav .brand img {
     letter-spacing: 0.02em;
     text-align: center;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    width: 100%;
+    padding: 0 10px;
   }
 
   /* Repositioned subtext: visible under hero text */
@@ -1543,6 +1663,47 @@ button:hover::after,
   flex-direction: column;
 }
 
+/* --- Final Mobile Slider Text Fix --- */
+
+/* The individual slide container */
+.hero-mobile .slide {
+  width: 33.333%;
+  height: 100%;
+  flex-shrink: 0;
+  position: relative; /* Anchor for the content overlay */
+  background-size: cover;
+  background-position: center;
+  overflow: hidden; /* Absolutely necessary */
+}
+
+/* The new content overlay that holds the text */
+.hero-mobile .slide-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* Use Flexbox for perfect centering */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Optional: Adds a subtle shadow for better text readability */
+  background: linear-gradient(rgba(0,0,0,0.4), transparent, rgba(0,0,0,0.4));
+}
+
+/* The hero text, now centered by its flex parent */
+.hero-mobile .slide-hero-text {
+  color: white;
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-align: center;
+  width: 90%; /* Prevents text from touching the edges */
+  padding: 0; /* Reset any padding */
+  margin: 0;  /* Reset any margin */
+}
+
 .hero-top-text-container {
   padding: 20px;
   text-align: center;
@@ -1586,6 +1747,24 @@ button:hover::after,
   transform: translateX(-200vw);
 }
 
+.slide {
+  position: relative;
+}
+
+.slide-hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-align: center;
+  width: 90%;
+  z-index: 10;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
 .hero-mobile-wrapper .slide {
   width: 100vw;
   height: 100%;
@@ -1596,7 +1775,8 @@ button:hover::after,
 .hero-mobile-wrapper .slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* Show full image without cropping */
+  object-position: center; /* Center the image */
   position: absolute;
   top: 0;
   left: 0;
@@ -1626,11 +1806,43 @@ button:hover::after,
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-.slide-tag {
+.slide-tag.btn {
   font-size: 16px;
   color: #ccc;
   margin: 0;
   font-weight: 500;
+  background: rgba(147, 197, 253, 0.01); /* Azure at 1% transparency */
+  border: 1px solid rgba(147, 197, 253, 0.05);
+  border-radius: 20px; /* Water drop style with rounded corners */
+  padding: 8px 16px;
+  backdrop-filter: blur(4px);
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-tag.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(147,197,253,0.00) 10%, rgba(147,197,253,0.02) 30%, rgba(147,197,253,0.00) 50%);
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  animation: waterDropSheen 2s ease-out infinite;
+  border-radius: inherit;
+  mix-blend-mode: screen;
+}
+
+@keyframes waterDropSheen {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Start Your Project button hover effect */
+.start-project-btn:hover,
+.start-project-btn:focus {
+  background: #93C5FD !important; /* Azure background on hover */
+  color: #0B0E14 !important; /* Deep Navy text */
+  border-color: #93C5FD !important;
 }
 
 /* Mobile-specific adjustments */

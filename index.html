@@ -705,14 +705,78 @@
       border-radius: 0px; filter: grayscale(20%);
     }
 
+    /* Portfolio Grid & Lightbox Styles */
+    @keyframes portfolioSheen {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .portfolio-grid-1x1 {
+      max-width: 1400px !important;
+      margin: 0 auto !important;
+      display: grid !important;
+      gap: 24px !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      padding: 0 20px !important;
+    }
+
+    .portfolio-grid-1x1 .tile {
+      position: relative !important;
+      display: block !important;
+      overflow: hidden !important;
+      border: 1px solid rgba(255, 255, 255, 0.05) !important;
+      background: #0D111B !important;
+      cursor: pointer !important;
+      aspect-ratio: 1 / 1 !important;
+    }
+
+    .portfolio-grid-1x1 .tile img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+      transform: none !important;
+    }
+
+    .portfolio-grid-1x1 .tile::after {
+      content: "" !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      pointer-events: none !important;
+      background: linear-gradient(120deg, rgba(255,255,255,0.00) 10%, rgba(255,255,255,0.25) 30%, rgba(255,255,255,0.40) 40%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.00) 70%) !important;
+      background-size: 240% 100% !important;
+      background-position: 200% 0 !important;
+      mix-blend-mode: screen !important;
+      opacity: 0 !important;
+      transition: opacity 0.3s ease !important;
+      z-index: 2 !important;
+    }
+
+    .portfolio-grid-1x1 .tile:hover::after {
+      opacity: 1 !important;
+      animation: portfolioSheen 1.6s ease-out forwards !important;
+    }
+
     /* Gallery */
     .gallery {
       padding: 120px 40px; background: var(--color-light);
     }
-    .gallery-grid {
-      display: grid; gap: 32px; 
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      max-width: 1400px; margin: 0 auto;
+
+    @media (max-width: 1024px) {
+      .portfolio-grid-1x1 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .portfolio-grid-1x1 {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
     }
     .gallery-item {
       height: 400px; background-size: cover; background-position: center;
@@ -1661,52 +1725,35 @@
       <h2 class="section-title" style="text-align: left;">Our Latest Work</h2>
     </div>
     
-    <div class="gallery-grid">
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG');"
-     data-footnote="Custom tile in Primary Bathroom"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG');"
-     data-footnote="LVP flooring install throughout"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG');"
-     data-footnote="Nail down install"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG');"
-     data-footnote="Full home remodel"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG');"
-     data-footnote="Custom tile in Primary Bathroom"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7851.JPG');"
-     data-footnote="Bathroom tile installation"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7851.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7852.JPG');"
-     data-footnote="Custom cabinetry work"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7852.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7855.JPG');"
-     data-footnote="Interior painting and finishes"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7855.JPG', this)"></div>
-
-   <div class="gallery-item reveal"
-     style="background-image: url('assets/images/PORTFOLIO/FINALS1/IMG_7857.JPG');"
-     data-footnote="Selective demolition and rebuild"
-     onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7857.JPG', this)"></div>
-    </div>
+    <div class="portfolio-grid-1x1">
+      <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" alt="Portfolio image 1" />
+      </div>
+      <div class="tile" data-footnote="LVP flooring install throughout" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" alt="Portfolio image 2" />
+      </div>
+      <div class="tile" data-footnote="Nail down install" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" alt="Portfolio image 3" />
+      </div>
+      <div class="tile" data-footnote="Full home remodel" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" alt="Portfolio image 4" />
+      </div>
+      <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Portfolio image 5" />
+      </div>
+      <div class="tile" data-footnote="Custom Tile" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7851.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7851.JPG" alt="Portfolio image 6" />
+      </div>
+      <div class="tile" data-footnote="Guest Bath Marble Tile Install" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7852.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7852.JPG" alt="Portfolio image 7" />
+      </div>
+      <div class="tile" data-footnote="Red Oak Hardwood Floor Install" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7855.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7855.JPG" alt="Portfolio image 8" />
+      </div>
+      <div class="tile" data-footnote="Primary Bath Tile Install" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7857.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7857.JPG" alt="Portfolio image 9" />
+      </div>
+     </div>
   </section>
 
   <!-- Lightbox Modal -->

@@ -2301,7 +2301,15 @@
       const portfolioSection = document.getElementById('work');
       const contactSection = document.getElementById('contact');
 
-      if (!viewPortfolioBtn || !startProjectBtn || !portfolioSection || !contactSection) return;
+      if (!viewPortfolioBtn || !startProjectBtn || !portfolioSection || !contactSection) {
+        console.log('Missing elements for button visibility:', {
+          viewPortfolioBtn: !!viewPortfolioBtn,
+          startProjectBtn: !!startProjectBtn,
+          portfolioSection: !!portfolioSection,
+          contactSection: !!contactSection
+        });
+        return;
+      }
 
       function updateButtonVisibility() {
         const scrollY = window.scrollY;
@@ -2317,6 +2325,8 @@
         const portfolioVisible = scrollY + windowHeight > portfolioTop && scrollY < portfolioBottom;
         const contactVisible = scrollY + windowHeight > contactTop && scrollY < contactBottom;
 
+        console.log('Scroll position:', scrollY, 'Portfolio visible:', portfolioVisible, 'Contact visible:', contactVisible);
+
         // Logic:
         // - Hide "View Portfolio" when portfolio section is visible (user is already there)
         // - Hide "Start Your Project" when contact section is visible (user is already there)
@@ -2326,23 +2336,29 @@
         if (portfolioVisible) {
           viewPortfolioBtn.classList.add('hidden');
           viewPortfolioBtn.classList.remove('visible');
+          console.log('Hiding View Portfolio button');
         } else if (scrollY > portfolioBottom) {
           viewPortfolioBtn.classList.add('visible');
           viewPortfolioBtn.classList.remove('hidden');
+          console.log('Showing View Portfolio button');
         } else {
           viewPortfolioBtn.classList.add('visible');
           viewPortfolioBtn.classList.remove('hidden');
+          console.log('Default: showing View Portfolio button');
         }
 
         if (contactVisible) {
           startProjectBtn.classList.add('hidden');
           startProjectBtn.classList.remove('visible');
+          console.log('Hiding Start Project button');
         } else if (scrollY > portfolioBottom) {
           startProjectBtn.classList.add('visible');
           startProjectBtn.classList.remove('hidden');
+          console.log('Showing Start Project button');
         } else {
           startProjectBtn.classList.add('visible');
           startProjectBtn.classList.remove('hidden');
+          console.log('Default: showing Start Project button');
         }
       }
 

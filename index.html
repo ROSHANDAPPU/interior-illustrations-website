@@ -1532,10 +1532,10 @@
       <h1 class="tagline">DESIGN<br>BUILD<br>PRECISELY</h1>
     </div>
 
-    <!-- Calls to action -->
-    <div class="cta">
-      <a class="btn" href="#work">View Portfolio</a>
-      <a class="btn secondary" href="contact/get-quote.html">Start Your Project</a>
+    <!-- Hero Buttons Overlay -->
+    <div class="hero-buttons-overlay">
+      <a class="btn view-portfolio-btn" href="#work">View Portfolio</a>
+      <a class="btn secondary start-project-btn" href="contact/get-quote.html">Start Your Project</a>
     </div>
   </section>
 
@@ -2294,6 +2294,68 @@
       }
     });
 
+    // Dynamic Hero Button Visibility Based on Scroll Position
+    function initHeroButtonVisibility() {
+      const viewPortfolioBtn = document.querySelector('.view-portfolio-btn');
+      const startProjectBtn = document.querySelector('.start-project-btn');
+      const portfolioSection = document.getElementById('work');
+      const contactSection = document.getElementById('contact');
+
+      if (!viewPortfolioBtn || !startProjectBtn || !portfolioSection || !contactSection) return;
+
+      function updateButtonVisibility() {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+
+        const portfolioTop = portfolioSection.offsetTop;
+        const portfolioBottom = portfolioTop + portfolioSection.offsetHeight;
+
+        const contactTop = contactSection.offsetTop;
+        const contactBottom = contactTop + contactSection.offsetHeight;
+
+        // Calculate visibility based on scroll position
+        const portfolioVisible = scrollY + windowHeight > portfolioTop && scrollY < portfolioBottom;
+        const contactVisible = scrollY + windowHeight > contactTop && scrollY < contactBottom;
+
+        // Logic:
+        // - Hide "View Portfolio" when portfolio section is visible (user is already there)
+        // - Hide "Start Your Project" when contact section is visible (user is already there)
+        // - Show "Start Your Project" when scrolled past portfolio section
+        // - Show "View Portfolio" when scrolled past contact section
+
+        if (portfolioVisible) {
+          viewPortfolioBtn.classList.add('hidden');
+          viewPortfolioBtn.classList.remove('visible');
+        } else if (scrollY > portfolioBottom) {
+          viewPortfolioBtn.classList.add('visible');
+          viewPortfolioBtn.classList.remove('hidden');
+        } else {
+          viewPortfolioBtn.classList.add('visible');
+          viewPortfolioBtn.classList.remove('hidden');
+        }
+
+        if (contactVisible) {
+          startProjectBtn.classList.add('hidden');
+          startProjectBtn.classList.remove('visible');
+        } else if (scrollY > portfolioBottom) {
+          startProjectBtn.classList.add('visible');
+          startProjectBtn.classList.remove('hidden');
+        } else {
+          startProjectBtn.classList.add('visible');
+          startProjectBtn.classList.remove('hidden');
+        }
+      }
+
+      // Initial call
+      updateButtonVisibility();
+
+      // Update on scroll
+      window.addEventListener('scroll', updateButtonVisibility);
+
+      // Update on resize
+      window.addEventListener('resize', updateButtonVisibility);
+    }
+
     // Mobile Hero Slider Animation with image preloading
     let mobileSliderInterval = null;
     let mobileCurrentSlide = 0;
@@ -2437,6 +2499,9 @@
 
     // Handle window resize
     window.addEventListener('resize', checkMobileSlider);
+
+    // Initialize hero button visibility
+    initHeroButtonVisibility();
   </script>
 </body>
 <script src="assets/js/nav-active.js"></script>

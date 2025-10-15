@@ -1697,6 +1697,51 @@ button:hover::after,
   flex-direction: column;
 }
 
+/* Hero Buttons Overlay */
+.hero-buttons-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  z-index: 15; display: flex; gap: 16px; flex-wrap: wrap;
+  justify-content: center; align-items: center;
+  padding: 40px 20px;
+  background: linear-gradient(to top, rgba(11, 14, 20, 0.9) 0%, rgba(11, 14, 20, 0.5) 50%, transparent 100%);
+}
+
+/* Ensure buttons are initially visible */
+.hero-buttons-overlay .btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Button visibility classes for scroll behavior */
+.hero-buttons-overlay .btn.view-portfolio-btn {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero-buttons-overlay .btn.start-project-btn {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero-buttons-overlay .btn.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+.hero-buttons-overlay .btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Hero Overlay */
+.hero-mobile .hero-content-overlay {
+  position: relative;
+  z-index: 10;
+}
+
+.hero-mobile .hero-content-overlay .cta {
+  display: none !important;
+}
+
 /* --- Final Mobile Slider Text Fix --- */
 
 /* The individual slide container */

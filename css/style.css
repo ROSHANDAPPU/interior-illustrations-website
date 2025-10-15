@@ -878,13 +878,23 @@ header.nav .brand img {
     height: 100%;
     animation: slide-animation 15s ease-in-out infinite;
     position: relative;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    contain: layout paint;
   }
 
   .hero-mobile .slide {
     width: 33.333%;
+    flex: 0 0 33.333%;
     height: 100%;
     background-size: cover; /* Fills the container */
     background-position: center;
+    overflow: hidden; /* Ensure slide strictly clips its content */
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    contain: layout paint;
+    isolation: isolate;
   }
 
   .hero-mobile .hero-content-overlay {
@@ -941,32 +951,56 @@ header.nav .brand img {
   animation: slide-animation 15s ease-in-out infinite, text-sync 15s ease-in-out infinite;
 }
 
-.hero-mobile .slider-track::before {
-  content: "QUIETLY\nEXCEPTIONAL\nINTERIORS";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(32px, 6vw, 48px);
-  font-weight: 700;
-  color: var(--color-heading);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  text-align: center;
-  white-space: pre-line;
-  z-index: 10;
-  animation: text-sync 15s ease-in-out infinite;
+  /* Disable injected pseudo text on mobile slider to prevent overlap */
+  .hero-mobile .slider-track::before {
+    content: none !important;
+    display: none !important;
+  }
+
+/* Remove keyframes that mutate pseudo content on mobile slider */
+@keyframes text-sync {}
+
+/* ========= Mobile slider: definitive visibility gating ========= */
+/* Hide all slide contents by default; reveal only active one per timeline */
+.hero-mobile .slide-content {
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
+  will-change: opacity;
+  transition: opacity 280ms ease;
 }
 
-@keyframes text-sync {
-  0%, 32% { content: "QUIETLY\nEXCEPTIONAL\nINTERIORS"; }
-  33%, 65% { content: "PLANS\nCRAFT\nCLARITY"; }
-  66%, 99% { content: "DESIGN\nBUILD\nPRECISELY"; }
-  100% { content: "QUIETLY\nEXCEPTIONAL\nINTERIORS"; }
+/* Slide 1 content visible during first phase */
+.hero-mobile .slide:nth-child(1) .slide-content {
+  animation: mobile-slide-content-1 15s ease-in-out infinite;
+}
+
+/* Slide 2 content visible during middle phase */
+.hero-mobile .slide:nth-child(2) .slide-content {
+  animation: mobile-slide-content-2 15s ease-in-out infinite;
+}
+
+/* Slide 3 content visible during last phase */
+.hero-mobile .slide:nth-child(3) .slide-content {
+  animation: mobile-slide-content-3 15s ease-in-out infinite;
+}
+
+@keyframes mobile-slide-content-1 {
+  0%, 30%   { opacity: 1; visibility: visible; }
+  31%, 99%  { opacity: 0; visibility: hidden; }
+  100%      { opacity: 1; visibility: visible; }
+}
+
+@keyframes mobile-slide-content-2 {
+  0%, 32%   { opacity: 0; visibility: hidden; }
+  33%, 63%  { opacity: 1; visibility: visible; }
+  64%, 100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes mobile-slide-content-3 {
+  0%, 65%   { opacity: 0; visibility: hidden; }
+  66%, 97%  { opacity: 1; visibility: visible; }
+  98%, 100% { opacity: 0; visibility: hidden; }
 }
 
 /* Mobile: show new hero wrapper */

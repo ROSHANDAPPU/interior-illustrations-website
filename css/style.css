@@ -684,13 +684,16 @@ header.nav .links .dropdown.active .dropdown-menu.mega-projects {
 /* Standardize brand logo sizing across pages */
 header.nav .brand a { display: inline-block; padding: 0; }
 header.nav .brand img {
-  height: 200px !important; /* desktop: override any inline height */
+  height: 64px !important; /* desktop */
   width: auto;
   display: inline-block;
   vertical-align: middle;
 }
+@media (max-width: 1200px) {
+  header.nav .brand img { height: 56px !important; }
+}
 @media (max-width: 768px) {
-  header.nav .brand img { height: 60px !important; }
+  header.nav .brand img { height: 48px !important; }
 }
 
 /* Button Size Variants */
@@ -1579,9 +1582,9 @@ a.mobile-link {
 
 /* Breakpoint: show hamburger and overlay UI, hide desktop links */
 @media (max-width: 1200px) {
-  header.nav { height: 80px; padding: 0 20px; }
+  header.nav { height: 72px; padding: 0 16px; display: flex; align-items: center; }
   header.nav .links { display: none !important; }
-  .hamburger-menu { display: block !important; }
+  .hamburger-menu { display: block !important; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); }
 }
 
 /* 9) Cards/panels should adapt in narrow viewports */
@@ -1887,8 +1890,8 @@ button:hover::after,
 
 /* Extra small mobile devices */
 @media (max-width: 480px) {
-  .nav .brand { margin-left: -50px !important; }
-  .hamburger-menu { top: 30px; right: 20px; }
+  .nav .brand { margin-left: 0 !important; }
+  .hamburger-menu { top: initial; right: 16px; }
   .slide-content {
     bottom: 15px;
     left: 15px;
@@ -1905,5 +1908,5 @@ button:hover::after,
 
 /* Very small mobile devices */
 @media (max-width: 360px) {
-  .nav .brand { margin-left: -45px !important; }
+  .nav .brand { margin-left: 0 !important; }
 }

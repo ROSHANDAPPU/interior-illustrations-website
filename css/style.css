@@ -693,6 +693,39 @@ header.nav .brand img {
   header.nav .brand img { height: 60px !important; }
 }
 
+/* Mobile header alignment and spacing */
+@media (max-width: 768px) {
+  header.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 70px;
+  }
+  header.nav .brand { display: flex; align-items: center; }
+  header.nav .hamburger-menu, header.nav .mobile-menu-toggle, header.nav .links { align-items: center; }
+}
+
+/* Mobile header alignment: space logo and hamburger, center vertically */
+@media (max-width: 768px) {
+  header.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 70px;
+  }
+  header.nav .brand {
+    display: flex;
+    align-items: center;
+  }
+  header.nav .brand img {
+    height: 60px !important;
+    width: auto;
+    display: block;
+  }
+}
+
 /* Button Size Variants */
 .btn-small, .btn.small {
   font-size: 14px;

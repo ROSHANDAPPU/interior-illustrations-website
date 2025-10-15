@@ -690,7 +690,17 @@ header.nav .brand img {
   vertical-align: middle;
 }
 @media (max-width: 768px) {
-  header.nav .brand img { height: 60px !important; }
+  header.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  header.nav .brand img {
+    height: 60px !important;
+    max-width: 150px;
+  }
 }
 
 /* Button Size Variants */

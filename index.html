@@ -72,9 +72,9 @@
 
     /* Header */
     .nav {
-      position: fixed; top: 0; left: 0; right: 0; height: 80px;
+      position: fixed; top: 0; left: 0; right: 0; height: 72px;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; z-index: 2000;
+      padding: 0 24px; z-index: 2000;
       background: #0B0E14; /* Deep Navy background */
     }
     /* Hide hamburger menu wrapper by default (desktop) */
@@ -117,11 +117,7 @@
       font-size: 16px;
       transition: color 0.3s ease;
     }
-    .nav .brand { 
-      font-size: 24px; 
-      letter-spacing: 0.1em; 
-      color: #1D4ED8; /* Cobalt color for brand */
-    }
+    .nav .brand { display: flex; align-items: center; gap: 12px; }
     .nav .links { 
       display: flex; 
       gap: 32px; 
@@ -203,25 +199,28 @@
     
     /* Responsive Navigation */
     @media (max-width: 1024px) {
-      .nav .links {
-        gap: 20px;
-      }
-      .nav .links a {
-        font-size: 14px;
-        padding: 6px 12px;
-      }
+      .nav .links { gap: 16px; }
+      .nav .links a { font-size: 14px; padding: 6px 12px; }
     }
     
     @media (max-width: 768px) {
       .nav {
-        padding: 0 20px;
-        height: 90px;
+        padding: 0 16px;
+        height: 64px;
       }
       .nav .brand img:hover {
         filter: brightness(1.4) contrast(1.2) !important;
       }
       /* Show hamburger menu on mobile */
-      .hamburger-menu { display: block; position: fixed; top: 35px; right: 25px; z-index: 10001; pointer-events: auto !important; }
+      .hamburger-menu {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+        z-index: 10001;
+        pointer-events: auto !important;
+      }
       /* Hide desktop nav links on mobile (use overlay instead) */
       .nav .links { display: none; }
       
@@ -274,9 +273,9 @@
       .mobile-dropdown-section.active .mobile-dropdown-content { max-height: 220px; }
       .mobile-dropdown-section.active .mobile-arrow { transform: rotate(180deg); }
 
-      /* Force logo size on mobile and tablet */
+      /* Force logo size on mobile */
       .nav .brand img {
-        height: 200px !important;
+        height: 48px !important;
       }
     }
 
@@ -1437,13 +1436,46 @@
     
     /* Extra small mobile devices */
     @media (max-width: 480px) {
-      .nav .brand { margin-left: -50px !important; }
-      .hamburger-menu { top: 30px; right: 20px; }
+      .nav .brand { margin-left: 0 !important; }
+      .hamburger-menu { right: 16px; }
     }
     
     /* Very small mobile devices */
     @media (max-width: 360px) {
-      .nav .brand { margin-left: -45px !important; }
+      .nav .brand { margin-left: 0 !important; }
+    }
+
+    /* CTA Floating Overlay (mobile) */
+    .cta-overlay {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      display: none;
+      padding: 12px;
+      background: rgba(29, 78, 216, 0.01); /* 1% transparent cobalt */
+      border-top: 1px solid rgba(147, 197, 253, 0.12);
+      backdrop-filter: blur(8px) saturate(120%);
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+      z-index: 1100; /* Above content, below mobile menu overlay */
+    }
+    .cta-overlay-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+    }
+    .cta-overlay .btn {
+      flex: 1 1 50%;
+      min-height: 48px;
+      padding: 14px 16px;
+    }
+    .is-hidden { display: none !important; }
+    @media (max-width: 768px) {
+      .cta-overlay { display: block; }
     }
   </style>
 </head>
@@ -1485,6 +1517,14 @@
       <a href="contact/get-quote.html">Contact</a>
     </nav>
   </header>
+
+  <!-- Mobile CTA Floating Overlay: full-width, cobalt glass, side-by-side -->
+  <div id="cta-overlay" class="cta-overlay" aria-live="polite">
+    <div class="cta-overlay-inner">
+      <a id="cta-overlay-portfolio" class="btn" href="#work">View Portfolio</a>
+      <a id="cta-overlay-contact" class="btn secondary" href="contact/get-quote.html">Start Your Project</a>
+    </div>
+  </div>
 
   <!-- INTRO VIDEO OVERLAY -->
   <div id="intro-overlay" class="intro-overlay">
@@ -2437,6 +2477,43 @@
 
     // Handle window resize
     window.addEventListener('resize', checkMobileSlider);
+
+    /* Dynamic CTA Overlay Visibility (mobile)
+       - Initial: both buttons visible
+       - Hide "View Portfolio" when #work is visible
+       - Hide "Start Your Project" when #contact is visible
+       - Re-show as sections leave viewport
+    */
+    (function initDynamicCtaOverlay(){
+      const overlay = document.getElementById('cta-overlay');
+      if (!overlay) return;
+
+      const btnPortfolio = document.getElementById('cta-overlay-portfolio');
+      const btnContact = document.getElementById('cta-overlay-contact');
+      const sectionPortfolio = document.getElementById('work');
+      const sectionContact = document.getElementById('contact');
+
+      if (!btnPortfolio || !btnContact) return;
+
+      const opts = { threshold: 0.2, rootMargin: '0px 0px -20% 0px' };
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (sectionPortfolio && entry.target === sectionPortfolio) {
+            const hidePortfolio = entry.isIntersecting;
+            btnPortfolio.classList.toggle('is-hidden', hidePortfolio);
+            console.log('[CTA]', 'Portfolio section visible:', hidePortfolio, '| Hide "View Portfolio":', hidePortfolio);
+          }
+          if (sectionContact && entry.target === sectionContact) {
+            const hideContact = entry.isIntersecting;
+            btnContact.classList.toggle('is-hidden', hideContact);
+            console.log('[CTA]', 'Contact section visible:', hideContact, '| Hide "Start Your Project":', hideContact);
+          }
+        });
+      }, opts);
+
+      if (sectionPortfolio) io.observe(sectionPortfolio);
+      if (sectionContact) io.observe(sectionContact);
+    })();
   </script>
 </body>
 <script src="assets/js/nav-active.js"></script>

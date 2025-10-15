@@ -862,7 +862,8 @@ header.nav .brand img {
     display: block; 
     position: relative; 
     overflow: hidden; 
-    min-height: 100vh;
+    height: calc(100vh - 80px); /* account for fixed nav */
+    width: 100%;
     background: var(--color-bg-primary);
   }
 }
@@ -871,52 +872,89 @@ header.nav .brand img {
 /* Mobile Hero Slider (CSS-only)   */
 /* =============================== */
 .hero-mobile .mobile-slider {
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1; /* Behind text */
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1; /* Place behind overlay content */
 }
 
 .hero-mobile .slider-track {
   display: flex;
-  width: 300%; /* 3 images */
   height: 100%;
-  animation: slide-animation 15s linear infinite;
+  width: 400%; /* 4 slides: 3 unique + 1 duplicate */
+  animation: mobile-slide-animation 20s linear infinite;
 }
 
 .hero-mobile .slide-image {
   width: 100%;
   height: 100%;
+  flex-shrink: 0;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  /* Force 7:5 aspect ratio for slide container */
+  aspect-ratio: 7 / 5;
 }
 
-@keyframes slide-animation {
+@keyframes mobile-slide-animation {
   0%   { transform: translateX(0%); }
-  33%  { transform: translateX(-100%); }
-  66%  { transform: translateX(-200%); }
-  100% { transform: translateX(0%); }
+  25%  { transform: translateX(0%); }     /* hold first */
+  26%  { transform: translateX(-25%); }   /* move to second */
+  50%  { transform: translateX(-25%); }   /* hold second */
+  51%  { transform: translateX(-50%); }   /* move to third */
+  75%  { transform: translateX(-50%); }   /* hold third */
+  76%  { transform: translateX(-75%); }   /* move to duplicate of first */
+  100% { transform: translateX(-75%); }
 }
 
-.hero-mobile .hero-content {
-  position: relative;
-  z-index: 1;
+/* Overlay for centered, stacked text and buttons */
+.hero-mobile .hero-content-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
   justify-content: center;
-  height: 100vh;
-  padding: 24px;
+  align-items: center;
+  padding: 20px;
   text-align: center;
+  z-index: 1;
+  color: #fff;
+  /* Optional readability backdrop */
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-.hero-mobile .hero-content h1 {
-  color: var(--color-heading);
+.hero-mobile .hero-content-overlay .hero-heading {
+  font-size: 2.5rem;
   font-weight: 900;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
+  color: var(--color-heading);
+  margin: 0 0 0.5rem 0;
+}
+
+.hero-mobile .hero-content-overlay .promo-text {
+  font-size: 1rem;
+  color: var(--color-heading);
+  opacity: 0.95;
+  max-width: 80%;
+  margin: 0 0 1.5rem 0;
+}
+
+.hero-mobile .hero-content-overlay .button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hero-mobile .hero-content-overlay .btn {
+  width: 200px;
+  padding: 12px 20px;
 }
 
 /* Service Cards - Keep existing functionality but update styling */

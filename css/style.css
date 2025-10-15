@@ -1375,6 +1375,96 @@ a.mobile-link {
 /* 9) Cards/panels should adapt in narrow viewports */
 .info-box, .card, .panel { width: 100%; }
 
+/* ========================================= */
+/* Mobile Hero: Centered & Stacked (overlay) */
+/* Overrides previous mobile hero rules      */
+/* ========================================= */
+@media (max-width: 768px) {
+  /* Container anchors overlay and fills below fixed nav */
+  .hero-desktop { display: none; }
+  .hero-mobile {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    height: calc(100vh - 80px);
+  }
+
+  /* Background image slider behind content */
+  .hero-mobile .mobile-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero-mobile .slider-track {
+    display: flex;
+    height: 100%;
+    width: 400%; /* 4 slides */
+    animation: mobile-slide-animation 20s linear infinite;
+  }
+
+  .hero-mobile .slide-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+  }
+
+  /* Foreground overlay content centered on top */
+  .hero-mobile .hero-content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .hero-mobile .hero-content-overlay .hero-heading {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .hero-mobile .hero-content-overlay .promo-text {
+    font-size: 1rem;
+    max-width: 90%;
+    margin-bottom: 2rem;
+  }
+
+  .hero-mobile .hero-content-overlay .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Keyframes for 4-slide track */
+  @keyframes mobile-slide-animation {
+      0%   { transform: translateX(0%); }
+      22%  { transform: translateX(0%); }
+      25%  { transform: translateX(-25%); }
+      47%  { transform: translateX(-25%); }
+      50%  { transform: translateX(-50%); }
+      72%  { transform: translateX(-50%); }
+      75%  { transform: translateX(-75%); }
+      100% { transform: translateX(-75%); }
+  }
+}
+
 /* ================================ */
 /* iOS-style Frosted Glass for Buttons */
 /* Non-destructive: preserves existing styles and overlays glass via ::before */

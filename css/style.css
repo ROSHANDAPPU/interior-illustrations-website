@@ -869,6 +869,12 @@ header.nav .brand img {
 
 /* --- Mobile Hero Slider Styles --- */
 @media (max-width: 768px) {
+  /* Change background colors to deep navy */
+  .hero-mobile-wrapper,
+  .hero-buttons-container {
+    background-color: #0c0c0f; /* Deep Navy */
+  }
+
   /* Container for the sliding part */
   .hero-slider-container {
     width: 100%;
@@ -914,7 +920,7 @@ header.nav .brand img {
     flex-direction: column;
     justify-content: space-between; /* Pushes h1 to top, p to bottom */
     color: white;
-    background: linear-gradient(rgba(0,0,0,0.6), transparent, rgba(0,0,0,0.6)); /* Gradient for readability */
+    background: linear-gradient(rgba(12,12,15,0.72), transparent, rgba(12,12,15,0.72)); /* Deep Navy gradient for readability */
   }
 
   .slide-hero-text {
@@ -923,13 +929,21 @@ header.nav .brand img {
     font-weight: bold;
   }
 
-  .slide-tag {
-    background-color: rgba(17, 17, 17, 0.7); /* Semi-transparent tag background */
+  /* Hide inline slide tag (superseded by .promo-tag) */
+  .slide-tag { display: none; }
+
+  /* NEW: Styling for the promo tag on the slider */
+  .promo-tag {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(17, 17, 17, 0.7);
+    color: white;
     padding: 8px 12px;
     border-radius: 4px;
     font-size: 0.8rem;
-    align-self: flex-start; /* Aligns to the left */
-    max-width: 90%;
+    max-width: calc(100% - 40px); /* Prevent overflow */
+    z-index: 10; /* Above the slider images */
   }
 
   .hero-buttons-container {
@@ -938,7 +952,19 @@ header.nav .brand img {
     gap: 15px;
     padding: 25px 20px;
     align-items: center;
-    background-color: #0c0c0f; /* Match your site's dark background */
+  }
+
+  /* UPDATED: Button styling to match desktop */
+  .btn-primary {
+    background-color: #1D4ED8; /* Cobalt solid */
+    border: 1px solid #1D4ED8;
+    color: #FFFFFF;
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    border: 1px solid #93C5FD; /* Azure light border */
+    color: #FFFFFF;
   }
 
   /* The animation that moves the slider track */

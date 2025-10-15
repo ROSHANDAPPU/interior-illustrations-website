@@ -684,13 +684,16 @@ header.nav .links .dropdown.active .dropdown-menu.mega-projects {
 /* Standardize brand logo sizing across pages */
 header.nav .brand a { display: inline-block; padding: 0; }
 header.nav .brand img {
-  height: 200px !important; /* desktop: override any inline height */
+  height: 72px !important; /* desktop default; align with 80px header */
   width: auto;
   display: inline-block;
   vertical-align: middle;
 }
+@media (max-width: 1024px) {
+  header.nav .brand img { height: 64px !important; }
+}
 @media (max-width: 768px) {
-  header.nav .brand img { height: 60px !important; }
+  header.nav .brand img { height: 56px !important; }
 }
 
 /* Button Size Variants */
@@ -1496,9 +1499,9 @@ header.nav, header.nav .links, header.nav .links .dropdown { overflow: visible; 
 /* ------------------------------------------ */
 
 /* Hide hamburger on wide view by default */
-.hamburger-menu { display: none; position: relative; z-index: 9999; }
+.hamburger-menu { display: none; position: static; z-index: 9999; }
 header.nav .hamburger-menu { margin-left: auto; }
-.hamburger-icon { width: 30px; height: 24px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s ease; }
+.hamburger-icon { width: 30px; height: 24px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s ease; align-self: center; }
 .hamburger-icon .line { width: 100%; height: 3px; background: var(--color-action); border-radius: 2px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform-origin: center; }
 .hamburger-menu.active .line1 { transform: rotate(45deg) translate(6px, 6px); }
 .hamburger-menu.active .line2 { opacity: 0; transform: scaleX(0); }
@@ -1579,9 +1582,41 @@ a.mobile-link {
 
 /* Breakpoint: show hamburger and overlay UI, hide desktop links */
 @media (max-width: 1200px) {
-  header.nav { height: 80px; padding: 0 20px; }
+  header.nav { height: 80px; padding: 0 20px; display: flex; align-items: center; }
   header.nav .links { display: none !important; }
   .hamburger-menu { display: block !important; }
+}
+
+/* Mobile CTA Overlay styles (global, can be used cross pages) */
+@media (max-width: 768px) {
+  .mobile-cta-overlay {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    width: 100%;
+    z-index: 2000;
+    background: rgba(29, 78, 216, 0.01); /* 1% transparent Cobalt */
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    backdrop-filter: blur(10px) saturate(120%);
+    border-top: 1px solid rgba(147, 197, 253, 0.18);
+    box-shadow: 0 -10px 30px rgba(2,6,23,0.35);
+    padding: 10px 14px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+  .mobile-cta-overlay .mobile-cta-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+  .mobile-cta-overlay a.btn,
+  .mobile-cta-overlay a.btn.secondary {
+    width: 100%;
+    min-height: 44px;
+    font-size: 14px;
+  }
+  .mobile-cta-overlay .hidden { display: none !important; }
 }
 
 /* 9) Cards/panels should adapt in narrow viewports */
@@ -1887,8 +1922,8 @@ button:hover::after,
 
 /* Extra small mobile devices */
 @media (max-width: 480px) {
-  .nav .brand { margin-left: -50px !important; }
-  .hamburger-menu { top: 30px; right: 20px; }
+  .nav .brand { margin-left: 0 !important; }
+  .hamburger-menu { position: static; top: auto; right: auto; }
   .slide-content {
     bottom: 15px;
     left: 15px;
@@ -1905,5 +1940,5 @@ button:hover::after,
 
 /* Very small mobile devices */
 @media (max-width: 360px) {
-  .nav .brand { margin-left: -45px !important; }
+  .nav .brand { margin-left: 0 !important; }
 }

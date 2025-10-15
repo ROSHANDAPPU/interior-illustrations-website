@@ -936,38 +936,47 @@ header.nav .brand img {
   100% { transform: translateX(0%); }
 }
 
-/* Dynamic text updates during slider animation */
+/* Gate slide text visibility to the active slide only */
 .hero-mobile .slider-track {
-  animation: slide-animation 15s ease-in-out infinite, text-sync 15s ease-in-out infinite;
+  animation: slide-animation 15s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: layout paint;
+  isolation: isolate;
 }
 
-.hero-mobile .slider-track::before {
-  content: "QUIETLY\nEXCEPTIONAL\nINTERIORS";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(32px, 6vw, 48px);
-  font-weight: 700;
-  color: var(--color-heading);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  text-align: center;
-  white-space: pre-line;
-  z-index: 10;
-  animation: text-sync 15s ease-in-out infinite;
-  pointer-events: none;
+/* Default: hide all per-slide text overlays */
+.hero-mobile .slide .slide-content {
+  opacity: 0;
+  pointer-events: none; /* content is decorative; CTAs are outside */
+  z-index: 4;
+  will-change: opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
-@keyframes text-sync {
-  0%, 32% { content: "QUIETLY\nEXCEPTIONAL\nINTERIORS"; }
-  33%, 65% { content: "PLANS\nCRAFT\nCLARITY"; }
-  66%, 99% { content: "DESIGN\nBUILD\nPRECISELY"; }
-  100% { content: "QUIETLY\nEXCEPTIONAL\nINTERIORS"; }
+/* Visible windows aligned to slide-animation timing */
+@keyframes mobileTextS1 {
+  0%, 30% { opacity: 1; }
+  31%, 100% { opacity: 0; }
 }
+
+@keyframes mobileTextS2 {
+  0%, 32% { opacity: 0; }
+  33%, 63% { opacity: 1; }
+  64%, 100% { opacity: 0; }
+}
+
+@keyframes mobileTextS3 {
+  0%, 65% { opacity: 0; }
+  66%, 97% { opacity: 1; }
+  98%, 100% { opacity: 0; }
+}
+
+.hero-mobile .slide:nth-child(1) .slide-content { animation: mobileTextS1 15s steps(1, end) infinite; }
+.hero-mobile .slide:nth-child(2) .slide-content { animation: mobileTextS2 15s steps(1, end) infinite; }
+.hero-mobile .slide:nth-child(3) .slide-content { animation: mobileTextS3 15s steps(1, end) infinite; }
 
 /* Mobile: show new hero wrapper */
 @media (max-width: 768px) {
@@ -1674,6 +1683,10 @@ button:hover::after,
   background-size: cover;
   background-position: center;
   overflow: hidden; /* Absolutely necessary */
+  isolation: isolate;            /* contain stacking to the slide */
+  contain: layout paint;         /* confine painting to this slide */
+  will-change: transform;        /* hint during track movement */
+  transform: translateZ(0);      /* force its own composite layer */
 }
 
 /* The new content overlay that holds the text */

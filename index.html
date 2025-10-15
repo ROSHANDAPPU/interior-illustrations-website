@@ -1504,10 +1504,88 @@
       .nav .brand { margin-left: -50px !important; }
       .hamburger-menu { top: 30px; right: 20px; }
     }
-    
+
     /* Very small mobile devices */
     @media (max-width: 360px) {
       .nav .brand { margin-left: -45px !important; }
+    }
+
+    /* Dynamic CTA Button Visibility */
+    .btn {
+      opacity: 1;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+    }
+
+    .btn.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+    }
+
+    .btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Overlay CTA positioning */
+    .cta.overlay-cta {
+      position: fixed;
+      bottom: 1vh;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: none; /* Hidden by default, shown only on mobile */
+      gap: 16px;
+      flex-direction: row;
+      justify-content: center;
+      background: transparent;
+      backdrop-filter: blur(20px); /* Water drop effect */
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px; /* Water drop rounded corners */
+      padding: 16px 24px;
+      box-shadow: 0 8px 32px rgba(11, 14, 20, 0.1);
+    }
+
+    /* Show overlay CTA only on mobile */
+    @media (max-width: 768px) {
+      .cta.overlay-cta {
+        display: flex;
+        flex-wrap: nowrap; /* Ensure buttons stay side by side */
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        transform: none;
+        border-radius: 0;
+        padding: 20px;
+        /* Azure glass effect: solid azure glass at top, fully transparent at bottom */
+        background: linear-gradient(
+          0deg,
+          rgba(147, 197, 253, 0.01) 0%,
+          rgba(147, 197, 253, 0.01) 30%,
+          rgba(147, 197, 253, 0.01) 70%,
+          rgba(147, 197, 253, 0) 100%
+        );
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow:
+          0 -1px 0 rgba(255, 255, 255, 0.1), /* Subtle top border */
+          0 -4px 8px rgba(255, 255, 255, 0.05), /* Soft feather effect */
+          0 -8px 16px rgba(255, 255, 255, 0.02), /* Extended feather */
+          0 -16px 32px rgba(255, 255, 255, 0.01); /* Very soft feather */
+      }
+
+      .cta.overlay-cta .btn {
+        flex: 0 0 auto; /* Prevent buttons from shrinking */
+        width: auto; /* Let buttons size to content */
+        min-width: 140px; /* Minimum width for readability */
+        max-width: calc(50vw - 40px); /* Max half screen width minus padding */
+      }
     }
   </style>
 </head>
@@ -1565,6 +1643,12 @@
     </div>
   </div>
 
+  <!-- Overlay CTA Buttons (moved above hero section) -->
+  <div class="cta overlay-cta">
+    <a class="btn view-portfolio-btn" href="#work">View Portfolio</a>
+    <a class="btn secondary start-project-btn" href="contact/get-quote.html">Start Your Project</a>
+  </div>
+
   <!-- CINEMATIC HERO (Desktop) -->
   <section class="hero hero-desktop" aria-label="Luxury Interior Design">
     <!-- Sliding track with luxury home images -->
@@ -1598,8 +1682,8 @@
 
     <!-- Calls to action -->
     <div class="cta">
-      <a class="btn" href="#work">View Portfolio</a>
-      <a class="btn secondary" href="contact/get-quote.html">Start Your Project</a>
+      <a class="btn view-portfolio-btn" href="#work">View Portfolio</a>
+      <a class="btn secondary start-project-btn" href="contact/get-quote.html">Start Your Project</a>
     </div>
   </section>
 
@@ -1626,8 +1710,8 @@
       <div class="taglines">
       </div>
       <div class="mobile-cta-buttons" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 16px; flex-direction: row; align-items: center; z-index: 1000;">
-        <a class="btn" href="#work" style="width: 180px;">View Portfolio</a>
-        <a class="btn secondary" href="contact/get-quote.html" style="width: 180px;">Start Your Project</a>
+        <a class="btn view-portfolio-btn" href="#work" style="width: 180px;">View Portfolio</a>
+        <a class="btn secondary start-project-btn" href="contact/get-quote.html" style="width: 180px;">Start Your Project</a>
       </div>
     </div>
   </section>
@@ -1860,10 +1944,52 @@
     </div>
   </footer>
 
-  <script>
-    // Mobile menu toggle - Wrapped in DOMContentLoaded
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOM loaded, initializing hamburger menu...'); // Debug log
+ <script>
+   // Font Loading Diagnostics
+   document.addEventListener('DOMContentLoaded', function() {
+     console.log('Font loading diagnostics started...');
+
+     // Check if Satoshi font is loaded
+     const satoshiLoaded = document.fonts.check('12px Satoshi');
+     console.log('Satoshi font loaded:', satoshiLoaded);
+
+     // Check specific weights
+     const weights = ['400', '500', '600'];
+     weights.forEach(weight => {
+       const loaded = document.fonts.check(`${weight} 12px Satoshi`);
+       console.log(`Satoshi ${weight} loaded:`, loaded);
+     });
+
+     // Check computed font on body
+     const bodyFont = getComputedStyle(document.body).fontFamily;
+     console.log('Body computed font-family:', bodyFont);
+
+     // Check main heading font
+     const h1Font = getComputedStyle(document.querySelector('h1')).fontFamily;
+     console.log('H1 computed font-family:', h1Font);
+
+     // Check font size on main elements
+     const mainElements = ['h1', 'h2', 'h3', 'p'];
+     mainElements.forEach(selector => {
+       const element = document.querySelector(selector);
+       if (element) {
+         const fontSize = getComputedStyle(element).fontSize;
+         const fontWeight = getComputedStyle(element).fontWeight;
+         console.log(`${selector} - font-size: ${fontSize}, font-weight: ${fontWeight}`);
+       }
+     });
+
+     // Check for font loading failures
+     document.fonts.onloadingerror = function(event) {
+       console.error('Font loading error:', event);
+     };
+
+     console.log('Font diagnostics complete.');
+   });
+
+   // Mobile menu toggle - Wrapped in DOMContentLoaded
+   document.addEventListener('DOMContentLoaded', function() {
+     console.log('DOM loaded, initializing hamburger menu...'); // Debug log
       
       const menu = document.getElementById('hamburgerMenu');
       const icon = menu ? menu.querySelector('.hamburger-icon') : null;

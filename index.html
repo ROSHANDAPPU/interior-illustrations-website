@@ -221,7 +221,7 @@
         filter: brightness(1.4) contrast(1.2) !important;
       }
       /* Show hamburger menu on mobile */
-      .hamburger-menu { display: block; position: fixed; top: 35px; right: 25px; z-index: 10001; pointer-events: auto !important; }
+      .hamburger-menu { display: block; }
       /* Hide desktop nav links on mobile (use overlay instead) */
       .nav .links { display: none; }
       
@@ -249,15 +249,7 @@
         z-index: 10000; 
         padding: 4px;
       }
-      .line { 
-        width: 100%; 
-        height: 4px; 
-        background: #1D4ED8; 
-        border-radius: 3px; 
-        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
-        transform-origin: center;
-        box-shadow: 0 0 8px rgba(29, 78, 216, 0.3);
-      }
+      
       .hamburger-menu.active .line1 { transform: rotate(45deg) translate(7px, 7px) !important; }
       .hamburger-menu.active .line2 { opacity: 0 !important; transform: scaleX(0) !important; }
       .hamburger-menu.active .line3 { transform: rotate(-45deg) translate(7px, -7px) !important; }
@@ -1501,15 +1493,10 @@
     }
     
     /* Extra small mobile devices */
-    @media (max-width: 480px) {
-      .nav .brand { margin-left: -50px !important; }
-      .hamburger-menu { top: 30px; right: 20px; }
-    }
+    
 
     /* Very small mobile devices */
-    @media (max-width: 360px) {
-      .nav .brand { margin-left: -45px !important; }
-    }
+    
 
     /* Dynamic CTA Button Visibility */
     .btn {

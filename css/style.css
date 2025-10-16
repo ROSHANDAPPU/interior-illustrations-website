@@ -684,24 +684,12 @@ header.nav .links .dropdown.active .dropdown-menu.mega-projects {
 /* Standardize brand logo sizing across pages */
 header.nav .brand a { display: inline-block; padding: 0; }
 header.nav .brand img {
-  height: 200px !important; /* desktop: override any inline height */
+  height: 200px; /* desktop: override any inline height */
   width: auto;
   display: inline-block;
   vertical-align: middle;
 }
-@media (max-width: 768px) {
-  header.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  header.nav .brand img {
-    height: 60px !important;
-    max-width: 150px;
-  }
-}
+
 
 /* Button Size Variants */
 .btn-small, .btn.small {
@@ -1533,24 +1521,24 @@ header.nav .hamburger-menu { margin-left: auto; }
 .hamburger-menu .mobile-link,
 nav .mobile-link,
 a.mobile-link {
-  font-size: 24px !important;
-  font-weight: 500 !important;
-  padding: 15px 30px !important;
-  min-width: 200px !important;
-  text-align: center !important;
+  font-size: 24px;
+  font-weight: 500;
+  padding: 15px 30px;
+  min-width: 200px;
+  text-align: center;
 }
 
 /* ------------------------------------------ */
 /* FORCE OVERRIDE: Homepage-standard hamburger */
 /* Ensures all pages match index.html sizing   */
 /* ------------------------------------------ */
-header.nav .hamburger-icon { width: 35px !important; height: 28px !important; }
-header.nav .hamburger-icon .line { height: 3px !important; }
+header.nav .hamburger-icon { width: 35px; height: 28px; }
+header.nav .hamburger-icon .line { height: 3px; }
 
 /* Use higher-specificity + !important to override page-level styles */
-header.nav .hamburger-menu.active .hamburger-icon .line.line1 { transform: rotate(45deg) translate(7px, 7px) !important; }
-header.nav .hamburger-menu.active .hamburger-icon .line.line2 { opacity: 0 !important; transform: scaleX(0) !important; }
-header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotate(-45deg) translate(7px, -7px) !important; }
+header.nav .hamburger-menu.active .hamburger-icon .line.line1 { transform: rotate(45deg) translate(7px, 7px); }
+header.nav .hamburger-menu.active .hamburger-icon .line.line2 { opacity: 0; transform: scaleX(0); }
+header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotate(-45deg) translate(7px, -7px); }
 
 /* FORCE OVERRIDE: Media query overrides */
 @media (max-width: 1024px) {
@@ -1559,11 +1547,11 @@ header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotat
   .hamburger-menu .mobile-link,
   nav .mobile-link,
   a.mobile-link {
-    font-size: 24px !important;
-    font-weight: 500 !important;
-    padding: 15px 30px !important;
-    min-width: 200px !important;
-    text-align: center !important;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 15px 30px;
+    min-width: 200px;
+    text-align: center;
   }
 }
 
@@ -1573,11 +1561,11 @@ header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotat
   .hamburger-menu .mobile-link,
   nav .mobile-link,
   a.mobile-link {
-    font-size: 24px !important;
-    font-weight: 500 !important;
-    padding: 15px 30px !important;
-    min-width: 200px !important;
-    text-align: center !important;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 15px 30px;
+    min-width: 200px;
+    text-align: center;
   }
 }
 
@@ -1587,11 +1575,11 @@ header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotat
   .hamburger-menu .mobile-link,
   nav .mobile-link,
   a.mobile-link {
-    font-size: 20px !important;
-    font-weight: 500 !important;
-    padding: 15px 30px !important;
-    min-width: 180px !important;
-    text-align: center !important;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 15px 30px;
+    min-width: 180px;
+    text-align: center;
   }
 }
 .mobile-link:hover { background: rgba(29, 78, 216, 0.18); color: var(--color-action); }
@@ -1604,7 +1592,13 @@ header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotat
 
 /* Breakpoint: show hamburger and overlay UI, hide desktop links */
 @media (max-width: 1200px) {
-  header.nav { height: 80px; padding: 0 20px; }
+  header.nav { 
+    height: 80px; 
+    padding: 0 20px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   header.nav .links { display: none !important; }
   .hamburger-menu { display: block !important; }
 }
@@ -1632,19 +1626,19 @@ header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotat
 
 /* Mobile View Fix (≤768px): Add proper padding and flexbox alignment */
 @media (max-width: 768px) {
-  header.nav {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    padding: 0 20px !important; /* Ensure proper horizontal padding */
-    box-sizing: border-box !important;
+  header.site-header, header.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
   }
   header.nav .brand {
     flex-shrink: 0; /* Prevent logo from shrinking */
     margin-left: 0; /* Ensure no negative margin */
   }
   header.nav .brand img {
-    height: 60px !important; /* Controlled mobile logo size */
+    height: 60px;
     width: auto;
     max-width: 150px;
   }
@@ -1652,6 +1646,8 @@ header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotat
     margin-left: auto; /* Push hamburger to the right */
   }
 }
+
+
 
 /* Ensure hamburger menu is properly positioned and sized */
 .hamburger-menu {
@@ -1674,13 +1670,7 @@ header.nav .brand img {
   max-width: 100%;
 }
 
-/* Mobile logo override */
-@media (max-width: 768px) {
-  header.nav .brand img {
-    height: 60px !important;
-    max-width: 150px;
-  }
-}
+
 
 /* 9) Cards/panels should adapt in narrow viewports */
 .info-box, .card, .panel { width: 100%; }
@@ -2129,4 +2119,34 @@ button:hover::after,
 /* Very small mobile devices */
 @media (max-width: 360px) {
   .nav .brand { margin-left: -45px !important; }
+}
+.hamburger-menu {
+  margin-left: auto;
+}
+
+.hamburger-icon {
+  width: 35px;
+  height: 28px;
+  cursor: pointer !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10000;
+  padding: 4px;
+}
+
+.hamburger-menu.active .line1 {
+  transform: rotate(45deg) translate(7px, 7px) !important;
+}
+
+.hamburger-menu.active .line2 {
+  opacity: 0 !important;
+  transform: scaleX(0) !important;
+}
+
+.hamburger-menu.active .line3 {
+  transform: rotate(-45deg) translate(7px, -7px) !important;
 }

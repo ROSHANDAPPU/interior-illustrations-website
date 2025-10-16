@@ -4,8 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interior Illusions - Luxury Interior Design</title>
-  <meta name="description" content="Interior Illusions LLC - luxury interior design and home remodeling services. Transform your space with our expert craftsmanship and design expertise.">
-  <link rel="icon" type="image/x-icon" href="assets/images/06_Favicon/favicon-high.png">
+  <meta name="description" content="Interior Illusions LLC - luxury interior design and home remodeling services. Transform your space with our expert craftsmanship and design expertise." />
+  <link rel="icon" type="image/png" href="assets/images/06_Favicon/favicon-high.png" />
+  <link rel="shortcut icon" href="assets/images/06_Favicon/favicon-high.png" />
   <!-- External CSS -->
   <link rel="stylesheet" href="css/style.css">
   <!-- Font Awesome for social icons -->
@@ -216,23 +217,11 @@
         padding: 0 20px;
         height: 90px;
       }
-      .nav .brand img { height: 100px !important; }
-      .nav .brand { 
-        display: flex !important; 
-        align-items: center !important; 
-        justify-content: center !important; 
-        width: 100% !important; 
-        margin-left: -60px !important; /* Center the logo by offsetting hamburger menu space */
-      }
-      .nav .brand img {
-        filter: brightness(1.2) contrast(1.1) !important; /* Make logo more visible */
-        transition: all 0.3s ease !important;
-      }
       .nav .brand img:hover {
         filter: brightness(1.4) contrast(1.2) !important;
       }
       /* Show hamburger menu on mobile */
-      .hamburger-menu { display: block; position: fixed; top: 35px; right: 25px; z-index: 10001; pointer-events: auto !important; }
+      .hamburger-menu { display: block; }
       /* Hide desktop nav links on mobile (use overlay instead) */
       .nav .links { display: none; }
       
@@ -260,15 +249,7 @@
         z-index: 10000; 
         padding: 4px;
       }
-      .line { 
-        width: 100%; 
-        height: 4px; 
-        background: #1D4ED8; 
-        border-radius: 3px; 
-        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
-        transform-origin: center;
-        box-shadow: 0 0 8px rgba(29, 78, 216, 0.3);
-      }
+      
       .hamburger-menu.active .line1 { transform: rotate(45deg) translate(7px, 7px) !important; }
       .hamburger-menu.active .line2 { opacity: 0 !important; transform: scaleX(0) !important; }
       .hamburger-menu.active .line3 { transform: rotate(-45deg) translate(7px, -7px) !important; }
@@ -277,10 +258,6 @@
       .hamburger-menu.active .hamburger-icon { z-index: 10001 !important; }
       
       /* Add hover effect for better visibility */
-      .hamburger-icon:hover .line {
-        background: #60A5FA;
-        box-shadow: 0 0 12px rgba(29, 78, 216, 0.5);
-      }
       /* Mobile dropdown within overlay */
       .mobile-dropdown-section { display: flex; flex-direction: column; align-items: center; }
       .mobile-dropdown-btn { font-size: 24px; font-weight: 500; color: #E7EAEE; background: none; border: none; padding: 15px 30px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s ease; min-width: 200px; justify-content: center; }
@@ -288,11 +265,16 @@
       .mobile-dropdown-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px; }
       .mobile-dropdown-section.active .mobile-dropdown-content { max-height: 220px; }
       .mobile-dropdown-section.active .mobile-arrow { transform: rotate(180deg); }
+
+      /* Force logo size on mobile and tablet */
+      .nav .brand img {
+        height: 200px !important;
+      }
     }
 
     /* Hero */
     .hero {
-      position: relative; height: 100vh; overflow: hidden; background: var(--color-bg-primary);
+      position: relative; height: calc(100vh - 80px); margin-top: 80px; overflow: hidden; background: var(--color-bg-primary);
     }
     .hero::after { 
       content: ""; position: absolute; inset: 0; 
@@ -369,6 +351,7 @@
     }
     .slide img {
       width: 100%; height: 100%; object-fit: cover;
+      object-position: center 20%;
       transform: scale(1.1);
       animation: slowZoom 15s ease-in-out infinite alternate;
       filter: saturate(1.1) contrast(1.05) brightness(0.9);
@@ -715,14 +698,78 @@
       border-radius: 0px; filter: grayscale(20%);
     }
 
+    /* Portfolio Grid & Lightbox Styles */
+    @keyframes portfolioSheen {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .portfolio-grid-1x1 {
+      max-width: 1400px !important;
+      margin: 0 auto !important;
+      display: grid !important;
+      gap: 24px !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      padding: 0 20px !important;
+    }
+
+    .portfolio-grid-1x1 .tile {
+      position: relative !important;
+      display: block !important;
+      overflow: hidden !important;
+      border: 1px solid rgba(255, 255, 255, 0.05) !important;
+      background: #0D111B !important;
+      cursor: pointer !important;
+      aspect-ratio: 1 / 1 !important;
+    }
+
+    .portfolio-grid-1x1 .tile img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+      transform: none !important;
+    }
+
+    .portfolio-grid-1x1 .tile::after {
+      content: "" !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      pointer-events: none !important;
+      background: linear-gradient(120deg, rgba(255,255,255,0.00) 10%, rgba(255,255,255,0.25) 30%, rgba(255,255,255,0.40) 40%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.00) 70%) !important;
+      background-size: 240% 100% !important;
+      background-position: 200% 0 !important;
+      mix-blend-mode: screen !important;
+      opacity: 0 !important;
+      transition: opacity 0.3s ease !important;
+      z-index: 2 !important;
+    }
+
+    .portfolio-grid-1x1 .tile:hover::after {
+      opacity: 1 !important;
+      animation: portfolioSheen 1.6s ease-out forwards !important;
+    }
+
     /* Gallery */
     .gallery {
       padding: 120px 40px; background: var(--color-light);
     }
-    .gallery-grid {
-      display: grid; gap: 32px; 
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      max-width: 1400px; margin: 0 auto;
+
+    @media (max-width: 1024px) {
+      .portfolio-grid-1x1 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .portfolio-grid-1x1 {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
     }
     .gallery-item {
       height: 400px; background-size: cover; background-position: center;
@@ -1446,16 +1493,87 @@
     }
     
     /* Extra small mobile devices */
-    @media (max-width: 480px) {
-      .nav .brand img { height: 90px !important; }
-      .nav .brand { margin-left: -50px !important; }
-      .hamburger-menu { top: 30px; right: 20px; }
-    }
     
+
     /* Very small mobile devices */
-    @media (max-width: 360px) {
-      .nav .brand img { height: 80px !important; }
-      .nav .brand { margin-left: -45px !important; }
+    
+
+    /* Dynamic CTA Button Visibility */
+    .btn {
+      opacity: 1;
+      pointer-events: auto;
+      transition: all 0.3s ease;
+    }
+
+    .btn.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+    }
+
+    .btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Overlay CTA positioning */
+    .cta.overlay-cta {
+      position: fixed;
+      bottom: 1vh;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: none; /* Hidden by default, shown only on mobile */
+      gap: 16px;
+      flex-direction: row;
+      justify-content: center;
+      background: transparent;
+      backdrop-filter: blur(20px); /* Water drop effect */
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px; /* Water drop rounded corners */
+      padding: 16px 24px;
+      box-shadow: 0 8px 32px rgba(11, 14, 20, 0.1);
+    }
+
+    /* Show overlay CTA only on mobile */
+    @media (max-width: 768px) {
+      .cta.overlay-cta {
+        display: flex;
+        flex-wrap: nowrap; /* Ensure buttons stay side by side */
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        transform: none;
+        border-radius: 0;
+        padding: 20px;
+        /* Azure glass effect: solid azure glass at top, fully transparent at bottom */
+        background: linear-gradient(
+          0deg,
+          rgba(147, 197, 253, 0.01) 0%,
+          rgba(147, 197, 253, 0.01) 30%,
+          rgba(147, 197, 253, 0.01) 70%,
+          rgba(147, 197, 253, 0) 100%
+        );
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow:
+          0 -1px 0 rgba(255, 255, 255, 0.1), /* Subtle top border */
+          0 -4px 8px rgba(255, 255, 255, 0.05), /* Soft feather effect */
+          0 -8px 16px rgba(255, 255, 255, 0.02), /* Extended feather */
+          0 -16px 32px rgba(255, 255, 255, 0.01); /* Very soft feather */
+      }
+
+      .cta.overlay-cta .btn {
+        flex: 0 0 auto; /* Prevent buttons from shrinking */
+        width: auto; /* Let buttons size to content */
+        min-width: 140px; /* Minimum width for readability */
+        max-width: calc(50vw - 40px); /* Max half screen width minus padding */
+      }
     }
   </style>
 </head>
@@ -1513,24 +1631,30 @@
     </div>
   </div>
 
-  <!-- CINEMATIC HERO -->
-  <section class="hero" aria-label="Luxury Interior Design">
+  <!-- Overlay CTA Buttons (moved above hero section) -->
+  <div class="cta overlay-cta">
+    <a class="btn view-portfolio-btn" href="#work">View Portfolio</a>
+    <a class="btn secondary start-project-btn" href="contact/get-quote.html">Start Your Project</a>
+  </div>
+
+  <!-- CINEMATIC HERO (Desktop) -->
+  <section class="hero hero-desktop" aria-label="Luxury Interior Design">
     <!-- Sliding track with luxury home images -->
     <div class="track" aria-hidden="true">
   <div class="slide" data-footnote="Tile Install at Primary Bathroom for a Custom Home Builder">
-        <img src="assets/images/SLIDER  HOMEPAGE/IMG_7545.jpeg" alt="Project Slide 1">
+        <img src="assets/images/slider-homepage/IMG_7545.jpeg" alt="Project Slide 1">
         <div class="slide-footnote" role="note" aria-hidden="false">
           <div class="slide-footnote-desc">Tile Install at Primary Bathroom for a Custom Home Builder</div>
         </div>
       </div>
   <div class="slide" data-footnote="Tile Install at Primary Bathroom for a Custom Home Builder">
-        <img src="assets/images/SLIDER  HOMEPAGE/SLIDE 1.jpeg" alt="Project Slide 2">
+        <img src="assets/images/slider-homepage/SLIDE 1.jpeg" alt="Project Slide 2">
         <div class="slide-footnote" role="note" aria-hidden="false">
           <div class="slide-footnote-desc">Tile Install at Primary Bathroom for a Custom Home Builder</div>
         </div>
       </div>
   <div class="slide" data-footnote="Tile Install at Primary Bathroom for a Custom Home Builder">
-        <img src="assets/images/SLIDER  HOMEPAGE/SLIDE 2.jpeg" alt="Project Slide 3">
+        <img src="assets/images/slider-homepage/SLIDE 2.jpeg" alt="Project Slide 3">
         <div class="slide-footnote" role="note" aria-hidden="false">
           <div class="slide-footnote-desc">Tile Install at Primary Bathroom for a Custom Home Builder</div>
         </div>
@@ -1546,10 +1670,61 @@
 
     <!-- Calls to action -->
     <div class="cta">
-      <a class="btn" href="#work">View Portfolio</a>
-      <a class="btn secondary" href="contact/get-quote.html">Start Your Project</a>
+      <a class="btn view-portfolio-btn" href="#work">View Portfolio</a>
+      <a class="btn secondary start-project-btn" href="contact/get-quote.html">Start Your Project</a>
     </div>
   </section>
+
+  <!-- MOBILE HERO: Image Slider -->
+  <section class="hero-mobile">
+    <div class="slider-track">
+      <div class="slide" style="background-image: url('assets/images/slider-homepage/SLIDE 1.jpeg');">
+        <div class="slide-content">
+          <h1 class="slide-hero-text">
+            <span>PLANS</span><br>
+            <span>CRAFT</span><br>
+            <span>CLARITY</span>
+          </h1>
+        </div>
+        <div class="mobile-slide-footnote">
+          <div class="mobile-slide-footnote-desc">Tile Install at Primary Bathroom for a Custom Home Builder</div>
+        </div>
+      </div>
+      <div class="slide" style="background-image: url('assets/images/slider-homepage/SLIDE 2.jpeg');">
+        <div class="slide-content">
+          <h1 class="slide-hero-text">
+            <span>DESIGN</span><br>
+            <span>BUILD</span><br>
+            <span>PRECISELY</span>
+          </h1>
+        </div>
+        <div class="mobile-slide-footnote">
+          <div class="mobile-slide-footnote-desc">Tile Install at Primary Bathroom for a Custom Home Builder</div>
+        </div>
+      </div>
+      <div class="slide" style="background-image: url('assets/images/slider-homepage/IMG_7545.jpeg');">
+        <div class="slide-content">
+          <h1 class="slide-hero-text">
+            <span>QUIETLY</span><br>
+            <span>EXCEPTIONAL</span><br>
+            <span>INTERIORS</span>
+          </h1>
+        </div>
+        <div class="mobile-slide-footnote">
+          <div class="mobile-slide-footnote-desc">Tile Install at Primary Bathroom for a Custom Home Builder</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-content-overlay">
+      <div class="taglines">
+      </div>
+      <div class="mobile-cta-buttons" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 16px; flex-direction: row; align-items: center; z-index: 1000;">
+        <a class="btn view-portfolio-btn" href="#work" style="width: 180px;">View Portfolio</a>
+        <a class="btn secondary start-project-btn" href="contact/get-quote.html" style="width: 180px;">Start Your Project</a>
+      </div>
+    </div>
+  </section>
+
 
   <!-- SERVICES SECTION -->
   <section id="services" class="section">
@@ -1630,46 +1805,52 @@
     </div>
   </section>
 
-  <!-- GALLERY SLIDER SECTION -->
+  <!-- GALLERY SECTION -->
   <section id="work" class="gallery">
     <div class="section-header reveal" style="text-align: left;">
       <p class="section-subtitle" style="text-align: left;">PORTFOLIO</p>
       <h2 class="section-title" style="text-align: left;">Our Latest Work</h2>
     </div>
-
-    <div class="gallery-slider">
-        <div class="slide-container">
-            <div class="slide">
-                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" alt="Custom tile in Primary Bathroom">
-                <div class="slide-description">Custom tile in Primary Bathroom</div>
-            </div>
-            <div class="slide">
-                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" alt="LVP flooring install throughout">
-                <div class="slide-description">LVP flooring install throughout</div>
-            </div>
-            <div class="slide">
-                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" alt="Nail down install">
-                <div class="slide-description">Nail down install</div>
-            </div>
-            <div class="slide">
-                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" alt="Full home remodel">
-                <div class="slide-description">Full home remodel</div>
-            </div>
-            <div class="slide">
-                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Custom tile in Primary Bathroom">
-                <div class="slide-description">Custom tile in Primary Bathroom</div>
-            </div>
-            <div class="slide">
-                <img src="assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" alt="Custom Tile">
-                <div class="slide-description">Custom Tile</div>
-            </div>
-        </div>
-        <button class="prev-btn">&#10094;</button>
-        <button class="next-btn">&#10095;</button>
-    </div>
+    
+    <div class="portfolio-grid-1x1">
+      <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7207.JPG" alt="Portfolio image 1" />
+      </div>
+      <div class="tile" data-footnote="LVP flooring install throughout" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7209.JPG" alt="Portfolio image 2" />
+      </div>
+      <div class="tile" data-footnote="Nail down install" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7383.JPG" alt="Portfolio image 3" />
+      </div>
+      <div class="tile" data-footnote="Full home remodel" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7585.JPG" alt="Portfolio image 4" />
+      </div>
+      <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Portfolio image 5" />
+      </div>
+      <div class="tile" data-footnote="Custom Tile" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7851.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7851.JPG" alt="Portfolio image 6" />
+      </div>
+      <div class="tile" data-footnote="Guest Bath Marble Tile Install" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7852.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7852.JPG" alt="Portfolio image 7" />
+      </div>
+      <div class="tile" data-footnote="Red Oak Hardwood Floor Install" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7855.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7855.JPG" alt="Portfolio image 8" />
+      </div>
+      <div class="tile" data-footnote="Primary Bath Tile Install" onclick="openLightbox('assets/images/PORTFOLIO/FINALS1/IMG_7857.JPG', this)">
+        <img src="assets/images/PORTFOLIO/FINALS1/IMG_7857.JPG" alt="Portfolio image 9" />
+      </div>
+     </div>
   </section>
 
-
+  <!-- Lightbox Modal -->
+  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
+      <img id="lightboxImage" src="" alt="Portfolio Image" />
+  <div id="lightboxFootnote" class="lightbox-footnote" aria-live="polite" tabindex="0" role="complementary" aria-label="Image details" onclick="event.stopPropagation()"></div>
+    </div>
+  </div>
 
   <!-- CONTACT SECTION -->
   <section id="contact" class="contact">
@@ -1772,10 +1953,52 @@
     </div>
   </footer>
 
-  <script>
-    // Mobile menu toggle - Wrapped in DOMContentLoaded
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOM loaded, initializing hamburger menu...'); // Debug log
+ <script>
+   // Font Loading Diagnostics
+   document.addEventListener('DOMContentLoaded', function() {
+     console.log('Font loading diagnostics started...');
+
+     // Check if Satoshi font is loaded
+     const satoshiLoaded = document.fonts.check('12px Satoshi');
+     console.log('Satoshi font loaded:', satoshiLoaded);
+
+     // Check specific weights
+     const weights = ['400', '500', '600'];
+     weights.forEach(weight => {
+       const loaded = document.fonts.check(`${weight} 12px Satoshi`);
+       console.log(`Satoshi ${weight} loaded:`, loaded);
+     });
+
+     // Check computed font on body
+     const bodyFont = getComputedStyle(document.body).fontFamily;
+     console.log('Body computed font-family:', bodyFont);
+
+     // Check main heading font
+     const h1Font = getComputedStyle(document.querySelector('h1')).fontFamily;
+     console.log('H1 computed font-family:', h1Font);
+
+     // Check font size on main elements
+     const mainElements = ['h1', 'h2', 'h3', 'p'];
+     mainElements.forEach(selector => {
+       const element = document.querySelector(selector);
+       if (element) {
+         const fontSize = getComputedStyle(element).fontSize;
+         const fontWeight = getComputedStyle(element).fontWeight;
+         console.log(`${selector} - font-size: ${fontSize}, font-weight: ${fontWeight}`);
+       }
+     });
+
+     // Check for font loading failures
+     document.fonts.onloadingerror = function(event) {
+       console.error('Font loading error:', event);
+     };
+
+     console.log('Font diagnostics complete.');
+   });
+
+   // Mobile menu toggle - Wrapped in DOMContentLoaded
+   document.addEventListener('DOMContentLoaded', function() {
+     console.log('DOM loaded, initializing hamburger menu...'); // Debug log
       
       const menu = document.getElementById('hamburgerMenu');
       const icon = menu ? menu.querySelector('.hamburger-icon') : null;
@@ -1827,52 +2050,6 @@
       window.addEventListener('resize', ()=>{ if (window.innerWidth > 1200) closeMenu(); });
     }); // Close DOMContentLoaded
   </script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const slideContainer = document.querySelector('.gallery-slider .slide-container');
-    if (slideContainer) {
-      const slides = Array.from(document.querySelectorAll('.gallery-slider .slide'));
-      const nextBtn = document.querySelector('.gallery-slider .next-btn');
-      const prevBtn = document.querySelector('.gallery-slider .prev-btn');
-      let currentIndex = 0;
-
-      function updateSlider() {
-        if (slides.length > 0) {
-            const slideWidth = slides[0].getBoundingClientRect().width;
-            slideContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-        }
-      }
-
-      function showNextSlide() {
-        if (slides.length > 0) {
-            currentIndex = (currentIndex + 1) % slides.length;
-            updateSlider();
-        }
-      }
-
-      function showPrevSlide() {
-        if (slides.length > 0) {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-            updateSlider();
-        }
-      }
-
-      if(nextBtn) {
-        nextBtn.addEventListener('click', showNextSlide);
-      }
-
-      if(prevBtn) {
-        prevBtn.addEventListener('click', showPrevSlide);
-      }
-
-      window.addEventListener('resize', updateSlider);
-      
-      // Initial update
-      updateSlider();
-    }
-  });
-</script>
 
 </body>
 </html>
@@ -2298,6 +2475,231 @@
         }
       }
     });
+
+    // Dynamic Hero Button Visibility Based on Scroll Position
+    function initHeroButtonVisibility() {
+      const viewPortfolioBtn = document.querySelector('.view-portfolio-btn');
+      const startProjectBtn = document.querySelector('.start-project-btn');
+      const portfolioSection = document.getElementById('work');
+      const contactSection = document.getElementById('contact');
+
+      if (!viewPortfolioBtn || !startProjectBtn || !portfolioSection || !contactSection) {
+        console.log('Missing elements for button visibility:', {
+          viewPortfolioBtn: !!viewPortfolioBtn,
+          startProjectBtn: !!startProjectBtn,
+          portfolioSection: !!portfolioSection,
+          contactSection: !!contactSection
+        });
+        return;
+      }
+
+      function updateButtonVisibility() {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+
+        const portfolioTop = portfolioSection.offsetTop;
+        const portfolioBottom = portfolioTop + portfolioSection.offsetHeight;
+
+        const contactTop = contactSection.offsetTop;
+        const contactBottom = contactTop + contactSection.offsetHeight;
+
+        // Calculate visibility based on scroll position
+        const portfolioVisible = scrollY + windowHeight > portfolioTop && scrollY < portfolioBottom;
+        const contactVisible = scrollY + windowHeight > contactTop && scrollY < contactBottom;
+
+        console.log('Scroll position:', scrollY, 'Portfolio visible:', portfolioVisible, 'Contact visible:', contactVisible);
+
+        // Logic:
+        // - Hide "View Portfolio" when portfolio section is visible (user is already there)
+        // - Hide "Start Your Project" when contact section is visible (user is already there)
+        // - Show "Start Your Project" when scrolled past portfolio section
+        // - Show "View Portfolio" when scrolled past contact section
+
+        if (portfolioVisible) {
+          viewPortfolioBtn.classList.add('hidden');
+          viewPortfolioBtn.classList.remove('visible');
+          console.log('Hiding View Portfolio button');
+        } else if (scrollY > portfolioBottom) {
+          viewPortfolioBtn.classList.add('visible');
+          viewPortfolioBtn.classList.remove('hidden');
+          console.log('Showing View Portfolio button');
+        } else {
+          viewPortfolioBtn.classList.add('visible');
+          viewPortfolioBtn.classList.remove('hidden');
+          console.log('Default: showing View Portfolio button');
+        }
+
+        if (contactVisible) {
+          startProjectBtn.classList.add('hidden');
+          startProjectBtn.classList.remove('visible');
+          console.log('Hiding Start Project button');
+        } else if (scrollY > portfolioBottom) {
+          startProjectBtn.classList.add('visible');
+          startProjectBtn.classList.remove('hidden');
+          console.log('Showing Start Project button');
+        } else {
+          startProjectBtn.classList.add('visible');
+          startProjectBtn.classList.remove('hidden');
+          console.log('Default: showing Start Project button');
+        }
+      }
+
+      // Initial call
+      updateButtonVisibility();
+
+      // Update on scroll
+      window.addEventListener('scroll', updateButtonVisibility);
+
+      // Update on resize
+      window.addEventListener('resize', updateButtonVisibility);
+    }
+
+    // Mobile Hero Slider Animation with image preloading
+    let mobileSliderInterval = null;
+    let mobileCurrentSlide = 0;
+    let imageCache = {}; // Cache for preloaded images
+
+    // Preload all slider images on page load
+    function preloadSliderImages() {
+      const imageUrls = [
+        'assets/images/slider-homepage/IMG_7545.jpeg',
+        'assets/images/slider-homepage/SLIDE 1.jpeg',
+        'assets/images/slider-homepage/SLIDE 2.jpeg'
+      ];
+
+      imageUrls.forEach(url => {
+        if (!imageCache[url]) {
+          const img = new Image();
+          img.onload = () => {
+            console.log('Preloaded image:', url);
+            imageCache[url] = true;
+          };
+          img.onerror = () => {
+            console.warn('Failed to preload image:', url);
+          };
+          img.src = url;
+          imageCache[url] = img;
+        }
+      });
+    }
+
+    function updateMobileSlide() {
+      console.log('Mobile slider transitioning to slide:', mobileCurrentSlide);
+      const mobileSliderTrack = document.querySelector('.hero-mobile-wrapper .slider-track');
+      const mobileSlides = mobileSliderTrack ? mobileSliderTrack.children : [];
+
+      console.log('Mobile slider update - Current slide:', mobileCurrentSlide, 'Total slides:', mobileSlides.length);
+
+      if (!mobileSliderTrack || mobileSlides.length === 0) {
+        console.warn('Mobile slider: Track or slides not found');
+        return;
+      }
+
+      // Increment slide index first
+      const nextSlideIndex = (mobileCurrentSlide + 1) % mobileSlides.length;
+
+      console.log('Mobile slider: Switching to slide', nextSlideIndex);
+
+      // Check if next slide image is loaded before transitioning
+      const nextSlide = mobileSlides[nextSlideIndex];
+      const nextSlideImg = nextSlide ? nextSlide.querySelector('img') : null;
+
+      if (nextSlideImg) {
+        console.log('Next slide image src:', nextSlideImg.src, 'loaded:', nextSlideImg.complete);
+
+        // If image is not loaded, wait for it or use cached version
+        if (!nextSlideImg.complete) {
+          console.warn('Next slide image not loaded yet, waiting...');
+
+          // Wait for image to load, then proceed
+          nextSlideImg.onload = () => {
+            console.log('Image loaded, proceeding with transition');
+            performSlideTransition(nextSlideIndex);
+          };
+
+          // Timeout fallback after 2 seconds to prevent infinite waiting
+          setTimeout(() => {
+            if (!nextSlideImg.complete) {
+              console.warn('Image load timeout, proceeding anyway');
+              performSlideTransition(nextSlideIndex);
+            }
+          }, 2000);
+
+          return; // Don't proceed until image loads
+        }
+      }
+
+      // Image is loaded, proceed immediately
+      performSlideTransition(nextSlideIndex);
+    }
+
+    function performSlideTransition(slideIndex) {
+      const mobileSliderTrack = document.querySelector('.hero-mobile-wrapper .slider-track');
+
+      if (!mobileSliderTrack) return;
+
+      mobileCurrentSlide = slideIndex;
+
+      // Use class-based transitions for smoother animation
+      // Remove all active classes first
+      mobileSliderTrack.classList.remove('slide-0', 'slide-1', 'slide-2');
+
+      // Add the appropriate active class
+      mobileSliderTrack.classList.add(`slide-${mobileCurrentSlide}`);
+
+      console.log('Applied slide class: slide-' + mobileCurrentSlide);
+    }
+
+    function startMobileSlider() {
+      if (mobileSliderInterval) clearInterval(mobileSliderInterval);
+      const mobileSliderTrack = document.querySelector('.hero-mobile-wrapper .slider-track');
+      if (mobileSliderTrack) {
+        mobileSliderTrack.classList.remove('slide-0', 'slide-1', 'slide-2');
+        mobileSliderTrack.classList.add('slide-0');
+        mobileSliderTrack.style.transform = '';
+      }
+      mobileSliderInterval = setInterval(updateMobileSlide, 4000); // Change slide every 4 seconds
+      console.log('Mobile slider started');
+    }
+
+    function stopMobileSlider() {
+      if (mobileSliderInterval) {
+        clearInterval(mobileSliderInterval);
+        mobileSliderInterval = null;
+      }
+      // Reset to first slide
+      const mobileSliderTrack = document.querySelector('.hero-mobile-wrapper .slider-track');
+      if (mobileSliderTrack) {
+        mobileSliderTrack.classList.remove('slide-0', 'slide-1', 'slide-2');
+        mobileSliderTrack.classList.add('slide-0');
+        mobileSliderTrack.style.transform = '';
+      }
+      mobileCurrentSlide = 0;
+    }
+
+    // Start/stop mobile slider based on screen size
+    function checkMobileSlider() {
+      const mobileHero = document.querySelector('.hero-mobile-wrapper');
+      console.log('Checking mobile slider - window width:', window.innerWidth, 'mobile hero exists:', !!mobileHero);
+      if (mobileHero && window.innerWidth <= 768) {
+        startMobileSlider();
+      } else {
+        stopMobileSlider();
+      }
+    }
+
+    // Preload images on page load
+    preloadSliderImages();
+
+    // Initial check
+    console.log('Initial mobile slider check');
+    checkMobileSlider();
+
+    // Handle window resize
+    window.addEventListener('resize', checkMobileSlider);
+
+    // Initialize hero button visibility
+    initHeroButtonVisibility();
   </script>
 </body>
 <script src="assets/js/nav-active.js"></script>

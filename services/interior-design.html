@@ -219,62 +219,9 @@
       background: #0B0E14; /* Deep Navy background */
     }
     
-    /* Hamburger Menu Styles */
-    .hamburger-menu {
-      display: none;
-      position: relative;
-      z-index: 10002;
-      pointer-events: auto !important;
-    }
+    
 
-    .hamburger-icon {
-      width: 30px;
-      height: 24px;
-      cursor: pointer !important;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.4s ease;
-      position: relative;
-      z-index: 10002;
-      pointer-events: auto !important;
-    }
-
-    .line {
-      width: 100%;
-      height: 3px;
-      background: #1D4ED8;
-      border-radius: 2px;
-      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      transform-origin: center;
-    }
-
-    .hamburger-menu.active .line1 { transform: rotate(45deg) translate(6px, 6px) !important; }
-    .hamburger-menu.active .line2 { opacity: 0 !important; transform: scaleX(0) !important; }
-    .hamburger-menu.active .line3 { transform: rotate(-45deg) translate(6px, -6px) !important; }
-
-    /* Mobile Overlay */
-    .mobile-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(11, 14, 20, 0.95);
-      backdrop-filter: blur(20px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.4s ease;
-      z-index: 9998;
-    }
-
-    .hamburger-menu.active .mobile-overlay {
-      opacity: 1;
-      visibility: visible;
-    }
+    
 
     /* Mobile Navigation */
     .mobile-nav {
@@ -285,23 +232,7 @@
       padding: 40px;
     }
 
-    .mobile-link {
-      font-size: 24px;
-      font-weight: 500;
-      color: #E7EAEE;
-      text-decoration: none;
-      padding: 15px 30px;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      text-align: center;
-      min-width: 200px;
-    }
-
-    .mobile-link:hover {
-      background: rgba(29, 78, 216, 0.2);
-      color: #1D4ED8;
-      transform: translateY(-2px);
-    }
+    
 
     /* Mobile Dropdown */
     .mobile-dropdown-section {
@@ -527,7 +458,7 @@
       }
       
       .nav .brand img {
-        height: 60px;
+        height: 200px !important;
       }
       
       .nav .links {
@@ -1524,8 +1455,17 @@
         <div class="tile" data-footnote="Custom tile in Primary Bathroom" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG', this)">
           <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7920.JPG" alt="Portfolio image 5" />
         </div>
-        <div class="tile" data-footnote="Custom Tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG', this)">
-          <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7928.JPG" alt="Portfolio image 6" />
+        <div class="tile" data-footnote="Custom Tile" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7851.JPG', this)">
+          <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7851.JPG" alt="Portfolio image 6" />
+        </div>
+        <div class="tile" data-footnote="Guest Bath Marble Tile Install" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7852.JPG', this)">
+          <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7852.JPG" alt="Portfolio image 7" />
+        </div>
+        <div class="tile" data-footnote="Red Oak Hardwood Floor Install" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7855.JPG', this)">
+          <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7855.JPG" alt="Portfolio image 8" />
+        </div>
+        <div class="tile" data-footnote="Primary Bath Tile Install" onclick="openLightbox('../assets/images/PORTFOLIO/FINALS1/IMG_7857.JPG', this)">
+          <img src="../assets/images/PORTFOLIO/FINALS1/IMG_7857.JPG" alt="Portfolio image 9" />
         </div>
       </div>
     </section>

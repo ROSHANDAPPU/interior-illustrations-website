@@ -684,14 +684,36 @@ header.nav .links .dropdown.active .dropdown-menu.mega-projects {
 /* Standardize brand logo sizing across pages */
 header.nav .brand a { display: inline-block; padding: 0; }
 header.nav .brand img {
-  height: 200px !important; /* desktop: override any inline height */
+  height: 56px; /* desktop: reasonable header logo height */
   width: auto;
   display: inline-block;
   vertical-align: middle;
+  max-height: 64px;
 }
+
+/* Mobile logo size */
 @media (max-width: 768px) {
-  header.nav .brand img { height: 60px !important; }
+  header.nav .brand img {
+    height: 45px; /* Adjusted for better alignment with hamburger */
+    width: auto;
+    margin: 0; /* Remove any margin */
+    padding: 0; /* Remove any padding */
+    vertical-align: middle; /* Better vertical alignment */
+  }
+  
+  header.nav {
+    height: 80px;
+    min-height: 80px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative; /* keep in flow on mobile */
+    background: transparent;
+    z-index: 3000;
+  }
 }
+
 
 /* Button Size Variants */
 .btn-small, .btn.small {
@@ -846,6 +868,461 @@ header.nav .brand img {
 
 .portfolio p, .portfolio span, .portfolio div {
   color: var(--color-body); /* Slate body text */
+}
+
+/* =============================== */
+/* Responsive Hero Visibility      */
+/* Desktop first: show desktop, hide mobile wrapper */
+/* =============================== */
+.hero-desktop { display: block; }
+.hero-mobile { display: none; }
+.hero-mobile-wrapper { display: none; }
+
+/* Mobile: show new hero wrapper */
+@media (max-width: 768px) {
+  .hero-desktop { display: none; }
+  .hero-mobile { display: block; }
+
+  /* ================================ */
+  /* New Mobile Hero: Image Slider    */
+  /* ================================ */
+  .hero-mobile {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    aspect-ratio: 4 / 3; /* Actual rectangle ratio of the images */
+    background: var(--color-bg-primary);
+  }
+
+  .hero-mobile .slider-track {
+    display: flex;
+    width: 300%; /* 100% for each of the 3 slides */
+    height: 100%;
+    animation: slide-animation 15s ease-in-out infinite;
+    position: relative;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    contain: layout paint;
+  }
+
+  .hero-mobile .slide {
+    width: 33.333%;
+    flex: 0 0 33.333%;
+    height: 100%;
+    background-size: cover; /* Fills the container */
+    background-position: center;
+    overflow: hidden; /* Ensure slide strictly clips its content */
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    contain: layout paint;
+    isolation: isolate;
+  }
+
+  .hero-mobile .hero-content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 5;
+    padding: 40px 20px 80px;
+  }
+
+  .hero-mobile .taglines {
+    margin-bottom: 24px;
+    display: none; /* Hide static tagline since we're using dynamic one */
+  }
+
+  .hero-mobile .tagline {
+    font-size: clamp(32px, 6vw, 48px);
+    font-weight: 700;
+    color: var(--color-heading);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    text-align: center;
+  }
+
+  .hero-mobile .cta {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .hero-mobile .btn {
+    min-width: 200px;
+  }
+}
+
+@keyframes slide-animation {
+  0% { transform: translateX(0%); }
+  30% { transform: translateX(0%); }
+  33% { transform: translateX(-33.333%); }
+  63% { transform: translateX(-33.333%); }
+  66% { transform: translateX(-66.666%); }
+  97% { transform: translateX(-66.666%); }
+  100% { transform: translateX(0%); }
+}
+
+/* Dynamic text updates during slider animation */
+.hero-mobile .slider-track {
+  animation: slide-animation 15s ease-in-out infinite, text-sync 15s ease-in-out infinite;
+}
+
+  /* Disable injected pseudo text on mobile slider to prevent overlap */
+  .hero-mobile .slider-track::before {
+    content: none !important;
+    display: none !important;
+  }
+
+/* Remove keyframes that mutate pseudo content on mobile slider */
+@keyframes text-sync {}
+
+/* ========= Mobile slider: definitive visibility gating ========= */
+/* Hide all slide contents by default; reveal only active one per timeline */
+.hero-mobile .slide-content {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  will-change: opacity;
+  transition: opacity 280ms ease;
+}
+
+/* Slide 1 content visible during first phase */
+.hero-mobile .slide:nth-child(1) .slide-content {
+  animation: mobile-slide-content-1 15s ease-in-out infinite;
+}
+
+/* Slide 2 content visible during middle phase */
+.hero-mobile .slide:nth-child(2) .slide-content {
+  animation: mobile-slide-content-2 15s ease-in-out infinite;
+}
+
+/* Slide 3 content visible during last phase */
+.hero-mobile .slide:nth-child(3) .slide-content {
+  animation: mobile-slide-content-3 15s ease-in-out infinite;
+}
+
+@keyframes mobile-slide-content-1 {
+  0%, 30%   { opacity: 1; visibility: visible; }
+  31%, 99%  { opacity: 0; visibility: hidden; }
+  100%      { opacity: 1; visibility: visible; }
+}
+
+@keyframes mobile-slide-content-2 {
+  0%, 32%   { opacity: 0; visibility: hidden; }
+  33%, 63%  { opacity: 1; visibility: visible; }
+  64%, 100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes mobile-slide-content-3 {
+  0%, 65%   { opacity: 0; visibility: hidden; }
+  66%, 97%  { opacity: 1; visibility: visible; }
+  98%, 100% { opacity: 0; visibility: hidden; }
+}
+
+/* Mobile: show new hero wrapper */
+@media (max-width: 768px) {
+  .hero-desktop { display: none; }
+  .hero-mobile {
+    display: block;
+    margin-top: 20px;
+    padding-top: 8px;
+  }
+  .hero-mobile-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 100px);
+    width: 100%;
+    background: var(--color-bg-primary);
+    margin-top: 8px;
+  }
+}
+
+/* =============================== */
+/* Mobile Hero: Vertical Slider    */
+/* =============================== */
+@media (max-width: 768px) {
+  /* --- Mobile Hero Wrapper --- */
+  .hero-mobile-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 140px); /* Adjust for fixed navigation and extra spacing */
+    background-color: #0c0c0f; /* Ensure background if content doesn't fill */
+    margin-top: 20px;
+  }
+
+  /* --- NEW: Top Text Container --- */
+  .hero-top-text-container {
+    padding: 20px; /* Space around the top text */
+    text-align: center;
+    color: white;
+  }
+
+  .main-mobile-hero-heading {
+    font-size: 2.8rem; /* Adjust as needed */
+    font-weight: bold;
+    margin: 0; /* Remove default margins */
+  }
+
+  /* --- Slider Container (now below the top text) --- */
+  .hero-slider-container {
+    width: 100%;
+    flex-grow: 1; /* This makes the slider take up available space */
+    overflow: hidden;
+    position: relative;
+    background: #000; /* fallback while images load */
+  }
+
+  .hero-slider-container .slider-track {
+    display: flex;
+    height: 100%;
+    width: 300%; /* 3 slides */
+    /* Disable auto keyframe animation; JS controls transitions */
+    animation: none !important;
+  }
+
+  .hero-slider-container .slide {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+  }
+
+/* ==========================
+   Site footer (global styles)
+   Ensures consistent footer layout and responsive behavior
+   ========================== */
+.footer {
+  background: var(--color-bg-primary, #0b0e14);
+  padding: 80px 0 40px;
+  border-top: 1px solid rgba(163, 170, 180, 0.08);
+  color: var(--color-body, #A3AAB4);
+}
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 40px;
+  align-items: start;
+}
+.footer-section { display: flex; flex-direction: column; }
+.footer-logo { margin-bottom: 24px; }
+.footer-logo img { height: 110px; width: auto; display: block; }
+.footer-description { color: var(--color-body, #A3AAB4); font-size: 16px; line-height: 1.6; margin-bottom: 24px; max-width: 320px; }
+.footer-social { display: flex; gap: 16px; }
+.footer-social a { color: var(--color-accent, #93C5FD); font-size: 20px; transition: color 0.3s ease; }
+.footer-social a:hover { color: var(--color-heading, #E7EAEE); }
+.footer-label { color: var(--color-accent, #93C5FD); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 8px; }
+.footer-heading { color: var(--color-heading, #E7EAEE); font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+.footer-links { list-style: none; padding: 0; margin: 0; }
+.footer-links li { margin-bottom: 10px; color: var(--color-accent, #93C5FD); font-size: 16px; }
+.footer-links a { color: var(--color-accent, #93C5FD); font-size: 16px; text-decoration: none; transition: all 0.3s ease; }
+.footer-links a:hover { color: var(--color-heading, #E7EAEE); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+.footer-links strong { color: var(--color-accent, #93C5FD); font-weight: 600; }
+.footer-bottom { border-top: 1px solid rgba(163, 170, 180, 0.06); padding-top: 24px; }
+.footer-legal { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-legal p { color: var(--color-body, #A3AAB4); font-size: 14px; margin: 0; }
+.footer-legal-links { display: flex; align-items: center; gap: 16px; }
+.footer-legal-links a { color: var(--color-accent, #93C5FD); font-size: 14px; text-decoration: none; transition: all 0.3s ease; }
+.footer-legal-links a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+.footer-divider { color: rgba(163, 170, 180, 0.3); font-size: 14px; }
+
+/* Responsive adjustments */
+@media (max-width: 1000px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+@media (max-width: 640px) {
+  .footer { padding: 48px 0 24px; }
+  .footer-content { padding: 0 20px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; margin-bottom: 24px; }
+  .footer-description { max-width: 100%; margin-bottom: 16px; }
+  .footer-logo img { height: 80px; }
+  .footer-legal { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .footer-legal-links { width: 100%; justify-content: flex-start; }
+}
+
+/* ===============================
+   Post-Project Care / Accordion
+   Styles for the section and accessible accordion UI
+   =============================== */
+.postcare {
+  padding: 40px 0 24px;
+  background: transparent;
+  color: var(--color-body, #A3AAB4);
+}
+.postcare .section-header { text-align: center; margin-bottom: 24px; }
+.postcare .section-subtitle { color: var(--color-accent, #93C5FD); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.postcare .section-title { color: var(--color-heading, #E7EAEE); font-size: clamp(22px, 4vw, 34px); margin: 0 0 12px; font-weight: 700; }
+.postcare .content { max-width: 900px; margin: 0 auto 28px; color: var(--color-body, #A3AAB4); font-size: 16px; line-height: 1.75; }
+
+.accordion { max-width: 980px; margin: 0 auto; }
+.accordion-item { border-radius: 12px; background: rgba(255,255,255,0.02); margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.03); }
+.accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+.accordion-header:focus { outline: 3px solid rgba(147,197,253,0.18); outline-offset: 2px; }
+.faq-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; border-radius: 999px; background: rgba(29,78,216,0.12); color: var(--color-accent, #1D4ED8); font-weight: 700; }
+.accordion-title { font-size: 16px; font-weight: 700; color: var(--color-heading, #E7EAEE); }
+.chevron { margin-left: auto; width: 18px; height: 18px; display: inline-block; transition: transform 220ms ease; }
+.accordion-item[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+.accordion-panel { max-height: 0; overflow: hidden; transition: max-height 260ms ease, padding 200ms ease; padding: 0 18px; }
+.accordion-panel .accordion-inner { padding: 0 0 14px; }
+.accordion-item[aria-expanded="true"] .accordion-panel { max-height: 800px; padding: 12px 18px 18px; }
+.accordion-panel ul { margin: 0 0 12px 20px; }
+
+@media (max-width: 640px) {
+  .postcare .section-title { font-size: clamp(20px, 6vw, 26px); }
+  .accordion-header { padding: 12px 14px; }
+  .faq-chip { min-width: 32px; height: 32px; }
+}
+
+/* ===============================
+   Client Journey / Steps
+   Styles for the steps grid and cards on our-process.html
+   =============================== */
+.steps { padding: 60px 0 40px; background: transparent; }
+.steps .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.step-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 12px; min-height: 220px; }
+.step-number { color: var(--color-accent, #93C5FD); font-weight: 700; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+.step-icon { font-size: 28px; color: var(--color-accent, #93C5FD); display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 10px; background: rgba(147,197,253,0.06); }
+.step-title { color: var(--color-heading, #E7EAEE); font-size: 18px; font-weight: 800; margin: 0; }
+.step-desc { color: var(--color-body, #A3AAB4); font-size: 15px; line-height: 1.6; margin-top: 4px; }
+
+@media (max-width: 1000px) {
+  .steps-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .steps-grid { grid-template-columns: 1fr; gap: 18px; }
+  .steps .container { padding: 0 20px; }
+  .step-card { padding: 16px; min-height: auto; }
+  .step-icon { width: 48px; height: 48px; font-size: 22px; }
+  .step-title { font-size: 16px; }
+}
+
+/* Desktop-enforcement overrides
+   These increase specificity for desktop so page-level rules won't unintentionally override
+*/
+@media (min-width: 1001px) {
+  body .footer {
+    padding: 80px 0 40px;
+    border-top: 1px solid rgba(163, 170, 180, 0.08);
+    background: var(--color-bg-primary, #0b0e14);
+  }
+  body .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; }
+  body .footer-content { padding: 0 40px; }
+
+  body .postcare { padding: 40px 0 24px; }
+  body .postcare .section-title { font-size: clamp(22px, 4vw, 34px); }
+
+  body .steps { padding: 60px 0 40px; }
+  body .steps-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  body .step-card { padding: 22px; min-height: 220px; }
+}
+
+/* Strong desktop footer enforcement to override page-specific styles */
+@media (min-width: 1200px) {
+  html body footer.footer {
+    background: var(--color-bg-primary, #0b0e14) !important;
+    padding: 80px 0 40px !important;
+    border-top: 1px solid rgba(163, 170, 180, 0.08) !important;
+    color: var(--color-body, #A3AAB4) !important;
+  }
+  html body footer.footer .footer-content {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding: 0 40px !important;
+  }
+  html body footer.footer .footer-grid {
+    display: grid !important;
+    grid-template-columns: 2fr 1fr 1fr 1fr !important;
+    gap: 60px !important;
+    margin-bottom: 40px !important;
+  }
+}
+
+  .hero-slider-container .slide-content {
+    position: absolute;
+    inset: 0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center the hero text vertically */
+    align-items: center; /* Center horizontally */
+    color: #fff;
+    background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%);
+    backdrop-filter: none; /* 0% blur - completely clear images */
+    z-index: 10;
+  }
+
+  .hero-slider-container .slide-hero-text {
+    font-size: clamp(28px, 8vw, 48px);
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: var(--color-heading);
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  /* Repositioned subtext: visible under hero text */
+  .hero-slider-container .slide-tag {
+    margin-top: 1rem;
+    font-size: 1rem;
+    max-width: 90%;
+    line-height: 1.5;
+    color: var(--color-heading);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* --- Buttons Container (at the bottom) --- */
+  .hero-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 25px 20px;
+    align-items: center;
+    background-color: #0c0c0f;
+  }
+
+  @keyframes new-slide-animation {
+    0% { transform: translateX(0%); }
+    30% { transform: translateX(0%); }
+    33% { transform: translateX(-100%); }
+    63% { transform: translateX(-100%); }
+    66% { transform: translateX(-200%); }
+    97% { transform: translateX(-200%); }
+    100% { transform: translateX(0%); }
+  }
 }
 
 /* Service Cards - Keep existing functionality but update styling */
@@ -1069,13 +1546,21 @@ p, a, li, label, input, select, textarea, button, small, .eyebrow, .section-subt
   height: 100vh;
   background: rgba(11,14,20,0.95);
   backdrop-filter: blur(8px);
-  display: flex;
+  display: none; /* hidden by default */
   align-items: center;
   justify-content: center;
   z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
-.lightbox-modal.active { opacity: 1; visibility: visible; }
+.lightbox-modal.active {
+  display: flex !important;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 
 .lightbox-content {
   width: 84vw;
@@ -1213,7 +1698,11 @@ header.nav, header.nav .links, header.nav .links .dropdown { overflow: visible; 
 /* ------------------------------------------ */
 
 /* Hide hamburger on wide view by default */
-.hamburger-menu { display: none; position: relative; z-index: 9999; }
+.hamburger-menu { 
+  display: none; 
+  position: relative; 
+  z-index: 1000; /* Lower than lightbox z-index */
+}
 header.nav .hamburger-menu { margin-left: auto; }
 .hamburger-icon { width: 30px; height: 24px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s ease; }
 .hamburger-icon .line { width: 100%; height: 3px; background: var(--color-action); border-radius: 2px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform-origin: center; }
@@ -1237,12 +1726,31 @@ header.nav .hamburger-menu { margin-left: auto; }
 .hamburger-menu .mobile-link,
 nav .mobile-link,
 a.mobile-link {
-  font-size: 24px !important;
-  font-weight: 500 !important;
-  padding: 15px 30px !important;
-  min-width: 200px !important;
-  text-align: center !important;
+  font-size: 24px;
+  font-weight: 500;
+  padding: 15px 30px;
+  min-width: 200px;
+  text-align: center;
 }
+
+/* ------------------------------------------ */
+/* FORCE OVERRIDE: Homepage-standard hamburger */
+/* Ensures all pages match index.html sizing   */
+/* ------------------------------------------ */
+header.nav .hamburger-icon { 
+    width: 30px; 
+    height: 24px;
+    margin: auto 0; /* Center vertically */
+}
+header.nav .hamburger-icon .line { 
+    height: 2px;
+    background: var(--color-action);
+}
+
+/* Use higher-specificity + !important to override page-level styles */
+header.nav .hamburger-menu.active .hamburger-icon .line.line1 { transform: rotate(45deg) translate(7px, 7px); }
+header.nav .hamburger-menu.active .hamburger-icon .line.line2 { opacity: 0; transform: scaleX(0); }
+header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotate(-45deg) translate(7px, -7px); }
 
 /* FORCE OVERRIDE: Media query overrides */
 @media (max-width: 1024px) {
@@ -1251,11 +1759,11 @@ a.mobile-link {
   .hamburger-menu .mobile-link,
   nav .mobile-link,
   a.mobile-link {
-    font-size: 24px !important;
-    font-weight: 500 !important;
-    padding: 15px 30px !important;
-    min-width: 200px !important;
-    text-align: center !important;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 15px 30px;
+    min-width: 200px;
+    text-align: center;
   }
 }
 
@@ -1265,11 +1773,11 @@ a.mobile-link {
   .hamburger-menu .mobile-link,
   nav .mobile-link,
   a.mobile-link {
-    font-size: 24px !important;
-    font-weight: 500 !important;
-    padding: 15px 30px !important;
-    min-width: 200px !important;
-    text-align: center !important;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 15px 30px;
+    min-width: 200px;
+    text-align: center;
   }
 }
 
@@ -1279,11 +1787,11 @@ a.mobile-link {
   .hamburger-menu .mobile-link,
   nav .mobile-link,
   a.mobile-link {
-    font-size: 20px !important;
-    font-weight: 500 !important;
-    padding: 15px 30px !important;
-    min-width: 180px !important;
-    text-align: center !important;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 15px 30px;
+    min-width: 180px;
+    text-align: center;
   }
 }
 .mobile-link:hover { background: rgba(29, 78, 216, 0.18); color: var(--color-action); }
@@ -1294,12 +1802,144 @@ a.mobile-link {
 .mobile-dropdown-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px; }
 .mobile-dropdown-section.active .mobile-dropdown-content { max-height: 240px; }
 
-/* Breakpoint: show hamburger and overlay UI, hide desktop links */
-@media (max-width: 1200px) {
-  header.nav { height: 80px; padding: 0 20px; }
+/* Breakpoint: show hamburger and overlay UI, hide desktop links
+   Narrowed to 992px so desktop (>992px) retains full nav links */
+@media (max-width: 992px) {
+  header.nav { 
+    height: 80px; 
+    padding: 0 20px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   header.nav .links { display: none !important; }
   .hamburger-menu { display: block !important; }
 }
+
+/* ========================================= */
+/* FIXED: Tablet and Mobile Navigation Issues */
+/* ========================================= */
+
+/* Tablet View Fix (769px-992px): Properly hide desktop links and show hamburger */
+@media (min-width: 769px) and (max-width: 992px) {
+  header.nav .links {
+    display: none !important; /* Ensure desktop links are hidden */
+  }
+  .hamburger-menu {
+    display: flex !important; /* Show hamburger menu */
+    margin-left: auto; /* Push to the right */
+  }
+  header.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Add horizontal padding */
+  }
+}
+
+/* Lightbox Styles */
+.lightbox {
+  display: none !important; /* Force hide until explicitly shown */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+
+.lightbox.active {
+  display: flex !important;
+  opacity: 1;
+  visibility: visible;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10000;
+}
+
+#lightboxFootnote {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+}
+
+/* Mobile View Fix (≤768px): Add proper padding and flexbox alignment */
+@media (max-width: 768px) {
+  header.site-header, header.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  header.nav .brand {
+    flex-shrink: 0; /* Prevent logo from shrinking */
+    margin-left: 0; /* Ensure no negative margin */
+  }
+  header.nav .brand img {
+    height: 60px;
+    width: auto;
+    max-width: 150px;
+  }
+  .hamburger-menu {
+    margin-left: auto; /* Push hamburger to the right */
+  }
+}
+
+
+
+/* Ensure hamburger menu is properly positioned and sized */
+.hamburger-menu {
+  position: relative;
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+/* Standardize brand logo sizing and prevent cutoff */
+header.nav .brand {
+  display: inline-block;
+  padding: 0;
+}
+
+header.nav .brand img {
+  height: 200px; /* Desktop default */
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+
 
 /* 9) Cards/panels should adapt in narrow viewports */
 .info-box, .card, .panel { width: 100%; }
@@ -1404,70 +2044,378 @@ button:hover::after,
   100% { background-position: -200% 0; }
 }
 
-/* Gallery Slider */
-.gallery-slider {
+/* Mobile Hero Styles */
+.hero-mobile-wrapper {
+  display: none; /* Hide by default, show on mobile */
   position: relative;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  height: 100vh;
+  background: var(--color-bg-primary);
   overflow: hidden;
-  height: 800px;
+  flex-direction: column;
 }
 
-.gallery-slider .slide-container {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
+/* Hero Buttons Overlay */
+.hero-buttons-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  z-index: 15; display: flex; gap: 16px; flex-wrap: wrap;
+  justify-content: center; align-items: center;
+  padding: 40px 20px;
+  background: linear-gradient(to top, rgba(11, 14, 20, 0.9) 0%, rgba(11, 14, 20, 0.5) 50%, transparent 100%);
 }
 
-.gallery-slider .slide {
-  min-width: 100%;
+/* Ensure buttons are initially visible */
+.hero-buttons-overlay .btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Button visibility classes for scroll behavior */
+.hero-buttons-overlay .btn.view-portfolio-btn {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero-buttons-overlay .btn.start-project-btn {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero-buttons-overlay .btn.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+.hero-buttons-overlay .btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Hero Overlay */
+.hero-mobile .hero-content-overlay {
   position: relative;
-  height: 100%;
+  z-index: 10;
 }
 
-.gallery-slider .slide img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
+.hero-mobile .hero-content-overlay .cta {
+  display: none !important;
 }
 
-.gallery-slider .slide-description {
+/* Mobile Slide Footnote Banner - Similar to Desktop */
+.hero-mobile .mobile-slide-footnote {
   position: absolute;
-  bottom: 0;
+  left: 16px;
+  bottom: 32px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  color: #F8FAFC;
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  line-height: 1.15;
+  max-width: min(200px, calc(100% - 32px));
+  box-shadow: 0 6px 16px rgba(2,6,23,0.35);
+  backdrop-filter: blur(6px) saturate(1.08);
+  border: 1px solid rgba(255,255,255,0.06);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: transform 240ms ease, box-shadow 240ms ease, opacity 240ms ease;
+  opacity: 0.95;
+  font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  font-weight: 600;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.hero-mobile .mobile-slide-footnote-desc {
+  font-size: 10px;
+  margin: 0;
+  font-weight: 600;
+  /* gradient text: ivory -> azure */
+  background: linear-gradient(90deg, #FAF7F2 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.2;
+}
+
+/* Subtle sheen effect */
+.hero-mobile .mobile-slide-footnote::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0.00) 60%);
+  transform: translateX(-120%) rotate(-6deg);
+  filter: blur(12px) saturate(1.2);
+  transition: transform 1.2s linear;
+  border-radius: inherit;
+}
+
+.hero-mobile .slide:hover .mobile-slide-footnote::after {
+  transform: translateX(120%) rotate(-6deg);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 480px) {
+  .hero-mobile .mobile-slide-footnote {
+    left: 12px;
+    bottom: 20px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    font-size: 9px;
+    max-width: calc(100% - 24px);
+  }
+
+  .hero-mobile .mobile-slide-footnote-desc {
+    font-size: 9px;
+  }
+}
+
+/* --- Final Mobile Slider Text Fix --- */
+
+/* The individual slide container */
+.hero-mobile .slide {
+  width: 33.333%;
+  height: 100%;
+  flex-shrink: 0;
+  position: relative; /* Anchor for the content overlay */
+  background-size: cover;
+  background-position: center;
+  overflow: hidden; /* Absolutely necessary */
+}
+
+/* The new content overlay that holds the text */
+.hero-mobile .slide-content {
+  position: absolute;
+  top: 0;
   left: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
+  height: 100%;
+
+  /* Use Flexbox for perfect centering */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Optional: Adds a subtle shadow for better text readability */
+  background: linear-gradient(rgba(0,0,0,0.4), transparent, rgba(0,0,0,0.4));
+}
+
+/* The hero text, now centered by its flex parent */
+.hero-mobile .slide-hero-text {
+  color: white;
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-align: center;
+  width: 90%; /* Prevents text from touching the edges */
+  padding: 0; /* Reset any padding */
+  margin: 0;  /* Reset any margin */
+}
+
+.hero-top-text-container {
   padding: 20px;
   text-align: center;
-  font-size: 18px;
+  background: var(--color-bg-primary);
+  z-index: 10;
 }
 
-.gallery-slider .prev-btn,
-.gallery-slider .next-btn {
-  cursor: pointer;
+.main-mobile-hero-heading {
+  font-size: clamp(28px, 8vw, 48px);
+  font-weight: 700;
+  color: var(--color-heading);
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.hero-slider-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.slider-track {
+  display: flex;
+  height: 100%;
+  width: 300vw; /* 3 slides */
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateX(0);
+}
+
+/* Class-based slide transitions */
+.slider-track.slide-0 {
+  transform: translateX(0);
+}
+
+.slider-track.slide-1 {
+  transform: translateX(-100vw);
+}
+
+.slider-track.slide-2 {
+  transform: translateX(-200vw);
+}
+
+.slide {
+  position: relative;
+}
+
+.slide-hero-text {
   position: absolute;
   top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: white;
+  font-size: 2.8rem;
   font-weight: bold;
-  font-size: 24px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  background-color: rgba(0,0,0,0.5);
-  border: none;
+  text-align: center;
+  width: 90%;
+  z-index: 10;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-.gallery-slider .next-btn {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+.hero-mobile-wrapper .slide {
+  width: 100vw;
+  height: 100%;
+  position: relative;
+  overflow: hidden; /* Ensure images don't spill out */
 }
 
-.gallery-slider .prev-btn:hover,
-.gallery-slider .next-btn:hover {
-  background-color: rgba(0,0,0,0.8);
+.hero-mobile-wrapper .slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Show full image without cropping */
+  object-position: center; /* Center the image */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.slide-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%);
+  backdrop-filter: none; /* 0% blur - completely clear images */
+  z-index: 10;
+}
+
+.slide-hero-text {
+  font-size: clamp(20px, 6vw, 32px);
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-align: center;
+  /* Sophisticated multi-layered text shadows with brand colors */
+  text-shadow:
+    /* Deep shadow for depth */
+    0 2px 8px rgba(0,0,0,0.8),
+    /* Azure outer glow */
+    0 0 12px rgba(147,197,253,0.4),
+    /* Cobalt inner accent */
+    0 0 6px rgba(29,78,216,0.3),
+    /* Subtle Ivory highlight for top edge */
+    0 -1px 2px rgba(250,247,242,0.2);
+}
+
+.slide-tag.btn {
+  font-size: 16px;
+  color: #ccc;
+  margin: 0;
+  font-weight: 500;
+  background: rgba(147, 197, 253, 0.01); /* Azure at 1% transparency */
+  border: 1px solid rgba(147, 197, 253, 0.05);
+  border-radius: 20px; /* Water drop style with rounded corners */
+  padding: 8px 16px;
+  backdrop-filter: blur(4px);
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-tag.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(147,197,253,0.00) 10%, rgba(147,197,253,0.02) 30%, rgba(147,197,253,0.00) 50%);
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  animation: waterDropSheen 2s ease-out infinite;
+  border-radius: inherit;
+  mix-blend-mode: screen;
+}
+
+@keyframes waterDropSheen {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Start Your Project button hover effect */
+.start-project-btn:hover,
+.start-project-btn:focus {
+  background: #93C5FD !important; /* Azure background on hover */
+  color: #0B0E14 !important; /* Deep Navy text */
+  border-color: #93C5FD !important;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .hero.hero-desktop { display: none; } /* Hide desktop hero on mobile */
+  .hero-mobile-wrapper { display: flex; } /* Show mobile hero on mobile */
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .nav .brand { margin-left: -50px !important; }
+  .hamburger-menu { top: 30px; right: 20px; }
+  .slide-content {
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    padding: 15px;
+  }
+  .slide-hero-text {
+    font-size: clamp(20px, 6vw, 32px);
+  }
+  .slide-tag {
+    font-size: 14px;
+  }
+}
+
+/* Very small mobile devices */
+@media (max-width: 360px) {
+  .nav .brand { margin-left: -45px !important; }
+}
+.hamburger-menu {
+  margin-left: auto;
+}
+
+.hamburger-icon {
+  width: 35px;
+  height: 28px;
+  cursor: pointer !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10000;
+  padding: 4px;
+}
+
+.hamburger-menu.active .line1 {
+  transform: rotate(45deg) translate(7px, 7px) !important;
+}
+
+.hamburger-menu.active .line2 {
+  opacity: 0 !important;
+  transform: scaleX(0) !important;
+}
+
+.hamburger-menu.active .line3 {
+  transform: rotate(-45deg) translate(7px, -7px) !important;
 }

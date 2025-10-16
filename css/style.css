@@ -1016,7 +1016,10 @@ header.nav .brand img {
 /* Mobile: show new hero wrapper */
 @media (max-width: 768px) {
   .hero-desktop { display: none; }
-  .hero-mobile { display: block; }
+  .hero-mobile {
+    display: block;
+    margin-top: 80px;
+  }
   .hero-mobile-wrapper {
     display: flex;
     flex-direction: column;
@@ -1594,6 +1597,79 @@ a.mobile-link {
   .hamburger-menu { display: block !important; }
 }
 
+/* ========================================= */
+/* FIXED: Tablet and Mobile Navigation Issues */
+/* ========================================= */
+
+/* Tablet View Fix (769px-992px): Properly hide desktop links and show hamburger */
+@media (min-width: 769px) and (max-width: 992px) {
+  header.nav .links {
+    display: none !important; /* Ensure desktop links are hidden */
+  }
+  .hamburger-menu {
+    display: flex !important; /* Show hamburger menu */
+    margin-left: auto; /* Push to the right */
+  }
+  header.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; /* Add horizontal padding */
+  }
+}
+
+/* Mobile View Fix (≤768px): Add proper padding and flexbox alignment */
+@media (max-width: 768px) {
+  header.nav {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0 20px !important; /* Ensure proper horizontal padding */
+    box-sizing: border-box !important;
+  }
+  header.nav .brand {
+    flex-shrink: 0; /* Prevent logo from shrinking */
+    margin-left: 0; /* Ensure no negative margin */
+  }
+  header.nav .brand img {
+    height: 60px !important; /* Controlled mobile logo size */
+    width: auto;
+    max-width: 150px;
+  }
+  .hamburger-menu {
+    margin-left: auto; /* Push hamburger to the right */
+  }
+}
+
+/* Ensure hamburger menu is properly positioned and sized */
+.hamburger-menu {
+  position: relative;
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+/* Standardize brand logo sizing and prevent cutoff */
+header.nav .brand {
+  display: inline-block;
+  padding: 0;
+}
+
+header.nav .brand img {
+  height: 200px; /* Desktop default */
+  width: auto;
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+/* Mobile logo override */
+@media (max-width: 768px) {
+  header.nav .brand img {
+    height: 60px !important;
+    max-width: 150px;
+  }
+}
+
 /* 9) Cards/panels should adapt in narrow viewports */
 .info-box, .card, .panel { width: 100%; }
 
@@ -1752,6 +1828,77 @@ button:hover::after,
   display: none !important;
 }
 
+/* Mobile Slide Footnote Banner - Similar to Desktop */
+.hero-mobile .mobile-slide-footnote {
+  position: absolute;
+  left: 16px;
+  bottom: 32px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  color: #F8FAFC;
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  line-height: 1.15;
+  max-width: min(200px, calc(100% - 32px));
+  box-shadow: 0 6px 16px rgba(2,6,23,0.35);
+  backdrop-filter: blur(6px) saturate(1.08);
+  border: 1px solid rgba(255,255,255,0.06);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: transform 240ms ease, box-shadow 240ms ease, opacity 240ms ease;
+  opacity: 0.95;
+  font-family: 'Satoshi', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  font-weight: 600;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.hero-mobile .mobile-slide-footnote-desc {
+  font-size: 10px;
+  margin: 0;
+  font-weight: 600;
+  /* gradient text: ivory -> azure */
+  background: linear-gradient(90deg, #FAF7F2 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.2;
+}
+
+/* Subtle sheen effect */
+.hero-mobile .mobile-slide-footnote::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0.00) 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0.00) 60%);
+  transform: translateX(-120%) rotate(-6deg);
+  filter: blur(12px) saturate(1.2);
+  transition: transform 1.2s linear;
+  border-radius: inherit;
+}
+
+.hero-mobile .slide:hover .mobile-slide-footnote::after {
+  transform: translateX(120%) rotate(-6deg);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 480px) {
+  .hero-mobile .mobile-slide-footnote {
+    left: 12px;
+    bottom: 20px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    font-size: 9px;
+    max-width: calc(100% - 24px);
+  }
+
+  .hero-mobile .mobile-slide-footnote-desc {
+    font-size: 9px;
+  }
+}
+
 /* --- Final Mobile Slider Text Fix --- */
 
 /* The individual slide container */
@@ -1892,7 +2039,16 @@ button:hover::after,
   letter-spacing: 0.02em;
   line-height: 1.2;
   text-align: center;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  /* Sophisticated multi-layered text shadows with brand colors */
+  text-shadow:
+    /* Deep shadow for depth */
+    0 2px 8px rgba(0,0,0,0.8),
+    /* Azure outer glow */
+    0 0 12px rgba(147,197,253,0.4),
+    /* Cobalt inner accent */
+    0 0 6px rgba(29,78,216,0.3),
+    /* Subtle Ivory highlight for top edge */
+    0 -1px 2px rgba(250,247,242,0.2);
 }
 
 .slide-tag.btn {

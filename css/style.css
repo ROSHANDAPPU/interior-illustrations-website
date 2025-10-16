@@ -1540,6 +1540,18 @@ a.mobile-link {
   text-align: center !important;
 }
 
+/* ------------------------------------------ */
+/* FORCE OVERRIDE: Homepage-standard hamburger */
+/* Ensures all pages match index.html sizing   */
+/* ------------------------------------------ */
+header.nav .hamburger-icon { width: 35px !important; height: 28px !important; }
+header.nav .hamburger-icon .line { height: 3px !important; }
+
+/* Use higher-specificity + !important to override page-level styles */
+header.nav .hamburger-menu.active .hamburger-icon .line.line1 { transform: rotate(45deg) translate(7px, 7px) !important; }
+header.nav .hamburger-menu.active .hamburger-icon .line.line2 { opacity: 0 !important; transform: scaleX(0) !important; }
+header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotate(-45deg) translate(7px, -7px) !important; }
+
 /* FORCE OVERRIDE: Media query overrides */
 @media (max-width: 1024px) {
   .mobile-nav .mobile-link,

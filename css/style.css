@@ -684,10 +684,34 @@ header.nav .links .dropdown.active .dropdown-menu.mega-projects {
 /* Standardize brand logo sizing across pages */
 header.nav .brand a { display: inline-block; padding: 0; }
 header.nav .brand img {
-  height: 200px; /* desktop: override any inline height */
+  height: 56px; /* desktop: reasonable header logo height */
   width: auto;
   display: inline-block;
   vertical-align: middle;
+  max-height: 64px;
+}
+
+/* Mobile logo size */
+@media (max-width: 768px) {
+  header.nav .brand img {
+    height: 45px; /* Adjusted for better alignment with hamburger */
+    width: auto;
+    margin: 0; /* Remove any margin */
+    padding: 0; /* Remove any padding */
+    vertical-align: middle; /* Better vertical alignment */
+  }
+  
+  header.nav {
+    height: 80px;
+    min-height: 80px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative; /* keep in flow on mobile */
+    background: transparent;
+    z-index: 3000;
+  }
 }
 
 
@@ -1006,14 +1030,16 @@ header.nav .brand img {
   .hero-desktop { display: none; }
   .hero-mobile {
     display: block;
-    margin-top: 80px;
+    margin-top: 20px;
+    padding-top: 8px;
   }
   .hero-mobile-wrapper {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 100px);
     width: 100%;
     background: var(--color-bg-primary);
+    margin-top: 8px;
   }
 }
 
@@ -1025,8 +1051,9 @@ header.nav .brand img {
   .hero-mobile-wrapper {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 80px); /* Adjust for fixed navigation */
+    height: calc(100vh - 140px); /* Adjust for fixed navigation and extra spacing */
     background-color: #0c0c0f; /* Ensure background if content doesn't fill */
+    margin-top: 20px;
   }
 
   /* --- NEW: Top Text Container --- */
@@ -1070,6 +1097,172 @@ header.nav .brand img {
     backface-visibility: hidden;
     transform: translate3d(0, 0, 0);
   }
+
+/* ==========================
+   Site footer (global styles)
+   Ensures consistent footer layout and responsive behavior
+   ========================== */
+.footer {
+  background: var(--color-bg-primary, #0b0e14);
+  padding: 80px 0 40px;
+  border-top: 1px solid rgba(163, 170, 180, 0.08);
+  color: var(--color-body, #A3AAB4);
+}
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 40px;
+  align-items: start;
+}
+.footer-section { display: flex; flex-direction: column; }
+.footer-logo { margin-bottom: 24px; }
+.footer-logo img { height: 110px; width: auto; display: block; }
+.footer-description { color: var(--color-body, #A3AAB4); font-size: 16px; line-height: 1.6; margin-bottom: 24px; max-width: 320px; }
+.footer-social { display: flex; gap: 16px; }
+.footer-social a { color: var(--color-accent, #93C5FD); font-size: 20px; transition: color 0.3s ease; }
+.footer-social a:hover { color: var(--color-heading, #E7EAEE); }
+.footer-label { color: var(--color-accent, #93C5FD); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.10em; margin-bottom: 8px; }
+.footer-heading { color: var(--color-heading, #E7EAEE); font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+.footer-links { list-style: none; padding: 0; margin: 0; }
+.footer-links li { margin-bottom: 10px; color: var(--color-accent, #93C5FD); font-size: 16px; }
+.footer-links a { color: var(--color-accent, #93C5FD); font-size: 16px; text-decoration: none; transition: all 0.3s ease; }
+.footer-links a:hover { color: var(--color-heading, #E7EAEE); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+.footer-links strong { color: var(--color-accent, #93C5FD); font-weight: 600; }
+.footer-bottom { border-top: 1px solid rgba(163, 170, 180, 0.06); padding-top: 24px; }
+.footer-legal { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-legal p { color: var(--color-body, #A3AAB4); font-size: 14px; margin: 0; }
+.footer-legal-links { display: flex; align-items: center; gap: 16px; }
+.footer-legal-links a { color: var(--color-accent, #93C5FD); font-size: 14px; text-decoration: none; transition: all 0.3s ease; }
+.footer-legal-links a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+.footer-divider { color: rgba(163, 170, 180, 0.3); font-size: 14px; }
+
+/* Responsive adjustments */
+@media (max-width: 1000px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+}
+@media (max-width: 640px) {
+  .footer { padding: 48px 0 24px; }
+  .footer-content { padding: 0 20px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; margin-bottom: 24px; }
+  .footer-description { max-width: 100%; margin-bottom: 16px; }
+  .footer-logo img { height: 80px; }
+  .footer-legal { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .footer-legal-links { width: 100%; justify-content: flex-start; }
+}
+
+/* ===============================
+   Post-Project Care / Accordion
+   Styles for the section and accessible accordion UI
+   =============================== */
+.postcare {
+  padding: 40px 0 24px;
+  background: transparent;
+  color: var(--color-body, #A3AAB4);
+}
+.postcare .section-header { text-align: center; margin-bottom: 24px; }
+.postcare .section-subtitle { color: var(--color-accent, #93C5FD); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.postcare .section-title { color: var(--color-heading, #E7EAEE); font-size: clamp(22px, 4vw, 34px); margin: 0 0 12px; font-weight: 700; }
+.postcare .content { max-width: 900px; margin: 0 auto 28px; color: var(--color-body, #A3AAB4); font-size: 16px; line-height: 1.75; }
+
+.accordion { max-width: 980px; margin: 0 auto; }
+.accordion-item { border-radius: 12px; background: rgba(255,255,255,0.02); margin-bottom: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.03); }
+.accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+.accordion-header:focus { outline: 3px solid rgba(147,197,253,0.18); outline-offset: 2px; }
+.faq-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; border-radius: 999px; background: rgba(29,78,216,0.12); color: var(--color-accent, #1D4ED8); font-weight: 700; }
+.accordion-title { font-size: 16px; font-weight: 700; color: var(--color-heading, #E7EAEE); }
+.chevron { margin-left: auto; width: 18px; height: 18px; display: inline-block; transition: transform 220ms ease; }
+.accordion-item[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+.accordion-panel { max-height: 0; overflow: hidden; transition: max-height 260ms ease, padding 200ms ease; padding: 0 18px; }
+.accordion-panel .accordion-inner { padding: 0 0 14px; }
+.accordion-item[aria-expanded="true"] .accordion-panel { max-height: 800px; padding: 12px 18px 18px; }
+.accordion-panel ul { margin: 0 0 12px 20px; }
+
+@media (max-width: 640px) {
+  .postcare .section-title { font-size: clamp(20px, 6vw, 26px); }
+  .accordion-header { padding: 12px 14px; }
+  .faq-chip { min-width: 32px; height: 32px; }
+}
+
+/* ===============================
+   Client Journey / Steps
+   Styles for the steps grid and cards on our-process.html
+   =============================== */
+.steps { padding: 60px 0 40px; background: transparent; }
+.steps .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.step-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 12px; min-height: 220px; }
+.step-number { color: var(--color-accent, #93C5FD); font-weight: 700; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+.step-icon { font-size: 28px; color: var(--color-accent, #93C5FD); display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 10px; background: rgba(147,197,253,0.06); }
+.step-title { color: var(--color-heading, #E7EAEE); font-size: 18px; font-weight: 800; margin: 0; }
+.step-desc { color: var(--color-body, #A3AAB4); font-size: 15px; line-height: 1.6; margin-top: 4px; }
+
+@media (max-width: 1000px) {
+  .steps-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .steps-grid { grid-template-columns: 1fr; gap: 18px; }
+  .steps .container { padding: 0 20px; }
+  .step-card { padding: 16px; min-height: auto; }
+  .step-icon { width: 48px; height: 48px; font-size: 22px; }
+  .step-title { font-size: 16px; }
+}
+
+/* Desktop-enforcement overrides
+   These increase specificity for desktop so page-level rules won't unintentionally override
+*/
+@media (min-width: 1001px) {
+  body .footer {
+    padding: 80px 0 40px;
+    border-top: 1px solid rgba(163, 170, 180, 0.08);
+    background: var(--color-bg-primary, #0b0e14);
+  }
+  body .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; }
+  body .footer-content { padding: 0 40px; }
+
+  body .postcare { padding: 40px 0 24px; }
+  body .postcare .section-title { font-size: clamp(22px, 4vw, 34px); }
+
+  body .steps { padding: 60px 0 40px; }
+  body .steps-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  body .step-card { padding: 22px; min-height: 220px; }
+}
+
+/* Strong desktop footer enforcement to override page-specific styles */
+@media (min-width: 1200px) {
+  html body footer.footer {
+    background: var(--color-bg-primary, #0b0e14) !important;
+    padding: 80px 0 40px !important;
+    border-top: 1px solid rgba(163, 170, 180, 0.08) !important;
+    color: var(--color-body, #A3AAB4) !important;
+  }
+  html body footer.footer .footer-content {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding: 0 40px !important;
+  }
+  html body footer.footer .footer-grid {
+    display: grid !important;
+    grid-template-columns: 2fr 1fr 1fr 1fr !important;
+    gap: 60px !important;
+    margin-bottom: 40px !important;
+  }
+}
 
   .hero-slider-container .slide-content {
     position: absolute;
@@ -1353,13 +1546,21 @@ p, a, li, label, input, select, textarea, button, small, .eyebrow, .section-subt
   height: 100vh;
   background: rgba(11,14,20,0.95);
   backdrop-filter: blur(8px);
-  display: flex;
+  display: none; /* hidden by default */
   align-items: center;
   justify-content: center;
   z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
-.lightbox-modal.active { opacity: 1; visibility: visible; }
+.lightbox-modal.active {
+  display: flex !important;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 
 .lightbox-content {
   width: 84vw;
@@ -1497,7 +1698,11 @@ header.nav, header.nav .links, header.nav .links .dropdown { overflow: visible; 
 /* ------------------------------------------ */
 
 /* Hide hamburger on wide view by default */
-.hamburger-menu { display: none; position: relative; z-index: 9999; }
+.hamburger-menu { 
+  display: none; 
+  position: relative; 
+  z-index: 1000; /* Lower than lightbox z-index */
+}
 header.nav .hamburger-menu { margin-left: auto; }
 .hamburger-icon { width: 30px; height: 24px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.4s ease; }
 .hamburger-icon .line { width: 100%; height: 3px; background: var(--color-action); border-radius: 2px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform-origin: center; }
@@ -1532,8 +1737,15 @@ a.mobile-link {
 /* FORCE OVERRIDE: Homepage-standard hamburger */
 /* Ensures all pages match index.html sizing   */
 /* ------------------------------------------ */
-header.nav .hamburger-icon { width: 35px; height: 28px; }
-header.nav .hamburger-icon .line { height: 3px; }
+header.nav .hamburger-icon { 
+    width: 30px; 
+    height: 24px;
+    margin: auto 0; /* Center vertically */
+}
+header.nav .hamburger-icon .line { 
+    height: 2px;
+    background: var(--color-action);
+}
 
 /* Use higher-specificity + !important to override page-level styles */
 header.nav .hamburger-menu.active .hamburger-icon .line.line1 { transform: rotate(45deg) translate(7px, 7px); }
@@ -1590,8 +1802,9 @@ header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotat
 .mobile-dropdown-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px; }
 .mobile-dropdown-section.active .mobile-dropdown-content { max-height: 240px; }
 
-/* Breakpoint: show hamburger and overlay UI, hide desktop links */
-@media (max-width: 1200px) {
+/* Breakpoint: show hamburger and overlay UI, hide desktop links
+   Narrowed to 992px so desktop (>992px) retains full nav links */
+@media (max-width: 992px) {
   header.nav { 
     height: 80px; 
     padding: 0 20px; 
@@ -1622,6 +1835,62 @@ header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotat
     align-items: center;
     padding: 0 20px; /* Add horizontal padding */
   }
+}
+
+/* Lightbox Styles */
+.lightbox {
+  display: none !important; /* Force hide until explicitly shown */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+
+.lightbox.active {
+  display: flex !important;
+  opacity: 1;
+  visibility: visible;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10000;
+}
+
+#lightboxFootnote {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
 }
 
 /* Mobile View Fix (≤768px): Add proper padding and flexbox alignment */

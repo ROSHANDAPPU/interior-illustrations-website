@@ -16,6 +16,7 @@
   <!-- Custom Floating Cursor -->
   <div class="cursor"></div>
   <div class="cursor-follower"></div>
+  
   <!-- Navigation -->
   <header class="nav">
     <div class="brand">
@@ -260,14 +261,7 @@
     </div>
   </section>
 
-  <!-- Lightbox Modal -->
-  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
-    <div class="lightbox-content">
-      <button class="lightbox-close" onclick="closeLightbox(event)">×</button>
-      <img id="lightboxImage" src="" alt="Portfolio Image" />
-      <div id="lightboxFootnote" class="lightbox-footnote" aria-live="polite" tabindex="0" role="complementary" aria-label="Image details" onclick="event.stopPropagation()"></div>
-    </div>
-  </div>
+  <!-- Lightbox Modal removed for this page to avoid unintended overlay -->
 
   <!-- CTA Banner -->
   <div style="max-width: 1400px; margin: 80px auto; padding: 0 40px;">
@@ -600,44 +594,6 @@
       document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; cursorFollower.style.opacity = '0'; });
       document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; cursorFollower.style.opacity = '1'; });
     })();
-
-    // Lightbox Functions
-    function openLightbox(imageSrc, clickedElement) {
-      const modal = document.getElementById('lightboxModal');
-      const image = document.getElementById('lightboxImage');
-      const footnote = document.getElementById('lightboxFootnote');
-      image.src = imageSrc;
-      // Populate footnote from the clicked element's data-footnote attribute, if present
-      if (clickedElement && clickedElement.dataset && clickedElement.dataset.footnote) {
-        // Wrap description in a styled span so it uses the proper display font
-        const desc = clickedElement.dataset.footnote;
-        footnote.innerHTML = `<span class="footnote-desc">${desc}</span>`;
-        footnote.style.display = 'block';
-      } else {
-        footnote.style.display = 'none';
-      }
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox(event) {
-      if (event.target.id === 'lightboxModal' || event.target.classList.contains('lightbox-close')) {
-        const modal = document.getElementById('lightboxModal');
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    }
-
-    // Close lightbox with Escape key
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        const modal = document.getElementById('lightboxModal');
-        if (modal.classList.contains('active')) {
-          modal.classList.remove('active');
-          document.body.style.overflow = '';
-        }
-      }
-    });
   </script>
   <script src="assets/js/nav-active.js"></script>
 </body>

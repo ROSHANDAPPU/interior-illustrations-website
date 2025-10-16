@@ -2118,3 +2118,34 @@ button:hover::after,
 @media (max-width: 360px) {
   .nav .brand { margin-left: -45px !important; }
 }
+
+/* ============================================ */
+/* Canonical hamburger sizing across all pages  */
+/* Ensures identical icon size and proportions  */
+/* no matter where local styles were defined.   */
+/* ============================================ */
+
+/* Icon container size */
+header.nav .hamburger-icon,
+.nav .hamburger-icon,
+.hamburger-menu .hamburger-icon {
+  width: 30px !important;
+  height: 24px !important;
+  padding: 0 !important;
+}
+
+/* Bar thickness and spacing */
+.hamburger-icon .line,
+.hamburger-menu .hamburger-icon .line {
+  height: 3px !important;
+  border-radius: 2px !important;
+}
+
+/* Keep mobile logo consistent site-wide */
+@media (max-width: 768px) {
+  header.nav .brand img,
+  .nav .brand img {
+    height: 60px !important;
+    max-width: 150px !important;
+  }
+}

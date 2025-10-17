@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="page-our-process">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +11,207 @@
   <!-- Shared Stylesheet -->
   <link rel="stylesheet" href="css/style.css" />
 
+  <style>
+    /* Post-Project Care Section */
+    .post-project-care {
+      background-color: var(--color-bg-primary);
+      color: var(--color-body);
+      padding: 80px 0;
+      font-family: 'Satoshi', sans-serif;
+    }
+
+    .post-project-care .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .post-project-care .pre-header {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 8px;
+    }
+
+    .post-project-care h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 800;
+      color: var(--color-heading);
+      margin: 0;
+    }
+
+    .post-project-care .sub-header-container {
+      max-width: 800px;
+      margin: 24px auto 0;
+    }
+
+    .post-project-care .sub-header-container h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-heading);
+      margin-bottom: 16px;
+    }
+
+    .post-project-care .sub-header-container p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--color-body);
+    }
+
+    /* FAQ Accordion */
+    .faq-accordion {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .accordion-item {
+      background-color: #1A202C;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #2D3748;
+    }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 20px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-heading);
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      position: relative;
+      transition: background-color 0.3s;
+    }
+    
+    .accordion-header:hover {
+        background-color: #2D3748;
+    }
+
+    .question-id {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-action);
+      margin-right: 16px;
+    }
+
+    .accordion-icon {
+      margin-left: auto;
+      width: 16px;
+      height: 16px;
+      border-right: 3px solid var(--color-body);
+      border-bottom: 3px solid var(--color-body);
+      transform: rotate(45deg);
+      transition: transform 0.3s ease;
+    }
+
+    details[open] .accordion-icon {
+      transform: rotate(225deg);
+    }
+
+    .accordion-content {
+      padding: 0 20px 20px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--color-body);
+      overflow: hidden;
+      transition: max-height 0.5s ease-out;
+    }
+    
+    .accordion-content ul {
+        padding-left: 20px;
+    }
+
+    details:not([open]) .accordion-content {
+        max-height: 0;
+    }
+
+    /* CTA Button */
+    .cta-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 16px 32px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-heading);
+      background-color: var(--color-action);
+      border-radius: 8px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 60%);
+      transition: left 0.6s ease-in-out;
+    }
+
+    .cta-button:hover {
+      background-color: #1E40AF; /* Darken of --color-action */
+      box-shadow: 0 0 20px rgba(29, 78, 216, 0.5);
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    .info-box-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .client-journey .info-box {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .client-journey .info-box::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(120deg, rgba(147,197,253,0.00) 10%, rgba(147,197,253,0.35) 30%, rgba(147,197,253,0.55) 40%, rgba(147,197,253,0.35) 50%, rgba(147,197,253,0.00) 70%);
+        background-size: 240% 100%;
+        background-position: 200% 0;
+        mix-blend-mode: screen;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+    }
+
+    .client-journey .info-box:hover::after {
+        opacity: 1;
+        animation: azure-sheen 1.4s ease-out forwards;
+    }
+
+    @keyframes azure-sheen {
+        0%   { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+    
+    @media (max-width: 1000px) {
+      .info-box-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .info-box-grid { grid-template-columns: 1fr; gap: 18px; }
+    }
+  </style>
 </head>
 <body>
   <!-- Custom Floating Cursor -->
@@ -59,52 +260,46 @@
     </div>
   </section>
 
-  <!-- Steps -->
-  <section class="steps" style="padding: 60px 0 40px;">
+  <!-- Client Journey -->
+  <section class="client-journey" style="padding: 60px 0 40px;">
     <div class="container">
 
-      <div class="steps-grid">
+      <div class="info-box-grid">
         <!-- Step 1 -->
-        <div class="step-card">
-          <div class="step-number">Step 1</div>
-          <div class="step-icon"><i class="fa-solid fa-handshake"></i></div>
-          <h3 class="step-title">Initial Consultation</h3>
-          <p class="step-desc">We begin with an in-depth discussion about your vision, lifestyle, budget, and project goals. This collaborative session helps us understand your unique needs and preferences.</p>
+        <div class="info-box">
+          <div class="eyebrow">Step 1</div>
+          <h3 class="title">Initial Consultation</h3>
+          <p class="body">We begin with an in-depth discussion about your vision, lifestyle, budget, and project goals. This collaborative session helps us understand your unique needs and preferences.</p>
         </div>
         <!-- Step 2 -->
-        <div class="step-card">
-          <div class="step-number">Step 2</div>
-          <div class="step-icon"><i class="fa-solid fa-ruler-combined"></i></div>
-          <h3 class="step-title">Space Assessment & Measurements</h3>
-          <p class="step-desc">Our team conducts a thorough analysis of your space, taking precise measurements and evaluating structural elements, lighting, and existing features.</p>
+        <div class="info-box">
+          <div class="eyebrow">Step 2</div>
+          <h3 class="title">Space Assessment & Measurements</h3>
+          <p class="body">Our team conducts a thorough analysis of your space, taking precise measurements and evaluating structural elements, lighting, and existing features.</p>
         </div>
         <!-- Step 3 -->
-        <div class="step-card">
-          <div class="step-number">Step 3</div>
-          <div class="step-icon"><i class="fa-solid fa-lightbulb"></i></div>
-          <h3 class="step-title">Design Development</h3>
-          <p class="step-desc">We create detailed design concepts, mood boards, and 3D visualizations that bring your vision to life, incorporating your feedback at every stage.</p>
+        <div class="info-box">
+          <div class="eyebrow">Step 3</div>
+          <h3 class="title">Design Development</h3>
+          <p class="body">We create detailed design concepts, mood boards, and 3D visualizations that bring your vision to life, incorporating your feedback at every stage.</p>
         </div>
         <!-- Step 4 -->
-        <div class="step-card">
-          <div class="step-number">Step 4</div>
-          <div class="step-icon"><i class="fa-solid fa-palette"></i></div>
-          <h3 class="step-title">Material Selection & Sourcing</h3>
-          <p class="step-desc">We curate premium materials, finishes, furniture, and fixtures that align with your design aesthetic and quality standards.</p>
+        <div class="info-box">
+          <div class="eyebrow">Step 4</div>
+          <h3 class="title">Material Selection & Sourcing</h3>
+          <p class="body">We curate premium materials, finishes, furniture, and fixtures that align with your design aesthetic and quality standards.</p>
         </div>
         <!-- Step 5 -->
-        <div class="step-card">
-          <div class="step-number">Step 5</div>
-          <div class="step-icon"><i class="fa-solid fa-calendar-check"></i></div>
-          <h3 class="step-title">Project Planning & Coordination</h3>
-          <p class="step-desc">Detailed project timelines, contractor coordination, and permit management ensure smooth execution from start to finish.</p>
+        <div class="info-box">
+          <div class="eyebrow">Step 5</div>
+          <h3 class="title">Project Planning & Coordination</h3>
+          <p class="body">Detailed project timelines, contractor coordination, and permit management ensure smooth execution from start to finish.</p>
         </div>
         <!-- Step 6 -->
-        <div class="step-card">
-          <div class="step-number">Step 6</div>
-          <div class="step-icon"><i class="fa-solid fa-house-circle-check"></i></div>
-          <h3 class="step-title">Installation & Final Reveal</h3>
-          <p class="step-desc">Professional installation, styling, and final walkthrough to ensure every detail exceeds your expectations.</p>
+        <div class="info-box">
+          <div class="eyebrow">Step 6</div>
+          <h3 class="title">Installation & Final Reveal</h3>
+          <p class="body">Professional installation, styling, and final walkthrough to ensure every detail exceeds your expectations.</p>
         </div>
       </div>
 
@@ -112,113 +307,99 @@
   </section>
 
   <!-- Post-Project Care -->
-  <section class="postcare" id="postcare" style="padding-top: 40px;">
+  <section id="postcare" class="postcare" aria-labelledby="postcare-title">
     <div class="container">
-      <div class="section-header">
-        <div class="section-subtitle">Post-Project Care</div>
-        <h2 class="section-title">Aftercare & Customer Service</h2>
-      </div>
-      <div class="content">
-        <h3 class="subheading">One-Year Workmanship Correction (Callback) Period</h3>
-        <p>
-          After your project is completed, we stand behind our workmanship for one year. If something we
-          installed isn’t performing as intended, we return to correct it—calmly, promptly, and with minimal
-          disruption.
-        </p>
-      </div>
+      <header class="section-header">
+        <div class="section-subtitle">POST-PROJECT CARE</div>
+        <h2 id="postcare-title" class="section-title">Aftercare &amp; Customer Service</h2>
+        <div class="content">
+          <h3 style="margin:0 0 12px 0; font-size:18px; font-weight:700; color:var(--color-heading, #E7EAEE);">One-Year Workmanship Correction (Callback) Period</h3>
+          <p>After your project is completed, we stand behind our workmanship for one year. If something we installed isn't performing as intended, we return to correct it—calmly, promptly, and with minimal disruption.</p>
+        </div>
+      </header>
 
-      <div class="accordion" id="postcareAccordion" role="tablist">
-        <!-- Q1: What's covered? -->
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-1" aria-expanded="false">
-            <span class="faq-chip">Q1</span>
-            <span class="accordion-title">What’s covered?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-1"><div class="accordion-inner">
+      <div class="accordion" role="presentation" style="margin-top:18px;">
+        <details class="accordion-item" open>
+          <summary class="accordion-header" role="button" aria-expanded="true">
+            <div class="faq-chip">Q1</div>
+            <div class="accordion-title">What's covered?</div>
+            <span class="accordion-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="accordion-content">
             <ul>
               <li>Corrections to our workmanship (fit, finish, installation quality).</li>
               <li>Adjustments that naturally settle after use (door alignment, cabinet reveals, caulk touch-ups).</li>
               <li>Warranty support coordination for covered items we installed.</li>
             </ul>
-          </div></div>
-        </div>
+          </div>
+        </details>
 
-        <!-- Q2: What's not covered? -->
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-2" aria-expanded="false">
-            <span class="faq-chip">Q2</span>
-            <span class="accordion-title">What’s not covered?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-2"><div class="accordion-inner">
+        <details class="accordion-item">
+          <summary class="accordion-header" role="button" aria-expanded="false">
+            <div class="faq-chip">Q2</div>
+            <div class="accordion-title">What's not covered?</div>
+            <span class="accordion-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="accordion-content">
             <ul>
               <li>Normal wear and tear, owner-caused damage, or lack of maintenance.</li>
-              <li>Issues tied to manufacturer defects (handled under the product’s own warranty; we’ll help coordinate).</li>
+              <li>Issues tied to manufacturer defects (handled under the product's own warranty; we'll help coordinate).</li>
               <li>Changes in scope or new work requests (quoted separately).</li>
               <li>Environmental movement beyond industry tolerances (e.g., seasonal wood movement, building settlement).</li>
             </ul>
-          </div></div>
-        </div>
+          </div>
+        </details>
 
-        <!-- Q3: How to request service? -->
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-3" aria-expanded="false">
-            <span class="faq-chip">Q3</span>
-            <span class="accordion-title">How to request service?</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-3"><div class="accordion-inner">
+        <details class="accordion-item">
+          <summary class="accordion-header" role="button" aria-expanded="false">
+            <div class="faq-chip">Q3</div>
+            <div class="accordion-title">How to request service?</div>
+            <span class="accordion-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="accordion-content">
             <ul>
               <li>Email or call with a brief description, photos/video, and your availability.</li>
               <li>We acknowledge within 1 business day and schedule a visit if needed.</li>
               <li>A tech or project lead assesses on site and performs the correction or orders parts.</li>
               <li>If a manufacturer claim applies, we assist with documentation and coordinate next steps.</li>
             </ul>
-          </div></div>
-        </div>
+          </div>
+        </details>
 
-        <!-- Q4: Typical response & scheduling -->
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-4" aria-expanded="false">
-            <span class="faq-chip">Q4</span>
-            <span class="accordion-title">Typical response & scheduling</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-4"><div class="accordion-inner">
+        <details class="accordion-item">
+          <summary class="accordion-header" role="button" aria-expanded="false">
+            <div class="faq-chip">Q4</div>
+            <div class="accordion-title">Typical response &amp; scheduling</div>
+            <span class="accordion-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="accordion-content">
             <ul>
               <li>Assessment visit: 3–7 business days (availability may vary).</li>
               <li>Minor adjustments: Often resolved during the visit.</li>
               <li>Parts-dependent items: Scheduled upon arrival of materials.</li>
             </ul>
-          </div></div>
-        </div>
+          </div>
+        </details>
 
-        <!-- Q5: Manufacturer warranties -->
-        <div class="accordion-item" role="tabpanel" aria-expanded="false">
-          <button class="accordion-header" type="button" aria-controls="faq-5" aria-expanded="false">
-            <span class="faq-chip">Q5</span>
-            <span class="accordion-title">Manufacturer warranties</span>
-            <span class="chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel" id="faq-5"><div class="accordion-inner">
+        <details class="accordion-item">
+          <summary class="accordion-header" role="button" aria-expanded="false">
+            <div class="faq-chip">Q5</div>
+            <div class="accordion-title">Manufacturer warranties</div>
+            <span class="accordion-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="accordion-content">
             <ul>
               <li>Many products carry their own warranties (tile membranes, fixtures, appliances, flooring).</li>
               <li>We register/record details where applicable and assist you in initiating claims.</li>
               <li>Decisions and timelines are set by the manufacturer. We keep you informed.</li>
             </ul>
-          </div></div>
-        </div>
+          </div>
+        </details>
       </div>
 
-      <!-- Service Request Button -->
-      <div style="text-align: center; margin-top: 40px;">
-        <a href="contact/service-request.html" class="btn" style="background: #1D4ED8; color: #E7EAEE; padding: 16px 40px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 18px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s ease;">
-          <i class="fa-solid fa-wrench"></i>
-          Request Service
-        </a>
+      <div class="cta-container" style="text-align:center; margin-top:36px;">
+        <a href="/request-service-form" class="cta-button"><i class="fa-solid fa-screwdriver-wrench" style="margin-right:10px;"></i> Request Service</a>
       </div>
-
     </div>
   </section>
 
@@ -277,6 +458,243 @@
     </section>
   </div>
   <style>
+    /* Glassmorphism Button Effect */
+    .glass-btn {
+      background: linear-gradient(135deg, #2563EB 80%, #60A5FA 100%);
+      color: #E7EAEE;
+      font-size: 20px;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 18px 44px;
+      box-shadow: 0 2px 12px rgba(37,99,235,0.10);
+      border: none;
+      outline: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      z-index: 1;
+    }
+    .glass-btn:before {
+      content: "";
+      position: absolute;
+      left: -75%;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.08) 100%);
+      filter: blur(0.5px);
+      transform: skewX(-20deg);
+      transition: left 0.5s cubic-bezier(.4,2,.3,.7);
+      z-index: 2;
+    }
+    .glass-btn:hover:before {
+      left: 120%;
+      transition: left 0.5s cubic-bezier(.4,2,.3,.7);
+    }
+    .glass-btn:hover {
+      background: linear-gradient(135deg, #1D4ED8 80%, #60A5FA 100%);
+      color: #FAF7F2;
+      box-shadow: 0 4px 24px rgba(37,99,235,0.18);
+    }
+    /* Enhanced Post-Project Care Section Styling (matches provided mock) */
+    @media (min-width: 1000px) {
+      .page-our-process .postcare {
+        background: transparent !important;
+        padding-top: 40px !important;
+      }
+      .page-our-process .postcare .section-header {
+        text-align: left !important;
+        margin-bottom: 24px !important;
+      }
+      .page-our-process .postcare .section-subtitle {
+        color: #60A5FA !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        margin-bottom: 10px !important;
+      }
+      .page-our-process .postcare .section-title {
+        color: #E7EAEE !important;
+        font-size: 38px !important;
+        font-weight: 800 !important;
+        margin-bottom: 12px !important;
+        letter-spacing: 0.02em !important;
+      }
+      .page-our-process .postcare .subheading {
+        color: #A3AAB4 !important;
+        font-size: 26px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.04em !important;
+        margin-bottom: 18px !important;
+      }
+      .page-our-process .postcare p,
+      .page-our-process .postcare .content {
+        color: #A3AAB4 !important;
+        font-size: 18px !important;
+        line-height: 1.7 !important;
+      }
+      .page-our-process .postcare .accordion {
+        background: transparent !important;
+        max-width: 900px !important;
+        margin: 0 auto !important;
+      }
+      .page-our-process .postcare .accordion-item {
+        background: #10131A !important;
+        border-radius: 14px !important;
+        border: none !important;
+        margin-bottom: 16px !important;
+        box-shadow: none !important;
+      }
+      .page-our-process .postcare .accordion-header {
+        background: #10131A !important;
+        color: #E7EAEE !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        border-radius: 14px !important;
+        margin-bottom: 0 !important;
+        padding: 18px 24px !important;
+        letter-spacing: 0.01em !important;
+        box-shadow: none !important;
+        border: none !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      .page-our-process .postcare .accordion-header .faq-chip {
+        background: #1E293B !important;
+        color: #60A5FA !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        border-radius: 999px !important;
+        min-width: 40px !important;
+        height: 40px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-right: 16px !important;
+      }
+      .page-our-process .postcare .accordion-title {
+        color: #E7EAEE !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
+      }
+      .page-our-process .postcare .accordion-panel {
+        background: #10131A !important;
+        color: #A3AAB4 !important;
+        font-size: 17px !important;
+        border-radius: 0 0 14px 14px !important;
+        padding: 18px 32px !important;
+      }
+      .page-our-process .postcare .accordion-panel ul {
+        color: #A3AAB4 !important;
+        font-size: 17px !important;
+        margin-left: 24px !important;
+      }
+      .page-our-process .postcare .btn {
+        background: #2563EB !important;
+        color: #E7EAEE !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        border-radius: 10px !important;
+        padding: 18px 44px !important;
+        box-shadow: 0 2px 12px rgba(37,99,235,0.10) !important;
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+      }
+      .page-our-process .postcare .btn:hover {
+        background: #1D4ED8 !important;
+        color: #FAF7F2 !important;
+        box-shadow: 0 4px 24px rgba(37,99,235,0.18) !important;
+      }
+    }
+    /* Post-Project Care Section Styling (matches provided mock) */
+    @media (min-width: 1000px) {
+      .page-our-process .postcare .section-subtitle {
+        color: #60A5FA !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        margin-bottom: 10px !important;
+      }
+      .page-our-process .postcare .section-title {
+        color: #E7EAEE !important;
+        font-size: 38px !important;
+        font-weight: 800 !important;
+        margin-bottom: 12px !important;
+        letter-spacing: 0.02em !important;
+      }
+      .page-our-process .postcare .subheading {
+        color: #A3AAB4 !important;
+        font-size: 26px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.04em !important;
+        margin-bottom: 18px !important;
+      }
+      .page-our-process .postcare p,
+      .page-our-process .postcare .content {
+        color: #A3AAB4 !important;
+        font-size: 18px !important;
+        line-height: 1.7 !important;
+      }
+      .page-our-process .postcare .accordion-header {
+        background: #10131A !important;
+        color: #E7EAEE !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        border-radius: 12px !important;
+        margin-bottom: 10px !important;
+        padding: 18px 24px !important;
+        letter-spacing: 0.01em !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      .page-our-process .postcare .accordion-header .faq-chip {
+        background: #1E293B !important;
+        color: #60A5FA !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        border-radius: 999px !important;
+        min-width: 40px !important;
+        height: 40px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-right: 16px !important;
+      }
+      .page-our-process .postcare .accordion-panel {
+        background: #10131A !important;
+        color: #A3AAB4 !important;
+        font-size: 17px !important;
+        border-radius: 0 0 12px 12px !important;
+        padding: 18px 32px !important;
+      }
+      .page-our-process .postcare .accordion-panel ul {
+        color: #A3AAB4 !important;
+        font-size: 17px !important;
+        margin-left: 24px !important;
+      }
+      .page-our-process .postcare .btn {
+        background: #2563EB !important;
+        color: #E7EAEE !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        border-radius: 10px !important;
+        padding: 18px 44px !important;
+        box-shadow: 0 2px 12px rgba(37,99,235,0.10) !important;
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s !important;
+      }
+      .page-our-process .postcare .btn:hover {
+        background: #1D4ED8 !important;
+        color: #FAF7F2 !important;
+        box-shadow: 0 4px 24px rgba(37,99,235,0.18) !important;
+      }
+    }
     .cta-banner:hover {
       background: #FAF7F2 !important;
       transform: translateY(-4px);
@@ -294,11 +712,12 @@
   <footer class="footer" style="margin-top:auto;">
     <div class="footer-content">
       <div class="footer-grid">
+        <!-- Column 1: Logo + Description + Social -->
         <div class="footer-section">
           <div class="footer-logo">
-            <img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 120px; width: auto;" />
+            <img src="assets/images/01-02_logo_mark/SVGs/cobalt.no-background.svg" alt="Interior Illusions Logo" style="height: 32px; width: auto; margin-bottom: 24px;" />
           </div>
-          <p class="footer-description">Transforming spaces into extraordinary experiences through innovative design and superior craftsmanship.</p>
+          <p class="footer-description" style="margin-bottom: 24px; max-width: 260px;">Specialists in providing luxury interior finishes in residential & commercial projects. Remodels & New Construction.</p>
           <div class="footer-social">
             <a href="https://instagram.com/interior_illusions_llc" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="https://www.facebook.com/people/Interior-Illusions-Contractors/61573381874473/?rdid=I6qxrjh9E32T0KQ7&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F175PqtNXzX%2F" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -306,8 +725,9 @@
           </div>
         </div>
 
+        <!-- Column 2: Services -->
         <div class="footer-section">
-          <h3 class="footer-label">Services</h3>
+          <h3 class="footer-label">SERVICES</h3>
           <h4 class="footer-heading">What We Do</h4>
           <ul class="footer-links">
             <li><a href="services/full-home-remodels.html">Full home remodels</a></li>
@@ -321,8 +741,9 @@
           </ul>
         </div>
 
+        <!-- Column 3: Portfolio -->
         <div class="footer-section">
-          <h3 class="footer-label">Portfolio</h3>
+          <h3 class="footer-label">PORTFOLIO</h3>
           <h4 class="footer-heading">Our Work</h4>
           <ul class="footer-links">
             <li><a href="portfolio/residential-projects.html">Residential Projects</a></li>
@@ -331,27 +752,26 @@
           </ul>
         </div>
 
+        <!-- Column 4: Contact -->
         <div class="footer-section">
-          <h3 class="footer-label">Contact</h3>
+          <h3 class="footer-label">CONTACT</h3>
           <h4 class="footer-heading">Get In Touch</h4>
           <ul class="footer-links">
-            <li><strong>Dallas, TX, United States</strong></li>
+            <li>Dallas, TX, United States</li>
             <li><a href="tel:+19723704873">(972) 370-4873</a></li>
             <li><a href="mailto:interiorillusionsllc@outlook.com">interiorillusionsllc@outlook.com</a></li>
             <li><a href="https://instagram.com/interior_illusions_llc">@interior_illusions_llc</a></li>
-            <li><strong>Service Area:</strong> DFW Metroplex, North Texas, McKinney, Plano, Allen, Gunter, Celina, Prosper, Frisco</li>
+            <li>Service Area: DFW Metroplex, North Texas, McKinney, Plano, Allen, Gunter, Celina, Prosper, Frisco</li>
           </ul>
         </div>
       </div>
-      <div class="footer-bottom">
+      <div class="footer-bottom" style="margin-top: 40px;">
         <div class="footer-legal">
-          <p>&copy; 2024 Interior Illusions. All rights reserved.</p>
+          <p>&copy; 2024 Interior Illusions LLC. All rights reserved. Construction company · Home improvement</p>
           <div class="footer-legal-links">
             <a href="#">Privacy Policy</a>
             <span class="footer-divider">|</span>
             <a href="#">Terms of Service</a>
-            <span class="footer-divider">|</span>
-            <a href="#">Cookie Policy</a>
           </div>
         </div>
       </div>
@@ -597,4 +1017,162 @@
   </script>
   <script src="assets/js/nav-active.js"></script>
 </body>
+<!-- Diagnostic logs for footer styling -->
+<script>
+  console.log('[DEBUG] Footer styling check - Initial load');
+  const footer = document.querySelector('.footer');
+  if (footer) {
+    console.log('[DEBUG] Footer element found');
+    console.log('[DEBUG] Footer classes:', footer.className);
+    console.log('[DEBUG] Footer computed styles:');
+    const computedStyle = window.getComputedStyle(footer);
+    console.log('  - background:', computedStyle.background);
+    console.log('  - color:', computedStyle.color);
+    console.log('  - padding:', computedStyle.padding);
+    console.log('  - display:', computedStyle.display);
+
+    // Check grid layout
+    const footerGrid = footer.querySelector('.footer-grid');
+    if (footerGrid) {
+      console.log('[DEBUG] Footer grid found');
+      const gridStyle = window.getComputedStyle(footerGrid);
+      console.log('  - grid-template-columns:', gridStyle.gridTemplateColumns);
+      console.log('  - gap:', gridStyle.gap);
+    } else {
+      console.log('[DEBUG] Footer grid NOT found');
+    }
+
+    // Check sections
+    const sections = footer.querySelectorAll('.footer-section');
+    console.log('[DEBUG] Footer sections found:', sections.length);
+    sections.forEach((section, index) => {
+      console.log(`  Section ${index + 1} display:`, window.getComputedStyle(section).display);
+    });
+
+  } else {
+    console.log('[DEBUG] Footer element NOT found');
+  }
+
+  // Check viewport width
+  console.log('[DEBUG] Viewport width:', window.innerWidth);
+  console.log('[DEBUG] Media query (min-width: 1200px) should apply:', window.innerWidth >= 1200);
+</script>
+  <!-- Footer Desktop Layout Override for Our Process Page -->
+  <style>
+    @media (min-width: 1000px) {
+      .page-our-process footer.footer .footer-logo img {
+        height: 110px !important;
+        width: auto !important;
+        display: block !important;
+      }
+      .page-our-process footer.footer .footer-grid {
+        display: grid !important;
+        grid-template-columns: 2fr 1fr 1fr 1fr !important;
+        gap: 60px !important;
+        margin-bottom: 60px !important;
+        align-items: start !important;
+      }
+      .page-our-process footer.footer .footer-section {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      .page-our-process footer.footer {
+        background: var(--color-bg-primary) !important;
+        padding: 80px 0 40px !important;
+        border-top: 1px solid rgba(163, 170, 180, 0.2) !important;
+        color: var(--color-body) !important;
+        font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
+      }
+      .page-our-process footer.footer .footer-label {
+        color: var(--color-accent) !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.10em !important;
+        margin-bottom: 8px !important;
+      }
+      .page-our-process footer.footer .footer-heading {
+        color: var(--color-heading) !important;
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        margin-bottom: 24px !important;
+        letter-spacing: 0.02em !important;
+      }
+      .page-our-process footer.footer .footer-description {
+        color: var(--color-accent) !important;
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+        margin-bottom: 32px !important;
+        max-width: 300px !important;
+      }
+      .page-our-process footer.footer .footer-social a {
+        color: var(--color-accent) !important;
+        font-size: 20px !important;
+        transition: color 0.3s ease !important;
+      }
+      .page-our-process footer.footer .footer-social a:hover {
+        color: var(--color-heading) !important;
+      }
+      .page-our-process footer.footer .footer-links {
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .page-our-process footer.footer .footer-links li {
+        margin-bottom: 12px !important;
+        color: var(--color-accent) !important;
+        font-size: 16px !important;
+      }
+      .page-our-process footer.footer .footer-links a {
+        color: var(--color-accent) !important;
+        font-size: 16px !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+      }
+      .page-our-process footer.footer .footer-links a:hover {
+        color: var(--color-accent) !important;
+        text-decoration: underline !important;
+        text-underline-offset: 4px !important;
+        text-decoration-thickness: 2px !important;
+      }
+      .page-our-process footer.footer .footer-links strong {
+        color: var(--color-accent) !important;
+        font-weight: 400 !important;
+      }
+      .page-our-process footer.footer .footer-bottom {
+        border-top: 1px solid rgba(163, 170, 180, 0.2) !important;
+        padding-top: 32px !important;
+      }
+      .page-our-process footer.footer .footer-legal {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        gap: 20px !important;
+      }
+      .page-our-process footer.footer .footer-legal p {
+        color: var(--color-accent) !important;
+        font-size: 14px !important;
+        margin: 0 !important;
+      }
+      .page-our-process footer.footer .footer-legal-links {
+        display: flex !important;
+        align-items: center !important;
+        gap: 16px !important;
+      }
+      .page-our-process footer.footer .footer-legal-links a {
+        color: var(--color-accent) !important;
+        font-size: 14px !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+      }
+      .page-our-process footer.footer .footer-legal-links a:hover {
+        text-decoration: underline !important;
+        text-underline-offset: 4px !important;
+        text-decoration-thickness: 2px !important;
+      }
+    }
+  </style>
+</body>
+</html>
 </html>

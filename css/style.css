@@ -1115,7 +1115,7 @@ header.nav .brand img {
 }
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 60px;
   margin-bottom: 40px;
   align-items: start;
@@ -1167,6 +1167,14 @@ header.nav .brand img {
 }
 .postcare .section-header { text-align: center; margin-bottom: 24px; }
 .postcare .section-subtitle { color: var(--color-accent, #93C5FD); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+
+/* Mobile-specific: ensure POST-PROJECT CARE subtitle shows azure on mobile views */
+@media (max-width: 768px) {
+  .postcare .section-subtitle,
+  .page-our-process .postcare .section-subtitle {
+    color: var(--color-accent, #93C5FD) !important;
+  }
+}
 .postcare .section-title { color: var(--color-heading, #E7EAEE); font-size: clamp(22px, 4vw, 34px); margin: 0 0 12px; font-weight: 700; }
 .postcare .content { max-width: 900px; margin: 0 auto 28px; color: var(--color-body, #A3AAB4); font-size: 16px; line-height: 1.75; }
 
@@ -1183,11 +1191,19 @@ header.nav .brand img {
   text-align: left;
   cursor: pointer;
 }
+.accordion-item { position: relative; }
+.accordion-header {
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 60%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 6px 18px rgba(2,6,23,0.35);
+}
 .accordion-header:focus { outline: 3px solid rgba(147,197,253,0.18); outline-offset: 2px; }
-.faq-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; border-radius: 999px; background: rgba(29,78,216,0.12); color: var(--color-accent, #1D4ED8); font-weight: 700; }
+.faq-chip { display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(180deg, rgba(29,78,216,0.18), rgba(29,78,216,0.12)); color: #ffffff; font-weight: 800; box-shadow: 0 4px 12px rgba(30,144,255,0.08); padding: 0 8px; }
 .accordion-title { font-size: 16px; font-weight: 700; color: var(--color-heading, #E7EAEE); }
-.chevron { margin-left: auto; width: 18px; height: 18px; display: inline-block; transition: transform 220ms ease; }
+.chevron { margin-left: auto; width: 24px; height: 24px; display: inline-block; transition: transform 260ms cubic-bezier(.2,.9,.3,1); position: relative; }
+.chevron::after { content: ''; position: absolute; right: -6px; top: -6px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.02); box-shadow: 0 6px 24px rgba(2,6,23,0.4); opacity: 0; transform: scale(.8); transition: opacity 260ms ease, transform 260ms ease; }
 .accordion-item[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+.accordion-item[aria-expanded="true"] .chevron::after { opacity: 1; transform: scale(1); }
 .accordion-panel { max-height: 0; overflow: hidden; transition: max-height 260ms ease, padding 200ms ease; padding: 0 18px; }
 .accordion-panel .accordion-inner { padding: 0 0 14px; }
 .accordion-item[aria-expanded="true"] .accordion-panel { max-height: 800px; padding: 12px 18px 18px; }
@@ -1227,42 +1243,44 @@ header.nav .brand img {
    These increase specificity for desktop so page-level rules won't unintentionally override
 */
 @media (min-width: 1001px) {
-  body .footer {
-    padding: 80px 0 40px;
-    border-top: 1px solid rgba(163, 170, 180, 0.08);
-    background: var(--color-bg-primary, #0b0e14);
+  .cta-button {
+    display: inline-block;
+    padding: 14px 26px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(90deg, #1E40FF 0%, #1E90FF 100%);
+    border-radius: 10px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(30,144,255,0.16);
+    transition: transform 160ms ease, box-shadow 160ms ease;
   }
-  body .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; }
-  body .footer-content { padding: 0 40px; }
-
-  body .postcare { padding: 40px 0 24px; }
-  body .postcare .section-title { font-size: clamp(22px, 4vw, 34px); }
-
-  body .steps { padding: 60px 0 40px; }
-  body .steps-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  body .step-card { padding: 22px; min-height: 220px; }
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -40%;
+    width: 60%;
+    height: 160%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.18), rgba(255,255,255,0.02));
+    transform: rotate(-18deg);
+    transition: left 420ms cubic-bezier(.2,.9,.3,1);
+    pointer-events: none;
+  }
+  .cta-button:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(30,144,255,0.22); }
+  .cta-button:hover::before { left: 120%; }
+  .cta-button .fa-solid { margin-right: 10px; }
 }
 
-/* Strong desktop footer enforcement to override page-specific styles */
-@media (min-width: 1200px) {
-  html body footer.footer {
-    background: var(--color-bg-primary, #0b0e14) !important;
-    padding: 80px 0 40px !important;
-    border-top: 1px solid rgba(163, 170, 180, 0.08) !important;
-    color: var(--color-body, #A3AAB4) !important;
-  }
-  html body footer.footer .footer-content {
-    max-width: 1400px !important;
-    margin: 0 auto !important;
-    padding: 0 40px !important;
-  }
-  html body footer.footer .footer-grid {
-    display: grid !important;
-    grid-template-columns: 2fr 1fr 1fr 1fr !important;
-    gap: 60px !important;
-    margin-bottom: 40px !important;
-  }
+/* Our Process page footer - 4 column layout like other pages */
+.page-our-process footer.footer .footer-grid {
+  grid-template-columns: 2fr 1fr 1fr 1fr !important;
 }
+
+/* Ensure our-process.html uses the same footer structure as index.html and other pages */
+/* Footer section column placeholders removed (no overrides needed) */
 
   .hero-slider-container .slide-content {
     position: absolute;
@@ -1816,6 +1834,44 @@ header.nav .hamburger-menu.active .hamburger-icon .line.line3 { transform: rotat
   .hamburger-menu { display: block !important; }
 }
 
+/* --------------------------------------------------
+   Page-specific header layout fixes for desktop
+   Ensure the header logo does not push nav links below
+   Target only the Our Process page (.page-our-process)
+   -------------------------------------------------- */
+@media (min-width: 993px) {
+  /* Force header into a single-line flex layout on this page */
+  .page-our-process header.nav {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 24px;
+    padding: 18px 28px;
+    box-sizing: border-box;
+  }
+
+  /* Constrain the logo so it doesn't grow too large on this page */
+  .page-our-process header.nav .brand img {
+    height: 56px !important;
+    max-height: 64px !important;
+    width: auto !important;
+  }
+
+  /* Ensure the links sit to the right and do not wrap under the logo */
+  .page-our-process header.nav .links {
+    display: flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    gap: 20px !important;
+    white-space: nowrap !important;
+  }
+
+  /* If individual link padding causes overflow, slightly reduce padding */
+  .page-our-process header.nav .links a {
+    padding: 8px 12px !important;
+  }
+}
+
 /* ========================================= */
 /* FIXED: Tablet and Mobile Navigation Issues */
 /* ========================================= */
@@ -1937,6 +1993,18 @@ header.nav .brand img {
   display: inline-block;
   vertical-align: middle;
   max-width: 100%;
+}
+
+/* Page-specific override: constrain logo and enforce header layout for our-process page */
+.page-our-process header.nav .brand img {
+  height: 56px !important;
+  max-height: 64px !important;
+}
+
+.page-our-process header.nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
 }
 
 
